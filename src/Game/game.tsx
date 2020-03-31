@@ -1,8 +1,10 @@
 import React from "react";
-// import { GameConfig } from "phaser/types/phaser";
-import "./phaser";
+import { gameConfig } from "./config";
 
 export default class Game extends React.Component<any> {
+  componentDidMount() {
+    const game = new Phaser.Game(gameConfig);
+  }
   shouldComponentUpdate() {
     return false;
   }
