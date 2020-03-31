@@ -1,14 +1,15 @@
 import * as Phaser from "phaser";
+import 'phaser/plugins/spine/dist/SpinePlugin'
 
 import MainScene from "./scenes/main";
+import SpineScene from "./scenes/spine";
 
 export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   title: "Sample",
-
-  type: Phaser.AUTO,
+  type: Phaser.WEBGL,
 
   scale: {
     width: window.innerWidth,
@@ -21,7 +22,12 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: true
     }
   },
-  scene: MainScene,
+  scene: SpineScene,
+  plugins: {
+    scene: [
+      { key: 'SpinePlugin', plugin: window.SpinePlugin, mapping: 'spine' }
+    ]
+  },
 
   parent: "phaser-game",
   backgroundColor: "#000000"
