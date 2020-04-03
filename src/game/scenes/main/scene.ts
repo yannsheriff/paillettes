@@ -8,6 +8,7 @@ export class GameScene extends Phaser.Scene {
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private a: number = 0;
   private charactereManager: CharactereManager;
+
   constructor() {
     super(config);
     this.charactereManager = new CharactereManager();
