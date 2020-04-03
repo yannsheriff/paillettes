@@ -1,0 +1,13 @@
+diff --git a/node_modules/phaser/types/phaser.d.ts b/node_modules/phaser/types/phaser.d.ts
+index e0c0026..a3d76b8 100644
+--- a/node_modules/phaser/types/phaser.d.ts
++++ b/node_modules/phaser/types/phaser.d.ts
+@@ -88767,7 +88767,7 @@ declare namespace Phaser {
+ 
+ }
+ 
+-declare type ArcadePhysicsCallback = (object1: Phaser.GameObjects.GameObject, object2: Phaser.GameObjects.GameObject)=>void;
++declare type ArcadePhysicsCallback<T, P> = (object1: Phaser.GameObjects.GameObject, object2: Phaser.GameObjects.GameObject)=>void;
+ 
+ declare type CollideCallback = (body: Phaser.Physics.Impact.Body, other: Phaser.Physics.Impact.Body, axis: string)=>void;
+ 
