@@ -1,6 +1,6 @@
-export { test } from "./test.png";
-export { arrowR } from "./arrowRight.png";
-export { char } from "./char.png";
-export { arrowL } from "./arrowLeft.png";
-export { arrowU } from "./arrowUp.png";
-export { arrowD } from "./arrowDown.png";
+export { default as test } from "./test.png";
+export { default as arrowR } from "./arrowRight.png";
+export { default as char } from "./char.png";
+export { default as arrowL } from "./arrowLeft.png";
+export { default as arrowU } from "./arrowUp.png";
+export { default as arrowD } from "./arrowDown.png";
