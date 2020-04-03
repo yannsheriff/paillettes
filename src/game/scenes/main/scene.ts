@@ -6,7 +6,7 @@ import PhysiqueCharactere from "../../classes/physic/Character";
 
 export class GameScene extends Phaser.Scene {
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
-  private a: number = 0;
+  private score: number = 0;
   private charactereManager: CharactereManager;
 
   constructor() {
@@ -15,7 +15,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   public preload(): void {
-    this.load.image("fb", test);
+    this.load.image("background", test);
     this.load.image("char", char);
     this.load.image("left", arrowL);
     this.load.image("right", arrowR);
@@ -23,42 +23,46 @@ export class GameScene extends Phaser.Scene {
     this.load.image("down", arrowD);
   }
 
-  overlap = (arrow: Arrow) => {
-    const { charactereManager } = this;
-    if (this.cursors?.left?.isDown && arrow.direction === "left") {
-      charactereManager.registerSuccesfullArrow(arrow.id);
-      arrow.destroy();
-    }
-    if (this.cursors?.right?.isDown && arrow.direction === "right") {
-      charactereManager.registerSuccesfullArrow(arrow.id);
-      arrow.destroy();
-    }
-    if (this.cursors?.up?.isDown && arrow.direction === "up") {
-      charactereManager.registerSuccesfullArrow(arrow.id);
-      arrow.destroy();
-    }
-    if (this.cursors?.down?.isDown && arrow.direction === "down") {
-      charactereManager.registerSuccesfullArrow(arrow.id);
+  /*
+   *
+   * handleArrowOverlap
+   * register arrow if succesfull
+   *
+   */
+  handleArrowOverlap = (arrow: Arrow) => {
+    if (this.cursors![arrow.direction]?.isDown) {
+      this.charactereManager.registerSuccesfullArrow(arrow.id);
       arrow.destroy();
     }
   };
 
-  overlapChar = (character: Arrow) => {
+  /*
+   *
+   * handleCharacterOverlap
+   * Do something with character if is valid
+   *
+   */
+  handleCharacterOverlap = (character: Arrow) => {
     if (this.charactereManager.isCharacterSuccesfull(character.id)) {
       character.setVelocity(0);
       character.setAcceleration(0);
-      character.setPosition(this.a * 50 + 50, 50);
-      this.a += 1;
+      character.setPosition(this.score * 50 + 50, 50);
+      this.score += 1;
     }
   };
 
   public create() {
-    this.add.image(400, 300, "fb");
+    this.add.image(400, 300, "background");
     this.cursors = this.input.keyboard.createCursorKeys();
     const arrows: Array<Arrow> = [];
     const characters: Array<PhysiqueCharactere> = [];
 
-    // Event loop
+    /*
+     *
+     * Event loop (trigger arrows)
+     * temporairement un timout hardcoder
+     *
+     */
     for (let index = 0; index < 20; index++) {
       const interval = 800;
       setTimeout(() => {
@@ -76,7 +80,12 @@ export class GameScene extends Phaser.Scene {
       }, interval * index);
     }
 
-    // Create Collider
+    /*
+     *
+     * Création des colliders
+     * temporairement visible
+     *
+     */
     const goodArrowCollider = this.add.rectangle(
       400,
       400,
@@ -85,18 +94,23 @@ export class GameScene extends Phaser.Scene {
       0xffffff
     ) as any;
     this.physics.add.existing(goodArrowCollider);
+
+    /*
+     *
+     * Initialisation des handler
+     * utilisation des fonctions overlap
+     */
     this.physics.add.overlap(
       arrows,
       goodArrowCollider,
-      this.overlap,
+      this.handleArrowOverlap,
       () => true,
       this
     );
-
     this.physics.add.overlap(
       characters,
       goodArrowCollider,
-      this.overlapChar,
+      this.handleCharacterOverlap,
       () => true,
       this
     );
