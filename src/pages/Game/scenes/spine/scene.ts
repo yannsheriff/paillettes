@@ -29,7 +29,7 @@ export class SpineScene extends Phaser.Scene {
     this.spineboy = this.add.spine(400, 600, 'spineboy', 'idle', true);
     this.spineboy.setMix('walk', 'idle', 0.2)
     this.spineboy.setMix('idle', 'walk', 0.2)
-    this.spineboy.drawDebug = true;
+    this.spineboy.drawDebug = false;
     this.spineboy.scaleX = 0.5;
     this.spineboy.scaleY = 0.5;
     this.spineboy.timeScale = 1;
