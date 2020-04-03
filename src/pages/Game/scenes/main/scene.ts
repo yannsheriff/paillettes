@@ -1,11 +1,5 @@
 import config from "./config";
-import test from "./test.png";
-import Phaser, { LEFT } from "phaser";
-import arrowR from "./arrowRight.png";
-import char from "./char.png";
-import arrowL from "./arrowLeft.png";
-import arrowU from "./arrowUp.png";
-import arrowD from "./arrowDown.png";
+import { test, char, arrowD, arrowL, arrowR, arrowU } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharactereManager from "../../classes/logic/CharacterManager";
 import PhysiqueCharactere from "../../classes/physic/Character";
