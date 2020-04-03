@@ -1,1 +1,1 @@
-export { default } from "./scene";
+export { default } from "./SpineBoyScene";
