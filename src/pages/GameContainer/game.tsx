@@ -1,5 +1,5 @@
 import React from "react";
-import { gameConfig } from "./config";
+import { gameConfig } from "../../game/config";
 
 export default class Game extends React.Component<any> {
   componentDidMount() {
