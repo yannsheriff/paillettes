@@ -3,9 +3,9 @@ import { test, char, arrowD, arrowL, arrowR, arrowU } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharactereManager from "../../classes/logic/CharacterManager";
 import PhysiqueCharactere from "../../classes/physic/Character";
+import { sleep, stepEventPromise } from "./utils";
 
 export class GameScene extends Phaser.Scene {
-  private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private score: number = 0;
   private charactereManager: CharactereManager;
 
@@ -30,9 +30,14 @@ export class GameScene extends Phaser.Scene {
    *
    */
   handleArrowOverlap = (arrow: Arrow) => {
-    if (this.cursors![arrow.direction]?.isDown) {
-      this.charactereManager.registerSuccesfullArrow(arrow.id);
-      arrow.destroy();
+    if (!arrow.didCollide) {
+      arrow.didCollide = true;
+      Promise.race([sleep(500), stepEventPromise()]).then(winningPromise => {
+        if (winningPromise === arrow.direction) {
+          this.charactereManager.registerSuccesfullArrow(arrow.id);
+          arrow.destroy();
+        }
+      });
     }
   };
 
@@ -53,7 +58,6 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.add.image(400, 300, "background");
-    this.cursors = this.input.keyboard.createCursorKeys();
     const arrows: Array<Arrow> = [];
     const characters: Array<PhysiqueCharactere> = [];
 
@@ -63,7 +67,7 @@ export class GameScene extends Phaser.Scene {
      * temporairement un timout hardcoder
      *
      */
-    for (let index = 0; index < 20; index++) {
+    for (let index = 0; index < 1; index++) {
       const interval = 800;
       setTimeout(() => {
         const {
