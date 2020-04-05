@@ -35,8 +35,8 @@ export class GameScene extends Phaser.Scene {
   handleArrowOverlap = (arrow: Arrow) => {
     if (!arrow.didCollide) {
       arrow.didCollide = true;
-      Promise.race([delay(700), stepEvent()]).then((winningPromise) => {
-        if (winningPromise === arrow.direction) {
+      Promise.race([delay(700), stepEvent()]).then((winningPromise: string) => {
+        if (winningPromise.includes(arrow.direction)) {
           this.charactereManager.registerSuccesfullArrow(arrow.id);
           arrow.destroy();
         }
