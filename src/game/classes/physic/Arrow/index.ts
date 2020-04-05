@@ -1,8 +1,9 @@
-type Direction = "left" | "right" | "up" | "down";
+export type Direction = "left" | "right" | "up" | "down";
 
 class Arrow extends Phaser.Physics.Arcade.Sprite {
   public direction: Direction;
   public id: string;
+  public didCollide: boolean;
 
   constructor(
     scene: Phaser.Scene,
@@ -17,6 +18,7 @@ class Arrow extends Phaser.Physics.Arcade.Sprite {
     }
     super(scene, x, y, direction);
     this.direction = direction;
+    this.didCollide = false;
     this.id = id;
     scene.physics.world.enable(this);
     scene.add.existing(this);
@@ -25,7 +27,7 @@ class Arrow extends Phaser.Physics.Arcade.Sprite {
   }
 
   launch() {
-    this.setVelocityX(-200);
+    this.setVelocityX(-150);
   }
 }
 

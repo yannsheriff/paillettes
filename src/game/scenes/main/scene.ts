@@ -3,9 +3,12 @@ import { test, char, arrowD, arrowL, arrowR, arrowU } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharactereManager from "../../classes/logic/CharacterManager";
 import PhysiqueCharactere from "../../classes/physic/Character";
+import {
+  delay,
+  stepEventPromise as stepEvent,
+} from "../../../services/stepEventEmitter";
 
 export class GameScene extends Phaser.Scene {
-  private cursors: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private score: number = 0;
   private charactereManager: CharactereManager;
 
@@ -30,9 +33,14 @@ export class GameScene extends Phaser.Scene {
    *
    */
   handleArrowOverlap = (arrow: Arrow) => {
-    if (this.cursors![arrow.direction]?.isDown) {
-      this.charactereManager.registerSuccesfullArrow(arrow.id);
-      arrow.destroy();
+    if (!arrow.didCollide) {
+      arrow.didCollide = true;
+      Promise.race([delay(700), stepEvent()]).then((winningPromise) => {
+        if (winningPromise === arrow.direction) {
+          this.charactereManager.registerSuccesfullArrow(arrow.id);
+          arrow.destroy();
+        }
+      });
     }
   };
 
@@ -53,7 +61,6 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.add.image(400, 300, "background");
-    this.cursors = this.input.keyboard.createCursorKeys();
     const arrows: Array<Arrow> = [];
     const characters: Array<PhysiqueCharactere> = [];
 
@@ -64,11 +71,11 @@ export class GameScene extends Phaser.Scene {
      *
      */
     for (let index = 0; index < 20; index++) {
-      const interval = 800;
+      const interval = 1000;
       setTimeout(() => {
         const {
           shouldLaunchCharacter,
-          ID
+          ID,
         } = this.charactereManager.getArrowID();
         const element = new Arrow(this, ID);
         arrows.push(element);
