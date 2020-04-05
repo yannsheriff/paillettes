@@ -1,20 +1,4 @@
-import { StepEventEmitter, StepEventType } from "./stepEventEmitter";
-
-function arraysEqual(a: Array<any>, b: Array<any>) {
-  if (a === b) return true;
-  if (a == null || b == null) return false;
-  if (a.length != b.length) return false;
-
-  // If you don't care about the order of the elements inside
-  // the array, you should sort both arrays here.
-  // Please note that calling sort on an array will modify that array.
-  // you might want to clone your array first.
-
-  for (var i = 0; i < a.length; ++i) {
-    if (a[i] !== b[i]) return false;
-  }
-  return true;
-}
+import EventEmitter from "events";
 
 const buttonTable = new Map([
   [0, "left"],
@@ -29,38 +13,54 @@ function formatButtonArray(buttons: Array<number>): Array<string> {
     .filter((element) => element !== undefined) as Array<string>;
 }
 
+export enum StepEventType {
+  stepdown = "stepdown",
+  stepup = "stepup",
+}
+
 class GamepadListener {
+  /*
+   * Define properties
+   */
   private controller = undefined;
-  private turbo = false;
   private interval: NodeJS.Timeout | undefined;
   private buttonsCache: Array<number> = [];
-  private stepEventEmitter: StepEventEmitter | undefined;
+  private stepEventEmitter: EventEmitter | undefined;
   buttons = [];
   buttonsStatus: Array<number> = [];
   axesStatus = [];
 
-  init = (stepEventEmitter: StepEventEmitter) => {
-    window.addEventListener("gamepadconnected", (evt) => {
-      this.connect(evt);
-    });
+  /**
+   * Init GamepadListener
+   * @param eventEmitter Take an EventEmitter to emit stepDown and stepUp.
+   */
+  init = (eventEmitter: EventEmitter) => {
+    this.stepEventEmitter = eventEmitter;
+    window.addEventListener("gamepadconnected", this.connect);
     window.addEventListener("gamepaddisconnected", this.disconnect);
-    this.stepEventEmitter = stepEventEmitter;
   };
 
+  /**
+   * On gamepad connection start watching Gamepad object
+   */
   private connect = (evt: any) => {
     this.controller = evt.gamepad;
-    this.turbo = true;
     this.interval = setInterval(this.update, 100);
     console.log("Gamepad connected.");
   };
 
-  private disconnect = (evt: any) => {
-    this.turbo = false;
+  /**
+   * On gamepad disconnection stop watching Gamepad object
+   */
+  private disconnect = () => {
     delete this.controller;
     clearInterval(this.interval!);
     console.log("Gamepad disconnected.");
   };
 
+  /**
+   * Dispatch an event to eventEmitter
+   */
   private dispatchEvent = (type: StepEventType, buttons: Array<number>) => {
     if (this.stepEventEmitter !== undefined) {
       const btn = formatButtonArray(buttons);
@@ -70,21 +70,25 @@ class GamepadListener {
     }
   };
 
+  /**
+   * This is the main function.
+   * It Check every 100ms the state of the gamepad object
+   * It dispatch event on state change
+   */
   private update = () => {
     const gamepadButtons = navigator.getGamepads()[0]?.buttons;
+    const pressed: Array<number> = [];
+    this.buttonsStatus = [];
+    this.buttonsCache = [];
 
+    // set cache
     if (this.buttonsStatus.length > 0) {
-      this.buttonsCache = [];
       for (var index = 0; index < this.buttonsStatus.length; index++) {
         this.buttonsCache[index] = this.buttonsStatus[index];
       }
-    } else {
-      this.buttonsCache = [];
     }
 
-    this.buttonsStatus = [];
-    const pressed: Array<number> = [];
-
+    // set Pressed buttons
     if (gamepadButtons !== undefined) {
       gamepadButtons.forEach((el, index) => {
         if (el.pressed) {
@@ -93,11 +97,13 @@ class GamepadListener {
       });
     }
 
+    // dispatch keydown event
     if (pressed.length > 0) {
       this.dispatchEvent(StepEventType.stepdown, pressed);
     }
 
-    if (pressed.length === this.buttonsCache.length - 1) {
+    // dispatch keyup event
+    if (pressed.length < this.buttonsCache.length) {
       const keyup = this.buttonsCache.filter((el) => !pressed.includes(el));
       this.dispatchEvent(StepEventType.stepup, keyup);
     }

@@ -1,8 +1,7 @@
 import React from "react";
 import { gameConfig } from "../../game/config";
-import stepEventEmitter, {
-  StepEventType,
-} from "../../services/stepEventEmitter";
+import stepEventEmitter from "../../services/stepEventEmitter";
+import { StepEventType } from "../../services/gamepadListener";
 
 export default class Game extends React.Component<any> {
   componentDidMount() {
@@ -11,13 +10,13 @@ export default class Game extends React.Component<any> {
     stepEventEmitter.on(
       StepEventType.stepdown,
       (...directions: Array<string>) => {
-        console.log("Pressed ! ", ...directions);
+        console.log("Pressed : ", ...directions);
       }
     );
     stepEventEmitter.on(
       StepEventType.stepup,
       (...directions: Array<string>) => {
-        console.log("realased ! ", ...directions);
+        console.log("realased : ", ...directions);
       }
     );
   }
