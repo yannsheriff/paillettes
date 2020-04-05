@@ -1,14 +1,16 @@
-import stepEventEmitter from "../../../services/stepEventEmitter";
+import stepEventEmitter, {
+  StepEventType,
+} from "../../../services/stepEventEmitter";
 import { Direction } from "readline";
 
-export const sleep = (time: number) =>
-  new Promise(function(resolve) {
+export const delay = (time: number) =>
+  new Promise(function (resolve) {
     setTimeout(resolve, time, "timeout");
   });
 
-export const stepEventPromise = () =>
+export const stepEvent = () =>
   new Promise((resolve, reject) => {
-    stepEventEmitter.on("step", (direction: Direction) => {
+    stepEventEmitter.on(StepEventType.stepdown, (direction: Direction) => {
       resolve(direction);
     });
   });

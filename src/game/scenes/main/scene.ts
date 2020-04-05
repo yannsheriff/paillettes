@@ -3,7 +3,10 @@ import { test, char, arrowD, arrowL, arrowR, arrowU } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharactereManager from "../../classes/logic/CharacterManager";
 import PhysiqueCharactere from "../../classes/physic/Character";
-import { sleep, stepEventPromise } from "./utils";
+import {
+  delay,
+  stepEventPromise as stepEvent,
+} from "../../../services/stepEventEmitter";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
@@ -32,7 +35,7 @@ export class GameScene extends Phaser.Scene {
   handleArrowOverlap = (arrow: Arrow) => {
     if (!arrow.didCollide) {
       arrow.didCollide = true;
-      Promise.race([sleep(700), stepEventPromise()]).then(winningPromise => {
+      Promise.race([delay(700), stepEvent()]).then((winningPromise) => {
         if (winningPromise === arrow.direction) {
           this.charactereManager.registerSuccesfullArrow(arrow.id);
           arrow.destroy();
@@ -72,7 +75,7 @@ export class GameScene extends Phaser.Scene {
       setTimeout(() => {
         const {
           shouldLaunchCharacter,
-          ID
+          ID,
         } = this.charactereManager.getArrowID();
         const element = new Arrow(this, ID);
         arrows.push(element);

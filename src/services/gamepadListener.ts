@@ -1,4 +1,4 @@
-import { StepEventEmitter } from "./stepEventEmitter";
+import { StepEventEmitter, StepEventType } from "./stepEventEmitter";
 
 function arraysEqual(a: Array<any>, b: Array<any>) {
   if (a === b) return true;
@@ -20,18 +20,19 @@ const buttonTable = new Map([
   [0, "left"],
   [1, "down"],
   [2, "up"],
-  [3, "right"]
+  [3, "right"],
 ]);
 
 function formatButtonArray(buttons: Array<number>): Array<string> {
   return buttons
-    .map(el => buttonTable.get(el))
-    .filter(element => element !== undefined) as Array<string>;
+    .map((el) => buttonTable.get(el))
+    .filter((element) => element !== undefined) as Array<string>;
 }
 
 class GamepadListener {
   private controller = undefined;
   private turbo = false;
+  private interval: NodeJS.Timeout | undefined;
   private buttonsCache: Array<number> = [];
   private stepEventEmitter: StepEventEmitter | undefined;
   buttons = [];
@@ -39,7 +40,7 @@ class GamepadListener {
   axesStatus = [];
 
   init = (stepEventEmitter: StepEventEmitter) => {
-    window.addEventListener("gamepadconnected", evt => {
+    window.addEventListener("gamepadconnected", (evt) => {
       this.connect(evt);
     });
     window.addEventListener("gamepaddisconnected", this.disconnect);
@@ -49,25 +50,21 @@ class GamepadListener {
   private connect = (evt: any) => {
     this.controller = evt.gamepad;
     this.turbo = true;
-    this.loop();
+    this.interval = setInterval(this.update, 100);
     console.log("Gamepad connected.");
   };
 
   private disconnect = (evt: any) => {
     this.turbo = false;
     delete this.controller;
+    clearInterval(this.interval!);
     console.log("Gamepad disconnected.");
   };
 
-  private loop = () => {
-    this.update();
-    requestAnimationFrame(this.loop);
-  };
-
-  private dispatchEvent = (buttons: Array<number>) => {
+  private dispatchEvent = (type: StepEventType, buttons: Array<number>) => {
     if (this.stepEventEmitter !== undefined) {
       const btn = formatButtonArray(buttons);
-      this.stepEventEmitter.emit("step", ...btn);
+      this.stepEventEmitter.emit(type, ...btn);
     } else {
       throw new Error("No stepEventEmitter connected");
     }
@@ -96,10 +93,14 @@ class GamepadListener {
       });
     }
 
-    if (!arraysEqual(pressed, this.buttonsCache)) {
-      this.dispatchEvent(pressed);
+    if (pressed.length > 0) {
+      this.dispatchEvent(StepEventType.stepdown, pressed);
     }
 
+    if (pressed.length === this.buttonsCache.length - 1) {
+      const keyup = this.buttonsCache.filter((el) => !pressed.includes(el));
+      this.dispatchEvent(StepEventType.stepup, keyup);
+    }
     this.buttonsStatus = pressed;
   };
 }

@@ -1,4 +1,4 @@
-type Direction = "left" | "right" | "up" | "down";
+export type Direction = "left" | "right" | "up" | "down";
 
 class Arrow extends Phaser.Physics.Arcade.Sprite {
   public direction: Direction;
