@@ -1,6 +1,6 @@
-import stepEventEmitter from "./stepEventEmitter";
+import { StepEventEmitter } from "./stepEventEmitter";
 
-export const keyboardListener = () => {
+export const keyboardListener = (stepEventEmitter: StepEventEmitter) => {
   document.addEventListener("keydown", e => {
     switch (e.keyCode) {
       case 39:

@@ -9,7 +9,7 @@ class PhysiqueCharactere extends Phaser.Physics.Arcade.Sprite {
   }
 
   launch() {
-    this.setVelocityX(-200);
+    this.setVelocityX(-150);
   }
 }
 

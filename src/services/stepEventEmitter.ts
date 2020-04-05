@@ -1,10 +1,12 @@
 import EventEmitter from "events";
 import { keyboardListener } from "./keyBoardEvents";
+import gamepadListener from "./gamepadListener";
 
-class StepEventEmitter extends EventEmitter {
+export class StepEventEmitter extends EventEmitter {
   constructor() {
     super();
-    keyboardListener();
+    keyboardListener(this);
+    gamepadListener.init(this);
   }
 }
 
