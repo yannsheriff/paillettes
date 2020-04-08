@@ -3,6 +3,7 @@ import 'phaser/plugins/spine/dist/SpinePlugin'
 
 import MainScene from "./scenes/main";
 import SpineScene from "./scenes/spine";
+import SpineWithContainerScene from "./scenes/SpineWithContainer";
 
 export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;
@@ -22,7 +23,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: true
     }
   },
-  scene: SpineScene,
+  scene: SpineWithContainerScene,
   plugins: {
     scene: [
       { key: 'SpinePlugin', plugin: window.SpinePlugin, mapping: 'spine' }

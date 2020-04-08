@@ -1,6 +1,6 @@
 import config from "./config";
 
-export class SpineScene extends Phaser.Scene {
+export class SpineWithContainerScene extends Phaser.Scene {
   private square:
     | (Phaser.GameObjects.Rectangle & {
       body: Phaser.Physics.Arcade.Body;
@@ -58,4 +58,4 @@ export class SpineScene extends Phaser.Scene {
   }
 }
 
-export default SpineScene;
+export default SpineWithContainerScene;
