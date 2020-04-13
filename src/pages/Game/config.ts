@@ -3,7 +3,7 @@ import 'phaser/plugins/spine/dist/SpinePlugin'
 
 import MainScene from "./scenes/main";
 import SpineScene from "./scenes/spine";
-import SpineWithContainerScene from "./scenes/SpineWithContainer";
+import SpineWithContainerScene from "./scenes/spinecontainer";
 
 export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;
