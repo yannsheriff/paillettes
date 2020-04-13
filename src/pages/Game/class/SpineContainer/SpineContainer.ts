@@ -5,6 +5,8 @@ declare global {
         readonly spine: SpineGameObject
         setPhysicsSize(width: number, height: number): void
         faceDirection(dir: 1 | -1): void
+        drawDebug(bool: boolean): void
+        playAnimation(animationname: string, loop: boolean): void
     }
 }
 
@@ -22,13 +24,19 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
 
         scene.physics.add.existing(this)
 
-        console.log(this)
-
         const bounds = this.SpineGameObject.getBounds()
         const width = bounds.size.x
         const height = bounds.size.y
         this.setPhysicsSize(width, height)
         this.add(this.SpineGameObject)
+    }
+
+    public drawDebug(bool: boolean) {
+        this.SpineGameObject.drawDebug = bool;
+    }
+
+    public playAnimation(animationname: string, loop: boolean) {
+        this.SpineGameObject.play(animationname, loop)
     }
 
     public faceDirection(dir: 1 | -1) {
@@ -47,8 +55,6 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
 
 Phaser.GameObjects.GameObjectFactory.register('spineContainer', function (this: Phaser.GameObjects.GameObjectFactory, x: number, y: number, key: string, anim: string, loop: boolean) {
     const container = new SpineContainer(this.scene, x, y, key, anim, loop)
-
     this.displayList.add(container)
-
     return container
 })
