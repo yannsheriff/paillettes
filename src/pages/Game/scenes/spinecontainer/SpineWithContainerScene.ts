@@ -1,5 +1,5 @@
 import config from "./config";
-import SpineContainer from '../../class/SpineContainer/SpineContainer'
+import '../../class/SpineContainer/SpineContainer'
 
 export class SpineWithContainerScene extends Phaser.Scene {  
   constructor() {

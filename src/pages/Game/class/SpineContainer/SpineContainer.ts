@@ -1,13 +1,11 @@
 import Phaser from 'phaser'
 
-declare global
-{
-	interface ISpineContainer extends Phaser.GameObjects.Container
-	{
+declare global {
+    interface ISpineContainer extends Phaser.GameObjects.Container {
         readonly spine: SpineGameObject
-        faceDirection(dir: 1 | -1)
-		setPhysicsSize(width: number, height: number)
-	}
+        setPhysicsSize(width: number, height: number): void
+        faceDirection(dir: 1 | -1): void
+    }
 }
 
 export default class SpineContainer extends Phaser.GameObjects.Container implements ISpineContainer {
@@ -19,7 +17,7 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
 
     constructor(scene: Phaser.Scene, x: number, y: number, key: string, anim: string, loop = false) {
         super(scene, x, y)
-        
+
         this.SpineGameObject = scene.add.spine(0, 0, key, anim, loop)
 
         scene.physics.add.existing(this)
@@ -35,9 +33,8 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
 
     public faceDirection(dir: 1 | -1) {
         if (this.SpineGameObject.scaleX === dir) {
-            return 0
+            return
         }
-
         this.SpineGameObject.scaleX = dir
     }
 
@@ -48,10 +45,10 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
     }
 }
 
-Phaser.GameObjects.GameObjectFactory.register('spineContainer', function (this: Phaser.GameObjects.GameObjectFactory, x: number, y: number, key: string, anim: string, loop = false) {
-	const container = new SpineContainer(this.scene, x, y, key, anim, loop)
+Phaser.GameObjects.GameObjectFactory.register('spineContainer', function (this: Phaser.GameObjects.GameObjectFactory, x: number, y: number, key: string, anim: string, loop: boolean) {
+    const container = new SpineContainer(this.scene, x, y, key, anim, loop)
 
-	this.displayList.add(container)
+    this.displayList.add(container)
 
-	return container
+    return container
 })
