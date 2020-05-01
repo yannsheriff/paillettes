@@ -1,6 +1,7 @@
 import React from "react";
 import Game from "./pages/GameContainer";
 import "./App.css";
+import "./services/music";
 
 function App() {
   return (
