@@ -1,5 +1,5 @@
 import config from "./config";
-import { test, char, arrowD, arrowL, arrowR, arrowU } from "../../assets";
+import { background, ground, char, arrowD, arrowL, arrowR, arrowU } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharactereManager from "../../classes/logic/CharacterManager";
 import PhysiqueCharactere from "../../classes/physic/Character";
@@ -18,7 +18,8 @@ export class GameScene extends Phaser.Scene {
   }
 
   public preload(): void {
-    this.load.image("background", test);
+    this.load.image("background", background);
+    this.load.image("ground", ground);
     this.load.image("char", char);
     this.load.image("left", arrowL);
     this.load.image("right", arrowR);
@@ -60,6 +61,7 @@ export class GameScene extends Phaser.Scene {
   };
 
   public create() {
+    this.add.image(400, 300, "background");
     this.add.image(400, 300, "background");
     const arrows: Array<Arrow> = [];
     const characters: Array<PhysiqueCharactere> = [];
