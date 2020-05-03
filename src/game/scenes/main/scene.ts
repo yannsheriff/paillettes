@@ -1,8 +1,10 @@
 import config from "./config";
 import { background, ground, char, arrowD, arrowL, arrowR, arrowU } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
-import CharactereManager from "../../classes/logic/CharacterManager";
-import PhysiqueCharactere from "../../classes/physic/Character";
+import CharacterManager from "../../classes/logic/CharacterManager";
+import PhysiqueCharacter from "../../classes/physic/Character";
+import Align from '../../classes/utils/align'
+
 import {
   delay,
   stepEventPromise as stepEvent,
@@ -10,11 +12,12 @@ import {
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
-  private charactereManager: CharactereManager;
+  private CharacterManager: CharacterManager;
+  private background?: Phaser.GameObjects.Image;
 
   constructor() {
     super(config);
-    this.charactereManager = new CharactereManager();
+    this.CharacterManager = new CharacterManager();
   }
 
   public preload(): void {
@@ -38,7 +41,7 @@ export class GameScene extends Phaser.Scene {
       arrow.didCollide = true;
       Promise.race([delay(700), stepEvent()]).then((winningPromise: string) => {
         if (winningPromise.includes(arrow.direction)) {
-          this.charactereManager.registerSuccesfullArrow(arrow.id);
+          this.CharacterManager.registerSuccesfullArrow(arrow.id);
           arrow.destroy();
         }
       });
@@ -52,7 +55,7 @@ export class GameScene extends Phaser.Scene {
    *
    */
   handleCharacterOverlap = (character: Arrow) => {
-    if (this.charactereManager.isCharacterSuccesfull(character.id)) {
+    if (this.CharacterManager.isCharacterSuccesfull(character.id)) {
       character.setVelocity(0);
       character.setAcceleration(0);
       character.setPosition(this.score * 50 + 50, 50);
@@ -61,10 +64,12 @@ export class GameScene extends Phaser.Scene {
   };
 
   public create() {
-    this.add.image(400, 300, "background");
-    this.add.image(400, 300, "background");
+    this.background = this.add.image(0, 0, "background")
+    Align.scaleToGameH(this.background, 1)
+    Align.left(this.background)
+    Align.centerV(this.background)
     const arrows: Array<Arrow> = [];
-    const characters: Array<PhysiqueCharactere> = [];
+    const characters: Array<PhysiqueCharacter> = [];
 
     /*
      *
@@ -78,12 +83,12 @@ export class GameScene extends Phaser.Scene {
         const {
           shouldLaunchCharacter,
           ID,
-        } = this.charactereManager.getArrowID();
+        } = this.CharacterManager.getArrowID();
         const element = new Arrow(this, ID);
         arrows.push(element);
 
         if (shouldLaunchCharacter) {
-          const char = new PhysiqueCharactere(this, ID);
+          const char = new PhysiqueCharacter(this, ID);
           characters.push(char);
         }
       }, interval * index);
@@ -126,7 +131,9 @@ export class GameScene extends Phaser.Scene {
   }
 
   public update() {
-    // TODO
+    if (this.background) {
+      this.background.x -= 2;
+    }
   }
 }
 

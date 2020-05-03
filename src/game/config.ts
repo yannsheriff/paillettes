@@ -17,6 +17,9 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     height: window.innerHeight
   },
 
+  width: window.innerWidth, // add resizing function
+  height: window.innerHeight, // add resizing function
+
   physics: {
     default: "arcade",
     arcade: {
@@ -33,3 +36,5 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   parent: "phaser-game",
   backgroundColor: "#000000"
 };
+
+export default gameConfig;
