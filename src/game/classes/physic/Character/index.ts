@@ -1,4 +1,4 @@
-class PhysiqueCharactere extends Phaser.Physics.Arcade.Sprite {
+class PhysiqueCharacter extends Phaser.Physics.Arcade.Sprite {
   public id: string;
   constructor(scene: Phaser.Scene, id: string) {
     super(scene, 1000, 150, "char");
@@ -13,4 +13,4 @@ class PhysiqueCharactere extends Phaser.Physics.Arcade.Sprite {
   }
 }
 
-export default PhysiqueCharactere;
+export default PhysiqueCharacter;

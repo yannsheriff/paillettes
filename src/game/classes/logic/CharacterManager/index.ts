@@ -1,6 +1,6 @@
 import Character from "../Character";
 
-class CharactereManager {
+class CharacterManager {
   public actualCharacter: Character;
   private successfullArrows: Map<string, number> = new Map();
   private characters: Map<string, Character> = new Map();
@@ -9,7 +9,7 @@ class CharactereManager {
     this.characters.set(this.actualCharacter.ID, this.actualCharacter);
   }
 
-  generateNewCharactere(): void {
+  generateNewCharacter(): void {
     const num = Math.floor(Math.random() * (4 - 1 + 1) + 1);
     const character = new Character(num);
     this.actualCharacter = character;
@@ -19,7 +19,7 @@ class CharactereManager {
   getArrowID(): { shouldLaunchCharacter: boolean; ID: string } {
     const { isLastArrow, id } = this.actualCharacter.generateArrowID();
     if (isLastArrow) {
-      this.generateNewCharactere();
+      this.generateNewCharacter();
     }
     return { ID: id, shouldLaunchCharacter: isLastArrow };
   }
@@ -40,4 +40,4 @@ class CharactereManager {
   }
 }
 
-export default CharactereManager;
+export default CharacterManager;
