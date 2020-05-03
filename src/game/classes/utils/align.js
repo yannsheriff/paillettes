@@ -15,6 +15,9 @@ class Align {
   static centerV(obj) {
     obj.y = gameConfig.height / 2;
   }
+  static bottom(obj) {
+    obj.y = gameConfig.height - obj.displayHeight / 2;
+  }
   static center(obj) {
     obj.x = gameConfig.width / 2;
     obj.y = gameConfig.height / 2;

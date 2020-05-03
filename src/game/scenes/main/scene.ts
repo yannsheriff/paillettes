@@ -15,6 +15,7 @@ export class GameScene extends Phaser.Scene {
   private score: number = 0;
   private CharacterManager: CharacterManager;
   private background?: Phaser.GameObjects.Image;
+  private ground?: Phaser.GameObjects.Image;
   private gameConfig?: Phaser.Types.Scenes.SettingsConfig = gameConfig;
 
   constructor() {
@@ -70,6 +71,12 @@ export class GameScene extends Phaser.Scene {
     Align.scaleToGameH(this.background, 1)
     Align.centerV(this.background)
     Align.left(this.background)
+
+    this.ground = this.add.image(0, 0, "ground")
+    Align.scaleToGameW(this.ground, 1) // half height of the screen
+    Align.centerH(this.ground) // half height of the screen
+    Align.bottom(this.ground)
+
     const arrows: Array<Arrow> = [];
     const characters: Array<PhysiqueCharacter> = [];
 
@@ -106,8 +113,7 @@ export class GameScene extends Phaser.Scene {
       400,
       400,
       100,
-      800,
-      0xffffff
+      800
     ) as any;
     this.physics.add.existing(goodArrowCollider);
 
