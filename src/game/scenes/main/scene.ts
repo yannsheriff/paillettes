@@ -4,8 +4,8 @@ import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
 import PhysicCharacter from "../../classes/physic/Character";
 import Background from "../../classes/physic/Background";
-import Align from '../../classes/utils/align'
-import gameConfig from '../../config'
+import Ground from "../../classes/physic/Ground";
+import '../../class/SpineContainer/SpineContainer'
 
 import {
   delay,
@@ -17,7 +17,7 @@ export class GameScene extends Phaser.Scene {
   private CharacterManager: CharacterManager;
   private background?: Background;
   private ground?: Phaser.GameObjects.Image;
-  private gameConfig?: Phaser.Types.Scenes.SettingsConfig = gameConfig;
+  private dragQueen: any // to do
 
   constructor() {
     super(config);
@@ -32,6 +32,8 @@ export class GameScene extends Phaser.Scene {
     this.load.image("right", arrowR);
     this.load.image("up", arrowU);
     this.load.image("down", arrowD);
+    this.load.setPath('assets/spine/')
+    this.load.spine('spineboy', 'spineboy.json', 'spineboy.atlas')
   }
 
   /*
@@ -69,11 +71,14 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.background = new Background(this, 0, 0, "background")
-
-    this.ground = this.add.image(0, 0, "ground")
-    Align.scaleToGameW(this.ground, 1) // half height of the screen
-    Align.centerH(this.ground) // half height of the screen
-    Align.bottom(this.ground)
+    this.ground = new Ground(this, 0, 0, "ground")
+    
+    this.dragQueen = this.add.spineContainer(400, 550, 'spineboy', 'run', true)
+    this.dragQueen.setScale(0.6)
+    const body = this.dragQueen.body as Phaser.Physics.Arcade.Body
+    body.setCollideWorldBounds(true)
+    this.dragQueen.setPhysicsSize(body.width * 0.5, body.height * 0.9)
+    this.dragQueen.playAnimation('run', true)
 
     const arrows: Array<Arrow> = [];
     const characters: Array<PhysicCharacter> = [];
