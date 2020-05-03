@@ -4,8 +4,8 @@ import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
 import PhysicCharacter from "../../classes/physic/Character";
 import Background from "../../classes/physic/Background";
+import DragQueen from "../../classes/physic/DragQueen";
 import Ground from "../../classes/physic/Ground";
-import '../../class/SpineContainer/SpineContainer'
 
 import {
   delay,
@@ -72,14 +72,8 @@ export class GameScene extends Phaser.Scene {
   public create() {
     this.background = new Background(this, 0, 0, "background")
     this.ground = new Ground(this, 0, 0, "ground")
+    this.dragQueen = new DragQueen(this, 400, 550, 'spineboy', 'run', true)
     
-    this.dragQueen = this.add.spineContainer(400, 550, 'spineboy', 'run', true)
-    this.dragQueen.setScale(0.6)
-    const body = this.dragQueen.body as Phaser.Physics.Arcade.Body
-    body.setCollideWorldBounds(true)
-    this.dragQueen.setPhysicsSize(body.width * 0.5, body.height * 0.9)
-    this.dragQueen.playAnimation('run', true)
-
     const arrows: Array<Arrow> = [];
     const characters: Array<PhysicCharacter> = [];
 
