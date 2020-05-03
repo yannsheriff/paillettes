@@ -2,7 +2,8 @@ import config from "./config";
 import { background, ground, char, arrowD, arrowL, arrowR, arrowU } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
-import PhysiqueCharacter from "../../classes/physic/Character";
+import PhysicCharacter from "../../classes/physic/Character";
+import Background from "../../classes/physic/Background";
 import Align from '../../classes/utils/align'
 import gameConfig from '../../config'
 
@@ -14,7 +15,7 @@ import {
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
   private CharacterManager: CharacterManager;
-  private background?: Phaser.GameObjects.Image;
+  private background?: Background;
   private ground?: Phaser.GameObjects.Image;
   private gameConfig?: Phaser.Types.Scenes.SettingsConfig = gameConfig;
 
@@ -67,10 +68,7 @@ export class GameScene extends Phaser.Scene {
   };
 
   public create() {
-    this.background = this.add.image(0, 0, "background")
-    Align.scaleToGameH(this.background, 1)
-    Align.centerV(this.background)
-    Align.left(this.background)
+    this.background = new Background(this, 0, 0, "background")
 
     this.ground = this.add.image(0, 0, "ground")
     Align.scaleToGameW(this.ground, 1) // half height of the screen
@@ -78,7 +76,7 @@ export class GameScene extends Phaser.Scene {
     Align.bottom(this.ground)
 
     const arrows: Array<Arrow> = [];
-    const characters: Array<PhysiqueCharacter> = [];
+    const characters: Array<PhysicCharacter> = [];
 
     /*
      *
@@ -97,7 +95,7 @@ export class GameScene extends Phaser.Scene {
         arrows.push(element);
 
         if (shouldLaunchCharacter) {
-          const char = new PhysiqueCharacter(this, ID);
+          const char = new PhysicCharacter(this, ID);
           characters.push(char);
         }
       }, interval * index);
@@ -110,10 +108,10 @@ export class GameScene extends Phaser.Scene {
      *
      */
     const goodArrowCollider = this.add.rectangle(
-      400,
-      400,
-      100,
-      800
+      window.innerWidth / 3,
+      window.innerHeight / 2,
+      window.innerWidth / 12,
+      window.innerHeight
     ) as any;
     this.physics.add.existing(goodArrowCollider);
 
@@ -140,11 +138,7 @@ export class GameScene extends Phaser.Scene {
 
   public update() {
     if (this.background) {
-      // handle extremity of screen
-      // stop when background hits right
-      if (this.background.x > window.innerWidth - this.background.displayWidth / 2 + 5) {
-        this.background.x -= 2;
-      }
+      this.background.moveBackground()
     }
   }
 }
