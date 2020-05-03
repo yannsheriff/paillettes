@@ -3,7 +3,7 @@ import gameConfig from '../../config'
 class Align {
   static scaleToGameW(obj, per) {
     obj.displayWidth = gameConfig.width * per;
-	obj.scaleY = obj.scaleX;
+	  obj.scaleY = obj.scaleX;
   }
   static scaleToGameH(obj, per) {
     obj.displayHeight = gameConfig.height * per;
@@ -20,10 +20,10 @@ class Align {
     obj.y = gameConfig.height / 2;
   }
   static left(obj) {
-	obj.x = obj.displayWidth / 2;
+	  obj.x = obj.displayWidth / 2;
   }
   static right(obj) {
-	obj.x = obj.displayWidth / 2;
+	  obj.x = gameConfig.width - obj.displayWidth / 2;
   }
 }
 
