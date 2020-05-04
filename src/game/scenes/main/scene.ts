@@ -32,7 +32,7 @@ export class GameScene extends Phaser.Scene {
     this.load.image("right", arrowR);
     this.load.image("up", arrowU);
     this.load.image("down", arrowD);
-    this.load.setPath('assets/spine/')
+    this.load.setPath('assets/spine/spineboy/')
     this.load.spine('spineboy', 'spineboy.json', 'spineboy.atlas')
   }
 
@@ -72,7 +72,7 @@ export class GameScene extends Phaser.Scene {
   public create() {
     this.background = new Background(this, 0, 0, "background")
     this.ground = new Ground(this, 0, 0, "ground")
-    this.dragQueen = new DragQueen(this, 400, 550, 'spineboy', 'run', true)
+    this.dragQueen = new DragQueen(this, 400, 550, 'spineboy', 'animation', true)
     
     const arrows: Array<Arrow> = [];
     const characters: Array<PhysicCharacter> = [];
