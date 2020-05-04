@@ -1,0 +1,100 @@
+{
+    "skeleton": {
+        "hash": "sRkW9napWrkM37+tN07LIQu8kjM",
+        "spine": "3.8.95",
+        "x": -112.78,
+        "y": -3.8,
+        "width": 205,
+        "height": 426,
+        "images": "/Users/bastienlepecheur/Desktop/images/",
+        "audio": "/Users/bastienlepecheur/Desktop"
+    },
+    "bones": [
+        {
+            "name": "root"
+        }
+    ],
+    "slots": [
+        {
+            "name": "PersoNB",
+            "bone": "root",
+            "attachment": "PersoNB"
+        },
+        {
+            "name": "PersoCouleur",
+            "bone": "root",
+            "attachment": "PersoCouleur"
+        }
+    ],
+    "skins": [
+        {
+            "name": "default",
+            "attachments": {
+                "PersoCouleur": {
+                    "PersoCouleur": {
+                        "x": 6.72,
+                        "y": 162.2,
+                        "width": 127,
+                        "height": 332
+                    }
+                },
+                "PersoNB": {
+                    "PersoNB": {
+                        "x": -10.28,
+                        "y": 209.2,
+                        "width": 205,
+                        "height": 426
+                    }
+                }
+            }
+        }
+    ],
+    "animations": {
+        "animation": {
+            "slots": {
+                "PersoCouleur": {
+                    "color": [
+                        {
+                            "color": "ffffff00",
+                            "curve": "stepped"
+                        },
+                        {
+                            "time": 0.1667,
+                            "color": "ffffff00"
+                        },
+                        {
+                            "time": 0.2,
+                            "color": "ffffffff"
+                        }
+                    ]
+                },
+                "PersoNB": {
+                    "color": [
+                        {
+                            "time": 0.1667,
+                            "color": "ffffffff"
+                        },
+                        {
+                            "time": 0.2,
+                            "color": "ffffff00"
+                        }
+                    ]
+                }
+            },
+            "bones": {
+                "root": {
+                    "scale": [
+                        {},
+                        {
+                            "time": 0.1667,
+                            "x": 0.01
+                        },
+                        {
+                            "time": 0.3333
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

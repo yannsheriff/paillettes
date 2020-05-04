@@ -15,7 +15,6 @@ export class SpineWithContainerScene extends Phaser.Scene {
   }
 
   public create() {
-    this.cursors = this.input.keyboard.createCursorKeys();
     this.spineboy = this.add.spineContainer(400, 550, 'spineboy', 'idle', true)
     this.spineboy.setScale(0.6)
     const body = this.spineboy.body as Phaser.Physics.Arcade.Body
