@@ -8,8 +8,9 @@ class Arrow extends Phaser.Physics.Arcade.Sprite {
   constructor(
     scene: Phaser.Scene,
     id: string,
-    x: number = 1000,
-    y: number = 300,
+    //TODO : calculate start posdtion from velocity and grid size
+    x: number = 1500,
+    y: number = window.innerHeight - 150,
     direction?: Direction
   ) {
     if (!direction) {

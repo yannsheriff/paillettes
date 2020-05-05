@@ -7,6 +7,7 @@ import {
   arrowL,
   arrowR,
   arrowU,
+  grid,
 } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
@@ -23,6 +24,7 @@ import {
 } from "../../../services/stepEventEmitter";
 import { EventEmitter } from "events";
 import MusicPlayer, { throttle, noteDelay } from "../../../services/music";
+import Grid from "../../classes/physic/Grid";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
@@ -32,6 +34,7 @@ export class GameScene extends Phaser.Scene {
   private dragQueen?: DragQueen // to do
 
   // test this.width pour stocker la valeur de l'écran
+  private grid?: Phaser.GameObjects.Image;
 
   constructor() {
     super(config);
@@ -44,6 +47,7 @@ export class GameScene extends Phaser.Scene {
     this.load.image("left", arrowL);
     this.load.image("right", arrowR);
     this.load.image("up", arrowU);
+    this.load.image("grid", grid);
     this.load.image("down", arrowD);
     this.load.setPath('assets/spine/spineboy/')
     this.load.spine('spineboy', 'spineboy.json', 'spineboy.atlas')
@@ -99,6 +103,8 @@ export class GameScene extends Phaser.Scene {
     const characters: Array<ISpineContainer> = [];
     this.background = new Background(this, 0, 0, "background");
     this.ground = new Ground(this, 0, 0, "ground");
+    new Grid(this);
+
     const arrowEmitter = new EventEmitter();
 
     /*
@@ -129,7 +135,7 @@ export class GameScene extends Phaser.Scene {
           characters.push(char.SpineContainer);
       }
     };
-    const delayArrow = noteDelay(3200, createArrow);
+    const delayArrow = noteDelay(4700, createArrow);
     const throttleArrow = throttle(200, delayArrow);
     arrowEmitter.on("note", throttleArrow);
 
