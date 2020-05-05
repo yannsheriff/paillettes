@@ -7,11 +7,13 @@ declare global {
         faceDirection(dir: 1 | -1): void
         drawDebug(bool: boolean): void
         playAnimation(animationname: string, loop: boolean): void
+        allowCollideWorldBounds(bool: boolean): void
     }
 }
 
 export default class SpineContainer extends Phaser.GameObjects.Container implements ISpineContainer {
     private SpineGameObject: SpineGameObject
+    private SpineBody: Phaser.Physics.Arcade.Body
 
     get spine() {
         return this.SpineGameObject
@@ -21,8 +23,10 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
         super(scene, x, y)
 
         this.SpineGameObject = scene.add.spine(0, 0, key, anim, loop)
-
+        
         scene.physics.add.existing(this)
+        
+        this.SpineBody = this.body as Phaser.Physics.Arcade.Body;
 
         const bounds = this.SpineGameObject.getBounds()
         const width = bounds.size.x
@@ -33,6 +37,10 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
 
     public drawDebug(bool: boolean) {
         this.SpineGameObject.drawDebug = bool;
+    }
+
+    public allowCollideWorldBounds(bool: boolean) {
+        this.SpineBody.setCollideWorldBounds(bool)
     }
 
     public playAnimation(animationname: string, loop: boolean) {
