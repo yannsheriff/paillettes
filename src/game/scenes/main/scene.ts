@@ -6,6 +6,7 @@ import PhysicCharacter from "../../classes/physic/Character";
 import Background from "../../classes/physic/Background";
 import DragQueen from "../../classes/physic/DragQueen";
 import Ground from "../../classes/physic/Ground";
+import '../../class/SpineContainer/SpineContainer'
 
 import {
   delay,
@@ -17,7 +18,9 @@ export class GameScene extends Phaser.Scene {
   private CharacterManager: CharacterManager;
   private background?: Background;
   private ground?: Phaser.GameObjects.Image;
-  private dragQueen: any // to do
+  private dragQueen?: DragQueen // to do
+
+  // test this.width pour stocker la valeur de l'écran
 
   constructor() {
     super(config);
@@ -27,13 +30,14 @@ export class GameScene extends Phaser.Scene {
   public preload(): void {
     this.load.image("background", background);
     this.load.image("ground", ground);
-    this.load.image("char", char);
     this.load.image("left", arrowL);
     this.load.image("right", arrowR);
     this.load.image("up", arrowU);
     this.load.image("down", arrowD);
     this.load.setPath('assets/spine/spineboy/')
     this.load.spine('spineboy', 'spineboy.json', 'spineboy.atlas')
+    this.load.setPath('assets/spine/character/')
+    this.load.spine('character', 'character.json', 'character.atlas')
   }
 
   /*
@@ -54,28 +58,34 @@ export class GameScene extends Phaser.Scene {
     }
   };
 
+  handleOverlapTest = () => {
+    console.log('test')
+  };
+
   /*
    *
    * handleCharacterOverlap
    * Do something with character if is valid
    *
    */
-  handleCharacterOverlap = (character: Arrow) => {
-    if (this.CharacterManager.isCharacterSuccesfull(character.id)) {
-      character.setVelocity(0);
-      character.setAcceleration(0);
-      character.setPosition(this.score * 50 + 50, 50);
-      this.score += 1;
+  handleCharacterOverlap = (character: ISpineContainer) => {
+    if (character.id) {
+      if (this.CharacterManager.isCharacterSuccesfull(character.id)) {
+        character.spineBody.setVelocity(0);
+        character.spineBody.setAcceleration(0, 0);
+        character.setPosition(undefined, this.score * 50 + 50);
+        this.score += 1;
+      }
     }
   };
 
   public create() {
     this.background = new Background(this, 0, 0, "background")
     this.ground = new Ground(this, 0, 0, "ground")
-    this.dragQueen = new DragQueen(this, 400, 550, 'spineboy', 'animation', true)
+    this.dragQueen = new DragQueen(this, 400, 550, 'spineboy', 'run', true)
     
     const arrows: Array<Arrow> = [];
-    const characters: Array<PhysicCharacter> = [];
+    const characters: Array<ISpineContainer> = [];
 
     /*
      *
@@ -83,8 +93,8 @@ export class GameScene extends Phaser.Scene {
      * temporairement un timout hardcoder
      *
      */
-    for (let index = 0; index < 20; index++) {
-      const interval = 1000;
+    for (let index = 0; index < 5; index++) {
+      const interval = 2000;
       setTimeout(() => {
         const {
           shouldLaunchCharacter,
@@ -94,8 +104,9 @@ export class GameScene extends Phaser.Scene {
         arrows.push(element);
 
         if (shouldLaunchCharacter) {
-          const char = new PhysicCharacter(this, ID);
-          characters.push(char);
+          const char = new PhysicCharacter(ID, this, 1000, 150, 'character', 'animation', false);
+          //TODO Improve this
+          characters.push(char.SpineContainer);
         }
       }, interval * index);
     }
@@ -119,6 +130,7 @@ export class GameScene extends Phaser.Scene {
      * Initialisation des handler
      * utilisation des fonctions overlap
      */
+
     this.physics.add.overlap(
       arrows,
       goodArrowCollider,
@@ -138,6 +150,9 @@ export class GameScene extends Phaser.Scene {
   public update() {
     if (this.background) {
       this.background.moveBackground()
+    }
+    if (this.dragQueen) {
+      // this.dragQueen.run()
     }
   }
 }
