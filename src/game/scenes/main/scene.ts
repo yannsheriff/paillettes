@@ -1,5 +1,13 @@
 import config from "./config";
-import { background, ground, char, arrowD, arrowL, arrowR, arrowU } from "../../assets";
+import {
+  background,
+  ground,
+  char,
+  arrowD,
+  arrowL,
+  arrowR,
+  arrowU,
+} from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
 import PhysicCharacter from "../../classes/physic/Character";
@@ -7,11 +15,14 @@ import Background from "../../classes/physic/Background";
 import DragQueen from "../../classes/physic/DragQueen";
 import Ground from "../../classes/physic/Ground";
 import '../../class/SpineContainer/SpineContainer'
+import zelda from "./zelda.json";
 
 import {
   delay,
   stepEventPromise as stepEvent,
 } from "../../../services/stepEventEmitter";
+import { EventEmitter } from "events";
+import MusicPlayer, { throttle, noteDelay } from "../../../services/music";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
@@ -86,30 +97,41 @@ export class GameScene extends Phaser.Scene {
     
     const arrows: Array<Arrow> = [];
     const characters: Array<ISpineContainer> = [];
+    this.background = new Background(this, 0, 0, "background");
+    this.ground = new Ground(this, 0, 0, "ground");
+    const arrowEmitter = new EventEmitter();
+
+    /*
+     *
+     * Start Music
+     * temporairement un event on click
+     *
+     */
+    document.addEventListener("click", (e) => {
+      const player = new MusicPlayer(zelda, arrowEmitter);
+      player.start();
+    });
 
     /*
      *
      * Event loop (trigger arrows)
-     * temporairement un timout hardcoder
+     * Lors d'un evenement "note" on crée une flèche
      *
      */
-    for (let index = 0; index < 5; index++) {
-      const interval = 2000;
-      setTimeout(() => {
-        const {
-          shouldLaunchCharacter,
-          ID,
-        } = this.CharacterManager.getArrowID();
-        const element = new Arrow(this, ID);
-        arrows.push(element);
+    const createArrow = () => {
+      const { shouldLaunchCharacter, ID } = this.CharacterManager.getArrowID();
+      const element = new Arrow(this, ID);
+      arrows.push(element);
 
-        if (shouldLaunchCharacter) {
-          const char = new PhysicCharacter(ID, this, 1000, 150, 'character', 'animation', false);
+      if (shouldLaunchCharacter) {
+       const char = new PhysicCharacter(ID, this, 1000, 150, 'character', 'animation', false);
           //TODO Improve this
           characters.push(char.SpineContainer);
-        }
-      }, interval * index);
-    }
+      }
+    };
+    const delayArrow = noteDelay(3200, createArrow);
+    const throttleArrow = throttle(200, delayArrow);
+    arrowEmitter.on("note", throttleArrow);
 
     /*
      *
@@ -149,7 +171,7 @@ export class GameScene extends Phaser.Scene {
 
   public update() {
     if (this.background) {
-      this.background.moveBackground()
+      this.background.moveBackground();
     }
     if (this.dragQueen) {
       // this.dragQueen.run()
