@@ -1,23 +1,34 @@
 import config from "./config";
-import { background, ground, char, arrowD, arrowL, arrowR, arrowU } from "../../assets";
+import {
+  background,
+  ground,
+  char,
+  arrowD,
+  arrowL,
+  arrowR,
+  arrowU,
+} from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
 import PhysicCharacter from "../../classes/physic/Character";
 import Background from "../../classes/physic/Background";
 import DragQueen from "../../classes/physic/DragQueen";
 import Ground from "../../classes/physic/Ground";
+import zelda from "./zelda.json";
 
 import {
   delay,
   stepEventPromise as stepEvent,
 } from "../../../services/stepEventEmitter";
+import { EventEmitter } from "events";
+import MusicPlayer, { throttle, noteDelay } from "../../../services/music";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
   private CharacterManager: CharacterManager;
   private background?: Background;
   private ground?: Phaser.GameObjects.Image;
-  private dragQueen: any // to do
+  private dragQueen: any; // to do
 
   constructor() {
     super(config);
@@ -32,8 +43,8 @@ export class GameScene extends Phaser.Scene {
     this.load.image("right", arrowR);
     this.load.image("up", arrowU);
     this.load.image("down", arrowD);
-    this.load.setPath('assets/spine/spineboy/')
-    this.load.spine('spineboy', 'spineboy.json', 'spineboy.atlas')
+    this.load.setPath("assets/spine/spineboy/");
+    this.load.spine("spineboy", "spineboy.json", "spineboy.atlas");
   }
 
   /*
@@ -70,35 +81,51 @@ export class GameScene extends Phaser.Scene {
   };
 
   public create() {
-    this.background = new Background(this, 0, 0, "background")
-    this.ground = new Ground(this, 0, 0, "ground")
-    this.dragQueen = new DragQueen(this, 400, 550, 'spineboy', 'animation', true)
-    
+    this.background = new Background(this, 0, 0, "background");
+    this.ground = new Ground(this, 0, 0, "ground");
+    this.dragQueen = new DragQueen(
+      this,
+      400,
+      550,
+      "spineboy",
+      "animation",
+      true
+    );
+
     const arrows: Array<Arrow> = [];
     const characters: Array<PhysicCharacter> = [];
+    const arrowEmitter = new EventEmitter();
+
+    /*
+     *
+     * Start Music
+     * temporairement un event on click
+     *
+     */
+    document.addEventListener("click", (e) => {
+      const player = new MusicPlayer(zelda, arrowEmitter);
+      player.start();
+    });
 
     /*
      *
      * Event loop (trigger arrows)
-     * temporairement un timout hardcoder
+     * Lors d'un evenement "note" on crée une flèche
      *
      */
-    for (let index = 0; index < 20; index++) {
-      const interval = 1000;
-      setTimeout(() => {
-        const {
-          shouldLaunchCharacter,
-          ID,
-        } = this.CharacterManager.getArrowID();
-        const element = new Arrow(this, ID);
-        arrows.push(element);
+    const createArrow = () => {
+      const { shouldLaunchCharacter, ID } = this.CharacterManager.getArrowID();
+      const element = new Arrow(this, ID);
+      arrows.push(element);
 
-        if (shouldLaunchCharacter) {
-          const char = new PhysicCharacter(this, ID);
-          characters.push(char);
-        }
-      }, interval * index);
-    }
+      if (shouldLaunchCharacter) {
+        const char = new PhysicCharacter(this, ID);
+        characters.push(char);
+      }
+    };
+    const delayArrow = noteDelay(3200, createArrow);
+    const throttleArrow = throttle(200, delayArrow);
+    arrowEmitter.on("note", throttleArrow);
 
     /*
      *
@@ -137,7 +164,7 @@ export class GameScene extends Phaser.Scene {
 
   public update() {
     if (this.background) {
-      this.background.moveBackground()
+      this.background.moveBackground();
     }
   }
 }

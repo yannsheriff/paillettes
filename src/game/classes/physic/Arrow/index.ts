@@ -27,7 +27,7 @@ class Arrow extends Phaser.Physics.Arcade.Sprite {
   }
 
   launch() {
-    this.setVelocityX(-150);
+    this.setVelocityX(-180);
   }
 }
 

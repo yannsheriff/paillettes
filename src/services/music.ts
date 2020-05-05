@@ -1,5 +1,5 @@
 import * as Tone from "tone";
-import gaga from "./ladygaga.json";
+// import gaga from "./zelda.json";
 import { EventEmitter } from "events";
 
 interface Note {
@@ -30,6 +30,37 @@ interface Track {
   instrument: any;
   name: string;
   notes: Note[];
+}
+
+/**
+ * Permet de de reduire le nombre d'evenement qui appel une callback
+ * @param delay le temps min entre deux appel à la callback.
+ * @param fn La fonction à appeler.
+ */
+export function throttle(delay: number, fn: (...args: any) => unknown) {
+  let lastCall = 0;
+  return function (...args: any) {
+    const now = new Date().getTime();
+    if (now - lastCall < delay) {
+      return;
+    }
+    lastCall = now;
+    return fn(...args);
+  };
+}
+
+/**
+ * Permet de gérer le delaie entre l'evenement note et l'appel a une callBack
+ * @param delay le delay entre l'evenement et l'appel a une callBack en ms.
+ * @param fn une function de callback appelé x ms apres l'envenement.
+ */
+export function noteDelay(delay: number, fn: (...args: any) => unknown) {
+  const time = 5000 - delay;
+  return function (...args: any) {
+    setTimeout(() => {
+      return fn(...args);
+    }, time);
+  };
 }
 
 export default class MusicPlayer {
@@ -100,9 +131,9 @@ export default class MusicPlayer {
   }
 }
 
-document.addEventListener("click", (e) => {
-  const evt = new EventEmitter();
-  const player = new MusicPlayer(gaga, evt);
-  evt.on("note", () => console.log("coucou"));
-  player.start();
-});
+// document.addEventListener("click", (e) => {
+//   const evt = new EventEmitter();
+//   const player = new MusicPlayer(gaga, evt);
+//   evt.on("note", () => console.log("coucou"));
+//   player.start();
+// });
