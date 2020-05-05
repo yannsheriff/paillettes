@@ -2,7 +2,6 @@ import config from "./config";
 import {
   background,
   ground,
-  char,
   arrowD,
   arrowL,
   arrowR,
@@ -17,6 +16,7 @@ import DragQueen from "../../classes/physic/DragQueen";
 import Ground from "../../classes/physic/Ground";
 import '../../class/SpineContainer/SpineContainer'
 import zelda from "./zelda.json";
+import '../../class/SpineContainer/SpineContainer'
 
 import {
   delay,
@@ -35,6 +35,8 @@ export class GameScene extends Phaser.Scene {
 
   // test this.width pour stocker la valeur de l'écran
   private grid?: Phaser.GameObjects.Image;
+
+  // test this.width pour stocker la valeur de l'écran
 
   constructor() {
     super(config);
@@ -103,8 +105,8 @@ export class GameScene extends Phaser.Scene {
     const characters: Array<ISpineContainer> = [];
     this.background = new Background(this, 0, 0, "background");
     this.ground = new Ground(this, 0, 0, "ground");
+    this.dragQueen = new DragQueen(this, 400, 550, 'spineboy', 'run', true)
     new Grid(this);
-
     const arrowEmitter = new EventEmitter();
 
     /*
@@ -117,6 +119,7 @@ export class GameScene extends Phaser.Scene {
       const player = new MusicPlayer(zelda, arrowEmitter);
       player.start();
     });
+    
 
     /*
      *
@@ -138,6 +141,7 @@ export class GameScene extends Phaser.Scene {
     const delayArrow = noteDelay(4700, createArrow);
     const throttleArrow = throttle(200, delayArrow);
     arrowEmitter.on("note", throttleArrow);
+  
 
     /*
      *
