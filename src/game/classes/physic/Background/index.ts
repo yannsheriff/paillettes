@@ -1,28 +1,34 @@
 import Align from '../../../classes/utils/align'
 
-class Background extends Phaser.GameObjects.Image {
-  public background?: Phaser.GameObjects.Image;
+class Background extends Phaser.GameObjects.Container {
   constructor(
     scene: Phaser.Scene,
     x: number = 0,
-    y: number = 0,
-    img: string = ''
+    y: number = 0
   ) {
-    super(scene, x, y, img);
-    this.background = scene.add.image(0, 0, "background")
-    Align.scaleToGameH(this.background, 1)
-    Align.centerV(this.background)
-    Align.left(this.background)
+    super(scene, x, y);
+    scene.add.container(x, y)
+    let sprite = scene.add.sprite(200, 400, "background")
+    this.add(sprite)
+    
+    // Align.scaleToGameH(sprite, 1)
+    // Align.centerV(sprite)
+    // Align.left(sprite)
+    // console.log(sprite)
+  }
+
+  public addToContainer (thing: any) {
+    this.add(thing)
   }
 
   public moveBackground () {
-    if (this.background) {
+    // if (this.background) {
       // handle extremity of screen
       // stop when background hits right
-      if (this.background.x > window.innerWidth - this.background.displayWidth / 2 + 5) {
-        this.background.x -= 1;
-      }
-    }
+      // if (this.background.x > window.innerWidth - this.background.displayWidth / 2 + 5) {
+        // this.background.x -= 1;
+      // }
+    // }
   }
 }
 

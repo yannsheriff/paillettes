@@ -97,13 +97,12 @@ export class GameScene extends Phaser.Scene {
   };
 
   public create() {
-    this.background = new Background(this, 0, 0, "background")
+    // this.background = new Background(this, 0, 0)
     this.ground = new Ground(this, 0, 0, "ground")
     this.dragQueen = new DragQueen(this, 400, 550, 'spineboy', 'run', true)
     
     const arrows: Array<Arrow> = [];
     const characters: Array<ISpineContainer> = [];
-    this.background = new Background(this, 0, 0, "background");
     this.ground = new Ground(this, 0, 0, "ground");
     this.dragQueen = new DragQueen(this, 400, 550, 'spineboy', 'run', true)
     new Grid(this);
@@ -180,9 +179,9 @@ export class GameScene extends Phaser.Scene {
   }
 
   public update() {
-    if (this.background) {
-      this.background.moveBackground();
-    }
+    // if (this.background) {
+    //   this.background.moveBackground();
+    // }
     if (this.dragQueen) {
       // this.dragQueen.run()
     }

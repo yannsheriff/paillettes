@@ -4,6 +4,8 @@ declare global {
     interface ISpineContainer extends Phaser.GameObjects.Container {
         readonly spine: SpineGameObject
         readonly spineBody: Phaser.Physics.Arcade.Body
+        readonly animationsList: Array<string>
+        readonly skinsList: Array<string>
         id: string | undefined;
         setPhysicsSize(width: number, height: number): void
         faceDirection(dir: 1 | -1): void
@@ -25,6 +27,14 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
 
     get spineBody() {
         return this.SpineBody
+    }
+
+    get animationsList() {
+        return this.SpineGameObject.getAnimationList();
+    }
+
+    get skinsList() {
+        return this.SpineGameObject.getSkinList();
     }
 
     constructor(scene: Phaser.Scene, x: number, y: number, key: string, anim: string, loop = false, id?: string) {
@@ -52,6 +62,7 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
     }
 
     public playAnimation(animationname: string, loop: boolean) {
+        console.log(animationname)
         this.SpineGameObject.play(animationname, loop)
     }
 

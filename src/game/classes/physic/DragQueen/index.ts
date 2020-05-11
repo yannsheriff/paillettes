@@ -13,14 +13,14 @@ class DragQueen extends SpineContainer {
   ) {
     super(scene, x, y, key, anim, loop)
     this.SpineContainer = scene.add.spineContainer(x, y, key, anim, loop)
-    this.SpineContainer.setScale(0.6)
+    this.setScale(1)
+    this.SpineContainer.setScale(0.8)
     this.SpineContainer.allowCollideWorldBounds(true)
+
+    this.playAnimation('idle', true)
 
     const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body
     this.SpineContainer.setPhysicsSize(body.width * 0.5, body.height * 0.9)
-    this.SpineContainer.playAnimation('run', true)
-
-    // this.launch()
   }
 
   public run() {

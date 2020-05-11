@@ -12,6 +12,7 @@
     "@types/react-dom": "^16.9.0",
     "patch-package": "^6.2.2",
     "phaser": "^3.22.0",
+    "phaser3-rex-plugins": "^1.1.14",
     "postinstall-postinstall": "^2.1.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
