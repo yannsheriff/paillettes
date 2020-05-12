@@ -4,7 +4,8 @@ import Align from '../../../classes/utils/align';
 // import GrayscalePipeline from '../../../classes/filters/GrayscalePipeline';
 
 // @ts-ignore
-import GrayScalePipelinePlugin from '../../../classes/filters/Grayscale/GrayscalePipeline';
+import GrayScalePipelinePlugin from '../../../plugins/filters/Grayscale/GrayscalePipeline';
+import HslAdjustPipelinePlugin from '../../../plugins/filters/hsladjustpipeline-plugin.js.js'
 
 import {
   background,
