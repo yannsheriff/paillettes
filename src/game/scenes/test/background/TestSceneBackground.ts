@@ -1,9 +1,10 @@
 import config from "./config";
 import Align from '../../../classes/utils/align';
-import GrayscalePipeline from '../../../classes/filters/GrayscalePipeline';
+// first test
+// import GrayscalePipeline from '../../../classes/filters/GrayscalePipeline';
 
 // @ts-ignore
-// import GrayScalePipeline from 'phaser3-rex-plugins/plugins/grayscalepipeline.js';
+import GrayScalePipelinePlugin from '../../../classes/filters/Grayscale/GrayscalePipeline';
 
 import {
   background,
@@ -13,7 +14,9 @@ import {
   firstplane_nb,
   secondfirstplane_nb,
   secondplane_nb,
-  testnb
+  testnb,
+  mask,
+  maskcolor
 } from "../../../assets";
 import Background from "../../../classes/physic/Background";
 
@@ -32,15 +35,26 @@ export class TestSceneBackground extends Phaser.Scene {
     this.load.image("firstplane_nb", firstplane_nb);
     this.load.image("secondplane_nb", secondplane_nb);
     this.load.image("testnb", testnb);
+    this.load.image("mask", mask);
+    this.load.image("maskcolor", maskcolor);
 
     // @ts-ignore
-    // this.game.renderer.addPipeline('Grayscale', new GrayscalePipeline(this.game));
-    let customPipeline = this.game.renderer.addPipeline('Grayscale', new GrayscalePipeline(this.game));
-
+    // let customPipeline = this.game.renderer.addPipeline('Grayscale', new GrayscalePipeline(this.game));
   }
 
-  public create() {    
-    // let container = this.add.container(0, 0)
+  public create() {
+    //     
+    //    USE PIPELINE TO SET SPRITES BLACK AND WHITE 
+    //    POSSIBILITY TO SET INTENSITY
+    //     
+    let testSprite = this.add.sprite(500, 400, "firstplane")
+    
+    let customPipeline = new GrayScalePipelinePlugin(this, 'rexGrayScalePipeline', config);
+    customPipeline.intensity = 0.7;
+    testSprite.setPipeline('rexGrayScalePipeline')
+
+
+    // this.cameras.main.setRenderToTexture(customPipeline);
 
     // let testNb = this.add.sprite(200, 400, "testnb")
     // testNb.setBlendMode('NORMAL')
@@ -51,19 +65,88 @@ export class TestSceneBackground extends Phaser.Scene {
     // Align.centerV(testNb)
     // Align.left(testNb)
 
-    let firstplaneSprite = this.add.sprite(200, 400, "firstplane_nb")
+    // let firstplaneSprite = this.add.sprite(500, 400, "firstplane_nb")
+    // firstplaneSprite
+    //   .setTint(0xffffff)
+
+    // Align.scaleToGameW(firstplaneSprite, 1)
+    // Align.centerV(firstplaneSprite)
+
+    // let shape = this.make.image({
+    //   x: 300,
+    //   y: 300,
+    //   key: 'maskcolor',
+    //   add: true
+    // })
+    // shape.setBlendMode('MULTIPLY').setAlpha(0.1)
+
+    // let shape2 = this.make.image({
+    //   x: 300,
+    //   y: 300,
+    //   key: 'maskcolor',
+    //   add: true
+    // })
+    // shape2.setBlendMode('SCREEN').setAlpha(0.9)
+
+    // Align.scaleToGameH(shape, 1)
+    // Align.centerV(shape)
+    // Align.left(shape)
+
+    // let shape = this.add.rectangle(200, 400, 520, 500, this.color);
+
+    // Align.scaleToGameH(shape, 1)
+    // Align.centerV(shape)
+    // Align.left(shape)
+    
+    // let mask = this.make.image({
+    //   x: 300,
+    //   y: 300,
+    //   key: 'mask',
+    //   add: false
+    // });
+
+    // Align.scaleToGameH(mask, 1)
+    // Align.centerV(mask)
+    // Align.left(mask)
+
+    // mask.setBlendMode('SCREEN')
+
+    // console.log(shape)
+
+    // shape.mask = new Phaser.Display.Masks.BitmapMask(this, mask);
+
+    // shape.setBlendMode('SCREEN')
+
+
+    // mask.setBlendMode('SCREEN')
+
+    // let sprite = this.make.sprite({
+    //   x: 400, 
+    //   y: 400, 
+    //   key: 'firstplane_nb',
+    //   add: true
+    // });
+
+
+
+    // firstplaneSprite.setMask(mask); // image.mask = mask;
+
     // firstplaneSprite.setPipeline('Grayscale'); // black & white
 
-    Align.scaleToGameW(firstplaneSprite, 1)
-    Align.centerV(firstplaneSprite)
-    Align.left(firstplaneSprite)
+
+    // var tween = this.tweens.add({
+    //   targets: firstplaneSprite,
+    //   tint: this.color,
+    //   alpha: 1,
+    //   x: 0,
+    //   duration: 6000,
+    //   ease: 'Power1'
+    // });
 
 
     // let secondplaneSprite = this.add.sprite(200, 400, "secondplane")
     // .setDepth(1)
 
-    let rectangle = this.add.rectangle(200, 400, 500, 500, this.color)
-    rectangle.setBlendMode('SCREEN')
 
     // var image = this.add.image(400, 300, 'firstplane');
 
