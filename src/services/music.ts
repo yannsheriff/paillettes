@@ -39,13 +39,20 @@ interface Track {
  */
 export function throttle(delay: number, fn: (...args: any) => unknown) {
   let lastCall = 0;
+  let requestCount = 1;
+  let called = true;
+
   return function (...args: any) {
     const now = new Date().getTime();
+    requestCount += 1;
+    requestCount = called ? 1 : requestCount;
     if (now - lastCall < delay) {
+      called = false;
       return;
     }
     lastCall = now;
-    return fn(...args);
+    called = true;
+    return fn(requestCount, ...args);
   };
 }
 
