@@ -8,6 +8,7 @@ import {
   arrowR,
   arrowU,
   grid,
+  zoneInput,
 } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
@@ -15,15 +16,8 @@ import PhysicCharacter from "../../classes/physic/Character";
 import Background from "../../classes/physic/Background";
 import DragQueen from "../../classes/physic/DragQueen";
 import Ground from "../../classes/physic/Ground";
-import zelda from "./zelda.json";
-
-import {
-  delay,
-  stepEventPromise as stepEvent,
-} from "../../../services/stepEventEmitter";
-import { EventEmitter } from "events";
-import MusicPlayer, { throttle, noteDelay } from "../../../services/music";
-import Grid from "../../classes/physic/Grid";
+import SheetMusic from "../../classes/component/sheet-music";
+import gameConfig from "../../config";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
@@ -47,28 +41,11 @@ export class GameScene extends Phaser.Scene {
     this.load.image("up", arrowU);
     this.load.image("grid", grid);
     this.load.image("down", arrowD);
+    this.load.image("zoneInput", zoneInput);
     this.load.setPath("assets/spine/spineboy/");
     this.load.setPath("assets/spine/spineboy/");
     this.load.spine("spineboy", "spineboy.json", "spineboy.atlas");
   }
-
-  /*
-   *
-   * handleArrowOverlap
-   * register arrow if succesfull
-   *
-   */
-  handleArrowOverlap = (arrow: Arrow) => {
-    if (!arrow.didCollide) {
-      arrow.didCollide = true;
-      Promise.race([delay(700), stepEvent()]).then((winningPromise: string) => {
-        if (winningPromise.includes(arrow.direction)) {
-          this.CharacterManager.registerSuccesfullArrow(arrow.id);
-          arrow.destroy();
-        }
-      });
-    }
-  };
 
   /*
    *
@@ -86,9 +63,11 @@ export class GameScene extends Phaser.Scene {
   };
 
   public create() {
+    const sheetX = window.innerWidth / 3;
+    const sheetY = (window.innerHeight / 5) * 4;
     this.background = new Background(this, 0, 0, "background");
     this.ground = new Ground(this, 0, 0, "ground");
-    new Grid(this);
+    new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
 
     this.dragQueen = new DragQueen(
       this,
@@ -99,40 +78,7 @@ export class GameScene extends Phaser.Scene {
       true
     );
 
-    const arrows: Array<Arrow> = [];
     const characters: Array<PhysicCharacter> = [];
-    const arrowEmitter = new EventEmitter();
-
-    /*
-     *
-     * Start Music
-     * temporairement un event on click
-     *
-     */
-    document.addEventListener("click", (e) => {
-      const player = new MusicPlayer(zelda, arrowEmitter);
-      player.start();
-    });
-
-    /*
-     *
-     * Event loop (trigger arrows)
-     * Lors d'un evenement "note" on crée une flèche
-     *
-     */
-    const createArrow = () => {
-      const { shouldLaunchCharacter, ID } = this.CharacterManager.getArrowID();
-      const element = new Arrow(this, ID);
-      arrows.push(element);
-
-      if (shouldLaunchCharacter) {
-        const char = new PhysicCharacter(this, ID);
-        characters.push(char);
-      }
-    };
-    const delayArrow = noteDelay(4700, createArrow);
-    const throttleArrow = throttle(200, delayArrow);
-    arrowEmitter.on("note", throttleArrow);
 
     /*
      *
@@ -141,25 +87,13 @@ export class GameScene extends Phaser.Scene {
      *
      */
     const goodArrowCollider = this.add.rectangle(
-      window.innerWidth / 3,
+      sheetX + window.innerWidth / 12 / 2,
       window.innerHeight / 2,
       window.innerWidth / 12,
       window.innerHeight
     ) as any;
     this.physics.add.existing(goodArrowCollider);
 
-    /*
-     *
-     * Initialisation des handler
-     * utilisation des fonctions overlap
-     */
-    this.physics.add.overlap(
-      arrows,
-      goodArrowCollider,
-      this.handleArrowOverlap,
-      () => true,
-      this
-    );
     this.physics.add.overlap(
       characters,
       goodArrowCollider,

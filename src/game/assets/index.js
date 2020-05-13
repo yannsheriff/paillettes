@@ -6,3 +6,4 @@ export { default as arrowR } from "./arrows/arrowRight.svg";
 export { default as arrowU } from "./arrows/arrowUp.svg";
 export { default as arrowD } from "./arrows/arrowDown.svg";
 export { default as grid } from "./Interaction/grid.png";
+export { default as zoneInput } from "./Interaction/ZoneInput.png";

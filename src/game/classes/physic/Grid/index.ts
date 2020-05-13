@@ -1,5 +1,7 @@
 class Grid extends Phaser.GameObjects.Image {
   public grid?: Phaser.GameObjects.Image;
+
+  public assetWidth: number;
   constructor(
     scene: Phaser.Scene,
     x: number = 1020,
@@ -7,7 +9,10 @@ class Grid extends Phaser.GameObjects.Image {
     img: string = ""
   ) {
     super(scene, x, y, img);
-    this.grid = scene.add.image(x, y, "grid");
+    // asset width is 2576
+    this.assetWidth = 0.4 * 2576;
+    this.grid = scene.add.image(x + this.assetWidth / 2, y, "grid");
+    // this.grid = scene.add.image(x, y, "grid");
     this.grid.scale = 0.4;
   }
 }
