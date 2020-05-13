@@ -9,7 +9,7 @@ export class TestScene extends Phaser.Scene {
   }
 
   public create() {
-    this.scene.start('TestSceneBackground');
+    this.scene.start('TestSceneBackgroundAnimation');
     this.add
       .text(100, 200, 'Test Drag Queen', { fill: 'white' })
       .setInteractive()

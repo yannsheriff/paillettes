@@ -4,8 +4,8 @@ import Align from '../../../classes/utils/align';
 // import GrayscalePipeline from '../../../classes/filters/GrayscalePipeline';
 
 // @ts-ignore
-import GrayScalePipelinePlugin from '../../../plugins/filters/Grayscale/GrayscalePipeline';
-import HslAdjustPipelinePlugin from '../../../plugins/filters/hsladjustpipeline-plugin.js.js'
+import GrayScalePipelinePlugin from '../../../plugins/filters/Grayscale/GrayscalePlugin';
+import HslAdjustPipelinePlugin from '../../../plugins/filters/HSLAdjust/HslAdjustPipeline'
 
 import {
   background,
@@ -17,14 +17,20 @@ import {
   secondplane_nb,
   testnb,
   mask,
-  maskcolor
+  maskblue,
+  maskpink,
+  maskpurple,
+  maskred,
 } from "../../../assets";
 import Background from "../../../classes/physic/Background";
 
 export class TestSceneBackground extends Phaser.Scene {
   private background?: Background;
-  private color: number = 0x5E24D8;
-  private color2: number = 0xF64B4B;
+  private pink : number =  0xff7fd5
+  private purple: number =  0x5e24d8
+  private blue: number =  0x5485ff
+  private red: number =  0xf64b4b
+  private white: number = 0xffffff;
 
   constructor() {
     super(config);
@@ -37,7 +43,10 @@ export class TestSceneBackground extends Phaser.Scene {
     this.load.image("secondplane_nb", secondplane_nb);
     this.load.image("testnb", testnb);
     this.load.image("mask", mask);
-    this.load.image("maskcolor", maskcolor);
+    this.load.image("maskblue", maskblue);
+    this.load.image("maskred", maskred);
+    this.load.image("maskpurple", maskpurple);
+    this.load.image("maskpink", maskpink);
 
     // @ts-ignore
     // let customPipeline = this.game.renderer.addPipeline('Grayscale', new GrayscalePipeline(this.game));
@@ -48,23 +57,28 @@ export class TestSceneBackground extends Phaser.Scene {
     //    USE PIPELINE TO SET SPRITES BLACK AND WHITE 
     //    POSSIBILITY TO SET INTENSITY
     //     
-    let testSprite = this.add.sprite(500, 400, "firstplane")
+    // let testSprite = this.add.sprite(500, 400, "firstplane")
     
-    let customPipeline = new GrayScalePipelinePlugin(this, 'rexGrayScalePipeline', config);
-    customPipeline.intensity = 0.7;
-    testSprite.setPipeline('rexGrayScalePipeline')
+    // let grayScalePipeline = new GrayScalePipelinePlugin(this, 'rexGrayScalePipeline', config);
+    // grayScalePipeline.intensity = 0.7;
+    // testSprite.setPipeline('rexGrayScalePipeline')
 
+
+    //     
+    //    USE PIPELINE
+    //    POSSIBILITY 
+    //     
+    // let HslAdjustPipeline = new HslAdjustPipelinePlugin(this, 'HslAdjustPipelinePlugin', config);
+    
+    // testSprite.setPipeline('HslAdjustPipelinePlugin')
 
     // this.cameras.main.setRenderToTexture(customPipeline);
 
-    // let testNb = this.add.sprite(200, 400, "testnb")
-    // testNb.setBlendMode('NORMAL')
+    let testNb = this.add.sprite(200, 400, "testnb")
 
-    // testNb.setTintFill(this.color);
-
-    // Align.scaleToGameW(testNb, 1)
-    // Align.centerV(testNb)
-    // Align.left(testNb)
+    Align.scaleToGameW(testNb, 1)
+    Align.centerV(testNb)
+    Align.left(testNb)
 
     // let firstplaneSprite = this.add.sprite(500, 400, "firstplane_nb")
     // firstplaneSprite
@@ -72,14 +86,16 @@ export class TestSceneBackground extends Phaser.Scene {
 
     // Align.scaleToGameW(firstplaneSprite, 1)
     // Align.centerV(firstplaneSprite)
+    // Align.centerH(firstplaneSprite)
 
-    // let shape = this.make.image({
-    //   x: 300,
-    //   y: 300,
-    //   key: 'maskcolor',
-    //   add: true
-    // })
-    // shape.setBlendMode('MULTIPLY').setAlpha(0.1)
+    let shape = this.make.image({
+      x: 300,
+      y: 300,
+      key: 'maskblue',
+      add: true
+    })
+      .setBlendMode('ADD')
+      // .setAlpha(0.1)
 
     // let shape2 = this.make.image({
     //   x: 300,
