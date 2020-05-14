@@ -8,10 +8,10 @@ class Arrow extends Phaser.Physics.Arcade.Sprite {
   constructor(
     scene: Phaser.Scene,
     id: string,
+    direction?: Direction,
     //TODO : calculate start posdtion from velocity and grid size
     x: number = 1500,
-    y: number = window.innerHeight - 275,
-    direction?: Direction
+    y: number = window.innerHeight - 275
   ) {
     if (!direction) {
       const directions: Array<Direction> = ["left", "right", "up", "down"];
@@ -23,7 +23,16 @@ class Arrow extends Phaser.Physics.Arcade.Sprite {
       ];
       y = row[Math.floor(Math.random() * 2)];
       direction = directions[Math.floor(Math.random() * directions.length)];
+    } else {
+      const row = {
+        up: window.innerHeight - 270,
+        down: window.innerHeight - 235,
+        left: window.innerHeight - 195,
+        right: window.innerHeight - 160,
+      };
+      y = row[direction];
     }
+
     super(scene, x, y, direction);
     this.direction = direction;
     this.didCollide = false;

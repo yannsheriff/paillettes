@@ -1,7 +1,11 @@
 import Grid from "../../physic/Grid";
 import PhysicCharacter from "../../physic/Character";
 import { EventEmitter } from "events";
-import MusicPlayer, { throttle, noteDelay } from "../../../../services/music";
+import MusicPlayer, {
+  throttle,
+  noteDelay,
+  NoteWithTrack,
+} from "../../../../services/music";
 import CharacterManager from "../../logic/CharacterManager";
 import zelda from "./zelda.json";
 import Arrow from "../../physic/Arrow";
@@ -15,6 +19,7 @@ class SheetMusic {
   public characterManager: CharacterManager;
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
+  private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
   private posX: number;
   private posY: number;
@@ -64,8 +69,8 @@ class SheetMusic {
      * temporairement un event on click
      */
     document.addEventListener("click", (e) => {
-      const player = new MusicPlayer(zelda, this.arrowEmitter);
-      player.start();
+      this.player = new MusicPlayer(zelda, this.arrowEmitter);
+      this.player.start();
     });
   };
 
@@ -80,10 +85,6 @@ class SheetMusic {
       arrow.didCollide = true;
       const stepPromise = this.promiseGenerator.getPromise();
       Promise.race([delay(700), stepPromise]).then((winningPromise: string) => {
-        console.log(
-          "SheetMusic -> handleArrowOverlap -> winningPromise",
-          winningPromise
-        );
         if (winningPromise.includes(arrow.direction)) {
           this.characterManager.registerSuccesfullArrow(arrow.id);
           arrow.destroy();
@@ -98,12 +99,42 @@ class SheetMusic {
    * Lors d'un evenement "note" on crée une flèche
    *
    */
-  createArrow = (calls: number) => {
+  createArrow = (calls: number, note: NoteWithTrack) => {
     const nbOfArrow = calls > 1 ? 2 : 1;
+    let noteDirection: 1 | 2 | 3 | 0 = 0;
 
     for (let index = 0; index < nbOfArrow; index++) {
       const { shouldLaunchCharacter, ID } = this.characterManager.getArrowID();
-      const element = new Arrow(this.scene, ID);
+      const directionTable: {
+        0: Direction;
+        1: Direction;
+        2: Direction;
+        3: Direction;
+      } = {
+        0: "right",
+        1: "left",
+        2: "down",
+        3: "up",
+      };
+
+      if (index === 0) {
+        noteDirection = this.player!.noteMap.get(note.name)!;
+      } else {
+        const secondNoteDirection = this.player!.noteMap.get(note.name)!;
+        if (secondNoteDirection === noteDirection) {
+          const arrayOfDirection: Array<1 | 2 | 3 | 0> = [0, 1, 2, 3];
+          const arrayOfDirectionWithoutPrevious = arrayOfDirection.filter(
+            (d) => d !== noteDirection
+          );
+
+          noteDirection =
+            arrayOfDirectionWithoutPrevious[Math.floor(Math.random() * 3)];
+        } else {
+          noteDirection = secondNoteDirection;
+        }
+      }
+
+      const element = new Arrow(this.scene, ID, directionTable[noteDirection]);
       this.arrows.push(element);
       if (shouldLaunchCharacter) {
         const char = new PhysicCharacter(this.scene, ID);
@@ -111,6 +142,8 @@ class SheetMusic {
       }
     }
   };
+
+  findPos = () => {};
 
   delayArrow = noteDelay(4700, this.createArrow);
 

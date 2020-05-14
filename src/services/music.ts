@@ -12,7 +12,7 @@ interface Note {
   velocity: number;
 }
 
-interface NoteWithTrack {
+export interface NoteWithTrack {
   track: number;
   duration: number;
   durationTicks: number;
@@ -73,6 +73,7 @@ export function noteDelay(delay: number, fn: (...args: any) => unknown) {
 export default class MusicPlayer {
   private emitter: EventEmitter;
   private synths: Tone.Synth[] = [];
+  public noteMap: Map<string, 0 | 1 | 2 | 3> = new Map();
 
   constructor(songData: any, evtEmitter: EventEmitter) {
     this.emitter = evtEmitter;
@@ -110,6 +111,7 @@ export default class MusicPlayer {
         }));
         new Tone.Part(this.sendEvent, mappedTimings).start(0);
         new Tone.Part(this.playNote, NotesWithTrack).start(0);
+        this.createNoteMap(track);
       } else {
         new Tone.Part(this.playNote, NotesWithTrack).start(0);
       }
@@ -118,6 +120,34 @@ export default class MusicPlayer {
 
   private sendEvent = (time: number, event: NoteWithTrack) => {
     this.emitter.emit("note", event);
+  };
+
+  // const ocataveList = map.map((note) => note.match(/\d+/)![0]);
+  // const ocataves = ocataveList.filter((a, b) => ocataveList.indexOf(a) === b);
+
+  private createNoteMap = (track: Track) => {
+    const map = track.notes.map((note) => note.name);
+    const notes = map
+      .filter((a, b) => map.indexOf(a) === b)
+      .sort(this.byNoteHeight);
+    const noteByHeight = Math.round(notes.length / 4);
+
+    notes.forEach((note, index) => {
+      const pos = Math.floor(index / noteByHeight);
+
+      if (pos === 0 || pos === 1 || pos === 2 || pos === 3) {
+        this.noteMap.set(note, pos);
+      }
+    });
+  };
+
+  private byNoteHeight = (a: string, b: string) => {
+    const octaveA = a.match(/\d+/)![0];
+    const octaveB = b.match(/\d+/)![0];
+    if (octaveA === octaveB) {
+      return a > b ? 1 : -1;
+    }
+    return octaveA > octaveB ? 1 : -1;
   };
 
   private playNote = (time: number, event: NoteWithTrack) => {
