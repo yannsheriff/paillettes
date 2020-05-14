@@ -21,6 +21,9 @@ class SheetMusic {
   public promiseGenerator: promiseGenerator;
   private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
+  private inputZoneWidth = 120;
+  private inputPerfectZoneWidth = 70;
+  private arrowSpeed = 100;
   private posX: number;
   private posY: number;
 
@@ -47,18 +50,31 @@ class SheetMusic {
    * utilisation des fonctions overlap
    */
   create = () => {
-    this.arrowEmitter.on("note", this.throttleArrow);
+    // this.arrowEmitter.on("note", this.throttleArrow);
 
-    const goodArrowCollider = this.scene.add.image(
+    setInterval(() => {
+      this.createArrow(1, {
+        track: 1,
+        duration: 1,
+        durationTicks: 1,
+        midi: 1,
+        name: "G4",
+        ticks: 1,
+        time: 1,
+        velocity: 1,
+      });
+    }, 5000);
+
+    const inputZone = this.scene.add.image(
       this.posX + 60,
       this.posY,
       "zoneInput"
     ) as any;
-    this.scene.physics.add.existing(goodArrowCollider);
+    this.scene.physics.add.existing(inputZone);
 
     this.scene.physics.add.overlap(
       this.arrows,
-      goodArrowCollider,
+      inputZone,
       this.handleArrowOverlap,
       () => true,
       this
@@ -83,13 +99,39 @@ class SheetMusic {
   handleArrowOverlap = (arrow: Arrow) => {
     if (!arrow.didCollide) {
       arrow.didCollide = true;
+
+      const halfHitboxTime =
+        ((arrow.width * arrow.scale) / this.arrowSpeed) * 1000;
+
+      const goodZoneLeftWidth =
+        (this.inputZoneWidth - this.inputPerfectZoneWidth) / 2;
+
+      const timeToPerfect = (goodZoneLeftWidth / this.arrowSpeed) * 1000;
+
+      const timeToGood =
+        ((goodZoneLeftWidth + this.inputPerfectZoneWidth) / this.arrowSpeed) *
+        1000;
+
+      const timeToExit =
+        (this.inputZoneWidth / this.arrowSpeed) * 1000 + halfHitboxTime;
+
       const stepPromise = this.promiseGenerator.getPromise();
-      Promise.race([delay(700), stepPromise]).then((winningPromise: string) => {
-        if (winningPromise.includes(arrow.direction)) {
-          this.characterManager.registerSuccesfullArrow(arrow.id);
-          arrow.destroy();
+
+      const startTime = new Date().getTime();
+
+      Promise.race([delay(timeToExit), stepPromise]).then(
+        (winningPromise: string) => {
+          if (winningPromise.includes(arrow.direction)) {
+            const time = new Date().getTime() - startTime;
+            if (time > timeToPerfect && time < timeToGood) {
+              console.log("perfect");
+            }
+
+            this.characterManager.registerSuccesfullArrow(arrow.id);
+            arrow.destroy();
+          }
         }
-      });
+      );
     }
   };
 
@@ -105,7 +147,7 @@ class SheetMusic {
 
     directions.forEach((direction) => {
       const { shouldLaunchCharacter, ID } = this.characterManager.getArrowID();
-      const element = new Arrow(this.scene, ID, direction);
+      const element = new Arrow(this.scene, ID, this.arrowSpeed, direction);
       this.arrows.push(element);
       if (shouldLaunchCharacter) {
         const char = new PhysicCharacter(this.scene, ID);
@@ -127,21 +169,25 @@ class SheetMusic {
       3: "up",
     };
 
-    if (quantity <= 1) {
-      return [directionTable[this.player!.noteMap.get(note)!]];
+    if (this.player) {
+      if (quantity <= 1) {
+        return [directionTable[this.player.noteMap.get(note)!]];
+      }
+
+      const arrayOfDirection: Array<1 | 2 | 3 | 0> = [0, 1, 2, 3];
+      const arrayOfDirectionWithoutPrevious = arrayOfDirection.filter(
+        (d) => d !== this.player!.noteMap.get(note)!
+      );
+      const secondNoteDirection =
+        arrayOfDirectionWithoutPrevious[Math.floor(Math.random() * 3)];
+
+      return [
+        directionTable[this.player.noteMap.get(note)!],
+        directionTable[secondNoteDirection],
+      ];
     }
 
-    const arrayOfDirection: Array<1 | 2 | 3 | 0> = [0, 1, 2, 3];
-    const arrayOfDirectionWithoutPrevious = arrayOfDirection.filter(
-      (d) => d !== this.player!.noteMap.get(note)!
-    );
-    const secondNoteDirection =
-      arrayOfDirectionWithoutPrevious[Math.floor(Math.random() * 3)];
-
-    return [
-      directionTable[this.player!.noteMap.get(note)!],
-      directionTable[secondNoteDirection],
-    ];
+    return ["right"];
   };
 
   delayArrow = noteDelay(4700, this.createArrow);

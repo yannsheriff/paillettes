@@ -24,13 +24,13 @@ export default class Game extends React.Component<any> {
     stepEventEmitter.on(
       StepEventType.stepdown,
       (...directions: Array<string>) => {
-        console.log("Pressed : ", ...directions);
+        // console.log("Pressed : ", ...directions);
       }
     );
     stepEventEmitter.on(
       StepEventType.stepup,
       (...directions: Array<string>) => {
-        console.log("realased : ", ...directions);
+        // console.log("realased : ", ...directions);
       }
     );
   }
