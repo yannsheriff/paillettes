@@ -101,49 +101,48 @@ class SheetMusic {
    */
   createArrow = (calls: number, note: NoteWithTrack) => {
     const nbOfArrow = calls > 1 ? 2 : 1;
-    let noteDirection: 1 | 2 | 3 | 0 = 0;
+    const directions = this.createArrowsDirections(note.name, nbOfArrow);
 
-    for (let index = 0; index < nbOfArrow; index++) {
+    directions.forEach((direction) => {
       const { shouldLaunchCharacter, ID } = this.characterManager.getArrowID();
-      const directionTable: {
-        0: Direction;
-        1: Direction;
-        2: Direction;
-        3: Direction;
-      } = {
-        0: "right",
-        1: "left",
-        2: "down",
-        3: "up",
-      };
-
-      if (index === 0) {
-        noteDirection = this.player!.noteMap.get(note.name)!;
-      } else {
-        const secondNoteDirection = this.player!.noteMap.get(note.name)!;
-        if (secondNoteDirection === noteDirection) {
-          const arrayOfDirection: Array<1 | 2 | 3 | 0> = [0, 1, 2, 3];
-          const arrayOfDirectionWithoutPrevious = arrayOfDirection.filter(
-            (d) => d !== noteDirection
-          );
-
-          noteDirection =
-            arrayOfDirectionWithoutPrevious[Math.floor(Math.random() * 3)];
-        } else {
-          noteDirection = secondNoteDirection;
-        }
-      }
-
-      const element = new Arrow(this.scene, ID, directionTable[noteDirection]);
+      const element = new Arrow(this.scene, ID, direction);
       this.arrows.push(element);
       if (shouldLaunchCharacter) {
         const char = new PhysicCharacter(this.scene, ID);
         this.characters.push(char);
       }
-    }
+    });
   };
 
-  findPos = () => {};
+  createArrowsDirections = (note: string, quantity: number): Direction[] => {
+    const directionTable: {
+      0: Direction;
+      1: Direction;
+      2: Direction;
+      3: Direction;
+    } = {
+      0: "right",
+      1: "left",
+      2: "down",
+      3: "up",
+    };
+
+    if (quantity <= 1) {
+      return [directionTable[this.player!.noteMap.get(note)!]];
+    }
+
+    const arrayOfDirection: Array<1 | 2 | 3 | 0> = [0, 1, 2, 3];
+    const arrayOfDirectionWithoutPrevious = arrayOfDirection.filter(
+      (d) => d !== this.player!.noteMap.get(note)!
+    );
+    const secondNoteDirection =
+      arrayOfDirectionWithoutPrevious[Math.floor(Math.random() * 3)];
+
+    return [
+      directionTable[this.player!.noteMap.get(note)!],
+      directionTable[secondNoteDirection],
+    ];
+  };
 
   delayArrow = noteDelay(4700, this.createArrow);
 
