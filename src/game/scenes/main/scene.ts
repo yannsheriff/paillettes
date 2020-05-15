@@ -9,7 +9,7 @@ import {
 import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
 import PhysicCharacter from "../../classes/physic/Character";
-import Background from "../../classes/physic/Background";
+import Plane from "../../classes/physic/Plane";
 import DragQueen from "../../classes/physic/DragQueen";
 import Ground from "../../classes/physic/Ground";
 import '../../class/SpineContainer/SpineContainer'
@@ -27,7 +27,7 @@ import Grid from "../../classes/physic/Grid";
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
   private CharacterManager: CharacterManager;
-  private background?: Background;
+  private background?: Plane;
   private ground?: Phaser.GameObjects.Image;
   private dragQueen?: DragQueen // to do
 

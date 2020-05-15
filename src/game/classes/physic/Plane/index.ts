@@ -1,4 +1,4 @@
-import Align from '../../../classes/utils/align'
+import Align from '../../utils/align'
 
 export enum PlaneDepth { 'first' = 1, 'second' = 2, 'third' = 3 }
 
@@ -14,20 +14,10 @@ class Plane extends Phaser.GameObjects.Sprite {
     y: number = 0,
     texture: string = '',
     plane: PlaneDepth,
-    blackAndWhite: boolean = false,
-    maskObj?: Phaser.GameObjects.GameObject
   ) {
       super(scene, x, y, texture);
-
-      if (blackAndWhite) {
-        this.setPipeline('rexGrayScalePipeline')
-        this.setDepth(plane)
-      } else {
-        if (maskObj) {
-          this.mask = new Phaser.Display.Masks.BitmapMask(scene, maskObj);
-        }
-        this.setDepth(plane + 1)
-      }
+      
+      this.setDepth(plane)
 
       scene.add.existing(this)
       scene.physics.add.existing(this)

@@ -5,7 +5,8 @@ import Align from '../../../classes/utils/align';
 import GrayScalePipelinePlugin from '../../../plugins/filters/Grayscale/GrayscalePlugin';
 import HslAdjustPipelinePlugin from '../../../plugins/filters/HSLAdjust/HslAdjustPipeline'
 
-import Plane from "../../../classes/physic/Background";
+import Plane from "../../../classes/physic/Plane";
+import Background from "../../../classes/components/Background";
 
 import {
   word_1_plane_1,
@@ -20,7 +21,6 @@ import {
   maskpurple,
   maskred,
 } from "../../../assets";
-import Background from "../../../classes/physic/Background";
 
 export class TestSceneBackground extends Phaser.Scene {
   private background?: Background;
@@ -39,8 +39,8 @@ export class TestSceneBackground extends Phaser.Scene {
 
   public preload(): void {
     this.load.image("plane_test", plane_test);
-    this.load.image("firstplane", word_1_plane_1);
 
+    this.load.image("firstplane", word_1_plane_1);
     this.load.image("secondplane", word_1_plane_2);
     this.load.image("thirdplane", word_1_plane_3);
     this.load.image("firstplane_nb", word_1_plane_1_nb);
@@ -53,28 +53,24 @@ export class TestSceneBackground extends Phaser.Scene {
     this.load.image("maskpink", maskpink);
   }
 
-  public create() {    
+  public create() {
+    let background = new Background(this)
+
     // let grayScalePipeline = new GrayScalePipelinePlugin(this, 'rexGrayScalePipeline', config);
     // grayScalePipeline.intensity = 1;
-    let plane_nb = new Plane(this, 600, 400, "plane_test", 1, false)
+    // let plane_nb = new Plane(this, 600, 400, "plane_test", 1, false)
 
-    this.shapemask = this.make.image({
-      x: 150,
-      y: 300,
-      key: 'mask',
-      add: true
-    }).setTint(this.blue).setBlendMode('SCREEN').setDepth(10);
+    // this.shapemask = this.make.image({
+    //   x: 150,
+    //   y: 300,
+    //   key: 'mask',
+    //   add: true
+    // }).setTint(this.blue).setBlendMode('SCREEN').setDepth(10);
 
-    Align.left(this.shapemask)
-    Align.bottom(this.shapemask)
+    // Align.left(this.shapemask)
+    // Align.bottom(this.shapemask)
 
     // let plane_color = new Plane(this, 600, 400, "firstplane", 1, false, this.shapemask)
-
-
-
-    // let first_plane_nb = new Plane(this, 600, 400, "firstplane", 3, true, this.shapemask)
-    // let second_plane_nb = new Plane(this, 600, 400, "secondplane", 2, true, this.shapemask)
-    // let third_plane_nb = new Plane(this, 600, 400, "thirdplane", 1, true, this.shapemask)
 
     // plane_color.mask = new Phaser.Display.Masks.BitmapMask(this, this.shapemask);
 

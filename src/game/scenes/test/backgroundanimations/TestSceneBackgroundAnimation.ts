@@ -6,8 +6,6 @@ import {
   word_1_plane_3,
 } from "../../../assets";
 
-import Plane from "../../../classes/physic/Background";
-
 export class TestSceneBackgroundAnimation extends Phaser.Scene {
   private pink : number =  0xff7fd5
   private purple: number =  0x5e24d8
