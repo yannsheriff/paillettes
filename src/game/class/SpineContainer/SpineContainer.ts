@@ -6,6 +6,7 @@ declare global {
         readonly spineBody: Phaser.Physics.Arcade.Body
         readonly animationsList: Array<string>
         readonly skinsList: Array<string>
+        readonly slotList: Array<string>
         id: string | undefined;
         setPhysicsSize(width: number, height: number): void
         faceDirection(dir: 1 | -1): void
@@ -13,6 +14,8 @@ declare global {
         playAnimation(animationname: string, loop: boolean): void
         allowCollideWorldBounds(bool: boolean): void
         runVelocity(number: number): void
+        changeSlotColor(slotname: string, r: number, v: number, b: number): void
+        changeSkin(skinname: string): void
     }
 }
 
@@ -37,13 +40,19 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
         return this.SpineGameObject.getSkinList();
     }
 
+    get slotList() {
+        return this.SpineGameObject.getSlotList();
+    }
+
+
+
     constructor(scene: Phaser.Scene, x: number, y: number, key: string, anim: string, loop = false, id?: string) {
         super(scene, x, y)
 
         this.id = id
         this.SpineGameObject = scene.add.spine(0, 0, key, anim, loop)
         scene.physics.add.existing(this)
-        
+
         this.SpineBody = this.body as Phaser.Physics.Arcade.Body;
 
         const bounds = this.SpineGameObject.getBounds()
@@ -62,8 +71,24 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
     }
 
     public playAnimation(animationname: string, loop: boolean) {
-        console.log(animationname)
         this.SpineGameObject.play(animationname, loop)
+    }
+
+    public changeSlotColor(slotname: string, r: number, g: number, b: number, a?: number) {
+        let slot = this.SpineGameObject.skeleton.findSlot(slotname)
+        slot.color.r = r
+        slot.color.g = g
+        slot.color.b = b
+    }
+
+    public changeSkin(skinname: string) {
+        this.SpineGameObject.setSkinByName(skinname)
+
+    }
+
+
+    public findSlot(slotname: string) {
+        return this.SpineGameObject.findSlot(slotname)
     }
 
     public runVelocity(number: number) {

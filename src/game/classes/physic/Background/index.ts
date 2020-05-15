@@ -1,35 +1,44 @@
 import Align from '../../../classes/utils/align'
 
-class Background extends Phaser.GameObjects.Container {
+export enum PlaneDepth { 'first' = 1, 'second' = 2, 'third' = 3 }
+
+class Plane extends Phaser.GameObjects.Sprite {
+  private planeBody: Phaser.Physics.Arcade.Body;
+
+  // FIRST PLANE = 3
+  // SECOND PLANE = 2
+  // THIRD PLANE = 1
   constructor(
     scene: Phaser.Scene,
     x: number = 0,
-    y: number = 0
+    y: number = 0,
+    texture: string = '',
+    plane: PlaneDepth,
+    blackAndWhite: boolean = false,
+    maskObj?: Phaser.GameObjects.GameObject
   ) {
-    super(scene, x, y);
-    scene.add.container(x, y)
-    let sprite = scene.add.sprite(200, 400, "background")
-    this.add(sprite)
-    
-    // Align.scaleToGameH(sprite, 1)
-    // Align.centerV(sprite)
-    // Align.left(sprite)
-    // console.log(sprite)
-  }
+      super(scene, x, y, texture);
 
-  public addToContainer (thing: any) {
-    this.add(thing)
-  }
+      if (blackAndWhite) {
+        this.setPipeline('rexGrayScalePipeline')
+        this.setDepth(plane)
+      } else {
+        if (maskObj) {
+          this.mask = new Phaser.Display.Masks.BitmapMask(scene, maskObj);
+        }
+        this.setDepth(plane + 1)
+      }
 
-  public moveBackground () {
-    // if (this.background) {
-      // handle extremity of screen
-      // stop when background hits right
-      // if (this.background.x > window.innerWidth - this.background.displayWidth / 2 + 5) {
-        // this.background.x -= 1;
-      // }
-    // }
-  }
+      scene.add.existing(this)
+      scene.physics.add.existing(this)
+
+      this.setScale(0.7)
+      Align.left(this)
+      Align.bottom(this)
+
+      this.planeBody = this.body as Phaser.Physics.Arcade.Body;
+      // this.planeBody.setVelocityX(plane * (-40));
+  }  
 }
 
-export default Background;
+export default Plane;

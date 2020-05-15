@@ -1,7 +1,5 @@
 import config from "./config";
 import {
-  background,
-  ground,
   arrowD,
   arrowL,
   arrowR,
@@ -44,8 +42,6 @@ export class GameScene extends Phaser.Scene {
   }
 
   public preload(): void {
-    this.load.image("background", background);
-    this.load.image("ground", ground);
     this.load.image("left", arrowL);
     this.load.image("right", arrowR);
     this.load.image("up", arrowU);

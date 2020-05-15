@@ -1,0 +1,123 @@
+{
+"skeleton": { "hash": "7eQnRFv3RxenhKFzwT7PAMi+0eY", "spine": "3.8.95", "images": "/Users/bastienlepecheur/Desktop/images/", "audio": "/Users/bastienlepecheur/Desktop" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "NB", "bone": "root", "attachment": "NB" },
+	{ "name": "COLOR BACK FEET", "bone": "root", "attachment": "COLOR BACK FEET" },
+	{ "name": "COLOR FRONT FEET", "bone": "root", "attachment": "COLOR FRONT FEET" },
+	{ "name": "COLOR BACK LEG", "bone": "root", "attachment": "COLOR BACK LEG" },
+	{ "name": "COLOR FRONT LEG", "bone": "root", "attachment": "COLOR FRONT LEG" },
+	{ "name": "COLOR BACK HAND", "bone": "root", "attachment": "COLOR BACK HAND" },
+	{ "name": "COLOR BACK FOREARM", "bone": "root", "attachment": "COLOR BACK FOREARM" },
+	{ "name": "COLOR BACK ARM", "bone": "root", "attachment": "COLOR BACK ARM" },
+	{ "name": "COLOR TORSO", "bone": "root", "attachment": "COLOR TORSO" },
+	{ "name": "COLOR HIP", "bone": "root", "attachment": "COLOR HIP" },
+	{ "name": "COLOR HEAD", "bone": "root", "attachment": "COLOR HEAD" },
+	{ "name": "COLOR FRONT HAND", "bone": "root", "attachment": "COLOR FRONT HAND" },
+	{ "name": "COLOR FRONT FOREARM", "bone": "root", "attachment": "COLOR FRONT FOREARM" },
+	{ "name": "COLOR FRONT ARM", "bone": "root", "attachment": "COLOR FRONT ARM" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"NB": {
+				"NB": { "x": 70, "y": 325.5, "width": 482, "height": 663 }
+			}
+		}
+	},
+	{
+		"name": "Color 1",
+		"attachments": {
+			"COLOR BACK ARM": {
+				"COLOR BACK ARM": { "name": "Color 1/COLOR BACK ARM", "x": 13, "y": 374, "width": 60, "height": 166 }
+			},
+			"COLOR BACK FEET": {
+				"COLOR BACK FEET": { "name": "Color 1/COLOR BACK FEET", "x": 36.5, "y": 83.5, "width": 93, "height": 179 }
+			},
+			"COLOR BACK FOREARM": {
+				"COLOR BACK FOREARM": { "name": "Color 1/COLOR BACK FOREARM", "x": 12.5, "y": 392.5, "width": 59, "height": 147 }
+			},
+			"COLOR BACK HAND": {
+				"COLOR BACK HAND": { "name": "Color 1/COLOR BACK HAND", "x": 20.5, "y": 322.5, "width": 33, "height": 61 }
+			},
+			"COLOR BACK LEG": {
+				"COLOR BACK LEG": { "name": "Color 1/COLOR BACK LEG", "x": -11, "y": 187, "width": 202, "height": 322 }
+			},
+			"COLOR FRONT ARM": {
+				"COLOR FRONT ARM": { "name": "Color 1/COLOR FRONT ARM", "x": -32, "y": 377, "width": 60, "height": 166 }
+			},
+			"COLOR FRONT FEET": {
+				"COLOR FRONT FEET": { "name": "Color 1/COLOR FRONT FEET", "x": -19.5, "y": 91, "width": 93, "height": 192 }
+			},
+			"COLOR FRONT FOREARM": {
+				"COLOR FRONT FOREARM": { "name": "Color 1/COLOR FRONT FOREARM", "x": -31.5, "y": 395.5, "width": 59, "height": 147 }
+			},
+			"COLOR FRONT HAND": {
+				"COLOR FRONT HAND": { "name": "Color 1/COLOR FRONT HAND", "x": -17.5, "y": 378.5, "width": 77, "height": 167 }
+			},
+			"COLOR FRONT LEG": {
+				"COLOR FRONT LEG": { "name": "Color 1/COLOR FRONT LEG", "x": -24.5, "y": 203, "width": 175, "height": 334 }
+			},
+			"COLOR HEAD": {
+				"COLOR HEAD": { "name": "Color 1/COLOR HEAD", "x": -87, "y": 352, "width": 208, "height": 340 }
+			},
+			"COLOR HIP": {
+				"COLOR HIP": { "name": "Color 1/COLOR HIP", "x": -9.5, "y": 320.5, "width": 165, "height": 105 }
+			},
+			"COLOR TORSO": {
+				"COLOR TORSO": { "name": "Color 1/COLOR TORSO", "x": -8, "y": 429.5, "width": 118, "height": 185 }
+			}
+		}
+	},
+	{
+		"name": "Color 2",
+		"attachments": {
+			"COLOR BACK ARM": {
+				"COLOR BACK ARM": { "name": "Color 2/COLOR BACK ARM", "x": 13, "y": 374, "width": 60, "height": 166 }
+			},
+			"COLOR BACK FEET": {
+				"COLOR BACK FEET": { "name": "Color 2/COLOR BACK FEET", "x": 36.5, "y": 83.5, "width": 93, "height": 179 }
+			},
+			"COLOR BACK FOREARM": {
+				"COLOR BACK FOREARM": { "name": "Color 2/COLOR BACK FOREARM", "x": 12.5, "y": 392.5, "width": 59, "height": 147 }
+			},
+			"COLOR BACK HAND": {
+				"COLOR BACK HAND": { "name": "Color 2/COLOR BACK HAND", "x": 20.5, "y": 322.5, "width": 33, "height": 61 }
+			},
+			"COLOR BACK LEG": {
+				"COLOR BACK LEG": { "name": "Color 2/COLOR BACK LEG", "x": -11, "y": 187, "width": 202, "height": 322 }
+			},
+			"COLOR FRONT ARM": {
+				"COLOR FRONT ARM": { "name": "Color 2/COLOR FRONT ARM", "x": -32, "y": 377, "width": 60, "height": 166 }
+			},
+			"COLOR FRONT FEET": {
+				"COLOR FRONT FEET": { "name": "Color 2/COLOR FRONT FEET", "x": -19.5, "y": 91, "width": 93, "height": 192 }
+			},
+			"COLOR FRONT FOREARM": {
+				"COLOR FRONT FOREARM": { "name": "Color 2/COLOR FRONT FOREARM", "x": -31.5, "y": 395.5, "width": 59, "height": 147 }
+			},
+			"COLOR FRONT HAND": {
+				"COLOR FRONT HAND": { "name": "Color 2/COLOR FRONT HAND", "x": -17.5, "y": 378.5, "width": 77, "height": 167 }
+			},
+			"COLOR FRONT LEG": {
+				"COLOR FRONT LEG": { "name": "Color 2/COLOR FRONT LEG", "x": -24.5, "y": 203, "width": 175, "height": 334 }
+			},
+			"COLOR HEAD": {
+				"COLOR HEAD": { "name": "Color 2/COLOR HEAD", "x": -87, "y": 352, "width": 208, "height": 340 }
+			},
+			"COLOR HIP": {
+				"COLOR HIP": { "name": "Color 2/COLOR HIP", "x": -9.5, "y": 320.5, "width": 165, "height": 105 }
+			},
+			"COLOR TORSO": {
+				"COLOR TORSO": { "name": "Color 2/COLOR TORSO", "x": -8, "y": 429.5, "width": 118, "height": 185 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {}
+}
+}

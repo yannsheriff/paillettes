@@ -1,23 +1,21 @@
 import config from "./config";
 import Align from '../../../classes/utils/align';
-// first test
-// import GrayscalePipeline from '../../../classes/filters/GrayscalePipeline';
 
 // @ts-ignore
 import GrayScalePipelinePlugin from '../../../plugins/filters/Grayscale/GrayscalePlugin';
 import HslAdjustPipelinePlugin from '../../../plugins/filters/HSLAdjust/HslAdjustPipeline'
 
+import Plane from "../../../classes/physic/Background";
+
 import {
-  background,
-  firstplane,
-  secondfirstplane,
-  secondplane,
-  firstplane_nb,
-  secondfirstplane_nb,
-  secondplane_nb,
-  testnb,
+  word_1_plane_1,
+  word_1_plane_2,
+  word_1_plane_3,
+  word_1_plane_1_nb,
+  word_1_plane_2_nb,
+  word_1_plane_3_nb,
+  plane_test,
   mask,
-  maskblue,
   maskpink,
   maskpurple,
   maskred,
@@ -26,59 +24,91 @@ import Background from "../../../classes/physic/Background";
 
 export class TestSceneBackground extends Phaser.Scene {
   private background?: Background;
-  private pink : number =  0xff7fd5
-  private purple: number =  0x5e24d8
-  private blue: number =  0x5485ff
-  private red: number =  0xf64b4b
+  private pink : number =  0xFF00AB
+  private blue: number =  0x2B3AFF
+  private purple: number =  0x6A23FF
+  private red: number =  0xff0b0b
   private white: number = 0xffffff;
+  private mask: any;
+  private shapemask: any;
+  private test: number = 1;
 
   constructor() {
     super(config);
   }
 
   public preload(): void {
-    this.load.image("firstplane", firstplane);
-    this.load.image("secondplane", secondplane);
-    this.load.image("firstplane_nb", firstplane_nb);
-    this.load.image("secondplane_nb", secondplane_nb);
-    this.load.image("testnb", testnb);
+    this.load.image("plane_test", plane_test);
+    this.load.image("firstplane", word_1_plane_1);
+
+    this.load.image("secondplane", word_1_plane_2);
+    this.load.image("thirdplane", word_1_plane_3);
+    this.load.image("firstplane_nb", word_1_plane_1_nb);
+    this.load.image("secondplane_nb", word_1_plane_2_nb);
+    this.load.image("thirdplane_nb", word_1_plane_3_nb);
+
     this.load.image("mask", mask);
-    this.load.image("maskblue", maskblue);
     this.load.image("maskred", maskred);
     this.load.image("maskpurple", maskpurple);
     this.load.image("maskpink", maskpink);
-
-    // @ts-ignore
-    // let customPipeline = this.game.renderer.addPipeline('Grayscale', new GrayscalePipeline(this.game));
   }
 
-  public create() {
-    //     
+  public create() {    
+    // let grayScalePipeline = new GrayScalePipelinePlugin(this, 'rexGrayScalePipeline', config);
+    // grayScalePipeline.intensity = 1;
+    let plane_nb = new Plane(this, 600, 400, "plane_test", 1, false)
+
+    this.shapemask = this.make.image({
+      x: 150,
+      y: 300,
+      key: 'mask',
+      add: true
+    }).setTint(this.blue).setBlendMode('SCREEN').setDepth(10);
+
+    Align.left(this.shapemask)
+    Align.bottom(this.shapemask)
+
+    // let plane_color = new Plane(this, 600, 400, "firstplane", 1, false, this.shapemask)
+
+
+
+    // let first_plane_nb = new Plane(this, 600, 400, "firstplane", 3, true, this.shapemask)
+    // let second_plane_nb = new Plane(this, 600, 400, "secondplane", 2, true, this.shapemask)
+    // let third_plane_nb = new Plane(this, 600, 400, "thirdplane", 1, true, this.shapemask)
+
+    // plane_color.mask = new Phaser.Display.Masks.BitmapMask(this, this.shapemask);
+
+    //    
     //    USE PIPELINE TO SET SPRITES BLACK AND WHITE 
     //    POSSIBILITY TO SET INTENSITY
     //     
-    // let testSprite = this.add.sprite(500, 400, "firstplane")
-    
-    // let grayScalePipeline = new GrayScalePipelinePlugin(this, 'rexGrayScalePipeline', config);
-    // grayScalePipeline.intensity = 0.7;
+     
+    // let testSprite = this.physics.add.sprite(500, 400, "firstplane")
+
     // testSprite.setPipeline('rexGrayScalePipeline')
 
+    // let firstplane_color = this.physics.add.sprite(500, 400, "firstplane").setDepth(2)
+
+    // let firstplane_nb = this.physics.add.sprite(500, 400, "firstplane").setDepth(1)
+    
+    // Align.scaleToGameW(firstplane_color, 1)
+    // Align.centerV(firstplane_color)
+    // Align.right(firstplane_color)
+
+    // Align.scaleToGameW(firstplane_nb, 1)
+    // Align.centerV(firstplane_nb)
+    // Align.right(firstplane_nb)
 
     //     
     //    USE PIPELINE
     //    POSSIBILITY 
     //     
-    // let HslAdjustPipeline = new HslAdjustPipelinePlugin(this, 'HslAdjustPipelinePlugin', config);
     
-    // testSprite.setPipeline('HslAdjustPipelinePlugin')
+    // let testNb = this.add.sprite(200, 400, "testnb")
 
-    // this.cameras.main.setRenderToTexture(customPipeline);
-
-    let testNb = this.add.sprite(200, 400, "testnb")
-
-    Align.scaleToGameW(testNb, 1)
-    Align.centerV(testNb)
-    Align.left(testNb)
+    // Align.scaleToGameW(testNb, 1)
+    // Align.centerV(testNb)
+    // Align.left(testNb)
 
     // let firstplaneSprite = this.add.sprite(500, 400, "firstplane_nb")
     // firstplaneSprite
@@ -88,14 +118,12 @@ export class TestSceneBackground extends Phaser.Scene {
     // Align.centerV(firstplaneSprite)
     // Align.centerH(firstplaneSprite)
 
-    let shape = this.make.image({
-      x: 300,
-      y: 300,
-      key: 'maskblue',
-      add: true
-    })
-      .setBlendMode('ADD')
-      // .setAlpha(0.1)
+    // let shape = this.make.image({
+    //   x: 300,
+    //   y: 300,
+    //   key: 'maskblue',
+    //   add: false
+    // })
 
     // let shape2 = this.make.image({
     //   x: 300,
@@ -115,25 +143,15 @@ export class TestSceneBackground extends Phaser.Scene {
     // Align.centerV(shape)
     // Align.left(shape)
     
-    // let mask = this.make.image({
-    //   x: 300,
-    //   y: 300,
-    //   key: 'mask',
-    //   add: false
-    // });
+    // firstplane_color.setMask(mask); // image.mask = mask;
 
     // Align.scaleToGameH(mask, 1)
-    // Align.centerV(mask)
-    // Align.left(mask)
 
     // mask.setBlendMode('SCREEN')
 
-    // console.log(shape)
-
-    // shape.mask = new Phaser.Display.Masks.BitmapMask(this, mask);
+    // firstplane_color.mask = new Phaser.Display.Masks.BitmapMask(this, mask);
 
     // shape.setBlendMode('SCREEN')
-
 
     // mask.setBlendMode('SCREEN')
 
@@ -143,8 +161,6 @@ export class TestSceneBackground extends Phaser.Scene {
     //   key: 'firstplane_nb',
     //   add: true
     // });
-
-
 
     // firstplaneSprite.setMask(mask); // image.mask = mask;
 
@@ -181,6 +197,10 @@ export class TestSceneBackground extends Phaser.Scene {
   }
 
   public update() {
+    // this.shapemask.setScale(this.test)
+    // this.mask = this.shapemask.createBitmapMask();
+
+    // this.mask.setScale(0.5)
     // if (this.background) {
     //   this.background.moveBackground();
     // }

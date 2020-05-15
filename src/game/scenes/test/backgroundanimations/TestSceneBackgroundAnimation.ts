@@ -1,14 +1,12 @@
 import config from "./config";
 import Align from '../../../classes/utils/align';
-// first test
-// import GrayscalePipeline from '../../../classes/filters/GrayscalePipeline';
-
 import {
   word_1_plane_1,
   word_1_plane_2,
   word_1_plane_3,
 } from "../../../assets";
-import Background from "../../../classes/physic/Background";
+
+import Plane from "../../../classes/physic/Background";
 
 export class TestSceneBackgroundAnimation extends Phaser.Scene {
   private pink : number =  0xff7fd5
@@ -28,22 +26,26 @@ export class TestSceneBackgroundAnimation extends Phaser.Scene {
   }
 
   public create() {
-    let firstplane = this.physics.add.sprite(600, 400, "firstplane").setDepth(3).setScale(0.5)
-    Align.left(firstplane)
-    Align.bottom(firstplane)
-    let secondplane = this.physics.add.sprite(400, 400, "secondplane").setDepth(2).setScale(0.5)
-    Align.left(secondplane)
-    Align.bottom(secondplane)
-    let thirdplane = this.physics.add.sprite(200, 400, "thirdplane").setDepth(1).setScale(0.5)
-    Align.left(thirdplane)
-    Align.bottom(thirdplane)
+    // let plane = new Plane(this, 600, 400, "firstplane")
 
-    const firstplanebody = firstplane.body as Phaser.Physics.Arcade.Body;
-    firstplanebody.setVelocityX(-100);
-    const secondplanebody = secondplane.body as Phaser.Physics.Arcade.Body;
-    secondplanebody.setVelocityX(-60);
-    const thirdplanebody = thirdplane.body as Phaser.Physics.Arcade.Body;
-    thirdplanebody.setVelocityX(-20);
+    // let firstplane = this.physics.add.sprite(600, 400, "firstplane")
+
+    // let secondplane = this.physics.add.sprite(400, 400, "secondplane").setDepth(2).setScale(0.5)
+    // Align.left(secondplane)
+    // Align.bottom(secondplane)
+    // let thirdplane = this.physics.add.sprite(200, 400, "thirdplane").setDepth(1).setScale(0.5)
+    // Align.left(thirdplane)
+    // Align.bottom(thirdplane)
+
+    // console.log(firstplane)
+    // console.log(firstplane.body)
+    // const firstplanebody = firstplane.body as Phaser.Physics.Arcade.Body;
+    // console.log(firstplanebody)
+    // firstplanebody.setVelocityX(-100);
+    // const secondplanebody = secondplane.body as Phaser.Physics.Arcade.Body;
+    // secondplanebody.setVelocityX(-60);
+    // const thirdplanebody = thirdplane.body as Phaser.Physics.Arcade.Body;
+    // thirdplanebody.setVelocityX(-20);
   }
 
   public update() {
