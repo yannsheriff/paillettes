@@ -18,11 +18,13 @@ import DragQueen from "../../classes/physic/DragQueen";
 import Ground from "../../classes/physic/Ground";
 import SheetMusic from "../../classes/component/sheet-music";
 import gameConfig from "../../config";
+import ScoreManager from "../../../services/score";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
   private CharacterManager: CharacterManager;
   private background?: Background;
+  private scoreManager: ScoreManager;
   private ground?: Phaser.GameObjects.Image;
   private grid?: Phaser.GameObjects.Image;
   private dragQueen: any; // to do
@@ -30,6 +32,7 @@ export class GameScene extends Phaser.Scene {
   constructor() {
     super(config);
     this.CharacterManager = new CharacterManager();
+    this.scoreManager = ScoreManager.getInstance();
   }
 
   public preload(): void {
@@ -54,10 +57,15 @@ export class GameScene extends Phaser.Scene {
    *
    */
   handleCharacterOverlap = (character: Arrow) => {
+    console.log("overlap ? ");
+
     if (this.CharacterManager.isCharacterSuccesfull(character.id)) {
       character.setVelocity(0);
       character.setAcceleration(0);
       character.setPosition(this.score * 50 + 50, 50);
+      this.scoreManager.registerCharactere();
+      console.log("bonus perso: ", this.scoreManager.score);
+
       this.score += 1;
     }
   };

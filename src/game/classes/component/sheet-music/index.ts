@@ -10,6 +10,7 @@ import CharacterManager from "../../logic/CharacterManager";
 import zelda from "./zelda.json";
 import Arrow from "../../physic/Arrow";
 import { delay, promiseGenerator } from "../../../../services/stepEventEmitter";
+import ScoreManager from "../../../../services/score";
 
 export type Direction = "left" | "right" | "up" | "down";
 
@@ -19,13 +20,18 @@ class SheetMusic {
   public characterManager: CharacterManager;
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
+  private scoreManager: ScoreManager;
+  private score?: Phaser.GameObjects.Text;
   private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
   private inputZoneWidth = 120;
   private inputPerfectZoneWidth = 70;
-  private arrowSpeed = 100;
+  private arrowSpeed = 170;
   private posX: number;
   private posY: number;
+  private halfGoodZoneWidth: number;
+  private timeToGood: number;
+  private timeToPerfect: number;
 
   constructor(
     scene: Phaser.Scene,
@@ -41,29 +47,27 @@ class SheetMusic {
     this.characters = [];
     this.arrowEmitter = new EventEmitter();
     this.promiseGenerator = new promiseGenerator();
+    this.scoreManager = ScoreManager.getInstance();
+    this.halfGoodZoneWidth =
+      (this.inputZoneWidth - this.inputPerfectZoneWidth) / 2;
+    this.timeToPerfect = (this.halfGoodZoneWidth / this.arrowSpeed) * 1000;
+    this.timeToGood =
+      ((this.halfGoodZoneWidth + this.inputPerfectZoneWidth) /
+        this.arrowSpeed) *
+      1000;
+
     // new Grid(scene, this.posX, this.posY);
     this.create();
   }
 
-  /*
-   * Initialisation des handler
-   * utilisation des fonctions overlap
+  /**
+   * Initialisation
+   *
+   * Cette fonction initiallise et ajoute tout les objets a la
+   * scene, elle initialise également l'event listener des notes.
    */
   create = () => {
-    // this.arrowEmitter.on("note", this.throttleArrow);
-
-    setInterval(() => {
-      this.createArrow(1, {
-        track: 1,
-        duration: 1,
-        durationTicks: 1,
-        midi: 1,
-        name: "G4",
-        ticks: 1,
-        time: 1,
-        velocity: 1,
-      });
-    }, 5000);
+    this.arrowEmitter.on("note", this.throttleArrow);
 
     const inputZone = this.scene.add.image(
       this.posX + 60,
@@ -71,6 +75,12 @@ class SheetMusic {
       "zoneInput"
     ) as any;
     this.scene.physics.add.existing(inputZone);
+
+    this.score = this.scene.add.text(
+      this.posX - this.inputZoneWidth,
+      this.posY,
+      "0"
+    );
 
     this.scene.physics.add.overlap(
       this.arrows,
@@ -81,8 +91,7 @@ class SheetMusic {
     );
 
     /*
-     * Start Music
-     * temporairement un event on click
+     * Start Music temporairement un event on click
      */
     document.addEventListener("click", (e) => {
       this.player = new MusicPlayer(zelda, this.arrowEmitter);
@@ -90,65 +99,19 @@ class SheetMusic {
     });
   };
 
-  /*
+  /**
+   * Create an arrow
    *
-   * handleArrowOverlap
-   * register arrow if succesfull
-   *
-   */
-  handleArrowOverlap = (arrow: Arrow) => {
-    if (!arrow.didCollide) {
-      arrow.didCollide = true;
-
-      const halfHitboxTime =
-        ((arrow.width * arrow.scale) / this.arrowSpeed) * 1000;
-
-      const goodZoneLeftWidth =
-        (this.inputZoneWidth - this.inputPerfectZoneWidth) / 2;
-
-      const timeToPerfect = (goodZoneLeftWidth / this.arrowSpeed) * 1000;
-
-      const timeToGood =
-        ((goodZoneLeftWidth + this.inputPerfectZoneWidth) / this.arrowSpeed) *
-        1000;
-
-      const timeToExit =
-        (this.inputZoneWidth / this.arrowSpeed) * 1000 + halfHitboxTime;
-
-      const stepPromise = this.promiseGenerator.getPromise();
-
-      const startTime = new Date().getTime();
-
-      Promise.race([delay(timeToExit), stepPromise]).then(
-        (winningPromise: string) => {
-          if (winningPromise.includes(arrow.direction)) {
-            const time = new Date().getTime() - startTime;
-            if (time > timeToPerfect && time < timeToGood) {
-              console.log("perfect");
-            }
-
-            this.characterManager.registerSuccesfullArrow(arrow.id);
-            arrow.destroy();
-          }
-        }
-      );
-    }
-  };
-
-  /*
-   *
-   * Event loop (trigger arrows)
-   * Lors d'un evenement "note" on crée une flèche
-   *
+   * Cette fonction crée une flèche et l'ajoute a la scène.
    */
   createArrow = (calls: number, note: NoteWithTrack) => {
     const nbOfArrow = calls > 1 ? 2 : 1;
-    const directions = this.createArrowsDirections(note.name, nbOfArrow);
+    const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
 
     directions.forEach((direction) => {
       const { shouldLaunchCharacter, ID } = this.characterManager.getArrowID();
-      const element = new Arrow(this.scene, ID, this.arrowSpeed, direction);
-      this.arrows.push(element);
+      const arrow = new Arrow(this.scene, ID, this.arrowSpeed, direction);
+      this.arrows.push(arrow);
       if (shouldLaunchCharacter) {
         const char = new PhysicCharacter(this.scene, ID);
         this.characters.push(char);
@@ -156,7 +119,63 @@ class SheetMusic {
     });
   };
 
-  createArrowsDirections = (note: string, quantity: number): Direction[] => {
+  /**
+   * A la collision
+   *
+   * Cette fonction fait les action suivantes lors de la premiere collison
+   * - Lance une course entre la sortie de la zone d'input et l'appui sur une flèche
+   * - Si on appuie sur la bonne flèche alors :
+   *  * on enregistre les point
+   *  * on supprime la flèche
+   */
+  private handleArrowOverlap = (arrow: Arrow) => {
+    if (!arrow.didCollide) {
+      arrow.didCollide = true;
+
+      const timeToFail = this.calculateTimeToExit(arrow.width, arrow.scale);
+      const stepPromise = this.promiseGenerator.getPromise();
+      const startTime = new Date().getTime();
+
+      Promise.race([delay(timeToFail), stepPromise]).then(
+        (winningPromise: string) => {
+          if (winningPromise.includes(arrow.direction)) {
+            const time = new Date().getTime() - startTime;
+            if (time > this.timeToPerfect && time < this.timeToGood) {
+              this.scoreManager.registerPerfectArrow();
+            } else {
+              this.scoreManager.registerGoodArrow();
+            }
+
+            this.characterManager.registerSuccesfullArrow(arrow.id);
+            arrow.destroy();
+            this.score!.setText(this.scoreManager.score.toString());
+          }
+        }
+      );
+    }
+  };
+
+  /**
+   * Helper fonction
+   *
+   * Elle permet de caluculer le temps pour sortir de la zone d'input
+   * en fonction de la taille des flèches
+   */
+  private calculateTimeToExit(arrowWidth: number, arrowScale: number): number {
+    const halfHitboxTime = ((arrowWidth * arrowScale) / this.arrowSpeed) * 1000;
+    return (this.inputZoneWidth / this.arrowSpeed) * 1000 + halfHitboxTime;
+  }
+
+  /**
+   * Return directions from note.
+   *
+   * This function take a single note in param and a a quantity. Then it return
+   * directions extraoplated from the note.
+   */
+  private generateDirectionFromNotes = (
+    note: string,
+    quantity: number
+  ): Direction[] => {
     const directionTable: {
       0: Direction;
       1: Direction;
@@ -170,21 +189,19 @@ class SheetMusic {
     };
 
     if (this.player) {
+      const direction = this.player.noteMap.get(note)!;
       if (quantity <= 1) {
-        return [directionTable[this.player.noteMap.get(note)!]];
+        return [directionTable[direction]];
       }
 
       const arrayOfDirection: Array<1 | 2 | 3 | 0> = [0, 1, 2, 3];
       const arrayOfDirectionWithoutPrevious = arrayOfDirection.filter(
-        (d) => d !== this.player!.noteMap.get(note)!
+        (d) => d !== direction
       );
-      const secondNoteDirection =
+      const randomNoteDirection =
         arrayOfDirectionWithoutPrevious[Math.floor(Math.random() * 3)];
 
-      return [
-        directionTable[this.player.noteMap.get(note)!],
-        directionTable[secondNoteDirection],
-      ];
+      return [directionTable[direction], directionTable[randomNoteDirection]];
     }
 
     return ["right"];

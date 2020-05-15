@@ -12,7 +12,7 @@ class Arrow extends Phaser.Physics.Arcade.Sprite {
     speed: number,
     direction?: Direction,
     //TODO : calculate start posdtion from velocity and grid size
-    x: number = window.innerWidth - 600,
+    x: number = window.innerWidth,
     y: number = window.innerHeight + 275
   ) {
     if (!direction) {
