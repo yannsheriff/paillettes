@@ -32,6 +32,8 @@ interface Track {
   notes: Note[];
 }
 
+export const NOTE_DELAY = 5000;
+
 /**
  * Permet de de reduire le nombre d'evenement qui appel une callback
  * @param delay le temps min entre deux appel à la callback.
@@ -53,20 +55,6 @@ export function throttle(delay: number, fn: (...args: any) => unknown) {
     lastCall = now;
     called = true;
     return fn(requestCount, ...args);
-  };
-}
-
-/**
- * Permet de gérer le delaie entre l'evenement note et l'appel a une callBack
- * @param delay le delay entre l'evenement et l'appel a une callBack en ms.
- * @param fn une function de callback appelé x ms apres l'envenement.
- */
-export function noteDelay(delay: number, fn: (...args: any) => unknown) {
-  const time = 5000 - delay;
-  return function (...args: any) {
-    setTimeout(() => {
-      return fn(...args);
-    }, time);
   };
 }
 
@@ -105,9 +93,10 @@ export default class MusicPlayer {
       }));
 
       if (track.name === "main") {
+        const delay = NOTE_DELAY / 1000;
         const mappedTimings = NotesWithTrack.map((note: Note) => ({
           ...note,
-          time: note.time - 5,
+          time: note.time - delay,
         }));
         new Tone.Part(this.sendEvent, mappedTimings).start(0);
         new Tone.Part(this.playNote, NotesWithTrack).start(0);

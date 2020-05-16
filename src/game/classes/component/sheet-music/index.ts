@@ -3,8 +3,8 @@ import PhysicCharacter from "../../physic/Character";
 import { EventEmitter } from "events";
 import MusicPlayer, {
   throttle,
-  noteDelay,
   NoteWithTrack,
+  NOTE_DELAY,
 } from "../../../../services/music";
 import CharacterManager from "../../logic/CharacterManager";
 import zelda from "./zelda.json";
@@ -24,9 +24,11 @@ class SheetMusic {
   private score?: Phaser.GameObjects.Text;
   private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
+  private sheetWidth: number;
+  private noteDelay: number;
   private inputZoneWidth = 120;
   private inputPerfectZoneWidth = 70;
-  private arrowSpeed = 170;
+  private arrowSpeed = 200;
   private posX: number;
   private posY: number;
   private halfGoodZoneWidth: number;
@@ -48,6 +50,8 @@ class SheetMusic {
     this.arrowEmitter = new EventEmitter();
     this.promiseGenerator = new promiseGenerator();
     this.scoreManager = ScoreManager.getInstance();
+    this.sheetWidth = window.innerWidth - x - this.inputZoneWidth;
+    this.noteDelay = Math.round((this.sheetWidth / this.arrowSpeed) * 1000);
     this.halfGoodZoneWidth =
       (this.inputZoneWidth - this.inputPerfectZoneWidth) / 2;
     this.timeToPerfect = (this.halfGoodZoneWidth / this.arrowSpeed) * 1000;
@@ -207,7 +211,16 @@ class SheetMusic {
     return ["right"];
   };
 
-  delayArrow = noteDelay(4700, this.createArrow);
+  /**
+   * Permet de gérer le delaie entre l'evenement note et l'appel
+   * a la creation de la flèche
+   */
+  delayArrow = (calls: number, note: NoteWithTrack) => {
+    const time = NOTE_DELAY - this.noteDelay;
+    setTimeout(() => {
+      return this.createArrow(calls, note);
+    }, time);
+  };
 
   throttleArrow = throttle(200, this.delayArrow);
 }
