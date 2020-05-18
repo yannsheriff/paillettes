@@ -17,7 +17,7 @@ declare global {
         changeAnimationSpeed(number: number): void
         changeSlotColor(slotname: string, r: number, v: number, b: number): void
         changeSkin(skinname: string): void
-        applyDefaultSkin(): void
+        applyDefaultSkin(defaultSkin: boolean): void
     }
 }
 
@@ -89,10 +89,15 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
         this.SpineGameObject.setSkinByName(skinname)
     }
 
-    public applyDefaultSkin() {
-        // [0] is 'default'
-        // we want [1] to get 'Color1'
-        this.changeSkin(this.skinsList[1])
+    public applyDefaultSkin(defaultSkin: boolean) {
+        if (defaultSkin) {
+            // [0] is 'default'
+            // we want [1] to get 'Color1'
+            this.changeSkin(this.skinsList[1])
+        } else {
+            let rand = Math.floor(Math.random() * (this.skinsList.length - 1) + 1)
+            this.changeSkin(this.skinsList[rand])
+        }
     }
 
     public findSlot(slotname: string) {
