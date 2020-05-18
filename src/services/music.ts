@@ -105,10 +105,17 @@ export default class MusicPlayer {
         new Tone.Part(this.playNote, NotesWithTrack).start(0);
       }
     });
+
+    Tone.Transport.scheduleRepeat((time) => {
+      this.sendTick(time);
+    }, "4n");
   };
 
   private sendEvent = (time: number, event: NoteWithTrack) => {
     this.emitter.emit("note", event);
+  };
+  private sendTick = (time: number) => {
+    this.emitter.emit("tick", time);
   };
 
   // const ocataveList = map.map((note) => note.match(/\d+/)![0]);

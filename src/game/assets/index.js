@@ -7,3 +7,5 @@ export { default as arrowU } from "./arrows/arrowUp.svg";
 export { default as arrowD } from "./arrows/arrowDown.svg";
 export { default as grid } from "./Interaction/grid.png";
 export { default as zoneInput } from "./Interaction/ZoneInput.png";
+export { default as verticalLine } from "./Interaction/ligneVertical.jpg";
+export { default as glow } from "./Interaction/glow.png";

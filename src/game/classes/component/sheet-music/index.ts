@@ -1,5 +1,6 @@
-import Grid from "../../physic/Grid";
+import Grid from "../../physic/SheetVerticalBar";
 import PhysicCharacter from "../../physic/Character";
+import SheetVerticalBar from "../../physic/SheetVerticalBar";
 import { EventEmitter } from "events";
 import MusicPlayer, {
   throttle,
@@ -34,6 +35,7 @@ class SheetMusic {
   private halfGoodZoneWidth: number;
   private timeToGood: number;
   private timeToPerfect: number;
+  private glow?: Phaser.Physics.Arcade.Sprite;
 
   constructor(
     scene: Phaser.Scene,
@@ -73,12 +75,37 @@ class SheetMusic {
   create = () => {
     this.arrowEmitter.on("note", this.throttleArrow);
 
+    this.glow = this.scene.physics.add.sprite(
+      this.posX + 63,
+      this.posY + 40,
+      "glow"
+    );
+    this.glow.setScale(0.5);
+    this.scene.anims.create({
+      key: "left",
+      frames: this.scene.anims.generateFrameNumbers("glow", {
+        start: 0,
+        end: 16,
+      }),
+      frameRate: 21,
+      repeat: 0,
+    });
+
     const inputZone = this.scene.add.image(
       this.posX + 60,
       this.posY,
       "zoneInput"
     ) as any;
     this.scene.physics.add.existing(inputZone);
+
+    new SheetVerticalBar(
+      this.scene,
+      window.innerWidth,
+      undefined,
+      this.arrowEmitter,
+      inputZone,
+      this.arrowSpeed
+    );
 
     this.score = this.scene.add.text(
       this.posX - this.inputZoneWidth,
@@ -149,7 +176,7 @@ class SheetMusic {
             } else {
               this.scoreManager.registerGoodArrow();
             }
-
+            this.glow!.anims.play("left");
             this.characterManager.registerSuccesfullArrow(arrow.id);
             arrow.destroy();
             this.score!.setText(this.scoreManager.score.toString());
