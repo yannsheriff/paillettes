@@ -13,7 +13,7 @@ class CharacterBis extends SpineContainer {
   ) {
     super(scene, x, y, key, anim, loop)
     this.SpineContainer = scene.add.spineContainer(x, y, key, anim, loop)
-
+    console.log(this.SpineContainer.spine)
     // apply default skin to character
     this.SpineContainer.applyDefaultSkin()
     this.setScale(1) // container and hitbox size

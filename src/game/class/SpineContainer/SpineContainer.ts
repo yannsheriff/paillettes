@@ -14,6 +14,7 @@ declare global {
         playAnimation(animationname: string, loop: boolean): void
         allowCollideWorldBounds(bool: boolean): void
         runVelocity(number: number): void
+        changeAnimationSpeed(number: number): void
         changeSlotColor(slotname: string, r: number, v: number, b: number): void
         changeSkin(skinname: string): void
         applyDefaultSkin(): void
@@ -63,6 +64,10 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
 
     public drawDebug(bool: boolean) {
         this.SpineGameObject.drawDebug = bool;
+    }
+
+    public changeAnimationSpeed(speed: number) {
+        this.SpineGameObject.state.timeScale = speed;
     }
 
     public allowCollideWorldBounds(bool: boolean) {

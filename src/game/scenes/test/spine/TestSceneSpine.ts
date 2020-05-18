@@ -41,6 +41,7 @@ export class TestSceneSpine extends Phaser.Scene {
 
     let y = 100;
     let debug = true;
+    let speeds = [0.2, 0.5, 0.8, 1, 1.2, 1.5, 2]
 
     this.add
       .text(100, 20, "Debug", { fill: 'black' })
@@ -51,6 +52,18 @@ export class TestSceneSpine extends Phaser.Scene {
           this.dragQueen.SpineContainer.drawDebug(debug)
         }
       })
+
+    speeds.forEach(speed => {
+      this.add
+      .text(300, y, 'speed : ' + speed, { fill: 'black' })
+      .setInteractive()
+      .on('pointerdown', () => {
+        if (this.dragQueen) {
+          this.dragQueen.SpineContainer.changeAnimationSpeed(speed)
+        }
+      })
+      y += 25;
+    });
 
     this.dragQueen.skinsList.forEach(skin => {
       this.add
