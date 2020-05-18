@@ -1,10 +1,11 @@
 import config from "./config";
 import '../../../class/SpineContainer/SpineContainer'
 import DragQueen from "../../../classes/physic/DragQueen";
+import CharacterBis from "../../../classes/physic/CharacterBis";
 import { button, mask, persotestnb } from "../../../assets";
 
-export class TestSceneDragQueen extends Phaser.Scene {
-  private dragQueen?: DragQueen
+export class TestSceneSpine extends Phaser.Scene {
+  private dragQueen?: CharacterBis
 
   constructor() {
     super(config);
@@ -21,18 +22,22 @@ export class TestSceneDragQueen extends Phaser.Scene {
     this.load.setPath('assets/spine/character/')
     this.load.spine('character', 'character.json', 'character.atlas')
     // color change slots test
-    this.load.setPath('assets/spine/moyenage/')
+    this.load.setPath('assets/spine/world1/')
     this.load.spine('world_1_girl', 'world_1_girl.json', 'world_1_girl.atlas')
     // skin change test
-    this.load.setPath('assets/spine/moyenage/')
+    this.load.setPath('assets/spine/world1/')
     this.load.spine('world_1_girl_color', 'world_1_girl_color.json', 'world_1_girl_color.atlas')
-    // skin change test
-    this.load.setPath('assets/spine/moyenage/')
+    // skin change pant
+    this.load.setPath('assets/spine/world1/')
     this.load.spine('world_1_girl_pant', 'world_1_girl_pant.json', 'world_1_girl_pant.atlas')
+    // skin animation
+    this.load.setPath('assets/spine/world1/')
+    this.load.spine('world_1_girl_animation', 'world_1_girl_animation.json', 'world_1_girl_animation.atlas')
   }
 
   public create() {
-    this.dragQueen = new DragQueen(this, 700, 500, 'world_1_girl_pant', 'run', false)
+    // this.dragQueen = new DragQueen(this, 700, 500, 'world_1_girl_pant', 'run', false)
+    this.dragQueen = new CharacterBis(this, 700, 500, 'world_1_girl_animation', 'run', false)
 
     let y = 100;
     let debug = true;
@@ -88,4 +93,4 @@ export class TestSceneDragQueen extends Phaser.Scene {
   }
 }
 
-export default TestSceneDragQueen;
+export default TestSceneSpine;

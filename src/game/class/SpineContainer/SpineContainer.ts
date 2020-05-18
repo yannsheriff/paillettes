@@ -16,6 +16,7 @@ declare global {
         runVelocity(number: number): void
         changeSlotColor(slotname: string, r: number, v: number, b: number): void
         changeSkin(skinname: string): void
+        applyDefaultSkin(): void
     }
 }
 
@@ -43,8 +44,6 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
     get slotList() {
         return this.SpineGameObject.getSlotList();
     }
-
-
 
     constructor(scene: Phaser.Scene, x: number, y: number, key: string, anim: string, loop = false, id?: string) {
         super(scene, x, y)
@@ -83,9 +82,13 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
 
     public changeSkin(skinname: string) {
         this.SpineGameObject.setSkinByName(skinname)
-
     }
 
+    public applyDefaultSkin() {
+        // [0] is 'default'
+        // we want [1] to get 'Color1'
+        this.changeSkin(this.skinsList[1])
+    }
 
     public findSlot(slotname: string) {
         return this.SpineGameObject.findSlot(slotname)

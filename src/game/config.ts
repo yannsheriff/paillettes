@@ -3,7 +3,7 @@ import 'phaser/plugins/spine/dist/SpinePlugin'
 
 import MainScene from "./scenes/main";
 import TestScene from "./scenes/test";
-import TestSceneDragQueen from "./scenes/test/dragqueen";
+import TestSceneSpine from "./scenes/test/spine";
 import TestSceneBackground from "./scenes/test/backgroundcolor";
 import TestSceneBackgroundAnimation from "./scenes/test/backgroundanimations";
 
@@ -27,7 +27,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: true
     }
   },
-  scene: [TestScene, TestSceneDragQueen, TestSceneBackground, TestSceneBackgroundAnimation],
+  scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneBackgroundAnimation],
   plugins: {
     scene: [
       { key: 'SpinePlugin', plugin: window.SpinePlugin, mapping: 'spine' }

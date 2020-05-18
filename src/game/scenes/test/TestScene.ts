@@ -9,12 +9,12 @@ export class TestScene extends Phaser.Scene {
   }
 
   public create() {
-    this.scene.start('TestSceneBackground');
+    this.scene.start('TestSceneSpine');
     this.add
-      .text(100, 200, 'Test Drag Queen', { fill: 'white' })
+      .text(100, 200, 'Test Spine', { fill: 'white' })
       .setInteractive()
       .on('pointerdown', () => {
-        this.scene.start('TestSceneDragQueen');
+        this.scene.start('TestSceneSpine');
       })
     this.add
       .text(100, 300, 'Test Background', { fill: 'white' })
