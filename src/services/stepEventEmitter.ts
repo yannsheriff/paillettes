@@ -18,6 +18,27 @@ export const stepEventPromise = (): Promise<string> =>
     );
   });
 
+export class promiseGenerator {
+  private resolvers: Array<(direction: string) => void> = [];
+
+  constructor() {
+    stepEventEmitter.on(StepEventType.stepdown, this.resolvePromise);
+  }
+
+  private resolvePromise = (...directions: Array<Direction>) => {
+    this.resolvers.forEach((resolve) => resolve(directions.join(" ")));
+    this.resolvers = [];
+  };
+
+  public getPromise = (): Promise<string> => {
+    return new Promise(this.defineResolver);
+  };
+
+  private defineResolver = (resolve: () => void) => {
+    this.resolvers.push(resolve);
+  };
+}
+
 export class StepEventEmitter extends EventEmitter {
   constructor() {
     super();
@@ -27,5 +48,4 @@ export class StepEventEmitter extends EventEmitter {
 }
 
 const stepEventEmitter = new StepEventEmitter();
-
 export default stepEventEmitter;

@@ -1,4 +1,4 @@
-import '../../../class/SpineContainer/SpineContainer'
+import "../SpineContainer/SpineContainer";
 
 class DragQueen {
   public dragQueen: any;
@@ -10,12 +10,12 @@ class DragQueen {
     anim: string,
     loop?: boolean
   ) {
-    this.dragQueen = scene.add.spineContainer(x, y, key, anim, loop)
-    this.dragQueen.setScale(0.6)
-    const body = this.dragQueen.body as Phaser.Physics.Arcade.Body
-    body.setCollideWorldBounds(true)
-    this.dragQueen.setPhysicsSize(body.width * 0.5, body.height * 0.9)
-    this.dragQueen.playAnimation('run', true)
+    this.dragQueen = scene.add.spineContainer(x, y, key, anim, loop);
+    this.dragQueen.setScale(0.6);
+    const body = this.dragQueen.body as Phaser.Physics.Arcade.Body;
+    body.setCollideWorldBounds(true);
+    this.dragQueen.setPhysicsSize(body.width * 0.5, body.height * 0.9);
+    this.dragQueen.playAnimation("run", true);
   }
 }
 

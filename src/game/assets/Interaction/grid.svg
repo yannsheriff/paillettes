@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1123" height="158" viewBox="0 0 1123 158">
+  <defs>
+    <linearGradient id="lignehorizontale@3x-a" x1="100%" x2="0%" y1="50%" y2="50%">
+      <stop offset="0%" stop-color="#FFF" stop-opacity="0"/>
+      <stop offset="32.258%" stop-color="#FFF"/>
+      <stop offset="100%" stop-color="#FFF"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#lignehorizontale@3x-a)" fill-rule="evenodd" opacity=".196">
+    <polygon points=".338 0 1123.479 0 1123.479 3 .338 3"/>
+    <polygon points="37.782 52 1123.479 52 1123.479 55 37.782 55"/>
+    <polygon points="38.595 103 1123.479 103 1123.479 106 38.595 106"/>
+    <polygon points="1.159 155 1123.479 155 1123.479 158 1.159 158"/>
+  </g>
+</svg>
