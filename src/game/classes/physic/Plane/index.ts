@@ -5,6 +5,7 @@ export enum PlaneDepth { 'first' = 1, 'second' = 2, 'third' = 3 }
 class Plane extends Phaser.GameObjects.Sprite {
   private planeBody: Phaser.Physics.Arcade.Body;
   private plane: PlaneDepth
+  private speed: number
 
   // FIRST PLANE = 3
   // SECOND PLANE = 2
@@ -15,36 +16,55 @@ class Plane extends Phaser.GameObjects.Sprite {
     y: number = 0,
     texture: string = '',
     plane: PlaneDepth,
+    speed: number = 1
   ) {
-      super(scene, x, y, texture);
+    super(scene, x, y, texture);
 
-      this.plane = plane
-      
-      this.setDepth(plane)
+    let { width, height } = scene.sys.game.canvas;
 
-      scene.add.existing(this)
-      scene.physics.add.existing(this)
+    this.plane = plane
+    this.speed = speed
 
-      this.setScale(0.7)
-      Align.left(this)
-      Align.bottom(this)
-      
-      this.planeBody = this.body as Phaser.Physics.Arcade.Body;
-      
-      this.planeBody.world.on('worldbounds', function(body: any) {
-        // Check if the body's game object is the sprite you are listening for
-        // if (body.gameObject === this) {
-        //   // Stop physics and render updates for this object
-        //   this.setActive(false);
-        //   this.setVisible(false);
-        // }
-      }, this.planeBody);
+    this.setDepth(plane)
 
-      this.movePlane()
+    scene.add.existing(this)
+    scene.physics.add.existing(this)
+
+    this.setScale(0.7)
+    Align.left(this)
+    Align.bottom(this)
+
+    this.planeBody = this.body as Phaser.Physics.Arcade.Body;
+
+    const timeToExitCanvas = this.calculateTimeToExit(this.width, this.scale, 3 * this.speed, width)
+    // console.log((timeToExitCanvas))
+    setTimeout(() => {
+      console.log('destroy')
+      this.destroy(true)
+    }, timeToExitCanvas)
+
+    this.movePlane()
   }
 
   public movePlane() {
-    this.planeBody.setVelocityX(this.plane * (-30));
+    this.planeBody.setVelocityX(this.plane * (- this.speed));
+  }
+
+  /**
+   * Helper fonction
+   *
+   * Permet de calculer en sec combien de temps met
+   * le plan à sortir du canvas
+   */
+  public calculateTimeToExit(
+    planeWidth: number,
+    planeScale: number,
+    planeSpeed: number,
+    canvasWidth: number
+  ): number {
+    const v = planeSpeed
+    const d = canvasWidth + (planeWidth * planeScale) - ((planeWidth * planeScale) / 2)
+    return (d / v) * 1000
   }
 }
 
