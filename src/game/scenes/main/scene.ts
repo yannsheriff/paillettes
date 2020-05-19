@@ -65,15 +65,11 @@ export class GameScene extends Phaser.Scene {
    *
    */
   handleCharacterOverlap = (character: Arrow) => {
-    console.log("overlap ? ");
-
     if (this.CharacterManager.isCharacterSuccesfull(character.id)) {
       character.setVelocity(0);
       character.setAcceleration(0);
       character.setPosition(this.score * 50 + 50, 50);
       this.scoreManager.registerCharactere();
-      console.log("bonus perso: ", this.scoreManager.score);
-
       this.score += 1;
     }
   };

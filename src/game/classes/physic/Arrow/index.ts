@@ -10,27 +10,28 @@ class Arrow extends Phaser.Physics.Arcade.Sprite {
     scene: Phaser.Scene,
     id: string,
     speed: number,
-    direction?: Direction,
-    //TODO : calculate start posdtion from velocity and grid size
+    height: number,
+    y: number,
     x: number = window.innerWidth,
-    y: number = window.innerHeight + 275
+    direction?: Direction
+    //TODO : calculate start posdtion from velocity and grid size
   ) {
     if (!direction) {
       const directions: Array<Direction> = ["left", "right", "up", "down"];
       const row: number[] = [
-        window.innerHeight - 235,
-        window.innerHeight - 195,
-        window.innerHeight - 270,
-        window.innerHeight - 160,
+        y + (height / 4) * 0,
+        y + (height / 4) * 2,
+        y + (height / 4) * 3,
+        y + (height / 4) * 4,
       ];
       y = row[Math.floor(Math.random() * 2)];
       direction = directions[Math.floor(Math.random() * directions.length)];
     } else {
       const row = {
-        up: window.innerHeight - 270,
-        down: window.innerHeight - 235,
-        left: window.innerHeight - 195,
-        right: window.innerHeight - 160,
+        up: y,
+        down: y + (height / 3) * 1,
+        left: y + (height / 3) * 2,
+        right: y + (height / 3) * 3,
       };
       y = row[direction];
     }

@@ -6,6 +6,7 @@ class SheetVerticalBar {
   private lines: Phaser.GameObjects.Image[];
   private posY: number;
   private speed: number;
+  private scale: number;
   private inputZone: Phaser.GameObjects.Image;
   private eventEmitter: EventEmitter;
 
@@ -15,13 +16,15 @@ class SheetVerticalBar {
     y: number = 700,
     eventEmitter: EventEmitter,
     inputZone: Phaser.GameObjects.Image,
-    speed: number
+    speed: number,
+    scale: number
   ) {
     this.scene = scene;
     this.inputZone = inputZone;
     this.eventEmitter = eventEmitter;
     this.posY = y;
     this.lines = [];
+    this.scale = scale;
     this.speed = speed;
     this.create();
   }
@@ -38,7 +41,13 @@ class SheetVerticalBar {
   };
 
   private launchLine = (arg: any) => {
-    const bar = new Bar(this.scene, this.speed, window.innerWidth, undefined);
+    const bar = new Bar(
+      this.scene,
+      this.speed,
+      window.innerWidth,
+      this.posY,
+      this.scale
+    );
     this.lines.push(bar);
   };
 

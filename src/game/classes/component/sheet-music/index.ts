@@ -27,9 +27,10 @@ class SheetMusic {
   private scene: Phaser.Scene;
   private sheetWidth: number;
   private noteDelay: number;
-  private inputZoneWidth = 210 * 0.8;
+  private scale = 0.8;
+  private inputZoneWidth = 210 * this.scale;
   private inputPerfectZoneWidth = 70;
-  private arrowSpeed = 300;
+  private arrowSpeed = 350;
   private posX: number;
   private posY: number;
   private halfGoodZoneWidth: number;
@@ -72,33 +73,38 @@ class SheetMusic {
    * scene, elle initialise également l'event listener des notes.
    */
   create = () => {
-    new Grid(this.scene, this.posX + this.inputZoneWidth * 0.85, this.posY);
-
-    this.arrowEmitter.on("note", this.throttleArrow);
-
-    this.glow = this.scene.physics.add.sprite(
-      this.posX + 63,
-      this.posY + 40,
-      "glow"
+    new Grid(
+      this.scene,
+      this.posX + this.inputZoneWidth * 0.83,
+      this.posY,
+      this.scale
     );
-    this.glow.setScale(0.5);
-
     const inputZone = this.scene.add.image(
       this.posX + this.inputZoneWidth / 2,
       this.posY,
       "zoneInput"
     ) as any;
     this.scene.physics.add.existing(inputZone);
-    inputZone.setScale(0.8);
+    inputZone.setScale(this.scale);
+
+    this.glow = this.scene.physics.add.sprite(
+      this.posX + this.inputZoneWidth / 2,
+      this.posY - 3,
+      "glow"
+    );
+    this.glow.setScale(this.scale);
 
     new SheetVerticalBar(
       this.scene,
       window.innerWidth,
-      undefined,
+      this.posY,
       this.arrowEmitter,
       inputZone,
-      this.arrowSpeed
+      this.arrowSpeed,
+      this.scale
     );
+
+    this.arrowEmitter.on("note", this.throttleArrow);
 
     this.score = this.scene.add.text(
       this.posX - this.inputZoneWidth,
@@ -134,7 +140,17 @@ class SheetMusic {
 
     directions.forEach((direction) => {
       const { shouldLaunchCharacter, ID } = this.characterManager.getArrowID();
-      const arrow = new Arrow(this.scene, ID, this.arrowSpeed, direction);
+
+      // TODO ici on fait le calcule a chaque fois, on pourrais optimiser.
+      const arrow = new Arrow(
+        this.scene,
+        ID,
+        this.arrowSpeed,
+        158 * this.scale,
+        this.posY - (158 * this.scale) / 2,
+        undefined,
+        direction
+      );
       this.arrows.push(arrow);
       if (shouldLaunchCharacter) {
         const char = new PhysicCharacter(this.scene, ID);

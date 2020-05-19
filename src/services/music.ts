@@ -118,9 +118,6 @@ export default class MusicPlayer {
     this.emitter.emit("tick", time);
   };
 
-  // const ocataveList = map.map((note) => note.match(/\d+/)![0]);
-  // const ocataves = ocataveList.filter((a, b) => ocataveList.indexOf(a) === b);
-
   private createNoteMap = (track: Track) => {
     const map = track.notes.map((note) => note.name);
     const notes = map
