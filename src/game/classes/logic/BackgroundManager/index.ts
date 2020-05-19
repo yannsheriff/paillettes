@@ -8,15 +8,34 @@ class BackgroundManager {
     private purple: number = 0x6A23FF
     private red: number = 0xff0b0b
     private white: number = 0xffffff;
-    private speed: number = 60;
+    private speed: number = 120;
     private currentPlanes: Array<Plane> = [];
     private nextPlanes: Array<Plane> = [];
     private scene: Phaser.Scene
     private canvasWidth: number = 0;
     private planesAssets: Array<Array<string>> = [
-        ["firstplane_nb"],
-        ["secondplane_nb"],
-        ["thirdplane_nb"],
+        [
+            "word_1_plane_1_1",
+            "word_1_plane_1_2",
+            "word_1_plane_1_3",
+            "word_1_plane_1_4",
+        ],
+        [
+            "word_1_plane_2_1",
+            "word_1_plane_2_2",
+            "word_1_plane_2_3",
+            "word_1_plane_2_4",
+            "word_1_plane_2_5",
+            "word_1_plane_2_6",
+        ],
+        [
+            "word_1_plane_3_1",
+            "word_1_plane_3_2",
+            "word_1_plane_3_3",
+            "word_1_plane_3_4",
+            "word_1_plane_3_5",
+            "word_1_plane_3_6",
+        ],
     ]
     constructor(
         scene: Phaser.Scene,
@@ -25,53 +44,77 @@ class BackgroundManager {
 
         this.canvasWidth = scene.sys.game.canvas.width;
 
-        // @ts-ignore
         let mask = new Mask(scene, 600, 400, "mask", 0, this.pink)
         Align.left(mask)
 
         for (let planenb = 0; planenb < 3; planenb++) {
-            this.generatePlanes(planenb)
+            this.generatePlanes(planenb, true)
         }
     }
 
     /**
-     * name
+     * Generate a new plane and set its destroy time
+     * and the time it will generate the next one
      */
-    public generatePlanes(planenb: number) {
-        this.currentPlanes[planenb] = new Plane(
+    public generatePlanes(planenb: number, isInit: boolean) {
+        let rand = Math.floor(Math.random() * (this.planesAssets[planenb].length - 1) + 1)
+        
+        let planeObj = new Plane(
             this.scene, 0, 0,
-            this.planesAssets[planenb][0],
+            this.planesAssets[planenb][rand],
             planenb,
             this.speed
         )
 
-        this.initDestroy(this.currentPlanes[planenb])
+        if (isInit) {
+            this.currentPlanes[planenb] = planeObj
+        } else {
+            this.nextPlanes[planenb] = planeObj
+        }
+
+        this.initDestroy(this.currentPlanes[planenb], planenb)
+        this.initNextPlane(this.currentPlanes[planenb], planenb)
     }
 
-    public initDestroy(planeinstance: Plane) {
-        const timeToExitCanvas = this.calculateTimeToExit(planeinstance.width, planeinstance.scale, planeinstance.speed, this.canvasWidth)
-        console.log('timeToExitCanvas : ' + timeToExitCanvas)
+    public initDestroy(planeinstance: Plane, planeArrayNb: number) {
+        const timeToExitCanvas = this.calculateTime(planeinstance.width, planeinstance.scale, planeinstance.speed, this.canvasWidth, true)
 
         setTimeout(() => {
+            // this.currentPlanes.splice(planeArrayNb, 1)
             console.log('destroy')
             planeinstance.destroy(true)
+            this.currentPlanes[planeArrayNb] = this.nextPlanes[planeArrayNb]
         }, timeToExitCanvas)
     }
 
+    public initNextPlane(planeinstance: Plane, planeArrayNb: number) {
+        const timeBeforeGenerateNextPlane = this.calculateTime(planeinstance.width, planeinstance.scale, planeinstance.speed, this.canvasWidth, false)
+
+        setTimeout(() => {
+            console.log('generate new plan')
+            this.generatePlanes(planeArrayNb, false)
+        }, timeBeforeGenerateNextPlane)
+    }
+
     /**
-   * Helper fonction
-   *
-   * Permet de calculer en sec combien de temps met
-   * le plan à sortir du canvas
-   */
-    public calculateTimeToExit(
+    * Helper fonction
+    *
+    * Permet de calculer en sec combien de temps met
+    * le plan à sortir du canvas
+    */
+    public calculateTime(
         planeWidth: number,
         planeScale: number,
         planeSpeed: number,
-        canvasWidth: number
+        canvasWidth: number,
+        isExit: boolean
     ): number {
+        let latency = 50;
         const v = planeSpeed
-        const d = canvasWidth + (planeWidth * planeScale) - ((planeWidth * planeScale) / 2)
+        let d = (planeWidth * planeScale) + latency
+        if (isExit) {
+            d += canvasWidth
+        }
         return (d / v) * 1000
     }
 }

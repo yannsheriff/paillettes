@@ -28,6 +28,9 @@ class Align {
   static right(obj) {
 	  obj.x = gameConfig.width - obj.displayWidth / 2;
   }
+  static outsideRight(obj) {
+    obj.x = obj.displayWidth / 2 + gameConfig.width;
+  }
 }
 
 export default Align;

@@ -9,17 +9,26 @@ import Plane from "../../../classes/physic/Plane";
 import BackgroundManager from "../../../classes/logic/BackgroundManager";
 
 import {
-  word_1_plane_1,
-  word_1_plane_2,
-  word_1_plane_3,
-  word_1_plane_1_nb,
-  word_1_plane_2_nb,
-  word_1_plane_3_nb,
+  word_1_plane_1_1,
+  word_1_plane_1_2,
+  word_1_plane_1_3,
+  word_1_plane_1_4,
+
+  word_1_plane_2_1,
+  word_1_plane_2_2,
+  word_1_plane_2_3,
+  word_1_plane_2_4,
+  word_1_plane_2_5,
+  word_1_plane_2_6,
+
+  word_1_plane_3_1,
+  word_1_plane_3_2,
+  word_1_plane_3_3,
+  word_1_plane_3_4,
+  word_1_plane_3_5,
+  word_1_plane_3_6,
   plane_test,
   mask,
-  maskpink,
-  maskpurple,
-  maskred,
 } from "../../../assets";
 
 export class TestSceneBackground extends Phaser.Scene {
@@ -35,17 +44,26 @@ export class TestSceneBackground extends Phaser.Scene {
   public preload(): void {
     this.load.image("plane_test", plane_test);
 
-    this.load.image("firstplane", word_1_plane_1);
-    this.load.image("secondplane", word_1_plane_2);
-    this.load.image("thirdplane", word_1_plane_3);
-    this.load.image("firstplane_nb", word_1_plane_1_nb);
-    this.load.image("secondplane_nb", word_1_plane_2_nb);
-    this.load.image("thirdplane_nb", word_1_plane_3_nb);
+    this.load.image("word_1_plane_1_1", word_1_plane_1_1);
+    this.load.image("word_1_plane_1_2", word_1_plane_1_2);
+    this.load.image("word_1_plane_1_3", word_1_plane_1_3);
+    this.load.image("word_1_plane_1_4", word_1_plane_1_4);
 
+    this.load.image("word_1_plane_2_1", word_1_plane_2_1);
+    this.load.image("word_1_plane_2_2", word_1_plane_2_2);
+    this.load.image("word_1_plane_2_3", word_1_plane_2_3);
+    this.load.image("word_1_plane_2_4", word_1_plane_2_4);
+    this.load.image("word_1_plane_2_5", word_1_plane_2_5);
+    this.load.image("word_1_plane_2_6", word_1_plane_2_6);
+
+    this.load.image("word_1_plane_3_1", word_1_plane_3_1);
+    this.load.image("word_1_plane_3_2", word_1_plane_3_2);
+    this.load.image("word_1_plane_3_3", word_1_plane_3_3);
+    this.load.image("word_1_plane_3_4", word_1_plane_3_4);
+    this.load.image("word_1_plane_3_5", word_1_plane_3_5);
+    this.load.image("word_1_plane_3_6", word_1_plane_3_6);
+    
     this.load.image("mask", mask);
-    this.load.image("maskred", maskred);
-    this.load.image("maskpurple", maskpurple);
-    this.load.image("maskpink", maskpink);
   }
 
   public create() {

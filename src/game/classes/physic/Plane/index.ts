@@ -23,7 +23,6 @@ class Plane extends Phaser.GameObjects.Sprite {
     super(scene, x, y, texture);
 
     this.planeNb = mappingPlanes[plane]
-    console.log(this.planeNb)
 
     this.speed = globalspeed * this.planeNb
 
@@ -33,7 +32,7 @@ class Plane extends Phaser.GameObjects.Sprite {
     scene.physics.add.existing(this)
 
     this.setScale(0.7)
-    Align.left(this)
+    Align.outsideRight(this)
     Align.bottom(this)
 
     this.planeBody = this.body as Phaser.Physics.Arcade.Body;
