@@ -21,6 +21,8 @@ import Ground from "../../classes/physic/Ground";
 import SheetMusic from "../../classes/component/sheet-music";
 import gameConfig from "../../config";
 import ScoreManager from "../../../services/score";
+import AnimationManager from "../../../services/animations";
+import { mainAnimations } from "../../assets/animations";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
@@ -28,6 +30,7 @@ export class GameScene extends Phaser.Scene {
   private background?: Background;
   private scoreManager: ScoreManager;
   private ground?: Phaser.GameObjects.Image;
+  private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
   private dragQueen: any; // to do
 
@@ -35,9 +38,11 @@ export class GameScene extends Phaser.Scene {
     super(config);
     this.CharacterManager = new CharacterManager();
     this.scoreManager = ScoreManager.getInstance();
+    this.animationManager = new AnimationManager(this, mainAnimations);
   }
 
   public preload(): void {
+    this.animationManager.preload();
     this.load.image("background", background);
     this.load.image("ground", ground);
     this.load.image("char", char);
@@ -48,12 +53,6 @@ export class GameScene extends Phaser.Scene {
     this.load.image("down", arrowD);
     this.load.image("zoneInput", zoneInput);
     this.load.image("verticalLine", verticalLine);
-    this.load.spritesheet("glow", glow, {
-      frameWidth: 900,
-      frameHeight: 900,
-      startFrame: 0,
-      endFrame: 16,
-    });
     this.load.setPath("assets/spine/spineboy/");
     this.load.setPath("assets/spine/spineboy/");
     this.load.spine("spineboy", "spineboy.json", "spineboy.atlas");
@@ -80,6 +79,7 @@ export class GameScene extends Phaser.Scene {
   };
 
   public create() {
+    this.animationManager.register();
     const sheetX = window.innerWidth / 3;
     const sheetY = (window.innerHeight / 5) * 4;
     this.background = new Background(this, 0, 0, "background");

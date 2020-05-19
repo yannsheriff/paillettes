@@ -1,4 +1,4 @@
-import Grid from "../../physic/SheetVerticalBar";
+import Grid from "../../physic/Grid";
 import PhysicCharacter from "../../physic/Character";
 import SheetVerticalBar from "../../physic/SheetVerticalBar";
 import { EventEmitter } from "events";
@@ -27,9 +27,9 @@ class SheetMusic {
   private scene: Phaser.Scene;
   private sheetWidth: number;
   private noteDelay: number;
-  private inputZoneWidth = 120;
+  private inputZoneWidth = 210 * 0.8;
   private inputPerfectZoneWidth = 70;
-  private arrowSpeed = 200;
+  private arrowSpeed = 300;
   private posX: number;
   private posY: number;
   private halfGoodZoneWidth: number;
@@ -62,7 +62,6 @@ class SheetMusic {
         this.arrowSpeed) *
       1000;
 
-    // new Grid(scene, this.posX, this.posY);
     this.create();
   }
 
@@ -73,6 +72,8 @@ class SheetMusic {
    * scene, elle initialise également l'event listener des notes.
    */
   create = () => {
+    new Grid(this.scene, this.posX + this.inputZoneWidth * 0.85, this.posY);
+
     this.arrowEmitter.on("note", this.throttleArrow);
 
     this.glow = this.scene.physics.add.sprite(
@@ -81,22 +82,14 @@ class SheetMusic {
       "glow"
     );
     this.glow.setScale(0.5);
-    this.scene.anims.create({
-      key: "left",
-      frames: this.scene.anims.generateFrameNumbers("glow", {
-        start: 0,
-        end: 16,
-      }),
-      frameRate: 21,
-      repeat: 0,
-    });
 
     const inputZone = this.scene.add.image(
-      this.posX + 60,
+      this.posX + this.inputZoneWidth / 2,
       this.posY,
       "zoneInput"
     ) as any;
     this.scene.physics.add.existing(inputZone);
+    inputZone.setScale(0.8);
 
     new SheetVerticalBar(
       this.scene,
@@ -176,7 +169,7 @@ class SheetMusic {
             } else {
               this.scoreManager.registerGoodArrow();
             }
-            this.glow!.anims.play("left");
+            this.glow!.anims.play("glow");
             this.characterManager.registerSuccesfullArrow(arrow.id);
             arrow.destroy();
             this.score!.setText(this.scoreManager.score.toString());
