@@ -9,7 +9,7 @@ export class TestScene extends Phaser.Scene {
   }
 
   public create() {
-    this.scene.start('TestSceneSpine');
+    this.scene.start('TestSceneBackground');
     this.add
       .text(100, 200, 'Test Spine', { fill: 'white' })
       .setInteractive()

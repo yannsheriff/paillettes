@@ -6,7 +6,7 @@ import GrayScalePipelinePlugin from '../../../plugins/filters/Grayscale/Grayscal
 import HslAdjustPipelinePlugin from '../../../plugins/filters/HSLAdjust/HslAdjustPipeline'
 
 import Plane from "../../../classes/physic/Plane";
-import Background from "../../../classes/components/Background";
+import BackgroundManager from "../../../classes/logic/BackgroundManager";
 
 import {
   word_1_plane_1,
@@ -23,12 +23,7 @@ import {
 } from "../../../assets";
 
 export class TestSceneBackground extends Phaser.Scene {
-  private background?: Background;
-  private pink : number =  0xFF00AB
-  private blue: number =  0x2B3AFF
-  private purple: number =  0x6A23FF
-  private red: number =  0xff0b0b
-  private white: number = 0xffffff;
+  private background?: BackgroundManager;
   private mask: any;
   private shapemask: any;
   private test: number = 1;
@@ -54,7 +49,8 @@ export class TestSceneBackground extends Phaser.Scene {
   }
 
   public create() {
-    let background = new Background(this)
+    let background = new BackgroundManager(this)
+
 
     // let grayScalePipeline = new GrayScalePipelinePlugin(this, 'rexGrayScalePipeline', config);
     // grayScalePipeline.intensity = 1;
