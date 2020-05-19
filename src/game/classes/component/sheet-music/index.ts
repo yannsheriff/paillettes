@@ -12,6 +12,7 @@ import zelda from "./zelda.json";
 import Arrow from "../../physic/Arrow";
 import { delay, promiseGenerator } from "../../../../services/stepEventEmitter";
 import ScoreManager from "../../../../services/score";
+import Score from "../../physic/Score";
 
 export type Direction = "left" | "right" | "up" | "down";
 
@@ -22,7 +23,7 @@ class SheetMusic {
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
   private scoreManager: ScoreManager;
-  private score?: Phaser.GameObjects.Text;
+  private score?: Score;
   private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
   private sheetWidth: number;
@@ -84,6 +85,7 @@ class SheetMusic {
       this.posY,
       "zoneInput"
     ) as any;
+
     this.scene.physics.add.existing(inputZone);
     inputZone.setScale(this.scale);
 
@@ -106,10 +108,11 @@ class SheetMusic {
 
     this.arrowEmitter.on("note", this.throttleArrow);
 
-    this.score = this.scene.add.text(
+    this.score = new Score(
+      this.scene,
       this.posX - this.inputZoneWidth,
-      this.posY,
-      "0"
+      this.posY - 50 * this.scale,
+      this.scale
     );
 
     this.scene.physics.add.overlap(
@@ -188,7 +191,7 @@ class SheetMusic {
             this.glow!.anims.play("glow");
             this.characterManager.registerSuccesfullArrow(arrow.id);
             arrow.destroy();
-            this.score!.setText(this.scoreManager.score.toString());
+            this.score!.updateScore();
           }
         }
       );

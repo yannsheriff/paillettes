@@ -19,7 +19,6 @@ import Background from "../../classes/physic/Background";
 import DragQueen from "../../classes/physic/DragQueen";
 import Ground from "../../classes/physic/Ground";
 import SheetMusic from "../../classes/component/sheet-music";
-import gameConfig from "../../config";
 import ScoreManager from "../../../services/score";
 import AnimationManager from "../../../services/animations";
 import { mainAnimations } from "../../assets/animations";
