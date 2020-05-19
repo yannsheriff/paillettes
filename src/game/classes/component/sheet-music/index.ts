@@ -37,7 +37,7 @@ class SheetMusic {
   private halfGoodZoneWidth: number;
   private timeToGood: number;
   private timeToPerfect: number;
-  private glow?: Phaser.Physics.Arcade.Sprite;
+  private inputAnimation?: Phaser.Physics.Arcade.Sprite;
 
   constructor(
     scene: Phaser.Scene,
@@ -89,12 +89,12 @@ class SheetMusic {
     this.scene.physics.add.existing(inputZone);
     inputZone.setScale(this.scale);
 
-    this.glow = this.scene.physics.add.sprite(
+    this.inputAnimation = this.scene.physics.add.sprite(
       this.posX + this.inputZoneWidth / 2,
       this.posY - 3,
       "glow"
     );
-    this.glow.setScale(this.scale);
+    this.inputAnimation.setScale(this.scale);
 
     new SheetVerticalBar(
       this.scene,
@@ -152,7 +152,8 @@ class SheetMusic {
         158 * this.scale,
         this.posY - (158 * this.scale) / 2,
         undefined,
-        direction
+        direction,
+        this.scale
       );
       this.arrows.push(arrow);
       if (shouldLaunchCharacter) {
@@ -188,7 +189,7 @@ class SheetMusic {
             } else {
               this.scoreManager.registerGoodArrow();
             }
-            this.glow!.anims.play("glow");
+            this.inputAnimation!.anims.play("glow");
             this.characterManager.registerSuccesfullArrow(arrow.id);
             arrow.destroy();
             this.score!.updateScore();

@@ -9,7 +9,6 @@ import {
   arrowU,
   grid,
   zoneInput,
-  glow,
   verticalLine,
 } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
@@ -75,8 +74,8 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.animationManager.register();
-    const sheetX = window.innerWidth / 3;
-    const sheetY = (window.innerHeight / 5) * 4;
+    const sheetX = window.innerWidth / 4;
+    const sheetY = (window.innerHeight / 6) * 4.5;
     this.background = new Background(this, 0, 0, "background");
     this.ground = new Ground(this, 0, 0, "ground");
     new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
@@ -104,6 +103,7 @@ export class GameScene extends Phaser.Scene {
       window.innerWidth / 12,
       window.innerHeight
     ) as any;
+
     this.physics.add.existing(goodArrowCollider);
 
     this.physics.add.overlap(
