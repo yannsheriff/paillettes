@@ -1,0 +1,188 @@
+
+world_1_man_2.png
+size: 1056,393
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BACK ARM
+  rotate: false
+  xy: 663, 21
+  size: 37, 109
+  orig: 42, 111
+  offset: 4, 1
+  index: -1
+BACK WING
+  rotate: false
+  xy: 553, 2
+  size: 108, 128
+  orig: 110, 134
+  offset: 1, 1
+  index: -1
+BAGUETTE
+  rotate: true
+  xy: 819, 43
+  size: 89, 48
+  orig: 91, 50
+  offset: 1, 1
+  index: -1
+Color1/BACK FEET
+  rotate: false
+  xy: 792, 6
+  size: 53, 32
+  orig: 55, 36
+  offset: 1, 1
+  index: -1
+Color1/DOWN BACK LEG
+  rotate: true
+  xy: 905, 137
+  size: 20, 46
+  orig: 22, 48
+  offset: 1, 1
+  index: -1
+Color1/DOWN FRONT LEG
+  rotate: false
+  xy: 997, 89
+  size: 19, 46
+  orig: 21, 48
+  offset: 1, 1
+  index: -1
+Color1/FRONT FEET
+  rotate: true
+  xy: 963, 83
+  size: 52, 32
+  orig: 54, 36
+  offset: 1, 1
+  index: -1
+Color1/TORSO
+  rotate: false
+  xy: 720, 158
+  size: 166, 233
+  orig: 168, 235
+  offset: 1, 1
+  index: -1
+Color1/UP BACK LEG
+  rotate: true
+  xy: 720, 133
+  size: 23, 91
+  orig: 25, 93
+  offset: 1, 1
+  index: -1
+Color1/UP FRONT LEG
+  rotate: false
+  xy: 769, 40
+  size: 23, 91
+  orig: 25, 93
+  offset: 1, 1
+  index: -1
+Color2/BACK FEET
+  rotate: true
+  xy: 929, 82
+  size: 53, 32
+  orig: 55, 36
+  offset: 1, 1
+  index: -1
+Color2/DOWN BACK LEG
+  rotate: true
+  xy: 953, 137
+  size: 20, 46
+  orig: 22, 48
+  offset: 1, 1
+  index: -1
+Color2/DOWN FRONT LEG
+  rotate: true
+  xy: 984, 61
+  size: 20, 46
+  orig: 22, 48
+  offset: 1, 1
+  index: -1
+Color2/FRONT FEET
+  rotate: false
+  xy: 929, 48
+  size: 53, 32
+  orig: 55, 36
+  offset: 1, 1
+  index: -1
+Color2/TORSO
+  rotate: false
+  xy: 888, 159
+  size: 166, 232
+  orig: 168, 234
+  offset: 1, 1
+  index: -1
+Color2/UP BACK LEG
+  rotate: true
+  xy: 813, 134
+  size: 22, 90
+  orig: 24, 92
+  offset: 1, 1
+  index: -1
+Color2/UP FRONT LEG
+  rotate: false
+  xy: 794, 41
+  size: 23, 90
+  orig: 25, 92
+  offset: 1, 1
+  index: -1
+FRONT ARM
+  rotate: true
+  xy: 847, 2
+  size: 39, 86
+  orig: 41, 174
+  offset: 1, 87
+  index: -1
+FRONT FOREARM
+  rotate: true
+  xy: 702, 2
+  size: 30, 88
+  orig: 32, 108
+  offset: 1, 2
+  index: -1
+FRONT HAND
+  rotate: true
+  xy: 935, 8
+  size: 38, 49
+  orig: 40, 55
+  offset: 1, 1
+  index: -1
+FRONT WING
+  rotate: true
+  xy: 422, 2
+  size: 108, 129
+  orig: 110, 134
+  offset: 1, 1
+  index: -1
+HAIR
+  rotate: true
+  xy: 869, 45
+  size: 87, 58
+  orig: 87, 63
+  offset: 0, 5
+  index: -1
+HEAD
+  rotate: false
+  xy: 702, 34
+  size: 65, 96
+  orig: 67, 98
+  offset: 1, 1
+  index: -1
+HORSE
+  rotate: true
+  xy: 480, 132
+  size: 259, 238
+  orig: 261, 240
+  offset: 1, 1
+  index: -1
+NB
+  rotate: false
+  xy: 2, 7
+  size: 418, 384
+  orig: 421, 386
+  offset: 2, 1
+  index: -1
+SHADOW NB
+  rotate: true
+  xy: 422, 112
+  size: 279, 56
+  orig: 282, 60
+  offset: 2, 1
+  index: -1

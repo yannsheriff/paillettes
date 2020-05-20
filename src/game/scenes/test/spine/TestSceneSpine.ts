@@ -15,15 +15,22 @@ export class TestSceneSpine extends Phaser.Scene {
     this.load.image('btn', button)
     this.load.image("mask", mask);
     this.load.image("persotestnb", persotestnb);
-    // man 1
+    // man 2
     this.load.setPath('assets/spine/world1/man1/')
     this.load.spine('world_1_man_1', 'world_1_man_1.json', 'world_1_man_1.atlas')
+    // man 1
+    this.load.setPath('assets/spine/world1/man2/')
+    this.load.spine('world_1_man_2', 'world_1_man_2.json', 'world_1_man_2.atlas')
     // woman 1
     this.load.setPath('assets/spine/world1/woman1/')
     this.load.spine('world_1_woman_1', 'world_1_woman_1.json', 'world_1_woman_1.atlas')
+    // woman 1
+    this.load.setPath('assets/spine/world1/woman2/')
+    this.load.spine('world_1_woman_2', 'world_1_woman_2.json', 'world_1_woman_2.atlas')
   }
 
   public create() {
+    let charactersWorld1 = ['world_1_man_1', 'world_1_man_2', 'world_1_woman_1', 'world_1_woman_2']
     this.add
       .text(50, 50, '< Retour', { fill: 'red' })
       .setInteractive()
@@ -31,22 +38,20 @@ export class TestSceneSpine extends Phaser.Scene {
         this.scene.start('TestScene');
       })
 
-    this.add
-      .text(150, 50, 'Ajouter man', { fill: 'red' })
+    let y = 50;
+
+    charactersWorld1.forEach(character => {
+      this.add
+      .text(150, y, 'Ajouter ' + character, { fill: 'red' })
       .setInteractive()
       .on('pointerdown', () => {
-        this.addCharacter('world_1_man_1')
-    })
-
+        this.addCharacter(character)
+      })
+      y+=25;
+    });
+    
     this.add
-      .text(150, 75, 'Ajouter woman', { fill: 'red' })
-      .setInteractive()
-      .on('pointerdown', () => {
-        this.addCharacter('world_1_woman_1')
-    })
-
-    this.add
-      .text(150, 100, 'Clear', { fill: 'red' })
+      .text(150, y, 'Clear', { fill: 'red' })
       .setInteractive()
       .on('pointerdown', () => {
         this.destroyAllCharacters()

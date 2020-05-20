@@ -1,0 +1,125 @@
+
+world_1_woman_2.png
+size: 1131,266
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BACK ARM
+  rotate: false
+  xy: 1052, 104
+  size: 39, 102
+  orig: 41, 111
+  offset: 1, 8
+  index: -1
+BACK FEET
+  rotate: false
+  xy: 929, 81
+  size: 80, 125
+  orig: 83, 128
+  offset: 2, 2
+  index: -1
+BACK FOREARM
+  rotate: true
+  xy: 846, 44
+  size: 34, 95
+  orig: 37, 102
+  offset: 1, 3
+  index: -1
+BACK HAND
+  rotate: false
+  xy: 1048, 6
+  size: 42, 70
+  orig: 44, 72
+  offset: 1, 1
+  index: -1
+Color1/TORSO
+  rotate: false
+  xy: 533, 52
+  size: 157, 212
+  orig: 160, 215
+  offset: 1, 1
+  index: -1
+Color2/TORSO
+  rotate: false
+  xy: 692, 53
+  size: 152, 211
+  orig: 155, 214
+  offset: 1, 1
+  index: -1
+DOWN BACK LEG
+  rotate: false
+  xy: 1093, 105
+  size: 36, 101
+  orig: 39, 104
+  offset: 1, 2
+  index: -1
+DOWN FRONT LEG
+  rotate: true
+  xy: 692, 15
+  size: 36, 101
+  orig: 39, 105
+  offset: 1, 1
+  index: -1
+FRONT ARM
+  rotate: true
+  xy: 795, 3
+  size: 39, 100
+  orig: 41, 110
+  offset: 1, 9
+  index: -1
+FRONT FEET
+  rotate: false
+  xy: 846, 80
+  size: 81, 126
+  orig: 83, 134
+  offset: 1, 1
+  index: -1
+FRONT FOREARM
+  rotate: false
+  xy: 1092, 6
+  size: 35, 96
+  orig: 37, 103
+  offset: 1, 3
+  index: -1
+FRONT HAND
+  rotate: false
+  xy: 1003, 6
+  size: 43, 70
+  orig: 45, 72
+  offset: 1, 1
+  index: -1
+HEAD
+  rotate: false
+  xy: 943, 4
+  size: 58, 75
+  orig: 60, 77
+  offset: 1, 1
+  index: -1
+NB
+  rotate: true
+  xy: 2, 2
+  size: 262, 529
+  orig: 264, 531
+  offset: 1, 1
+  index: -1
+SHADOW NB
+  rotate: false
+  xy: 846, 208
+  size: 279, 56
+  orig: 282, 60
+  offset: 2, 1
+  index: -1
+UP BACK LEG
+  rotate: true
+  xy: 533, 11
+  size: 39, 128
+  orig: 45, 132
+  offset: 5, 3
+  index: -1
+UP FRONT LEG
+  rotate: false
+  xy: 1011, 78
+  size: 39, 128
+  orig: 45, 131
+  offset: 5, 2
+  index: -1
