@@ -107,7 +107,7 @@ export class TestSceneSpine extends Phaser.Scene {
       y += 25;
     });
 
-    y = 150;
+    y = 300;
     let speeds = [0.2, 0.5, 0.8, 1, 1.2, 1.5, 2]
 
     speeds.forEach(speed => {
