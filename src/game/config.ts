@@ -4,7 +4,7 @@ import 'phaser/plugins/spine/dist/SpinePlugin'
 import MainScene from "./scenes/main";
 import TestScene from "./scenes/test";
 import TestSceneSpine from "./scenes/test/spine";
-import TestSceneBackground from "./scenes/test/backgroundcolor";
+import TestSceneBackground from "./scenes/test/background"
 
 export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;

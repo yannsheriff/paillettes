@@ -2,7 +2,7 @@ import config from "./config";
 import '../../../class/SpineContainer/SpineContainer'
 import DragQueen from "../../../classes/physic/DragQueen";
 import CharacterBis from "../../../classes/physic/CharacterBis";
-import { button, mask, persotestnb, char } from "../../../assets";
+import { button, mask, char } from "../../../assets";
 
 export class TestSceneSpine extends Phaser.Scene {
   private characterList: Array<CharacterBis> = []
@@ -14,11 +14,10 @@ export class TestSceneSpine extends Phaser.Scene {
   public preload(): void {
     this.load.image('btn', button)
     this.load.image("mask", mask);
-    this.load.image("persotestnb", persotestnb);
-    // man 2
+    // man 1
     this.load.setPath('assets/spine/world1/man1/')
     this.load.spine('world_1_man_1', 'world_1_man_1.json', 'world_1_man_1.atlas')
-    // man 1
+    // man 2
     this.load.setPath('assets/spine/world1/man2/')
     this.load.spine('world_1_man_2', 'world_1_man_2.json', 'world_1_man_2.atlas')
     // woman 1

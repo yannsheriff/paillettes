@@ -6,8 +6,6 @@ export { default as arrowD } from "./arrows/arrowDown.png";
 export { default as grid } from "./Interaction/grid.png";
 export { default as button } from "./UI/barreFever.png";
 
-export { default as persotestnb } from "./characters/PersoNB.png";
-
 // MASK
 export { default as mask } from "./mask/mask.png";
 
