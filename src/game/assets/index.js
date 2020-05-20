@@ -11,15 +11,6 @@ export { default as persotestnb } from "./characters/PersoNB.png";
 // MASK
 export { default as mask } from "./mask/mask.png";
 
-// LANDSCAPE TESTS
-export { default as plane_test } from "./landscape/plan_test.jpg";
-export { default as word_1_plane_1 } from "./landscape/PLAN_1.png";
-export { default as word_1_plane_2 } from "./landscape/PLAN_2.png";
-export { default as word_1_plane_3 } from "./landscape/PLAN_3.png";
-export { default as word_1_plane_1_nb } from "./landscape/PLAN_1_NB.png";
-export { default as word_1_plane_2_nb } from "./landscape/PLAN_2_NB.png";
-export { default as word_1_plane_3_nb } from "./landscape/PLAN_3_NB.png";
-
 // LANDSCAPE WORLD 1
 export { default as word_1_plane_1_1 } from "./landscape/world1/plane1/1.png";
 export { default as word_1_plane_1_2 } from "./landscape/world1/plane1/2.png";
