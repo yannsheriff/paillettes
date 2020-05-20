@@ -1,6 +1,5 @@
 import config from "./config";
-import '../../../class/SpineContainer/SpineContainer'
-import DragQueen from "../../../classes/physic/DragQueen";
+import '../../../classes/physic/SpineContainer/SpineContainer'
 import CharacterBis from "../../../classes/physic/CharacterBis";
 import { button, mask, char } from "../../../assets";
 

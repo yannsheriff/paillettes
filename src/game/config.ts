@@ -29,7 +29,8 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: true
     }
   },
-  scene: [TestScene, TestSceneSpine, TestSceneBackground],
+  scene: [MainScene],
+  // scene: [TestScene, TestSceneSpine, TestSceneBackground],
   plugins: {
     scene: [
       { key: 'SpinePlugin', plugin: window.SpinePlugin, mapping: 'spine' }

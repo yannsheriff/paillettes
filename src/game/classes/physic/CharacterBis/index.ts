@@ -1,4 +1,4 @@
-import SpineContainer from '../../../class/SpineContainer/SpineContainer';
+import SpineContainer from '../SpineContainer/SpineContainer'
 
 class CharacterBis extends SpineContainer {
   public SpineContainer: ISpineContainer;
