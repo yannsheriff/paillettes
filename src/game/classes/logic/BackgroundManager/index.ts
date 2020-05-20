@@ -8,7 +8,7 @@ class BackgroundManager {
     private purple: number = 0x6A23FF
     private red: number = 0xff0b0b
     private white: number = 0xffffff;
-    private speed: number = 120;
+    private speed: number = 50;
     private currentPlanes: Array<Plane> = [];
     private nextPlanes: Array<Plane> = [];
     private scene: Phaser.Scene
@@ -80,8 +80,6 @@ class BackgroundManager {
         const timeToExitCanvas = this.calculateTime(planeinstance.width, planeinstance.scale, planeinstance.speed, this.canvasWidth, true)
 
         setTimeout(() => {
-            // this.currentPlanes.splice(planeArrayNb, 1)
-            console.log('destroy')
             planeinstance.destroy(true)
             this.currentPlanes[planeArrayNb] = this.nextPlanes[planeArrayNb]
         }, timeToExitCanvas)
@@ -91,7 +89,6 @@ class BackgroundManager {
         const timeBeforeGenerateNextPlane = this.calculateTime(planeinstance.width, planeinstance.scale, planeinstance.speed, this.canvasWidth, false)
 
         setTimeout(() => {
-            console.log('generate new plan')
             this.generatePlanes(planeArrayNb, false)
         }, timeBeforeGenerateNextPlane)
     }
@@ -116,6 +113,10 @@ class BackgroundManager {
             d += canvasWidth
         }
         return (d / v) * 1000
+    }
+
+    public updateSpeed(newSpeed: number) {
+        this.speed = newSpeed
     }
 }
 

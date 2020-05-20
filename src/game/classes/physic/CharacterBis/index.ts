@@ -31,6 +31,14 @@ class CharacterBis extends SpineContainer {
     const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body
     this.SpineContainer.setPhysicsSize(body.width * 0.5, body.height * 0.9)
   }
+
+  /**
+   * deleteCharacter 
+   */
+  public deleteCharacter () {
+    this.destroy()
+    this.SpineContainer.delete()
+  }
 }
 
 export default CharacterBis;

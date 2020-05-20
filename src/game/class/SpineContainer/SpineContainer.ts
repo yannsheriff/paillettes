@@ -18,6 +18,7 @@ declare global {
         changeSlotColor(slotname: string, r: number, v: number, b: number): void
         changeSkin(skinname: string): void
         applyDefaultSkin(defaultSkin: boolean): void
+        delete(): void
     }
 }
 
@@ -119,6 +120,10 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
         const body = this.body as Phaser.Physics.Arcade.Body
         body.setOffset(width * -0.5, -height)
         body.setSize(width, height)
+    }
+
+    public delete() {
+        this.destroy()
     }
 }
 

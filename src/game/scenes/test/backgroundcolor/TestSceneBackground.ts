@@ -69,6 +69,12 @@ export class TestSceneBackground extends Phaser.Scene {
   public create() {
     let background = new BackgroundManager(this)
 
+    this.add
+      .text(50, 50, '< Retour', { fill: 'red' })
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.scene.start('TestScene');
+      })
 
     // let grayScalePipeline = new GrayScalePipelinePlugin(this, 'rexGrayScalePipeline', config);
     // grayScalePipeline.intensity = 1;
