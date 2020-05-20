@@ -25,11 +25,6 @@ import {
 } from "../../../assets";
 
 export class TestSceneBackground extends Phaser.Scene {
-  private background?: BackgroundManager;
-  private mask: any;
-  private shapemask: any;
-  private test: number = 1;
-
   constructor() {
     super(config);
   }
