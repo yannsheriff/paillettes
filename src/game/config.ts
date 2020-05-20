@@ -10,15 +10,18 @@ export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
+  title: "Brille Chérie",
+  parent: 'phaser-game',
   type: Phaser.WEBGL,
 
   scale: {
-    width: window.innerWidth,
-    height: window.innerHeight
+      // we do scale the game manually in resize()
+      mode: Phaser.Scale.NONE,
+      width: DEFAULT_WIDTH,
+      height: DEFAULT_HEIGHT
   },
 
-  width: window.innerWidth, // add resizing function
-  height: window.innerHeight, // add resizing function
+  height: DEFAULT_HEIGHT,
 
   physics: {
     default: "arcade",
@@ -32,7 +35,6 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       { key: 'SpinePlugin', plugin: window.SpinePlugin, mapping: 'spine' }
     ]
   },
-  parent: "phaser-game",
   backgroundColor: "#feeff1",
 };
 

@@ -12,7 +12,7 @@ interface Note {
   velocity: number;
 }
 
-interface NoteWithTrack {
+export interface NoteWithTrack {
   track: number;
   duration: number;
   durationTicks: number;
@@ -32,6 +32,8 @@ interface Track {
   notes: Note[];
 }
 
+export const NOTE_DELAY = 5000;
+
 /**
  * Permet de de reduire le nombre d'evenement qui appel une callback
  * @param delay le temps min entre deux appel à la callback.
@@ -39,33 +41,27 @@ interface Track {
  */
 export function throttle(delay: number, fn: (...args: any) => unknown) {
   let lastCall = 0;
+  let requestCount = 1;
+  let called = true;
+
   return function (...args: any) {
     const now = new Date().getTime();
+    requestCount += 1;
+    requestCount = called ? 1 : requestCount;
     if (now - lastCall < delay) {
+      called = false;
       return;
     }
     lastCall = now;
-    return fn(...args);
-  };
-}
-
-/**
- * Permet de gérer le delaie entre l'evenement note et l'appel a une callBack
- * @param delay le delay entre l'evenement et l'appel a une callBack en ms.
- * @param fn une function de callback appelé x ms apres l'envenement.
- */
-export function noteDelay(delay: number, fn: (...args: any) => unknown) {
-  const time = 5000 - delay;
-  return function (...args: any) {
-    setTimeout(() => {
-      return fn(...args);
-    }, time);
+    called = true;
+    return fn(requestCount, ...args);
   };
 }
 
 export default class MusicPlayer {
   private emitter: EventEmitter;
   private synths: Tone.Synth[] = [];
+  public noteMap: Map<string, 0 | 1 | 2 | 3> = new Map();
 
   constructor(songData: any, evtEmitter: EventEmitter) {
     this.emitter = evtEmitter;
@@ -97,20 +93,54 @@ export default class MusicPlayer {
       }));
 
       if (track.name === "main") {
+        const delay = NOTE_DELAY / 1000;
         const mappedTimings = NotesWithTrack.map((note: Note) => ({
           ...note,
-          time: note.time - 5,
+          time: note.time - delay,
         }));
         new Tone.Part(this.sendEvent, mappedTimings).start(0);
         new Tone.Part(this.playNote, NotesWithTrack).start(0);
+        this.createNoteMap(track);
       } else {
         new Tone.Part(this.playNote, NotesWithTrack).start(0);
       }
     });
+
+    Tone.Transport.scheduleRepeat((time) => {
+      this.sendTick(time);
+    }, "4n");
   };
 
   private sendEvent = (time: number, event: NoteWithTrack) => {
     this.emitter.emit("note", event);
+  };
+  private sendTick = (time: number) => {
+    this.emitter.emit("tick", time);
+  };
+
+  private createNoteMap = (track: Track) => {
+    const map = track.notes.map((note) => note.name);
+    const notes = map
+      .filter((a, b) => map.indexOf(a) === b)
+      .sort(this.byNoteHeight);
+    const noteByHeight = Math.round(notes.length / 4);
+
+    notes.forEach((note, index) => {
+      const pos = Math.floor(index / noteByHeight);
+
+      if (pos === 0 || pos === 1 || pos === 2 || pos === 3) {
+        this.noteMap.set(note, pos);
+      }
+    });
+  };
+
+  private byNoteHeight = (a: string, b: string) => {
+    const octaveA = a.match(/\d+/)![0];
+    const octaveB = b.match(/\d+/)![0];
+    if (octaveA === octaveB) {
+      return a > b ? 1 : -1;
+    }
+    return octaveA > octaveB ? 1 : -1;
   };
 
   private playNote = (time: number, event: NoteWithTrack) => {

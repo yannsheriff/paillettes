@@ -1,3 +1,4 @@
+// UI
 export { default as char } from "./char.png";
 export { default as arrowL } from "./arrows/arrowLeft.png";
 export { default as arrowR } from "./arrows/arrowRight.png";
@@ -5,6 +6,9 @@ export { default as arrowU } from "./arrows/arrowUp.png";
 export { default as arrowD } from "./arrows/arrowDown.png";
 export { default as grid } from "./Interaction/grid.png";
 export { default as button } from "./UI/barreFever.png";
+export { default as zoneInput } from "./Interaction/ZoneInput.svg";
+export { default as verticalLine } from "./Interaction/ligneVertical.svg";
+export { default as glow } from "./Interaction/glow.png";
 
 // MASK
 export { default as mask } from "./mask/mask.png";
