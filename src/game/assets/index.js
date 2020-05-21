@@ -13,6 +13,9 @@ export { default as glow } from "./Interaction/glow.png";
 // MASK
 export { default as mask } from "./mask/mask.png";
 
+// LANDSCAPE
+export { default as ground } from "./landscape/ground.png";
+
 // LANDSCAPE WORLD 1
 export { default as word_1_plane_1_1 } from "./landscape/world1/plane1/1.png";
 export { default as word_1_plane_1_2 } from "./landscape/world1/plane1/2.png";

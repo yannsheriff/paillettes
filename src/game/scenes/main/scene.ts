@@ -1,6 +1,9 @@
+import Align from "../../classes/utils/align";
 import config from "./config";
+
 import {
   char,
+  ground,
   arrowD,
   arrowL,
   arrowR,
@@ -8,11 +11,31 @@ import {
   grid,
   zoneInput,
   verticalLine,
+  word_1_plane_1_1,
+  word_1_plane_1_2,
+  word_1_plane_1_3,
+  word_1_plane_1_4,
+
+  word_1_plane_2_1,
+  word_1_plane_2_2,
+  word_1_plane_2_3,
+  word_1_plane_2_4,
+  word_1_plane_2_5,
+  word_1_plane_2_6,
+
+  word_1_plane_3_1,
+  word_1_plane_3_2,
+  word_1_plane_3_3,
+  word_1_plane_3_4,
+  word_1_plane_3_5,
+  word_1_plane_3_6,
 } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
+import Ground from "../../classes/physic/Ground";
 import PhysicCharacter from "../../classes/physic/Character";
 import SheetMusic from "../../classes/component/sheet-music";
+import BackgroundManager from "../../classes/logic/BackgroundManager";
 import ScoreManager from "../../../services/score";
 import AnimationManager from "../../../services/animations";
 import { mainAnimations } from "../../assets/animations";
@@ -21,6 +44,7 @@ export class GameScene extends Phaser.Scene {
   private score: number = 0;
   private CharacterManager: CharacterManager;
   private scoreManager: ScoreManager;
+  private ground?: Phaser.GameObjects.Image;
   private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
 
@@ -34,6 +58,7 @@ export class GameScene extends Phaser.Scene {
   public preload(): void {
     this.animationManager.preload();
     this.load.image("char", char);
+    this.load.image("ground", ground);
     this.load.image("left", arrowL);
     this.load.image("right", arrowR);
     this.load.image("up", arrowU);
@@ -41,9 +66,26 @@ export class GameScene extends Phaser.Scene {
     this.load.image("down", arrowD);
     this.load.image("zoneInput", zoneInput);
     this.load.image("verticalLine", verticalLine);
-    this.load.setPath("assets/spine/spineboy/");
-    this.load.setPath("assets/spine/spineboy/");
-    this.load.spine("spineboy", "spineboy.json", "spineboy.atlas");
+
+    // preload background
+    this.load.image("word_1_plane_1_1", word_1_plane_1_1);
+    this.load.image("word_1_plane_1_2", word_1_plane_1_2);
+    this.load.image("word_1_plane_1_3", word_1_plane_1_3);
+    this.load.image("word_1_plane_1_4", word_1_plane_1_4);
+
+    this.load.image("word_1_plane_2_1", word_1_plane_2_1);
+    this.load.image("word_1_plane_2_2", word_1_plane_2_2);
+    this.load.image("word_1_plane_2_3", word_1_plane_2_3);
+    this.load.image("word_1_plane_2_4", word_1_plane_2_4);
+    this.load.image("word_1_plane_2_5", word_1_plane_2_5);
+    this.load.image("word_1_plane_2_6", word_1_plane_2_6);
+
+    this.load.image("word_1_plane_3_1", word_1_plane_3_1);
+    this.load.image("word_1_plane_3_2", word_1_plane_3_2);
+    this.load.image("word_1_plane_3_3", word_1_plane_3_3);
+    this.load.image("word_1_plane_3_4", word_1_plane_3_4);
+    this.load.image("word_1_plane_3_5", word_1_plane_3_5);
+    this.load.image("word_1_plane_3_6", word_1_plane_3_6);
   }
 
   /*
@@ -66,7 +108,9 @@ export class GameScene extends Phaser.Scene {
     this.animationManager.register();
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
+    this.ground = new Ground(this, 0, 0, "ground");
     new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
+    let background = new BackgroundManager(this)
 
     const characters: Array<PhysicCharacter> = [];
 

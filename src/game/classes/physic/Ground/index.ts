@@ -9,12 +9,12 @@ class Ground extends Phaser.GameObjects.Image {
     img: string = ""
   ) {
     super(scene, x, y, img);
-    this.ground = scene.add.image(
-      window.innerWidth / 2 - 100,
-      window.innerHeight - 250,
-      "ground"
-    );
-    this.ground.setScale(0.8);
+
+    scene.add.existing(this)
+
+    Align.bottom(this)
+    Align.centerH(this)
+    Align.scaleToGameW(this, 1.1)
   }
 }
 

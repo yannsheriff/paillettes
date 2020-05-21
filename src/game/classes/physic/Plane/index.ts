@@ -31,9 +31,9 @@ class Plane extends Phaser.GameObjects.Sprite {
     scene.add.existing(this)
     scene.physics.add.existing(this)
 
-    this.setScale(0.7)
+    this.setScale(0.5)
     Align.outsideRight(this)
-    Align.bottom(this)
+    Align.centerBottom(this)
 
     this.planeBody = this.body as Phaser.Physics.Arcade.Body;
 
