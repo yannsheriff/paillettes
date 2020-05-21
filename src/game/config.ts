@@ -17,11 +17,12 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   scale: {
       // we do scale the game manually in resize()
       mode: Phaser.Scale.NONE,
-      width: DEFAULT_WIDTH,
-      height: DEFAULT_HEIGHT
+      width: window.innerWidth,
+      height: window.innerHeight
   },
 
   height: DEFAULT_HEIGHT,
+  width: DEFAULT_WIDTH,
 
   physics: {
     default: "arcade",
