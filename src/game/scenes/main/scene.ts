@@ -28,7 +28,7 @@ export class GameScene extends Phaser.Scene {
   private CharacterManager: CharacterManager;
   private background?: Background;
   private scoreManager: ScoreManager;
-  private ground?: Phaser.GameObjects.Image;
+  private ground?: Ground;
   private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
   private dragQueen: any; // to do
@@ -79,7 +79,7 @@ export class GameScene extends Phaser.Scene {
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
     this.background = new Background(this, 0, 0, "background");
-    this.ground = new Ground(this, 0, 0, "ground");
+    this.ground = new Ground(this);
     new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
 
     this.dragQueen = new DragQueen(

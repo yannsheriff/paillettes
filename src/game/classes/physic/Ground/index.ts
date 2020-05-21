@@ -1,28 +1,39 @@
-class Ground extends Phaser.GameObjects.Image {
+class Ground {
   public ground?: Phaser.GameObjects.Image;
+  public rotationSpeed: number;
+  private circleRadius: number;
+  private scene: Phaser.Scene;
+  private circleCenter: {
+    x: number;
+    y: number;
+  };
   private grounds: Phaser.GameObjects.Image[];
   private groundsAngles: number[];
-  constructor(
-    scene: Phaser.Scene,
-    x: number = 0,
-    y: number = 0,
-    img: string = ""
-  ) {
-    super(scene, x, y, img);
 
+  constructor(scene: Phaser.Scene) {
     this.groundsAngles = [];
+    this.scene = scene;
+    this.circleRadius = 8044;
+    this.circleCenter = {
+      x: window.innerWidth / 2,
+      y: this.circleRadius + 700,
+    };
+    this.rotationSpeed = 0.05;
     this.grounds = [];
+    this.create();
+  }
 
+  private create() {
     const baseAngle = 264;
-    const separtationAngle = 2.6;
+    const separationAngle = 2.6;
 
     for (let index = 0; index < 6; index++) {
-      const groundAngle = baseAngle + separtationAngle * index;
-      const angleI = groundAngle * (Math.PI / 180);
-      const ground = scene.add
+      const groundAngle = baseAngle + separationAngle * index;
+      const radiants = groundAngle * (Math.PI / 180);
+      const ground = this.scene.add
         .image(
-          window.innerWidth / 2 + 8044 * Math.cos(angleI),
-          8650 + 8044 * Math.sin(angleI),
+          this.circleCenter.x + this.circleRadius * Math.cos(radiants),
+          this.circleCenter.y + this.circleRadius * Math.sin(radiants),
           "sol"
         )
         .setAngle(groundAngle + 90);
@@ -34,7 +45,7 @@ class Ground extends Phaser.GameObjects.Image {
 
   public update() {
     this.grounds.forEach((ground, index) => {
-      const angle = (this.groundsAngles[index] -= 0.01);
+      const angle = (this.groundsAngles[index] -= this.rotationSpeed);
       if (angle < 262) {
         this.moveGroundBack(index);
         return;
@@ -42,15 +53,14 @@ class Ground extends Phaser.GameObjects.Image {
       const radians = angle * (Math.PI / 180);
       ground
         .setPosition(
-          window.innerWidth / 2 + 8044 * Math.cos(radians),
-          8750 + 8044 * Math.sin(radians)
+          this.circleCenter.x + this.circleRadius * Math.cos(radians),
+          this.circleCenter.y + this.circleRadius * Math.sin(radians)
         )
         .setAngle(angle + 90);
     });
   }
 
   private moveGroundBack(index: number) {
-    // this.grounds[index].destroy();
     this.grounds.push(this.grounds[index]);
     this.grounds.shift();
     const newAngle = this.groundsAngles[this.groundsAngles.length - 1] + 2.6;
