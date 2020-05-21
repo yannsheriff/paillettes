@@ -9,3 +9,4 @@ export { default as grid } from "./Interaction/grid.svg";
 export { default as zoneInput } from "./Interaction/ZoneInput.svg";
 export { default as verticalLine } from "./Interaction/ligneVertical.svg";
 export { default as glow } from "./Interaction/glow.png";
+export { default as sol } from "./ground/sol.png";

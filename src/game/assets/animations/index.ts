@@ -9,7 +9,7 @@ export const mainAnimations: AnimationData[] = [
     frameHeight: 500,
     startFrame: 0,
     endFrame: 16,
-    frameRate: 21,
+    frameRate: 24,
     repeat: 0,
   },
 ];

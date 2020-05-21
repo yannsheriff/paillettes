@@ -10,6 +10,7 @@ import {
   grid,
   zoneInput,
   verticalLine,
+  sol,
 } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
@@ -27,7 +28,7 @@ export class GameScene extends Phaser.Scene {
   private CharacterManager: CharacterManager;
   private background?: Background;
   private scoreManager: ScoreManager;
-  private ground?: Phaser.GameObjects.Image;
+  private ground?: Ground;
   private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
   private dragQueen: any; // to do
@@ -51,6 +52,7 @@ export class GameScene extends Phaser.Scene {
     this.load.image("down", arrowD);
     this.load.image("zoneInput", zoneInput);
     this.load.image("verticalLine", verticalLine);
+    this.load.image("sol", sol);
     this.load.setPath("assets/spine/spineboy/");
     this.load.setPath("assets/spine/spineboy/");
     this.load.spine("spineboy", "spineboy.json", "spineboy.atlas");
@@ -77,7 +79,7 @@ export class GameScene extends Phaser.Scene {
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
     this.background = new Background(this, 0, 0, "background");
-    this.ground = new Ground(this, 0, 0, "ground");
+    this.ground = new Ground(this);
     new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
 
     this.dragQueen = new DragQueen(
@@ -119,6 +121,7 @@ export class GameScene extends Phaser.Scene {
     if (this.background) {
       this.background.moveBackground();
     }
+    this.ground?.update();
   }
 }
 
