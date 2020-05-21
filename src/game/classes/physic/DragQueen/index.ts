@@ -13,13 +13,12 @@ class DragQueen extends SpineContainer {
   ) {
     super(scene, x, y, key, anim, loop)
     this.SpineContainer = scene.add.spineContainer(x, y, key, anim, loop)
-    this.setScale(1) // container and hitbox size
-    this.SpineContainer.setScale(1) // asset size
+    this.setScale(0.8) // container and hitbox size
+    this.SpineContainer.setScale(0.8) // asset size
     this.SpineContainer.allowCollideWorldBounds(true)
 
-    this.SpineContainer.drawDebug(true)
-
-    // this.SpineContainer.changeSlotColor("COLOR HEAD", 255, 0, 0)
+    this.SpineContainer.setDepth(10)
+    this.SpineContainer.drawDebug(false)
 
     this.playAnimation('idle', true)
 

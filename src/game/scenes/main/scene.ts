@@ -29,6 +29,7 @@ import {
   word_1_plane_3_4,
   word_1_plane_3_5,
   word_1_plane_3_6,
+  mask,
 } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
@@ -39,6 +40,7 @@ import BackgroundManager from "../../classes/logic/BackgroundManager";
 import ScoreManager from "../../../services/score";
 import AnimationManager from "../../../services/animations";
 import { mainAnimations } from "../../assets/animations";
+import DragQueen from "../../classes/physic/DragQueen";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
@@ -47,6 +49,7 @@ export class GameScene extends Phaser.Scene {
   private ground?: Phaser.GameObjects.Image;
   private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
+  private dragQueen?: DragQueen
 
   constructor() {
     super(config);
@@ -67,6 +70,9 @@ export class GameScene extends Phaser.Scene {
     this.load.image("zoneInput", zoneInput);
     this.load.image("verticalLine", verticalLine);
 
+
+    this.load.image("mask", mask);
+
     // preload background
     this.load.image("word_1_plane_1_1", word_1_plane_1_1);
     this.load.image("word_1_plane_1_2", word_1_plane_1_2);
@@ -86,6 +92,10 @@ export class GameScene extends Phaser.Scene {
     this.load.image("word_1_plane_3_4", word_1_plane_3_4);
     this.load.image("word_1_plane_3_5", word_1_plane_3_5);
     this.load.image("word_1_plane_3_6", word_1_plane_3_6);
+
+    // drag queen
+    this.load.setPath('assets/spine/dragqueen/')
+    this.load.spine('dragqueen', 'dragqueen.json', 'dragqueen.atlas')
   }
 
   /*
@@ -106,11 +116,12 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.animationManager.register();
+    let backgroundManager = new BackgroundManager(this);
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
     this.ground = new Ground(this, 0, 0, "ground");
     new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
-    let background = new BackgroundManager(this)
+    this.dragQueen = new DragQueen(this, window.innerWidth / 3, window.innerHeight / 1.5, "dragqueen", "Run", true)
 
     const characters: Array<PhysicCharacter> = [];
 

@@ -8,7 +8,8 @@ class Mask extends Phaser.GameObjects.Sprite {
         color: number = 0xffffff
     ) {
         super(scene, x, y, texture, frame);
-        
+
+        this.setDepth(7)
         this.setTint(color).setBlendMode('SCREEN').setDepth(10);
         
         scene.add.existing(this);

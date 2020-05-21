@@ -1,0 +1,13 @@
+
+dragqueen.png
+size: 247,469
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+MESSIE
+  rotate: false
+  xy: 2, 2
+  size: 243, 465
+  orig: 250, 468
+  offset: 6, 1
+  index: -1

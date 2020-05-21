@@ -1,0 +1,41 @@
+{
+"skeleton": {
+	"hash": "lfrYrNZS2qr7Q6kfK/1e5Uu9QPo",
+	"spine": "3.8.95",
+	"x": -125,
+	"y": -1,
+	"width": 250,
+	"height": 468,
+	"images": "./images/",
+	"audio": "/Users/bastienlepecheur/Desktop/DragQueen/_Spine/PSD/Messie"
+},
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "MESSIE", "bone": "root", "attachment": "MESSIE" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"MESSIE": {
+				"MESSIE": { "y": 233, "width": 250, "height": 468 }
+			}
+		}
+	}
+],
+"animations": {
+	"Run": {
+		"bones": {
+			"root": {
+				"translate": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4, "y": 18.43, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8 }
+				]
+			}
+		}
+	}
+}
+}

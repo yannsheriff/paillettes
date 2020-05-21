@@ -10,6 +10,8 @@ class Ground extends Phaser.GameObjects.Image {
   ) {
     super(scene, x, y, img);
 
+    this.setDepth(10)
+
     scene.add.existing(this)
 
     Align.bottom(this)
