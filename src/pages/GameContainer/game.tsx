@@ -3,7 +3,6 @@ import { gameConfig } from "../../game/config";
 import stepEventEmitter from "../../services/stepEventEmitter";
 import { StepEventType } from "../../services/gamepadListener";
 
-
 const DEFAULT_WIDTH = 1280;
 const DEFAULT_HEIGHT = 720;
 const MAX_WIDTH = 1536
@@ -14,6 +13,7 @@ let game: Phaser.Game;
 export default class Game extends React.Component<any> {
   componentWillMount() {
     game = new Phaser.Game(gameConfig);
+    console.log(game)
   }
   componentDidMount() {
     window.addEventListener('resize', this.resize);
@@ -76,12 +76,12 @@ export default class Game extends React.Component<any> {
     game.scale.resize(newWidth * smooth, newHeight * smooth)    
 
     // // scale the width and height of the css
-    game.canvas.style.width = newWidth * scale + 'px'
-    game.canvas.style.height = newHeight * scale + 'px'
+    // game.canvas.style.width = newWidth * scale + 'px'
+    // game.canvas.style.height = newHeight * scale + 'px'
 
     // // center the game with css margin
-    game.canvas.style.marginTop = `${(h - newHeight * scale) / 2}px`
-    game.canvas.style.marginLeft = `${(w - newWidth * scale) / 2}px`
+    // game.canvas.style.marginTop = `${(h - newHeight * scale) / 2}px`
+    // game.canvas.style.marginLeft = `${(w - newWidth * scale) / 2}px`
   }
 
   render() {
