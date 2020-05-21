@@ -10,6 +10,7 @@ import {
   grid,
   zoneInput,
   verticalLine,
+  sol,
 } from "../../assets";
 import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
@@ -51,6 +52,7 @@ export class GameScene extends Phaser.Scene {
     this.load.image("down", arrowD);
     this.load.image("zoneInput", zoneInput);
     this.load.image("verticalLine", verticalLine);
+    this.load.image("sol", sol);
     this.load.setPath("assets/spine/spineboy/");
     this.load.setPath("assets/spine/spineboy/");
     this.load.spine("spineboy", "spineboy.json", "spineboy.atlas");
@@ -119,6 +121,7 @@ export class GameScene extends Phaser.Scene {
     if (this.background) {
       this.background.moveBackground();
     }
+    this.ground?.update();
   }
 }
 
