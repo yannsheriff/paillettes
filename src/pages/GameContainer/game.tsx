@@ -11,11 +11,9 @@ let SCALE_MODE = 'SMOOTH' // FIT OR SMOOTH
 let game: Phaser.Game;
 
 export default class Game extends React.Component<any> {
-  componentWillMount() {
-    game = new Phaser.Game(gameConfig);
-    console.log(game)
-  }
   componentDidMount() {
+    game = new Phaser.Game(gameConfig);
+
     window.addEventListener('resize', this.resize);
 
     // dirty way to wait for game created to set size

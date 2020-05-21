@@ -1,4 +1,3 @@
-import Align from "../../classes/utils/align";
 import config from "./config";
 
 import {
@@ -116,7 +115,7 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.animationManager.register();
-    let backgroundManager = new BackgroundManager(this);
+    new BackgroundManager(this);
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
     this.ground = new Ground(this, 0, 0, "ground");

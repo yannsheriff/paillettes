@@ -14,7 +14,7 @@ class Ground extends Phaser.GameObjects.Image {
 
     scene.add.existing(this)
 
-    Align.bottom(this)
+    Align.bottomImg(this)
     Align.centerH(this)
     Align.scaleToGameW(this, 1.1)
   }

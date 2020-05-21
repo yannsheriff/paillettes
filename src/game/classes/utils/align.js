@@ -1,5 +1,3 @@
-import gameConfig from '../../config'
-
 class Align {
   static scaleToGameW(obj, per) {
     obj.displayWidth = window.innerWidth * per;
@@ -16,8 +14,10 @@ class Align {
     obj.y = window.innerHeight / 2;
   }
   static bottom(obj) {
+    obj.y = window.innerHeight - obj.displayHeight / 2;
+  }
+  static bottomImg(obj) {
     obj.y = window.innerHeight;
-    // obj.y = window.innerHeight - obj.displayHeight / 2;
   }
   static centerBottom(obj) {
     obj.y = window.innerHeight / 2 - obj.displayHeight / 2;
