@@ -33,7 +33,7 @@ class Align {
 	  obj.x = window.innerWidth - obj.displayWidth / 2;
   }
   static outsideRight(obj) {
-    obj.x = obj.displayWidth + window.innerWidth;
+    obj.x = window.innerWidth + obj.displayWidth / 2 + 10;
   }
 }
 

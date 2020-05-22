@@ -47,14 +47,14 @@ class BackgroundManager {
         let mask = new Mask(scene, 600, 400, "mask", 0, this.pink)
         Align.left(mask)
 
-        scene.add
-        .text(50, 50, 'Update speed', { fill: 'red' })
-        .setInteractive()
-        .on('pointerdown', () => {
-            this.updateSpeed(100)
-        })
+        // scene.add
+        // .text(50, 50, 'Update speed', { fill: 'red' })
+        // .setInteractive()
+        // .on('pointerdown', () => {
+        //     this.updateSpeed(this.globalSpeed)
+        // })
 
-        for (let planenb = 0; planenb < 1; planenb++) {
+        for (let planenb = 0; planenb < 3; planenb++) {
             this.generatePlanes(planenb, true)
         }
     }
@@ -124,7 +124,6 @@ class BackgroundManager {
     }
 
     public updateSpeed(newSpeed: number) {
-        // 
         this.globalSpeed = newSpeed
         this.currentPlanes.forEach(planeelement => {
             planeelement.updatePlaneSpeed(newSpeed)
@@ -132,6 +131,7 @@ class BackgroundManager {
         this.nextPlanes.forEach(planeelement => {
             planeelement.updatePlaneSpeed(newSpeed)
         });
+        this.globalSpeed+= 20;
     }
 }
 
