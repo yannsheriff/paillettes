@@ -10,6 +10,7 @@ import {
   grid,
   zoneInput,
   verticalLine,
+  sol,
   word_1_plane_1_1,
   word_1_plane_1_2,
   word_1_plane_1_3,
@@ -45,7 +46,7 @@ export class GameScene extends Phaser.Scene {
   private score: number = 0;
   private CharacterManager: CharacterManager;
   private scoreManager: ScoreManager;
-  private ground?: Phaser.GameObjects.Image;
+  private ground?: Ground;
   private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
   private dragQueen?: DragQueen
@@ -69,6 +70,7 @@ export class GameScene extends Phaser.Scene {
     this.load.image("zoneInput", zoneInput);
     this.load.image("verticalLine", verticalLine);
 
+    this.load.image("sol", sol);
 
     this.load.image("mask", mask);
 
@@ -118,7 +120,7 @@ export class GameScene extends Phaser.Scene {
     new BackgroundManager(this);
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
-    this.ground = new Ground(this, 0, 0, "ground");
+    this.ground = new Ground(this);
     new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
     this.dragQueen = new DragQueen(this, window.innerWidth / 3, window.innerHeight / 1.5, "dragqueen", "Run", true)
 
@@ -149,6 +151,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   public update() {
+    this.ground?.update();
   }
 }
 

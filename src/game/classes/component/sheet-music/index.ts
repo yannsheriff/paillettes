@@ -262,7 +262,7 @@ class SheetMusic {
     }, time);
   };
 
-  throttleArrow = throttle(200, this.delayArrow);
+  throttleArrow = throttle(500, this.delayArrow);
 }
 
 export default SheetMusic;
