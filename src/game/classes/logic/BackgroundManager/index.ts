@@ -8,7 +8,7 @@ class BackgroundManager {
     private purple: number = 0x6A23FF
     private red: number = 0xff0b0b
     private white: number = 0xffffff;
-    private speed: number = 50;
+    private globalSpeed: number = 50;
     private currentPlanes: Array<Plane> = [];
     private nextPlanes: Array<Plane> = [];
     private scene: Phaser.Scene
@@ -47,7 +47,14 @@ class BackgroundManager {
         let mask = new Mask(scene, 600, 400, "mask", 0, this.pink)
         Align.left(mask)
 
-        for (let planenb = 0; planenb < 3; planenb++) {
+        scene.add
+        .text(50, 50, 'Update speed', { fill: 'red' })
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.updateSpeed(100)
+        })
+
+        for (let planenb = 0; planenb < 1; planenb++) {
             this.generatePlanes(planenb, true)
         }
     }
@@ -57,13 +64,14 @@ class BackgroundManager {
      * and the time it will generate the next one
      */
     public generatePlanes(planenb: number, isInit: boolean) {
+        // get random asset for plane
         let rand = Math.floor(Math.random() * (this.planesAssets[planenb].length - 1) + 1)
         
         let planeObj = new Plane(
             this.scene, 0, 0,
             this.planesAssets[planenb][rand],
             planenb,
-            this.speed
+            this.globalSpeed
         )
 
         if (isInit) {
@@ -116,7 +124,14 @@ class BackgroundManager {
     }
 
     public updateSpeed(newSpeed: number) {
-        this.speed = newSpeed
+        // 
+        this.globalSpeed = newSpeed
+        this.currentPlanes.forEach(planeelement => {
+            planeelement.updatePlaneSpeed(newSpeed)
+        });
+        this.nextPlanes.forEach(planeelement => {
+            planeelement.updatePlaneSpeed(newSpeed)
+        });
     }
 }
 

@@ -31,7 +31,7 @@ class Plane extends Phaser.GameObjects.Sprite {
     scene.add.existing(this)
     scene.physics.add.existing(this)
 
-    this.setScale(0.5)
+    this.setScale(1)
     Align.outsideRight(this)
     Align.centerBottom(this)
 
@@ -42,6 +42,15 @@ class Plane extends Phaser.GameObjects.Sprite {
 
   public movePlane() {
     this.planeBody.setVelocityX(- this.speed);
+  }
+
+  public stopPlane() {
+    this.planeBody.setVelocityX(0);
+  }
+
+  public updatePlaneSpeed(newSpeed: number) {
+    this.speed = newSpeed * this.planeNb
+    this.planeBody.setVelocityX(- this.speed);;
   }
 }
 
