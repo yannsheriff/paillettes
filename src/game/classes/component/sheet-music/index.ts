@@ -11,8 +11,10 @@ import CharacterManager from "../../logic/CharacterManager";
 import zelda from "./zelda.json";
 import Arrow from "../../physic/Arrow";
 import { delay, promiseGenerator } from "../../../../services/stepEventEmitter";
-import ScoreManager from "../../../../services/score";
+import ScoreState from "../../../states/scoreState";
 import Score from "../../physic/Score";
+import MainStateManager, { MainState } from "../../../states/mainState";
+import { DifficultyModes } from "../../../states/mainState copy";
 
 export type Direction = "left" | "right" | "up" | "down";
 
@@ -22,7 +24,8 @@ class SheetMusic {
   public characterManager: CharacterManager;
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
-  private scoreManager: ScoreManager;
+  private scoreManager: ScoreState;
+  private mainState: MainState;
   private score?: Score;
   private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
@@ -38,6 +41,10 @@ class SheetMusic {
   private timeToGood: number;
   private timeToPerfect: number;
   private inputAnimation?: Phaser.Physics.Arcade.Sprite;
+  private throttleValue: number;
+  private requestCount: number;
+  private lastCall: number;
+  private called: boolean;
 
   constructor(
     scene: Phaser.Scene,
@@ -49,11 +56,16 @@ class SheetMusic {
     this.posX = x;
     this.posY = y;
     this.scene = scene;
+    this.lastCall = 0;
+    this.requestCount = 1;
+    this.called = true;
     this.characterManager = characterManager;
     this.characters = [];
+    this.throttleValue = 1000;
     this.arrowEmitter = new EventEmitter();
     this.promiseGenerator = new promiseGenerator();
-    this.scoreManager = ScoreManager.getInstance();
+    this.scoreManager = ScoreState.getInstance();
+    this.mainState = MainStateManager.getInstance().state;
     this.sheetWidth = window.innerWidth - x - this.inputZoneWidth;
     this.noteDelay = Math.round((this.sheetWidth / this.arrowSpeed) * 1000);
     this.halfGoodZoneWidth =
@@ -63,6 +75,8 @@ class SheetMusic {
       ((this.halfGoodZoneWidth + this.inputPerfectZoneWidth) /
         this.arrowSpeed) *
       1000;
+
+    MainStateManager.getInstance().subscribe(this.onStateChange);
 
     this.create();
   }
@@ -132,6 +146,24 @@ class SheetMusic {
     });
   };
 
+  private onStateChange = (state: MainState) => {
+    this.mainState = state;
+    switch (state.difficulty) {
+      case DifficultyModes.easy:
+        this.throttleValue = 1000;
+        break;
+      case DifficultyModes.medium:
+        this.throttleValue = 700;
+        break;
+      case DifficultyModes.hard:
+        this.throttleValue = 500;
+        break;
+      case DifficultyModes.hardcore:
+        this.throttleValue = 200;
+        break;
+    }
+  };
+
   /**
    * Create an arrow
    *
@@ -193,6 +225,8 @@ class SheetMusic {
             this.characterManager.registerSuccesfullArrow(arrow.id);
             arrow.destroy();
             this.score!.updateScore();
+          } else {
+            this.scoreManager.registerFail();
           }
         }
       );
@@ -262,7 +296,23 @@ class SheetMusic {
     }, time);
   };
 
-  throttleArrow = throttle(500, this.delayArrow);
+  // throttleArrow = throttle(this.throttleValue, this.delayArrow);
+  throttleArrow = (note: NoteWithTrack) => {
+    const now = new Date().getTime();
+    this.requestCount += 1;
+    this.requestCount = this.called ? 1 : this.requestCount;
+    this.requestCount =
+      this.mainState.difficulty === DifficultyModes.easy
+        ? 1
+        : this.requestCount;
+    if (now - this.lastCall < this.throttleValue) {
+      this.called = false;
+      return;
+    }
+    this.lastCall = now;
+    this.called = true;
+    this.delayArrow(this.requestCount, note);
+  };
 }
 
 export default SheetMusic;

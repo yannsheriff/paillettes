@@ -19,7 +19,8 @@ import Background from "../../classes/physic/Background";
 import DragQueen from "../../classes/physic/DragQueen";
 import Ground from "../../classes/physic/Ground";
 import SheetMusic from "../../classes/component/sheet-music";
-import ScoreManager from "../../../services/score";
+import ScoreState from "../../states/scoreState";
+import mainState from "../../states/mainState";
 import AnimationManager from "../../../services/animations";
 import { mainAnimations } from "../../assets/animations";
 
@@ -27,7 +28,7 @@ export class GameScene extends Phaser.Scene {
   private score: number = 0;
   private CharacterManager: CharacterManager;
   private background?: Background;
-  private scoreManager: ScoreManager;
+  private scoreManager: ScoreState;
   private ground?: Ground;
   private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
@@ -36,7 +37,7 @@ export class GameScene extends Phaser.Scene {
   constructor() {
     super(config);
     this.CharacterManager = new CharacterManager();
-    this.scoreManager = ScoreManager.getInstance();
+    this.scoreManager = ScoreState.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
   }
 

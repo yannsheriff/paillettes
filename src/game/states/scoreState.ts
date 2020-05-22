@@ -1,19 +1,30 @@
-import MainState from "./mainState";
+import MainStateManager, { MainState, DifficultyModes } from "./mainState";
+import State from "./state";
 
-export default class ScoreState {
-  private static instance: ScoreState;
+export interface ScoreState {
+  score: number;
+  combo: number;
+}
+
+export default class ScoreStateManager extends State {
+  private static instance: ScoreStateManager;
   private mainState: MainState;
-  public combo: number;
-  public score: number;
+  private mainStateManager: MainStateManager;
+  public state: ScoreState;
 
   /**
    * The Singleton's constructor should always be private to prevent direct
    * construction calls with the `new` operator.
    */
   private constructor() {
-    this.score = 0;
-    this.combo = 0;
-    this.mainState = MainState.getInstance();
+    super();
+    this.state = {
+      score: 0,
+      combo: 0,
+    };
+    this.mainStateManager = MainStateManager.getInstance();
+    this.mainState = this.mainStateManager.state;
+    this.mainStateManager.subscribe((state) => (this.mainState = state));
   }
 
   /**
@@ -22,9 +33,9 @@ export default class ScoreState {
    * This implementation let you subclass the Singleton class while keeping
    * just one instance of each subclass around.
    */
-  public static getInstance(): ScoreState {
+  public static getInstance(): ScoreStateManager {
     if (!this.instance) {
-      this.instance = new ScoreState();
+      this.instance = new ScoreStateManager();
     }
 
     return this.instance;
@@ -35,12 +46,12 @@ export default class ScoreState {
    * executed on its instance.
    */
   public registerGoodArrow() {
-    this.score += 10;
+    this.setState({ score: this.state.score + 10 });
     this.handleCombo(1);
   }
 
   public registerPerfectArrow() {
-    this.score += 15;
+    this.setState({ score: this.state.score + 15 });
     this.handleCombo(2);
   }
 
@@ -49,40 +60,76 @@ export default class ScoreState {
   }
 
   public registerCharactere() {
-    this.score += 10;
-    // ...
+    this.setState({ score: this.state.score + 10 });
   }
 
   private handleCombo(input: 1 | 2 | -1) {
     switch (input) {
       case 1:
-        this.combo += 1;
+        this.setState({ combo: this.state.combo + 1 });
         break;
 
       case 2:
-        this.combo += 2;
+        this.setState({ combo: this.state.combo + 2 });
         break;
 
       case -1:
-        if (this.combo > 1) {
-          this.combo = 0;
+        if (this.state.combo > 1) {
+          this.setState({ combo: 0 });
         } else {
-          this.combo -= 1;
+          this.setState({ combo: this.state.combo - 1 });
         }
         break;
     }
 
-    if (this.combo < -5) {
-      this.mainState.decrementDifficulty();
+    if (this.state.combo < -3) {
+      this.decrementDifficulty();
     }
 
-    if (this.combo < -20) {
+    if (this.state.combo < -20) {
       console.log("pause ?");
     }
 
-    if (this.combo > 5) {
-      this.mainState.incrementDifficulty(this.combo);
+    if (this.state.combo > 5) {
+      this.incrementDifficulty();
     }
-    console.log(this.combo);
   }
+
+  // ...
+
+  incrementDifficulty = () => {
+    const { difficulty } = this.mainState;
+    const { combo } = this.state;
+
+    if (difficulty === DifficultyModes.easy && combo > 10) {
+      this.setState({ combo: 0 });
+      this.mainStateManager.incrementDifficulty();
+    }
+    if (difficulty === DifficultyModes.medium && combo > 20) {
+      this.setState({ combo: 0 });
+      this.mainStateManager.incrementDifficulty();
+    }
+    if (difficulty === DifficultyModes.hard && combo > 50) {
+      this.setState({ combo: 0 });
+      this.mainStateManager.incrementDifficulty();
+    }
+  };
+
+  decrementDifficulty = () => {
+    const { difficulty } = this.mainState;
+    const { combo } = this.state;
+
+    if (difficulty === DifficultyModes.easy && combo < -5) {
+      this.setState({ combo: 0 });
+      this.mainStateManager.decrementDifficulty();
+    }
+    if (difficulty === DifficultyModes.medium && combo < -3) {
+      this.setState({ combo: 0 });
+      this.mainStateManager.decrementDifficulty();
+    }
+    if (difficulty === DifficultyModes.hard && combo < 0) {
+      this.setState({ combo: 0 });
+      this.mainStateManager.decrementDifficulty();
+    }
+  };
 }

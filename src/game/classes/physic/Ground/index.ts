@@ -66,7 +66,6 @@ class Ground {
     const newAngle = this.groundsAngles[this.groundsAngles.length - 1] + 2.6;
     this.groundsAngles.push(newAngle);
     this.groundsAngles.shift();
-    console.log(newAngle);
   }
 }
 

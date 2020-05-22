@@ -44,23 +44,13 @@ export default class MainStateManager extends State {
    * Finally, any singleton should define some business logic, which can be
    * executed on its instance.
    */
-  public incrementDifficulty(combo: number) {
+  public incrementDifficulty() {
     const { difficulty } = this.state;
-    // ...
-    if (difficulty === DifficultyModes.easy && combo > 5) {
-      this.setState({ difficulty: DifficultyModes.medium });
-    }
-    if (difficulty === DifficultyModes.medium && combo > 10) {
-      this.setState({ difficulty: DifficultyModes.hard });
-    }
-    if (difficulty === DifficultyModes.hard && combo > 20) {
-      this.setState({ difficulty: DifficultyModes.hardcore });
-    }
+    this.setState({ difficulty: difficulty > 2 ? 3 : difficulty + 1 });
   }
 
   public decrementDifficulty() {
-    // ...
     const { difficulty } = this.state;
-    this.setState({ difficulty: difficulty - 1 });
+    this.setState({ difficulty: difficulty < 1 ? 0 : difficulty - 1 });
   }
 }
