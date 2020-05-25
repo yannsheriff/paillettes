@@ -5,6 +5,7 @@ class PhysicCharacter extends Phaser.Physics.Arcade.Sprite {
     this.id = id;
     scene.physics.world.enable(this);
     scene.add.existing(this);
+    this.setDepth(10)
     this.launch();
   }
 

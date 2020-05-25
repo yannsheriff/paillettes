@@ -88,13 +88,14 @@ class SheetMusic {
 
     this.scene.physics.add.existing(inputZone);
     inputZone.setScale(this.scale);
+    inputZone.setDepth(11);
 
     this.inputAnimation = this.scene.physics.add.sprite(
       this.posX + this.inputZoneWidth / 2,
       this.posY - 3,
       "glow"
     );
-    this.inputAnimation.setScale(this.scale);
+    this.inputAnimation.setScale(this.scale).setDepth(11);
 
     new SheetVerticalBar(
       this.scene,

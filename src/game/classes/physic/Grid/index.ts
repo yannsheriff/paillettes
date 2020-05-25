@@ -13,6 +13,7 @@ class Grid extends Phaser.GameObjects.Image {
     // asset width is 1123
     this.assetWidth = scale * 1123;
     this.grid = scene.add.image(x + this.assetWidth / 2, y, "grid");
+    this.grid.setDepth(11)
     this.grid.scale = scale;
   }
 }

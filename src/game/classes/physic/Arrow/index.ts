@@ -44,6 +44,7 @@ class Arrow extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enable(this);
     scene.add.existing(this);
     this.scale = scale;
+    this.setDepth(11)
 
     this.setBounce(0.2);
     this.launch();
