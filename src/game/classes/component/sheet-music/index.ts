@@ -22,6 +22,7 @@ class SheetMusic {
   public characterManager: CharacterManager;
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
+  public isPlaying: boolean;
   private scoreManager: ScoreManager;
   private score?: Score;
   private player: MusicPlayer | undefined;
@@ -51,6 +52,7 @@ class SheetMusic {
     this.scene = scene;
     this.characterManager = characterManager;
     this.characters = [];
+    this.isPlaying = false;
     this.arrowEmitter = new EventEmitter();
     this.promiseGenerator = new promiseGenerator();
     this.scoreManager = ScoreManager.getInstance();
@@ -128,8 +130,11 @@ class SheetMusic {
      * Start Music temporairement un event on click
      */
     document.addEventListener("click", (e) => {
-      this.player = new MusicPlayer(zelda, this.arrowEmitter);
-      this.player.start();
+      if (!this.isPlaying) {
+        this.isPlaying = true;
+        this.player = new MusicPlayer(zelda, this.arrowEmitter);
+        this.player.start();
+      }
     });
   };
 
