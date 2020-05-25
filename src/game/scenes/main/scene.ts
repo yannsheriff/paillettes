@@ -34,7 +34,7 @@ import {
 import Arrow from "../../classes/physic/Arrow";
 import CharacterManager from "../../classes/logic/CharacterManager";
 import Ground from "../../classes/physic/Ground";
-import PhysicCharacter from "../../classes/physic/Character";
+import PhysicCharacter from "../../classes/physic/CharacterBis";
 import SheetMusic from "../../classes/component/sheet-music";
 import BackgroundManager from "../../classes/logic/BackgroundManager";
 import ScoreManager from "../../../services/score";
@@ -97,6 +97,9 @@ export class GameScene extends Phaser.Scene {
     // drag queen
     this.load.setPath('assets/spine/dragqueen/')
     this.load.spine('dragqueen', 'dragqueen.json', 'dragqueen.atlas')
+    // drag queen
+    this.load.setPath('assets/spine/world1/man1')
+    this.load.spine('world_1_man_1', 'world_1_man_1.json', 'world_1_man_1.atlas')
   }
 
   /*

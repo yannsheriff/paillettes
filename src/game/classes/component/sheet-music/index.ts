@@ -1,5 +1,5 @@
 import Grid from "../../physic/Grid";
-import PhysicCharacter from "../../physic/Character";
+import PhysicCharacter from "../../physic/CharacterBis";
 import SheetVerticalBar from "../../physic/SheetVerticalBar";
 import { EventEmitter } from "events";
 import MusicPlayer, {
@@ -158,7 +158,8 @@ class SheetMusic {
       );
       this.arrows.push(arrow);
       if (shouldLaunchCharacter) {
-        const char = new PhysicCharacter(this.scene, ID);
+        const char = new PhysicCharacter(this.scene, window.innerWidth, window.innerHeight / 1.5, "world_1_man_1", "Run", ID, true)
+        
         this.characters.push(char);
       }
     });

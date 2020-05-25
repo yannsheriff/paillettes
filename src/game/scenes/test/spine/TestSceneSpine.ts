@@ -72,7 +72,7 @@ export class TestSceneSpine extends Phaser.Scene {
   public addCharacter(assetName: string) {
     this.destroyAllCharacters()
     let rand = Math.floor(Math.random() * 2)
-    let character = new CharacterBis(this, 700, 500, assetName, 'Run', true)
+    let character = new CharacterBis(this, 700, 500, assetName, 'Run', '', true)
     this.characterList.push(character)
 
     if (this.characterList.length === 1) {

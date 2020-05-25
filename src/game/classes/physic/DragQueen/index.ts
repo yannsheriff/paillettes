@@ -15,24 +15,20 @@ class DragQueen extends SpineContainer {
     this.SpineContainer = scene.add.spineContainer(x, y, key, anim, loop)
     this.setScale(0.8) // container and hitbox size
     this.SpineContainer.setScale(0.8) // asset size
-    this.SpineContainer.allowCollideWorldBounds(true)
+    // this.SpineContainer.allowCollideWorldBounds(true)
 
-    this.SpineContainer.setDepth(10)
+    this.SpineContainer.setDepth(15)
     this.SpineContainer.drawDebug(false)
 
-    this.playAnimation('idle', true)
+    // this.SpineContainer.runVelocity(50)
 
     const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body
     this.SpineContainer.setPhysicsSize(body.width * 0.5, body.height * 0.9)
   }
 
-  public run() {
-    this.SpineContainer.x += 5
-  }
-
-  public launch() {
-    this.SpineContainer.spineBody.setVelocityX(50)
-  }
+  // public launch() {
+  //   this.SpineContainer.spineBody.setVelocityX(50)
+  // }
 }
 
 export default DragQueen;
