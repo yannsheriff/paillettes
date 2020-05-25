@@ -16,7 +16,7 @@ class Ground {
     this.circleRadius = 8044;
     this.circleCenter = {
       x: window.innerWidth / 2,
-      y: this.circleRadius + 700,
+      y: this.circleRadius + 650,
     };
     this.rotationSpeed = 0.05;
     this.grounds = [];
