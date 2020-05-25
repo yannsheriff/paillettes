@@ -3,7 +3,6 @@ import PhysicCharacter from "../../physic/Character";
 import SheetVerticalBar from "../../physic/SheetVerticalBar";
 import { EventEmitter } from "events";
 import MusicPlayer, {
-  throttle,
   NoteWithTrack,
   NOTE_DELAY,
 } from "../../../../services/music";

@@ -23,6 +23,7 @@ import ScoreState from "../../states/scoreState";
 import mainState from "../../states/mainState";
 import AnimationManager from "../../../services/animations";
 import { mainAnimations } from "../../assets/animations";
+import Subtitle from "../../classes/physic/Subtitle";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
@@ -82,6 +83,7 @@ export class GameScene extends Phaser.Scene {
     this.background = new Background(this, 0, 0, "background");
     this.ground = new Ground(this);
     new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
+    new Subtitle(this);
 
     this.dragQueen = new DragQueen(
       this,
