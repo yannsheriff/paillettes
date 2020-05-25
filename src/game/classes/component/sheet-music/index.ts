@@ -8,7 +8,7 @@ import MusicPlayer, {
   NOTE_DELAY,
 } from "../../../../services/music";
 import CharacterManager from "../../logic/CharacterManager";
-import zelda from "./zelda.json";
+import zelda from "./musics/hungup.json";
 import Arrow from "../../physic/Arrow";
 import { delay, promiseGenerator } from "../../../../services/stepEventEmitter";
 import ScoreManager from "../../../../services/score";
