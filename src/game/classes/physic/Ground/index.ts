@@ -36,6 +36,7 @@ class Ground {
           this.circleCenter.y + this.circleRadius * Math.sin(radiants),
           "sol"
         )
+        .setDepth(10)
         .setAngle(groundAngle + 90);
 
       this.groundsAngles.push(groundAngle);

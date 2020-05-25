@@ -27,9 +27,12 @@ class Score {
       align: "center", // 'left'|'center'|'right'|'justify'
       lineSpacing: -0.02,
       fixedWidth: 300,
+      depth: 11
     });
     this.subtitle.setText("SCORE");
+    this.subtitle.setDepth(11);
     this.score.setText("0");
+    this.score.setDepth(11);
   }
 
   public updateScore() {
