@@ -5,7 +5,7 @@ import { button, mask, char } from "../../../assets";
 
 export class TestSceneSpine extends Phaser.Scene {
   private characterList: Array<CharacterBis> = []
-
+  private configList: Array<Phaser.GameObjects.Text> = []
   constructor() {
     super(config);
   }
@@ -66,42 +66,41 @@ export class TestSceneSpine extends Phaser.Scene {
         character.SpineContainer.drawDebug(debug)
       })
     })
-
   }
 
   public addCharacter(assetName: string) {
     this.destroyAllCharacters()
-    let rand = Math.floor(Math.random() * 2)
-    let character = new CharacterBis(this, 700, 500, assetName, 'Run', '', true)
-    this.characterList.push(character)
 
-    if (this.characterList.length === 1) {
-      this.addDebug(character)
-    }
+    let rand = Math.floor(Math.random() * 2)
+    let character = new CharacterBis(this, 700, 500, assetName, 'NBidle', '', false)
+    this.characterList.push(character)
+    this.addDebug(character)
   }
 
   public addDebug(character: CharacterBis) {
     let y = 150;
 
     character.skinsList.forEach(skin => {
-      this.add
+      let skinconfig = this.add
       .text(50, y, skin, { fill: 'black' })
       .setInteractive()
       .on('pointerdown', () => {
         character.SpineContainer.changeSkin(skin)
       })
+      this.configList.push(skinconfig)
       y += 25;
     });
 
     y = 300
 
     character.animationsList.forEach(animation => {
-      this.add
+      let animconfig = this.add
       .text(50, y, animation, { fill: 'black' })
       .setInteractive()
       .on('pointerdown', () => {
         character.SpineContainer.playAnimation(animation, true)
       })
+      this.configList.push(animconfig)
       y += 25;
     });
 
@@ -109,12 +108,13 @@ export class TestSceneSpine extends Phaser.Scene {
     let speeds = [0.2, 0.5, 0.8, 1, 1.2, 1.5, 2]
 
     speeds.forEach(speed => {
-      this.add
+      let speedconfig = this.add
       .text(180, y, 'speed : ' + speed, { fill: 'black' })
       .setInteractive()
       .on('pointerdown', () => {
         character.SpineContainer.changeAnimationSpeed(speed)
       })
+      this.configList.push(speedconfig)
       y += 25;
     });
 
@@ -135,6 +135,11 @@ export class TestSceneSpine extends Phaser.Scene {
     this.characterList.forEach(character => {
       character.deleteCharacter()
     });
+    this.configList.forEach(config => {
+      config.destroy()
+    });
+    this.characterList = []
+    this.configList = []
   }
 
   public update() {
