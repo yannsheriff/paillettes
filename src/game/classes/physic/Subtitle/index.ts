@@ -15,6 +15,7 @@ class Subtitle {
       "perfect"
     );
     this.animation.setScale(0.5);
+    this.animation.setDepth(11);
   }
 
   public perfect() {
