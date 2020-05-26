@@ -36,7 +36,6 @@ import PhysicCharacter from "../../classes/physic/CharacterBis";
 import SheetMusic from "../../classes/component/sheet-music";
 import BackgroundManager from "../../classes/logic/BackgroundManager";
 import PhysicCharacterManager from "../../classes/logic/PhysicCharacterManager";
-import ScoreManager from "../../../services/score";
 import ScoreState from "../../states/scoreState";
 import AnimationManager from "../../../services/animations";
 import { mainAnimations } from "../../assets/animations";
@@ -53,7 +52,7 @@ export class GameScene extends Phaser.Scene {
 
   constructor() {
     super(config);
-    this.CharacterManager = new CharacterManager();
+    this.CharacterManager = CharacterManager.getInstance();
     this.scoreManager = ScoreState.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
   }
@@ -97,13 +96,19 @@ export class GameScene extends Phaser.Scene {
     // drag queen
     this.load.setPath("assets/spine/dragqueen/");
     this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
-    // drag queen
-    this.load.setPath("assets/spine/world1/man1");
-    this.load.spine(
-      "world_1_man_1",
-      "world_1_man_1.json",
-      "world_1_man_1.atlas"
-    );
+
+    // man 1
+    this.load.setPath('assets/spine/world1/man1/')
+    this.load.spine('world_1_man_1', 'world_1_man_1.json', 'world_1_man_1.atlas')
+    // man 2
+    this.load.setPath('assets/spine/world1/man2/')
+    this.load.spine('world_1_man_2', 'world_1_man_2.json', 'world_1_man_2.atlas')
+    // woman 1
+    this.load.setPath('assets/spine/world1/woman1/')
+    this.load.spine('world_1_woman_1', 'world_1_woman_1.json', 'world_1_woman_1.atlas')
+    // woman 1
+    this.load.setPath('assets/spine/world1/woman2/')
+    this.load.spine('world_1_woman_2', 'world_1_woman_2.json', 'world_1_woman_2.atlas')
   }
 
   /*

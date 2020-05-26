@@ -177,7 +177,7 @@ class SheetMusic {
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
 
     directions.forEach((direction) => {
-      const { shouldLaunchCharacter, ID } = this.characterManager.getArrowID();
+      const { ID } = this.characterManager.getArrowID();
 
       // TODO ici on fait le calcule a chaque fois, on pourrais optimiser.
       const arrow = new Arrow(
@@ -191,19 +191,19 @@ class SheetMusic {
         this.scale
       );
       this.arrows.push(arrow);
-      if (shouldLaunchCharacter) {
-        const char = new PhysicCharacter(
-          this.scene,
-          window.innerWidth,
-          window.innerHeight / 1.5,
-          "world_1_man_1",
-          "Run",
-          ID,
-          true
-        );
+      // if (shouldLaunchCharacter) {
+      //   const char = new PhysicCharacter(
+      //     this.scene,
+      //     window.innerWidth,
+      //     window.innerHeight / 1.5,
+      //     "world_1_man_1",
+      //     "Run",
+      //     ID,
+      //     true
+      //   );
 
-        this.characters.push(char);
-      }
+      //   this.characters.push(char);
+      // }
     });
   };
 
