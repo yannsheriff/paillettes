@@ -5,11 +5,14 @@ class CharacterManager {
   private successfullArrows: Map<string, number> = new Map();
   private static instance: CharacterManager;
   private characters: Map<string, Character> = new Map();
-  private createCallback?: () => any;
-  private unlockedCallback?: (isUnlocked: boolean) => any;
-  constructor() {
+  private createCallback: Array<(id: string) => any>;
+  private onEndCallback: Array<(isUnlocked: boolean) => any>;
+
+  private constructor() {
     this.actualCharacter = new Character(2);
     this.characters.set(this.actualCharacter.ID, this.actualCharacter);
+    this.createCallback = [];
+    this.onEndCallback = [];
   }
 
   public static getInstance(): CharacterManager {
@@ -19,31 +22,25 @@ class CharacterManager {
     return this.instance;
   }
 
-  onNewCharacter(callback: () => any) {
-    this.createCallback = callback;
-  }
-
-  isCharacterUnlocked(callback: (isUnlocked: boolean) => any) {
-    this.unlockedCallback = callback;
-  }
-
-  generateNewCharacter(): void {
+  private generateNewCharacter(): void {
     const num = Math.floor(Math.random() * (15 - 1 + 1) + 10);
     const character = new Character(num);
     this.actualCharacter = character;
     this.characters.set(character.ID, character);
-    this.createCallback!();
+    this.callOnNew(character.ID);
   }
 
-  getArrowID(): { shouldLaunchCharacter: boolean; ID: string } {
+  public getArrowID(): { ID: string } {
     const { isLastArrow, id } = this.actualCharacter.generateArrowID();
     if (isLastArrow) {
+      const isSuccessfull = this.isCharacterSuccesfull(this.actualCharacter.ID);
+      this.callOnEnd!(isSuccessfull);
       this.generateNewCharacter();
     }
-    return { ID: id, shouldLaunchCharacter: isLastArrow };
+    return { ID: id };
   }
 
-  registerSuccesfullArrow(ID: string) {
+  public registerSuccesfullArrow(ID: string) {
     if (this.successfullArrows.has(ID)) {
       let value = this.successfullArrows.get(ID);
       this.successfullArrows.set(ID, value! + 1);
@@ -52,11 +49,27 @@ class CharacterManager {
     }
   }
 
-  isCharacterSuccesfull(ID: string) {
+  private isCharacterSuccesfull(ID: string) {
     const successfulArrows = this.successfullArrows.get(ID);
     const totalArrows = this.characters.get(ID)!.totalArrow;
     return successfulArrows === totalArrows;
   }
+
+  public onNewCharacter(callback: (id: string) => any) {
+    this.createCallback.push(callback);
+  }
+
+  public isCharacterUnlocked(callback: (isUnlocked: boolean) => any) {
+    this.onEndCallback.push(callback);
+  }
+
+  private callOnNew = (id: string) => {
+    this.createCallback.forEach((callback) => callback(id));
+  };
+
+  private callOnEnd = (isSuccessfull: boolean) => {
+    this.onEndCallback.forEach((callback) => callback(isSuccessfull));
+  };
 }
 
 export default CharacterManager;

@@ -110,9 +110,8 @@ class SheetMusic {
     this.arrowEmitter.on("note", this.throttleArrow);
 
     setInterval(() => {
-      this.throttleArrow()
+      this.throttleArrow();
     }, 5000);
-
 
     this.score = new Score(
       this.scene,
@@ -151,7 +150,7 @@ class SheetMusic {
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
 
     directions.forEach((direction) => {
-      const { shouldLaunchCharacter, ID } = this.characterManager.getArrowID();
+      const { ID } = this.characterManager.getArrowID();
 
       // TODO ici on fait le calcule a chaque fois, on pourrais optimiser.
       const arrow = new Arrow(
@@ -165,9 +164,6 @@ class SheetMusic {
         this.scale
       );
       this.arrows.push(arrow);
-      if (shouldLaunchCharacter) {
-        // ici on a besoin du PhysicCharacterManager
-      }
     });
   };
 

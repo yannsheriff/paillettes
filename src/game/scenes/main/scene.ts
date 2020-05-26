@@ -15,14 +15,12 @@ import {
   word_1_plane_1_2,
   word_1_plane_1_3,
   word_1_plane_1_4,
-
   word_1_plane_2_1,
   word_1_plane_2_2,
   word_1_plane_2_3,
   word_1_plane_2_4,
   word_1_plane_2_5,
   word_1_plane_2_6,
-
   word_1_plane_3_1,
   word_1_plane_3_2,
   word_1_plane_3_3,
@@ -45,16 +43,16 @@ import DragQueen from "../../classes/physic/DragQueen";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
-  private CharacterManager: CharacterManager;
+  private characterManager: CharacterManager;
   private scoreManager: ScoreManager;
   private ground?: Ground;
   private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
-  private dragQueen?: DragQueen
+  private dragQueen?: DragQueen;
 
   constructor() {
     super(config);
-    this.CharacterManager = new CharacterManager();
+    this.characterManager = CharacterManager.getInstance();
     this.scoreManager = ScoreManager.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
   }
@@ -96,11 +94,15 @@ export class GameScene extends Phaser.Scene {
     this.load.image("word_1_plane_3_6", word_1_plane_3_6);
 
     // drag queen
-    this.load.setPath('assets/spine/dragqueen/')
-    this.load.spine('dragqueen', 'dragqueen.json', 'dragqueen.atlas')
+    this.load.setPath("assets/spine/dragqueen/");
+    this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
     // drag queen
-    this.load.setPath('assets/spine/world1/man1')
-    this.load.spine('world_1_man_1', 'world_1_man_1.json', 'world_1_man_1.atlas')
+    this.load.setPath("assets/spine/world1/man1");
+    this.load.spine(
+      "world_1_man_1",
+      "world_1_man_1.json",
+      "world_1_man_1.atlas"
+    );
   }
 
   /*
@@ -110,14 +112,14 @@ export class GameScene extends Phaser.Scene {
    *
    */
   handleCharacterOverlap = (character: Arrow) => {
-    console.log('test')
-    if (this.CharacterManager.isCharacterSuccesfull(character.id)) {
-      character.setVelocity(0);
-      character.setAcceleration(0);
-      character.setPosition(this.score * 50 + 50, 50);
-      this.scoreManager.registerCharactere();
-      this.score += 1;
-    }
+    console.log("test");
+    // if (this.characterManager.isCharacterSuccesfull(character.id)) {
+    //   character.setVelocity(0);
+    //   character.setAcceleration(0);
+    //   character.setPosition(this.score * 50 + 50, 50);
+    //   this.scoreManager.registerCharactere();
+    //   this.score += 1;
+    // }
   };
 
   public create() {
@@ -127,8 +129,15 @@ export class GameScene extends Phaser.Scene {
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
     this.ground = new Ground(this);
-    new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
-    this.dragQueen = new DragQueen(this, window.innerWidth / 3, window.innerHeight / 1.5, "dragqueen", "Run", true)
+    new SheetMusic(this, this.characterManager, sheetX, sheetY);
+    this.dragQueen = new DragQueen(
+      this,
+      window.innerWidth / 3,
+      window.innerHeight / 1.5,
+      "dragqueen",
+      "Run",
+      true
+    );
   }
 
   public update() {
