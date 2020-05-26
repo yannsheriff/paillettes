@@ -37,6 +37,7 @@ import Ground from "../../classes/physic/Ground";
 import PhysicCharacter from "../../classes/physic/CharacterBis";
 import SheetMusic from "../../classes/component/sheet-music";
 import BackgroundManager from "../../classes/logic/BackgroundManager";
+import PhysicCharacterManager from "../../classes/logic/PhysicCharacterManager";
 import ScoreManager from "../../../services/score";
 import AnimationManager from "../../../services/animations";
 import { mainAnimations } from "../../assets/animations";
@@ -109,6 +110,7 @@ export class GameScene extends Phaser.Scene {
    *
    */
   handleCharacterOverlap = (character: Arrow) => {
+    console.log('test')
     if (this.CharacterManager.isCharacterSuccesfull(character.id)) {
       character.setVelocity(0);
       character.setAcceleration(0);
@@ -121,36 +123,12 @@ export class GameScene extends Phaser.Scene {
   public create() {
     this.animationManager.register();
     new BackgroundManager(this);
+    new PhysicCharacterManager(this);
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
     this.ground = new Ground(this);
     new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
     this.dragQueen = new DragQueen(this, window.innerWidth / 3, window.innerHeight / 1.5, "dragqueen", "Run", true)
-
-    const characters: Array<PhysicCharacter> = [];
-
-    /*
-     *
-     * Création des colliders
-     * temporairement visible
-     *
-     */
-    const goodArrowCollider = this.add.rectangle(
-      sheetX + window.innerWidth / 12 / 2,
-      window.innerHeight / 2,
-      window.innerWidth / 12,
-      window.innerHeight
-    ) as any;
-
-    this.physics.add.existing(goodArrowCollider);
-
-    this.physics.add.overlap(
-      characters,
-      goodArrowCollider,
-      this.handleCharacterOverlap,
-      () => true,
-      this
-    );
   }
 
   public update() {

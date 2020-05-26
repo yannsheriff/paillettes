@@ -18,7 +18,6 @@ export type Direction = "left" | "right" | "up" | "down";
 
 class SheetMusic {
   public arrows: Array<Arrow>;
-  public characters: Array<PhysicCharacter>;
   public characterManager: CharacterManager;
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
@@ -51,7 +50,6 @@ class SheetMusic {
     this.posY = y;
     this.scene = scene;
     this.characterManager = characterManager;
-    this.characters = [];
     this.isPlaying = false;
     this.arrowEmitter = new EventEmitter();
     this.promiseGenerator = new promiseGenerator();
@@ -111,6 +109,11 @@ class SheetMusic {
 
     this.arrowEmitter.on("note", this.throttleArrow);
 
+    setInterval(() => {
+      this.throttleArrow()
+    }, 5000);
+
+
     this.score = new Score(
       this.scene,
       this.posX - this.inputZoneWidth,
@@ -129,13 +132,13 @@ class SheetMusic {
     /*
      * Start Music temporairement un event on click
      */
-    document.addEventListener("click", (e) => {
-      if (!this.isPlaying) {
-        this.isPlaying = true;
-        this.player = new MusicPlayer(zelda, this.arrowEmitter);
-        this.player.start();
-      }
-    });
+    // document.addEventListener("click", (e) => {
+    //   if (!this.isPlaying) {
+    //     this.isPlaying = true;
+    //     this.player = new MusicPlayer(zelda, this.arrowEmitter);
+    //     this.player.start();
+    //   }
+    // });
   };
 
   /**
@@ -163,9 +166,7 @@ class SheetMusic {
       );
       this.arrows.push(arrow);
       if (shouldLaunchCharacter) {
-        const char = new PhysicCharacter(this.scene, window.innerWidth, window.innerHeight / 1.5, "world_1_man_1", "Run", ID, true)
-        
-        this.characters.push(char);
+        // ici on a besoin du PhysicCharacterManager
       }
     });
   };

@@ -36,7 +36,7 @@ class PhysicCharacter extends SpineContainer {
     const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body
     this.SpineContainer.setPhysicsSize(body.width * 0.5, body.height * 0.9)
 
-    this.initDestroy()
+    // this.initDestroy()
   }
 
   public initDestroy() {
@@ -52,9 +52,17 @@ class PhysicCharacter extends SpineContainer {
       }, timeToExitCanvas)
   }
 
-  // public launch() {
-  //   this.SpineContainer.spineBody.setVelocityX(-50)
-  // }
+  public launch() {
+    this.SpineContainer.spineBody.setVelocityX(-50)
+  }
+
+  public playTransformationAnimation() {
+    this.SpineContainer.playAnimation('Transition', false)
+  }
+
+  public playDanceAnimation() {
+    this.SpineContainer.playAnimation('Dance', false)
+  }
 
   /**
    * deleteCharacter 

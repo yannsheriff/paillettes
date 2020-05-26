@@ -5,6 +5,7 @@ import MainScene from "./scenes/main";
 import TestScene from "./scenes/test";
 import TestSceneSpine from "./scenes/test/spine";
 import TestSceneBackground from "./scenes/test/background"
+import TestSceneCharacters from "./scenes/test/characters"
 
 export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;
@@ -31,7 +32,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     }
   },
   // scene: [MainScene],
-  scene: [TestScene, TestSceneSpine, TestSceneBackground],
+  scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCharacters],
   plugins: {
     scene: [
       { key: 'SpinePlugin', plugin: window.SpinePlugin, mapping: 'spine' }
