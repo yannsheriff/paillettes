@@ -30,8 +30,8 @@ class PhysicCharacter extends SpineContainer {
     
     this.SpineContainer.drawDebug(false)
     
-    this.SpineContainer.faceDirection(-1)
-    this.SpineContainer.runVelocity(- this.speed)
+    // this.SpineContainer.faceDirection(-1)
+    // this.SpineContainer.runVelocity(- this.speed)
     
     const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body
     this.SpineContainer.setPhysicsSize(body.width * 0.5, body.height * 0.9)
