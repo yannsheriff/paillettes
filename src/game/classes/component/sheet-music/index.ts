@@ -6,14 +6,14 @@ import MusicPlayer, {
   NOTE_DELAY,
 } from "../../../../services/music";
 import CharacterManager from "../../logic/CharacterManager";
-import zelda from "./zelda.json";
 import Arrow from "../../physic/Arrow";
 import { delay, promiseGenerator } from "../../../../services/stepEventEmitter";
 import ScoreState from "../../../states/scoreState";
 import Score from "../../physic/Score";
 import MainStateManager, { MainState } from "../../../states/mainState";
-import { DifficultyModes } from "../../../states/mainState copy";
+import { DifficultyModes } from "../../../states/mainState";
 import Subtitle from "../../physic/Subtitle";
+import { Musics } from "../../../../services/music/musics";
 
 export type Direction = "left" | "right" | "up" | "down";
 
@@ -133,7 +133,7 @@ class SheetMusic {
      * Start Music temporairement un event on click
      */
     document.addEventListener("click", (e) => {
-      this.player = new MusicPlayer(zelda, this.arrowEmitter);
+      this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
       this.player.start();
     });
   };

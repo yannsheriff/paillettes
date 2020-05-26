@@ -5,6 +5,11 @@ export interface ScoreState {
   score: number;
   combo: number;
 }
+enum ComboType {
+  good,
+  perfect,
+  fail,
+}
 
 export default class ScoreStateManager extends State {
   private static instance: ScoreStateManager;
@@ -47,33 +52,33 @@ export default class ScoreStateManager extends State {
    */
   public registerGoodArrow() {
     this.setState({ score: this.state.score + 10 });
-    this.handleCombo(1);
+    this.handleCombo(ComboType.good);
   }
 
   public registerPerfectArrow() {
     this.setState({ score: this.state.score + 15 });
-    this.handleCombo(2);
+    this.handleCombo(ComboType.perfect);
   }
 
   public registerFail() {
-    this.handleCombo(-1);
+    this.handleCombo(ComboType.fail);
   }
 
   public registerCharactere() {
     this.setState({ score: this.state.score + 10 });
   }
 
-  private handleCombo(input: 1 | 2 | -1) {
-    switch (input) {
-      case 1:
+  private handleCombo(comboType: ComboType) {
+    switch (comboType) {
+      case ComboType.good:
         this.setState({ combo: this.state.combo + 1 });
         break;
 
-      case 2:
+      case ComboType.perfect:
         this.setState({ combo: this.state.combo + 2 });
         break;
 
-      case -1:
+      case ComboType.fail:
         if (this.state.combo > 1) {
           this.setState({ combo: 0 });
         } else {
@@ -82,11 +87,11 @@ export default class ScoreStateManager extends State {
         break;
     }
 
-    if (this.state.combo < -3) {
+    if (this.state.combo <= 0) {
       this.decrementDifficulty();
     }
 
-    if (this.state.combo < -20) {
+    if (this.state.combo < -5) {
       console.log("pause ?");
     }
 
@@ -94,8 +99,6 @@ export default class ScoreStateManager extends State {
       this.incrementDifficulty();
     }
   }
-
-  // ...
 
   incrementDifficulty = () => {
     const { difficulty } = this.mainState;
@@ -105,11 +108,11 @@ export default class ScoreStateManager extends State {
       this.setState({ combo: 0 });
       this.mainStateManager.incrementDifficulty();
     }
-    if (difficulty === DifficultyModes.medium && combo > 20) {
+    if (difficulty === DifficultyModes.medium && combo > 40) {
       this.setState({ combo: 0 });
       this.mainStateManager.incrementDifficulty();
     }
-    if (difficulty === DifficultyModes.hard && combo > 50) {
+    if (difficulty === DifficultyModes.hard && combo > 100) {
       this.setState({ combo: 0 });
       this.mainStateManager.incrementDifficulty();
     }

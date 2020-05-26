@@ -33,7 +33,7 @@ class Score {
   }
 
   public updateScore() {
-    this.score.setText(this.scoreManager.state.combo.toString());
+    this.score.setText(this.scoreManager.state.score.toString());
   }
 }
 
