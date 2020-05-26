@@ -11,5 +11,5 @@ export { default as verticalLine } from "./Interaction/ligneVertical.svg";
 export { default as glow } from "./Interaction/glow.png";
 export { default as sol } from "./ground/sol.png";
 export { default as good } from "./Perfect/GOOD.png";
-export { default as oops } from "./Perfect/OOPS.png";
-export { default as perfect } from "./Perfect/PERFECT.png";
+export { default as oops } from "./Perfect/Oops.png";
+export { default as perfect } from "./Perfect/Perfect.png";

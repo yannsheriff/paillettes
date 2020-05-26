@@ -1,6 +1,5 @@
 import Grid from "../../physic/Grid";
 import PhysicCharacter from "../../physic/Character";
-import SheetVerticalBar from "../../physic/SheetVerticalBar";
 import { EventEmitter } from "events";
 import MusicPlayer, {
   NoteWithTrack,
@@ -14,6 +13,7 @@ import ScoreState from "../../../states/scoreState";
 import Score from "../../physic/Score";
 import MainStateManager, { MainState } from "../../../states/mainState";
 import { DifficultyModes } from "../../../states/mainState copy";
+import Subtitle from "../../physic/Subtitle";
 
 export type Direction = "left" | "right" | "up" | "down";
 
@@ -43,6 +43,7 @@ class SheetMusic {
   private throttleValue: number;
   private requestCount: number;
   private lastCall: number;
+  private subtitle?: Subtitle;
   private called: boolean;
 
   constructor(
@@ -109,16 +110,6 @@ class SheetMusic {
     );
     this.inputAnimation.setScale(this.scale);
 
-    new SheetVerticalBar(
-      this.scene,
-      window.innerWidth,
-      this.posY,
-      this.arrowEmitter,
-      inputZone,
-      this.arrowSpeed,
-      this.scale
-    );
-
     this.arrowEmitter.on("note", this.throttleArrow);
 
     this.score = new Score(
@@ -135,6 +126,8 @@ class SheetMusic {
       () => true,
       this
     );
+
+    this.subtitle = new Subtitle(this.scene);
 
     /*
      * Start Music temporairement un event on click
@@ -217,14 +210,17 @@ class SheetMusic {
             const time = new Date().getTime() - startTime;
             if (time > this.timeToPerfect && time < this.timeToGood) {
               this.scoreManager.registerPerfectArrow();
+              this.subtitle?.perfect();
             } else {
               this.scoreManager.registerGoodArrow();
+              this.subtitle?.good();
             }
             this.inputAnimation!.anims.play("glow");
             this.characterManager.registerSuccesfullArrow(arrow.id);
             arrow.destroy();
             this.score!.updateScore();
           } else {
+            this.subtitle?.fail();
             this.scoreManager.registerFail();
           }
         }

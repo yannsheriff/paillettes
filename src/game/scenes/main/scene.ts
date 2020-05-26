@@ -83,7 +83,6 @@ export class GameScene extends Phaser.Scene {
     this.background = new Background(this, 0, 0, "background");
     this.ground = new Ground(this);
     new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
-    new Subtitle(this);
 
     this.dragQueen = new DragQueen(
       this,
