@@ -3,16 +3,18 @@ import PhysicCharacter from "../../physic/CharacterBis";
 import SheetVerticalBar from "../../physic/SheetVerticalBar";
 import { EventEmitter } from "events";
 import MusicPlayer, {
-  throttle,
   NoteWithTrack,
   NOTE_DELAY,
 } from "../../../../services/music";
 import CharacterManager from "../../logic/CharacterManager";
-import zelda from "./musics/hungup.json";
 import Arrow from "../../physic/Arrow";
 import { delay, promiseGenerator } from "../../../../services/stepEventEmitter";
-import ScoreManager from "../../../../services/score";
+import ScoreState from "../../../states/scoreState";
 import Score from "../../physic/Score";
+import MainStateManager, { MainState } from "../../../states/mainState";
+import { DifficultyModes } from "../../../states/mainState";
+import Subtitle from "../../physic/Subtitle";
+import { Musics } from "../../../../services/music/musics";
 
 export type Direction = "left" | "right" | "up" | "down";
 
@@ -22,8 +24,9 @@ class SheetMusic {
   public characterManager: CharacterManager;
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
+  private scoreManager: ScoreState;
+  private mainState: MainState;
   public isPlaying: boolean;
-  private scoreManager: ScoreManager;
   private score?: Score;
   private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
@@ -39,6 +42,11 @@ class SheetMusic {
   private timeToGood: number;
   private timeToPerfect: number;
   private inputAnimation?: Phaser.Physics.Arcade.Sprite;
+  private throttleValue: number;
+  private requestCount: number;
+  private lastCall: number;
+  private subtitle?: Subtitle;
+  private called: boolean;
 
   constructor(
     scene: Phaser.Scene,
@@ -50,12 +58,17 @@ class SheetMusic {
     this.posX = x;
     this.posY = y;
     this.scene = scene;
+    this.lastCall = 0;
+    this.requestCount = 1;
+    this.called = true;
     this.characterManager = characterManager;
     this.characters = [];
+    this.throttleValue = 1000;
     this.isPlaying = false;
     this.arrowEmitter = new EventEmitter();
     this.promiseGenerator = new promiseGenerator();
-    this.scoreManager = ScoreManager.getInstance();
+    this.scoreManager = ScoreState.getInstance();
+    this.mainState = MainStateManager.getInstance().state;
     this.sheetWidth = window.innerWidth - x - this.inputZoneWidth;
     this.noteDelay = Math.round((this.sheetWidth / this.arrowSpeed) * 1000);
     this.halfGoodZoneWidth =
@@ -65,6 +78,8 @@ class SheetMusic {
       ((this.halfGoodZoneWidth + this.inputPerfectZoneWidth) /
         this.arrowSpeed) *
       1000;
+
+    MainStateManager.getInstance().subscribe(this.onStateChange);
 
     this.create();
   }
@@ -99,16 +114,6 @@ class SheetMusic {
     );
     this.inputAnimation.setScale(this.scale).setDepth(11);
 
-    new SheetVerticalBar(
-      this.scene,
-      window.innerWidth,
-      this.posY,
-      this.arrowEmitter,
-      inputZone,
-      this.arrowSpeed,
-      this.scale
-    );
-
     this.arrowEmitter.on("note", this.throttleArrow);
 
     this.score = new Score(
@@ -126,16 +131,36 @@ class SheetMusic {
       this
     );
 
+    this.subtitle = new Subtitle(this.scene);
+
     /*
      * Start Music temporairement un event on click
      */
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
         this.isPlaying = true;
-        this.player = new MusicPlayer(zelda, this.arrowEmitter);
+        this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
         this.player.start();
       }
     });
+  };
+
+  private onStateChange = (state: MainState) => {
+    this.mainState = state;
+    switch (state.difficulty) {
+      case DifficultyModes.easy:
+        this.throttleValue = 1000;
+        break;
+      case DifficultyModes.medium:
+        this.throttleValue = 700;
+        break;
+      case DifficultyModes.hard:
+        this.throttleValue = 500;
+        break;
+      case DifficultyModes.hardcore:
+        this.throttleValue = 200;
+        break;
+    }
   };
 
   /**
@@ -163,8 +188,16 @@ class SheetMusic {
       );
       this.arrows.push(arrow);
       if (shouldLaunchCharacter) {
-        const char = new PhysicCharacter(this.scene, window.innerWidth, window.innerHeight / 1.5, "world_1_man_1", "Run", ID, true)
-        
+        const char = new PhysicCharacter(
+          this.scene,
+          window.innerWidth,
+          window.innerHeight / 1.5,
+          "world_1_man_1",
+          "Run",
+          ID,
+          true
+        );
+
         this.characters.push(char);
       }
     });
@@ -193,13 +226,18 @@ class SheetMusic {
             const time = new Date().getTime() - startTime;
             if (time > this.timeToPerfect && time < this.timeToGood) {
               this.scoreManager.registerPerfectArrow();
+              this.subtitle?.perfect();
             } else {
               this.scoreManager.registerGoodArrow();
+              this.subtitle?.good();
             }
             this.inputAnimation!.anims.play("glow");
             this.characterManager.registerSuccesfullArrow(arrow.id);
             arrow.destroy();
             this.score!.updateScore();
+          } else {
+            this.subtitle?.fail();
+            this.scoreManager.registerFail();
           }
         }
       );
@@ -269,7 +307,23 @@ class SheetMusic {
     }, time);
   };
 
-  throttleArrow = throttle(500, this.delayArrow);
+  // throttleArrow = throttle(this.throttleValue, this.delayArrow);
+  throttleArrow = (note: NoteWithTrack) => {
+    const now = new Date().getTime();
+    this.requestCount += 1;
+    this.requestCount = this.called ? 1 : this.requestCount;
+    this.requestCount =
+      this.mainState.difficulty === DifficultyModes.easy
+        ? 1
+        : this.requestCount;
+    if (now - this.lastCall < this.throttleValue) {
+      this.called = false;
+      return;
+    }
+    this.lastCall = now;
+    this.called = true;
+    this.delayArrow(this.requestCount, note);
+  };
 }
 
 export default SheetMusic;

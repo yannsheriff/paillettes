@@ -1,6 +1,7 @@
 import * as Tone from "tone";
 // import gaga from "./zelda.json";
 import { EventEmitter } from "events";
+import muscisFile, { Musics } from "./musics";
 
 interface Note {
   duration: number;
@@ -63,9 +64,9 @@ export default class MusicPlayer {
   private synths: Tone.Synth[] = [];
   public noteMap: Map<string, 0 | 1 | 2 | 3> = new Map();
 
-  constructor(songData: any, evtEmitter: EventEmitter) {
+  constructor(songName: Musics, evtEmitter: EventEmitter) {
     this.emitter = evtEmitter;
-    this.setupSong(songData);
+    this.setupSong(muscisFile.get(songName));
   }
 
   private setupSong = (songData: any) => {

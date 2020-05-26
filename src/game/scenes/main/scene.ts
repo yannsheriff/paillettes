@@ -15,14 +15,12 @@ import {
   word_1_plane_1_2,
   word_1_plane_1_3,
   word_1_plane_1_4,
-
   word_1_plane_2_1,
   word_1_plane_2_2,
   word_1_plane_2_3,
   word_1_plane_2_4,
   word_1_plane_2_5,
   word_1_plane_2_6,
-
   word_1_plane_3_1,
   word_1_plane_3_2,
   word_1_plane_3_3,
@@ -36,25 +34,25 @@ import CharacterManager from "../../classes/logic/CharacterManager";
 import Ground from "../../classes/physic/Ground";
 import PhysicCharacter from "../../classes/physic/CharacterBis";
 import SheetMusic from "../../classes/component/sheet-music";
-import BackgroundManager from "../../classes/logic/BackgroundManager";
-import ScoreManager from "../../../services/score";
+import ScoreState from "../../states/scoreState";
 import AnimationManager from "../../../services/animations";
 import { mainAnimations } from "../../assets/animations";
+import BackgroundManager from "../../classes/logic/BackgroundManager";
 import DragQueen from "../../classes/physic/DragQueen";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
   private CharacterManager: CharacterManager;
-  private scoreManager: ScoreManager;
+  private scoreManager: ScoreState;
   private ground?: Ground;
   private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
-  private dragQueen?: DragQueen
+  private dragQueen?: DragQueen;
 
   constructor() {
     super(config);
     this.CharacterManager = new CharacterManager();
-    this.scoreManager = ScoreManager.getInstance();
+    this.scoreManager = ScoreState.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
   }
 
@@ -95,11 +93,15 @@ export class GameScene extends Phaser.Scene {
     this.load.image("word_1_plane_3_6", word_1_plane_3_6);
 
     // drag queen
-    this.load.setPath('assets/spine/dragqueen/')
-    this.load.spine('dragqueen', 'dragqueen.json', 'dragqueen.atlas')
+    this.load.setPath("assets/spine/dragqueen/");
+    this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
     // drag queen
-    this.load.setPath('assets/spine/world1/man1')
-    this.load.spine('world_1_man_1', 'world_1_man_1.json', 'world_1_man_1.atlas')
+    this.load.setPath("assets/spine/world1/man1");
+    this.load.spine(
+      "world_1_man_1",
+      "world_1_man_1.json",
+      "world_1_man_1.atlas"
+    );
   }
 
   /*
@@ -125,7 +127,14 @@ export class GameScene extends Phaser.Scene {
     const sheetY = (window.innerHeight / 6) * 4.5;
     this.ground = new Ground(this);
     new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
-    this.dragQueen = new DragQueen(this, window.innerWidth / 3, window.innerHeight / 1.5, "dragqueen", "Run", true)
+    this.dragQueen = new DragQueen(
+      this,
+      window.innerWidth / 3,
+      window.innerHeight / 1.5,
+      "dragqueen",
+      "Run",
+      true
+    );
 
     const characters: Array<PhysicCharacter> = [];
 
