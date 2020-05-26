@@ -3,10 +3,28 @@ import Character from "../Character";
 class CharacterManager {
   public actualCharacter: Character;
   private successfullArrows: Map<string, number> = new Map();
+  private static instance: CharacterManager;
   private characters: Map<string, Character> = new Map();
+  private createCallback?: () => any;
+  private unlockedCallback?: (isUnlocked: boolean) => any;
   constructor() {
     this.actualCharacter = new Character(2);
     this.characters.set(this.actualCharacter.ID, this.actualCharacter);
+  }
+
+  public static getInstance(): CharacterManager {
+    if (!this.instance) {
+      this.instance = new CharacterManager();
+    }
+    return this.instance;
+  }
+
+  onNewCharacter(callback: () => any) {
+    this.createCallback = callback;
+  }
+
+  isCharacterUnlocked(callback: (isUnlocked: boolean) => any) {
+    this.unlockedCallback = callback;
   }
 
   generateNewCharacter(): void {
@@ -14,6 +32,7 @@ class CharacterManager {
     const character = new Character(num);
     this.actualCharacter = character;
     this.characters.set(character.ID, character);
+    this.createCallback!();
   }
 
   getArrowID(): { shouldLaunchCharacter: boolean; ID: string } {

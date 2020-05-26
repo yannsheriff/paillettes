@@ -60,6 +60,10 @@ class PhysicCharacter extends SpineContainer {
     this.SpineContainer.playAnimation('Transition', false)
   }
 
+  public playRunAnimation() {
+    this.SpineContainer.playAnimation('Run', true)
+  }
+
   public playDanceAnimation() {
     this.SpineContainer.playAnimation('Dance', false)
   }

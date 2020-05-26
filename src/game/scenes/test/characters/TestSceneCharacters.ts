@@ -46,6 +46,13 @@ export class TestSceneSpine extends Phaser.Scene {
       .on('pointerdown', () => {
         this.PhysicCharacterManager?.playAllDance()
       })
+    
+    this.add
+      .text(50, 140, 'Les faire tous défiler', { fill: 'red' })
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.PhysicCharacterManager?.playAllRun()
+      })
   }
   public update() {
   }

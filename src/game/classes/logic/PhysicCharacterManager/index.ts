@@ -1,6 +1,8 @@
 import PhysicCharacter from "../../physic/CharacterBis";
+import CharacterManager from "../CharacterManager";
 
 const charactersWorld1 = ['world_1_man_1', 'world_1_man_2', 'world_1_woman_1', 'world_1_woman_2']
+const animations = ['Dance', 'Fail', 'NBidle', 'Run', 'Transition']
 
 class PhysicCharacterManager {
     private scene: Phaser.Scene
@@ -12,6 +14,16 @@ class PhysicCharacterManager {
     ) {
         this.scene = scene
         this.characters = [];
+
+        const characterManager = CharacterManager.getInstance();
+
+        characterManager.onNewCharacter(() => {
+            console.log('new character')
+        })
+        
+        characterManager.isCharacterUnlocked((isUnlocked: boolean) => {
+            console.log('new character', isUnlocked)
+        })
 
         /*
          *
@@ -53,7 +65,7 @@ class PhysicCharacterManager {
             '',
             false)
         this.characters.push(charObj);
-        this.testY += 200;
+        this.testY += 120;
     }
 
     public playTransformation(id: string) {
@@ -65,6 +77,12 @@ class PhysicCharacterManager {
     public playAllDance() {
         this.characters.forEach(character => {
             character.playDanceAnimation()
+        });
+    }
+
+    public playAllRun() {
+        this.characters.forEach(character => {
+            character.playRunAnimation()
         });
     }
 
