@@ -1,5 +1,6 @@
 import Grid from "../../physic/Grid";
-import PhysicCharacter from "../../physic/Character";
+import PhysicCharacter from "../../physic/CharacterBis";
+import SheetVerticalBar from "../../physic/SheetVerticalBar";
 import { EventEmitter } from "events";
 import MusicPlayer, {
   NoteWithTrack,
@@ -25,6 +26,7 @@ class SheetMusic {
   public promiseGenerator: promiseGenerator;
   private scoreManager: ScoreState;
   private mainState: MainState;
+  public isPlaying: boolean;
   private score?: Score;
   private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
@@ -62,6 +64,7 @@ class SheetMusic {
     this.characterManager = characterManager;
     this.characters = [];
     this.throttleValue = 1000;
+    this.isPlaying = false;
     this.arrowEmitter = new EventEmitter();
     this.promiseGenerator = new promiseGenerator();
     this.scoreManager = ScoreState.getInstance();
@@ -102,13 +105,14 @@ class SheetMusic {
 
     this.scene.physics.add.existing(inputZone);
     inputZone.setScale(this.scale);
+    inputZone.setDepth(11);
 
     this.inputAnimation = this.scene.physics.add.sprite(
       this.posX + this.inputZoneWidth / 2,
       this.posY - 3,
       "glow"
     );
-    this.inputAnimation.setScale(this.scale);
+    this.inputAnimation.setScale(this.scale).setDepth(11);
 
     this.arrowEmitter.on("note", this.throttleArrow);
 
@@ -133,8 +137,11 @@ class SheetMusic {
      * Start Music temporairement un event on click
      */
     document.addEventListener("click", (e) => {
-      this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
-      this.player.start();
+      if (!this.isPlaying) {
+        this.isPlaying = true;
+        this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
+        this.player.start();
+      }
     });
   };
 
@@ -181,7 +188,16 @@ class SheetMusic {
       );
       this.arrows.push(arrow);
       if (shouldLaunchCharacter) {
-        const char = new PhysicCharacter(this.scene, ID);
+        const char = new PhysicCharacter(
+          this.scene,
+          window.innerWidth,
+          window.innerHeight / 1.5,
+          "world_1_man_1",
+          "Run",
+          ID,
+          true
+        );
+
         this.characters.push(char);
       }
     });

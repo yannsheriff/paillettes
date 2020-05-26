@@ -16,9 +16,9 @@ class Ground {
     this.circleRadius = 8044;
     this.circleCenter = {
       x: window.innerWidth / 2,
-      y: this.circleRadius + 700,
+      y: this.circleRadius + 650,
     };
-    this.rotationSpeed = 0.05;
+    this.rotationSpeed = 0.04;
     this.grounds = [];
     this.create();
   }
@@ -36,6 +36,7 @@ class Ground {
           this.circleCenter.y + this.circleRadius * Math.sin(radiants),
           "sol"
         )
+        .setDepth(10)
         .setAngle(groundAngle + 90);
 
       this.groundsAngles.push(groundAngle);
@@ -66,7 +67,7 @@ class Ground {
     const newAngle = this.groundsAngles[this.groundsAngles.length - 1] + 2.6;
     this.groundsAngles.push(newAngle);
     this.groundsAngles.shift();
-    console.log(newAngle);
+    // console.log(newAngle);
   }
 }
 

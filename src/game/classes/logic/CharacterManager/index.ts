@@ -10,7 +10,7 @@ class CharacterManager {
   }
 
   generateNewCharacter(): void {
-    const num = Math.floor(Math.random() * (4 - 1 + 1) + 1);
+    const num = Math.floor(Math.random() * (15 - 1 + 1) + 10);
     const character = new Character(num);
     this.actualCharacter = character;
     this.characters.set(character.ID, character);

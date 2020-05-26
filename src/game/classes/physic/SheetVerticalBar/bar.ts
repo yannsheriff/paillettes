@@ -14,6 +14,7 @@ class Bar extends Phaser.Physics.Arcade.Image {
     scene.physics.world.enable(this);
     scene.add.existing(this);
     this.scale = scale;
+    this.setDepth(11);
     this.launch();
   }
 

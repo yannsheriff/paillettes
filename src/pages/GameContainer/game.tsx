@@ -3,19 +3,17 @@ import { gameConfig } from "../../game/config";
 import stepEventEmitter from "../../services/stepEventEmitter";
 import { StepEventType } from "../../services/gamepadListener";
 
-
-const DEFAULT_WIDTH = 1280;
-const DEFAULT_HEIGHT = 720;
+const DEFAULT_WIDTH = 1440;
+const DEFAULT_HEIGHT = 800;
 const MAX_WIDTH = 1536
 const MAX_HEIGHT = 864
 let SCALE_MODE = 'SMOOTH' // FIT OR SMOOTH
 let game: Phaser.Game;
 
 export default class Game extends React.Component<any> {
-  componentWillMount() {
-    game = new Phaser.Game(gameConfig);
-  }
   componentDidMount() {
+    game = new Phaser.Game(gameConfig);
+
     window.addEventListener('resize', this.resize);
 
     // dirty way to wait for game created to set size
@@ -59,7 +57,7 @@ export default class Game extends React.Component<any> {
     // smooth scaling
     let smooth = 1
     if (scaleMode === 'SMOOTH') {
-      const maxSmoothScale = 1.15
+      const maxSmoothScale = 1
       const normalize = (value: number, min: number, max: number) => {
         return (value - min) / (max - min)
       }
