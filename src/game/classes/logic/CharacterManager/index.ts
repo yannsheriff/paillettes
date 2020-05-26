@@ -6,7 +6,7 @@ class CharacterManager {
   private static instance: CharacterManager;
   private characters: Map<string, Character> = new Map();
   private createCallback: Array<(id: string) => any>;
-  private onEndCallback: Array<(isUnlocked: boolean) => any>;
+  private onEndCallback: Array<(id: string, isUnlocked: boolean) => any>;
 
   private constructor() {
     this.actualCharacter = new Character(2);
@@ -34,7 +34,7 @@ class CharacterManager {
     const { isLastArrow, id } = this.actualCharacter.generateArrowID();
     if (isLastArrow) {
       const isSuccessfull = this.isCharacterSuccesfull(this.actualCharacter.ID);
-      this.callOnEnd!(isSuccessfull);
+      this.callOnEnd!(this.actualCharacter.ID, isSuccessfull);
       this.generateNewCharacter();
     }
     return { ID: id };
@@ -59,7 +59,9 @@ class CharacterManager {
     this.createCallback.push(callback);
   }
 
-  public isCharacterUnlocked(callback: (isUnlocked: boolean) => any) {
+  public isCharacterUnlocked(
+    callback: (id: string, isUnlocked: boolean) => any
+  ) {
     this.onEndCallback.push(callback);
   }
 
@@ -67,8 +69,8 @@ class CharacterManager {
     this.createCallback.forEach((callback) => callback(id));
   };
 
-  private callOnEnd = (isSuccessfull: boolean) => {
-    this.onEndCallback.forEach((callback) => callback(isSuccessfull));
+  private callOnEnd = (id: string, isSuccessfull: boolean) => {
+    this.onEndCallback.forEach((callback) => callback(id, isSuccessfull));
   };
 }
 
