@@ -37,14 +37,15 @@ import SheetMusic from "../../classes/component/sheet-music";
 import BackgroundManager from "../../classes/logic/BackgroundManager";
 import PhysicCharacterManager from "../../classes/logic/PhysicCharacterManager";
 import ScoreManager from "../../../services/score";
+import ScoreState from "../../states/scoreState";
 import AnimationManager from "../../../services/animations";
 import { mainAnimations } from "../../assets/animations";
 import DragQueen from "../../classes/physic/DragQueen";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
-  private characterManager: CharacterManager;
-  private scoreManager: ScoreManager;
+  private CharacterManager: CharacterManager;
+  private scoreManager: ScoreState;
   private ground?: Ground;
   private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
@@ -52,8 +53,8 @@ export class GameScene extends Phaser.Scene {
 
   constructor() {
     super(config);
-    this.characterManager = CharacterManager.getInstance();
-    this.scoreManager = ScoreManager.getInstance();
+    this.CharacterManager = new CharacterManager();
+    this.scoreManager = ScoreState.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
   }
 
@@ -129,7 +130,7 @@ export class GameScene extends Phaser.Scene {
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
     this.ground = new Ground(this);
-    new SheetMusic(this, this.characterManager, sheetX, sheetY);
+    new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
     this.dragQueen = new DragQueen(
       this,
       window.innerWidth / 3,
@@ -137,6 +138,31 @@ export class GameScene extends Phaser.Scene {
       "dragqueen",
       "Run",
       true
+    );
+
+    const characters: Array<PhysicCharacter> = [];
+
+    /*
+     *
+     * Création des colliders
+     * temporairement visible
+     *
+     */
+    const goodArrowCollider = this.add.rectangle(
+      sheetX + window.innerWidth / 12 / 2,
+      window.innerHeight / 2,
+      window.innerWidth / 12,
+      window.innerHeight
+    ) as any;
+
+    this.physics.add.existing(goodArrowCollider);
+
+    this.physics.add.overlap(
+      characters,
+      goodArrowCollider,
+      this.handleCharacterOverlap,
+      () => true,
+      this
     );
   }
 

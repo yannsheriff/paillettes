@@ -16,6 +16,9 @@ export { default as mask } from "./mask/mask.png";
 // LANDSCAPE
 export { default as ground } from "./landscape/ground.png";
 export { default as sol } from "./ground/sol.png";
+export { default as good } from "./indications/GOOD.png";
+export { default as oops } from "./indications/Oops.png";
+export { default as perfect } from "./indications/Perfect.png";
 
 // LANDSCAPE WORLD 1
 export { default as word_1_plane_1_1 } from "./landscape/world1/plane1/1.png";
