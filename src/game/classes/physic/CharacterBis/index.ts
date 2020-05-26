@@ -19,10 +19,15 @@ class PhysicCharacter extends SpineContainer {
     this.id = id;
 
     this.SpineContainer = scene.add.spineContainer(x, y, key, anim, loop)
+
+
     // this.SpineContainer.allowCollideWorldBounds(true)
 
     // apply default skin to character
     this.SpineContainer.applyDefaultSkin(false)
+
+    this.SpineContainer.mixAnimation('Run', 'Dance')
+    this.SpineContainer.mixAnimation('Dance', 'Run')
     
     this.setScale(0.5) // container and hitbox size
     this.SpineContainer.setScale(0.5) // asset size
@@ -66,6 +71,10 @@ class PhysicCharacter extends SpineContainer {
 
   public playDanceAnimation() {
     this.SpineContainer.playAnimation('Dance', false)
+  }
+
+  public playDanceThenRunAnimation() {
+    this.SpineContainer.playOnceThenLoopNextAnimation('Dance', 'Run')
   }
 
   /**

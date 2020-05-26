@@ -80,6 +80,12 @@ class PhysicCharacterManager {
         });
     }
 
+    public playDanseThenRun() {
+        this.characters.forEach(character => {
+            character.playDanceThenRunAnimation()
+        });
+    }
+
     public playAllRun() {
         this.characters.forEach(character => {
             character.playRunAnimation()

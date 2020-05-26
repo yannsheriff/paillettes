@@ -12,12 +12,14 @@ declare global {
         faceDirection(dir: 1 | -1): void
         drawDebug(bool: boolean): void
         playAnimation(animationname: string, loop: boolean): void
+        playOnceThenLoopNextAnimation(firstAnimation: string, secondAnimation: string): void
         allowCollideWorldBounds(bool: boolean): void
         runVelocity(number: number): void
         changeAnimationSpeed(number: number): void
         changeSlotColor(slotname: string, r: number, v: number, b: number): void
         changeSkin(skinname: string): void
         applyDefaultSkin(defaultSkin: boolean): void
+        mixAnimation(from: string, to: string): void
         delete(): void
     }
 }
@@ -79,6 +81,11 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
         this.SpineGameObject.play(animationname, loop)
     }
 
+    public playOnceThenLoopNextAnimation(firstAnimation: string, secondAnimation: string) {
+        this.SpineGameObject.setAnimation(0, firstAnimation, false)
+        this.SpineGameObject.addAnimation(0, secondAnimation, true, 0)
+    }
+
     public changeSlotColor(slotname: string, r: number, g: number, b: number, a?: number) {
         let slot = this.SpineGameObject.skeleton.findSlot(slotname)
         slot.color.r = r
@@ -114,6 +121,10 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
             return
         }
         this.SpineGameObject.scaleX = dir
+    }
+
+    public mixAnimation(from: string, to: string) {
+        this.SpineGameObject.setMix(from, to, 0.2)
     }
 
     public setPhysicsSize(width: number, height: number) {
