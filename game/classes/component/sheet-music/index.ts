@@ -5,16 +5,19 @@ import { EventEmitter } from "events";
 import MusicPlayer, {
   NoteWithTrack,
   NOTE_DELAY,
-} from "../../../services/music";
+} from "../../../../src/game/services/music";
 import CharacterManager from "../../logic/CharacterManager";
 import Arrow from "../../physic/Arrow";
-import { delay, promiseGenerator } from "../../../services/stepEventEmitter";
+import {
+  delay,
+  promiseGenerator,
+} from "../../../../src/game/services/stepEventEmitter";
 import ScoreState from "../../../states/scoreState";
 import Score from "../../physic/Score";
 import MainStateManager, { MainState } from "../../../states/mainState";
 import { DifficultyModes } from "../../../states/mainState";
 import Subtitle from "../../physic/Subtitle";
-import { Musics } from "../../../services/music/musics";
+import { Musics } from "../../../../src/game/services/music/musics";
 
 export type Direction = "left" | "right" | "up" | "down";
 

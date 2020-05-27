@@ -34,11 +34,11 @@ import CharacterManager from "../../classes/logic/CharacterManager";
 import Ground from "../../classes/physic/Ground";
 import PhysicCharacter from "../../classes/physic/CharacterBis";
 import SheetMusic from "../../classes/component/sheet-music";
-import BackgroundManager from "../../classes/logic/BackgroundManager";
 import PhysicCharacterManager from "../../classes/logic/PhysicCharacterManager";
 import ScoreState from "../../states/scoreState";
-import AnimationManager from "../../../services/animations";
+import AnimationManager from "../../services/animations";
 import { mainAnimations } from "../../assets/animations";
+import BackgroundManager from "../../classes/component/BackgroundManager";
 import DragQueen from "../../classes/physic/DragQueen";
 
 export class GameScene extends Phaser.Scene {
@@ -98,17 +98,33 @@ export class GameScene extends Phaser.Scene {
     this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
 
     // man 1
-    this.load.setPath('assets/spine/world1/man1/')
-    this.load.spine('world_1_man_1', 'world_1_man_1.json', 'world_1_man_1.atlas')
+    this.load.setPath("assets/spine/world1/man1/");
+    this.load.spine(
+      "world_1_man_1",
+      "world_1_man_1.json",
+      "world_1_man_1.atlas"
+    );
     // man 2
-    this.load.setPath('assets/spine/world1/man2/')
-    this.load.spine('world_1_man_2', 'world_1_man_2.json', 'world_1_man_2.atlas')
+    this.load.setPath("assets/spine/world1/man2/");
+    this.load.spine(
+      "world_1_man_2",
+      "world_1_man_2.json",
+      "world_1_man_2.atlas"
+    );
     // woman 1
-    this.load.setPath('assets/spine/world1/woman1/')
-    this.load.spine('world_1_woman_1', 'world_1_woman_1.json', 'world_1_woman_1.atlas')
+    this.load.setPath("assets/spine/world1/woman1/");
+    this.load.spine(
+      "world_1_woman_1",
+      "world_1_woman_1.json",
+      "world_1_woman_1.atlas"
+    );
     // woman 1
-    this.load.setPath('assets/spine/world1/woman2/')
-    this.load.spine('world_1_woman_2', 'world_1_woman_2.json', 'world_1_woman_2.atlas')
+    this.load.setPath("assets/spine/world1/woman2/");
+    this.load.spine(
+      "world_1_woman_2",
+      "world_1_woman_2.json",
+      "world_1_woman_2.atlas"
+    );
   }
 
   /*

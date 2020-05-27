@@ -1,7 +1,7 @@
 @font-face {
   font-family: "LondrinaSolid";
   src: local("LondrinaSolid"),
-    url("./game//assets/Font/LondrinaSolid-Regular.ttf") format("truetype");
+    url("../game/assets/Font/LondrinaSolid-Regular.ttf") format("truetype");
 }
 
 body {

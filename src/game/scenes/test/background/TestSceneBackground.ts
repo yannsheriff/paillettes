@@ -1,20 +1,18 @@
 import config from "./config";
 
-import BackgroundManager from "../../../classes/logic/BackgroundManager";
+import BackgroundManager from "../../../classes/component/BackgroundManager";
 
 import {
   word_1_plane_1_1,
   word_1_plane_1_2,
   word_1_plane_1_3,
   word_1_plane_1_4,
-
   word_1_plane_2_1,
   word_1_plane_2_2,
   word_1_plane_2_3,
   word_1_plane_2_4,
   word_1_plane_2_5,
   word_1_plane_2_6,
-
   word_1_plane_3_1,
   word_1_plane_3_2,
   word_1_plane_3_3,
@@ -53,19 +51,17 @@ export class TestSceneBackground extends Phaser.Scene {
   }
 
   public create() {
-    let background = new BackgroundManager(this)
+    let background = new BackgroundManager(this);
 
     this.add
-      .text(50, 50, '< Retour', { fill: 'red' })
+      .text(50, 50, "< Retour", { fill: "red" })
       .setInteractive()
-      .on('pointerdown', () => {
-        this.scene.start('TestScene');
-      })
-
+      .on("pointerdown", () => {
+        this.scene.start("TestScene");
+      });
   }
 
-  public update() {
-  }
+  public update() {}
 }
 
 export default TestSceneBackground;

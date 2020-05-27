@@ -1,6 +1,6 @@
 import EventEmitter from "events";
 import { StepEventType } from "./gamepadListener";
-import { Direction } from "../game/classes/physic/Arrow";
+import { Direction } from "../classes/physic/Arrow";
 
 const keyTable: Map<number, Direction> = new Map([
   [37, "left"],
