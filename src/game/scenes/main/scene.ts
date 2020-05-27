@@ -37,7 +37,7 @@ import SheetMusicComponent from "../../components/SheetMusicComponent";
 import CharactersComponent from "../../components/CharactersComponent";
 import BackgroundComponent from "../../components/BackgroundComponent";
 import ScoreState from "../../states/scoreState";
-import AnimationManager from "../../plugins/Animations";
+import AnimationManager from "../../Helpers/Animations";
 import { mainAnimations } from "../../assets/animations";
 import DragQueen from "../../components/DragQueenComponent";
 

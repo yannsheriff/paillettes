@@ -1,5 +1,5 @@
 import config from "./config";
-import "../../../plugins/SpineContainer/SpineContainer";
+import "../../../Helpers/SpineContainer/SpineContainer";
 import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
 import { button, mask, char } from "../../../assets";
 

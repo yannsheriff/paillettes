@@ -1,4 +1,4 @@
-import SpineContainer from "../../plugins/SpineContainer/SpineContainer";
+import SpineContainer from "../../Helpers/SpineContainer/SpineContainer";
 
 class DragQueen extends SpineContainer {
   public SpineContainer: ISpineContainer;
