@@ -1,6 +1,7 @@
 import Mask from "./Mask";
 import Plane from "./Plane";
 import Align from "../../helpers/Align/align";
+import MainStateManager, { MainState, Worlds } from "../../states/main";
 
 class BackgroundManager {
   private pink: number = 0xff00ab;
@@ -8,6 +9,8 @@ class BackgroundManager {
   private purple: number = 0x6a23ff;
   private red: number = 0xff0b0b;
   private white: number = 0xffffff;
+  private mainState: MainState;
+  private mainManager: MainStateManager;
   private globalSpeed: number = 50;
   private currentPlanes: Array<Plane> = [];
   private nextPlanes: Array<Plane> = [];
@@ -40,8 +43,10 @@ class BackgroundManager {
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
-
     this.canvasWidth = scene.sys.game.canvas.width;
+    this.mainManager = MainStateManager.getInstance();
+    this.mainManager.subscribe(this.onMainStateChange);
+    this.mainState = this.mainManager.state;
 
     let mask = new Mask(scene, 600, 400, "mask", 0, this.pink);
     Align.left(mask);
@@ -141,6 +146,29 @@ class BackgroundManager {
     });
     this.globalSpeed += 20;
   }
+
+  private startWolrdTransition(world: Worlds) {
+    console.log("BackgroundManager -> startWolrdTransition -> world", world);
+  }
+
+  private endWolrdTransition() {
+    console.log("End World Transition");
+  }
+
+  private onMainStateChange = (state: MainState) => {
+    if (state.world !== this.mainState.world) {
+      this.startWolrdTransition(state.world);
+    }
+
+    if (
+      state.isInTransition !== this.mainState.isInTransition &&
+      !state.isInTransition
+    ) {
+      this.endWolrdTransition();
+    }
+
+    this.mainState = state;
+  };
 }
 
 export default BackgroundManager;

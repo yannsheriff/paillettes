@@ -1,5 +1,5 @@
-import MainStateManager, { MainState, DifficultyModes } from "./mainState";
-import State from "./state";
+import MainStateManager, { MainState, DifficultyModes } from "../main";
+import State from "../state";
 
 export interface ScoreState {
   score: number;
