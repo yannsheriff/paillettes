@@ -85,8 +85,10 @@ class PhysicCharacterManager {
   }
 
   public playDanseThenRun() {
+    let delay = 0.08;
     this.characters.forEach((character) => {
-      character.playDanceThenRunAnimation();
+      character.playDanceThenRunAnimation(delay);
+      delay += 0.08;
     });
   }
 
