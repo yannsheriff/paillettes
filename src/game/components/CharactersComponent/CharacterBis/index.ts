@@ -72,8 +72,8 @@ class PhysicCharacter extends SpineContainer {
     this.SpineContainer.playAnimation("Dance", false);
   }
 
-  public playDanceThenRunAnimation() {
-    this.SpineContainer.playOnceThenLoopNextAnimation("Dance", "Run");
+  public playDanceThenRunAnimation(delay: number) {
+    this.SpineContainer.playOnceThenLoopNextAnimation("Dance", "Run", delay);
   }
 
   /**
