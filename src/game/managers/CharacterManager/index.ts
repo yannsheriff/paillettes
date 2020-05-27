@@ -1,7 +1,9 @@
 import Character from "./Character";
+import { generateId } from "./Character/utils";
 
 class CharacterManager {
   public actualCharacter: Character;
+  private lastArrowID: Map<string, string> = new Map();
   private successfullArrows: Map<string, number> = new Map();
   private static instance: CharacterManager;
   private characters: Map<string, Character> = new Map();
@@ -25,6 +27,7 @@ class CharacterManager {
   private generateNewCharacter(): void {
     const num = Math.floor(Math.random() * (15 - 1 + 1) + 10);
     const character = new Character(num);
+
     this.actualCharacter = character;
     this.characters.set(character.ID, character);
     this.callOnNew(character.ID);
@@ -33,19 +36,37 @@ class CharacterManager {
   public getArrowID(): { ID: string } {
     const { isLastArrow, id } = this.actualCharacter.generateArrowID();
     if (isLastArrow) {
-      const isSuccessfull = this.isCharacterSuccesfull(this.actualCharacter.ID);
-      this.callOnEnd!(this.actualCharacter.ID, isSuccessfull);
+      const lastArrowId = generateId();
+      this.lastArrowID.set(lastArrowId, id);
       this.generateNewCharacter();
+      return { ID: lastArrowId };
     }
     return { ID: id };
   }
 
   public registerSuccesfullArrow(ID: string) {
-    if (this.successfullArrows.has(ID)) {
-      let value = this.successfullArrows.get(ID);
-      this.successfullArrows.set(ID, value! + 1);
+    const lastArrowcCharacterId = this.lastArrowID.get(ID);
+    const characterId = lastArrowcCharacterId ? lastArrowcCharacterId : ID;
+    if (this.successfullArrows.has(characterId)) {
+      let value = this.successfullArrows.get(characterId);
+      this.successfullArrows.set(characterId, value! + 1);
     } else {
-      this.successfullArrows.set(ID, 1);
+      this.successfullArrows.set(characterId, 1);
+    }
+
+    if (lastArrowcCharacterId !== undefined) {
+      const isSuccessfull = this.isCharacterSuccesfull(lastArrowcCharacterId);
+      this.callOnEnd!(this.actualCharacter.ID, isSuccessfull);
+      return;
+    }
+  }
+
+  public registerFailedArrow(ID: string) {
+    const lastArrowcCharacterId = this.lastArrowID.get(ID);
+    if (lastArrowcCharacterId !== undefined) {
+      const isSuccessfull = this.isCharacterSuccesfull(lastArrowcCharacterId);
+      this.callOnEnd!(this.actualCharacter.ID, isSuccessfull);
+      return;
     }
   }
 
