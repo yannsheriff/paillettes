@@ -1,120 +1,149 @@
 import config from "./config";
-import '../../../classes/physic/SpineContainer/SpineContainer'
-import CharacterBis from "../../../classes/physic/CharacterBis";
+import "../../../plugins/SpineContainer/SpineContainer";
+import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
 import { button, mask, char } from "../../../assets";
 
 export class TestSceneSpine extends Phaser.Scene {
-  private characterList: Array<CharacterBis> = []
-  private configList: Array<Phaser.GameObjects.Text> = []
+  private characterList: Array<CharacterBis> = [];
+  private configList: Array<Phaser.GameObjects.Text> = [];
   constructor() {
     super(config);
   }
 
   public preload(): void {
-    this.load.image('btn', button)
+    this.load.image("btn", button);
     this.load.image("mask", mask);
     // man 1
-    this.load.setPath('assets/spine/world1/man1/')
-    this.load.spine('world_1_man_1', 'world_1_man_1.json', 'world_1_man_1.atlas')
+    this.load.setPath("assets/spine/world1/man1/");
+    this.load.spine(
+      "world_1_man_1",
+      "world_1_man_1.json",
+      "world_1_man_1.atlas"
+    );
     // man 2
-    this.load.setPath('assets/spine/world1/man2/')
-    this.load.spine('world_1_man_2', 'world_1_man_2.json', 'world_1_man_2.atlas')
+    this.load.setPath("assets/spine/world1/man2/");
+    this.load.spine(
+      "world_1_man_2",
+      "world_1_man_2.json",
+      "world_1_man_2.atlas"
+    );
     // woman 1
-    this.load.setPath('assets/spine/world1/woman1/')
-    this.load.spine('world_1_woman_1', 'world_1_woman_1.json', 'world_1_woman_1.atlas')
+    this.load.setPath("assets/spine/world1/woman1/");
+    this.load.spine(
+      "world_1_woman_1",
+      "world_1_woman_1.json",
+      "world_1_woman_1.atlas"
+    );
     // woman 1
-    this.load.setPath('assets/spine/world1/woman2/')
-    this.load.spine('world_1_woman_2', 'world_1_woman_2.json', 'world_1_woman_2.atlas')
+    this.load.setPath("assets/spine/world1/woman2/");
+    this.load.spine(
+      "world_1_woman_2",
+      "world_1_woman_2.json",
+      "world_1_woman_2.atlas"
+    );
   }
 
   public create() {
-    let charactersWorld1 = ['world_1_man_1', 'world_1_man_2', 'world_1_woman_1', 'world_1_woman_2']
+    let charactersWorld1 = [
+      "world_1_man_1",
+      "world_1_man_2",
+      "world_1_woman_1",
+      "world_1_woman_2",
+    ];
     this.add
-      .text(50, 50, '< Retour', { fill: 'red' })
+      .text(50, 50, "< Retour", { fill: "red" })
       .setInteractive()
-      .on('pointerdown', () => {
-        this.scene.start('TestScene');
-      })
+      .on("pointerdown", () => {
+        this.scene.start("TestScene");
+      });
 
     let y = 50;
 
-    charactersWorld1.forEach(character => {
+    charactersWorld1.forEach((character) => {
       this.add
-      .text(150, y, 'Ajouter ' + character, { fill: 'red' })
-      .setInteractive()
-      .on('pointerdown', () => {
-        this.addCharacter(character)
-      })
-      y+=25;
+        .text(150, y, "Ajouter " + character, { fill: "red" })
+        .setInteractive()
+        .on("pointerdown", () => {
+          this.addCharacter(character);
+        });
+      y += 25;
     });
-    
+
     this.add
-      .text(150, y, 'Clear', { fill: 'red' })
+      .text(150, y, "Clear", { fill: "red" })
       .setInteractive()
-      .on('pointerdown', () => {
-        this.destroyAllCharacters()
-    })
+      .on("pointerdown", () => {
+        this.destroyAllCharacters();
+      });
 
     let debug = true;
 
     this.add
-    .text(50, 100, "Debug", { fill: 'black' })
-    .setInteractive()
-    .on('pointerdown', () => {
-      debug = !debug
-      this.characterList.forEach(character => {
-        character.SpineContainer.drawDebug(debug)
-      })
-    })
+      .text(50, 100, "Debug", { fill: "black" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        debug = !debug;
+        this.characterList.forEach((character) => {
+          character.SpineContainer.drawDebug(debug);
+        });
+      });
   }
 
   public addCharacter(assetName: string) {
-    this.destroyAllCharacters()
+    this.destroyAllCharacters();
 
-    let rand = Math.floor(Math.random() * 2)
-    let character = new CharacterBis(this, 700, 500, assetName, 'NBidle', '', false)
-    this.characterList.push(character)
-    this.addDebug(character)
+    let rand = Math.floor(Math.random() * 2);
+    let character = new CharacterBis(
+      this,
+      700,
+      500,
+      assetName,
+      "NBidle",
+      "",
+      false
+    );
+    this.characterList.push(character);
+    this.addDebug(character);
   }
 
   public addDebug(character: CharacterBis) {
     let y = 150;
 
-    character.skinsList.forEach(skin => {
+    character.skinsList.forEach((skin) => {
       let skinconfig = this.add
-      .text(50, y, skin, { fill: 'black' })
-      .setInteractive()
-      .on('pointerdown', () => {
-        character.SpineContainer.changeSkin(skin)
-      })
-      this.configList.push(skinconfig)
-      y += 25;
-    });
-
-    y = 300
-
-    character.animationsList.forEach(animation => {
-      let animconfig = this.add
-      .text(50, y, animation, { fill: 'black' })
-      .setInteractive()
-      .on('pointerdown', () => {
-        character.SpineContainer.playAnimation(animation, true)
-      })
-      this.configList.push(animconfig)
+        .text(50, y, skin, { fill: "black" })
+        .setInteractive()
+        .on("pointerdown", () => {
+          character.SpineContainer.changeSkin(skin);
+        });
+      this.configList.push(skinconfig);
       y += 25;
     });
 
     y = 300;
-    let speeds = [0.2, 0.5, 0.8, 1, 1.2, 1.5, 2]
 
-    speeds.forEach(speed => {
+    character.animationsList.forEach((animation) => {
+      let animconfig = this.add
+        .text(50, y, animation, { fill: "black" })
+        .setInteractive()
+        .on("pointerdown", () => {
+          character.SpineContainer.playAnimation(animation, true);
+        });
+      this.configList.push(animconfig);
+      y += 25;
+    });
+
+    y = 300;
+    let speeds = [0.2, 0.5, 0.8, 1, 1.2, 1.5, 2];
+
+    speeds.forEach((speed) => {
       let speedconfig = this.add
-      .text(180, y, 'speed : ' + speed, { fill: 'black' })
-      .setInteractive()
-      .on('pointerdown', () => {
-        character.SpineContainer.changeAnimationSpeed(speed)
-      })
-      this.configList.push(speedconfig)
+        .text(180, y, "speed : " + speed, { fill: "black" })
+        .setInteractive()
+        .on("pointerdown", () => {
+          character.SpineContainer.changeAnimationSpeed(speed);
+        });
+      this.configList.push(speedconfig);
       y += 25;
     });
 
@@ -132,18 +161,17 @@ export class TestSceneSpine extends Phaser.Scene {
   }
 
   public destroyAllCharacters() {
-    this.characterList.forEach(character => {
-      character.deleteCharacter()
+    this.characterList.forEach((character) => {
+      character.deleteCharacter();
     });
-    this.configList.forEach(config => {
-      config.destroy()
+    this.configList.forEach((config) => {
+      config.destroy();
     });
-    this.characterList = []
-    this.configList = []
+    this.characterList = [];
+    this.configList = [];
   }
 
-  public update() {
-  }
+  public update() {}
 }
 
 export default TestSceneSpine;

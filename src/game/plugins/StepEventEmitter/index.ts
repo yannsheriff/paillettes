@@ -1,7 +1,7 @@
 import EventEmitter from "events";
 import keyboardListener from "./keyBoardListener";
 import gamepadListener, { StepEventType } from "./gamepadListener";
-import { Direction } from "../components/SheetMusicComponent/Arrow";
+import { Direction } from "../../components/SheetMusicComponent/Arrow";
 
 export const delay = (time: number): Promise<string> =>
   new Promise(function (resolve) {

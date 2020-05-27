@@ -1,7 +1,7 @@
 import React from "react";
 import { gameConfig } from "../../../game/config";
-import stepEventEmitter from "../../../game/services/stepEventEmitter";
-import { StepEventType } from "../../../game/services/gamepadListener";
+import stepEventEmitter from "../../../game/plugins/StepEventEmitter";
+import { StepEventType } from "../../../game/plugins/StepEventEmitter/gamepadListener";
 
 const DEFAULT_WIDTH = 1440;
 const DEFAULT_HEIGHT = 800;

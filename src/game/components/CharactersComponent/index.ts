@@ -1,4 +1,4 @@
-import PhysicCharacter from "../../classes/physic/CharacterBis";
+import PhysicCharacter from "./CharacterBis";
 import CharacterManager from "../../managers/CharacterManager";
 
 const charactersWorld1 = [

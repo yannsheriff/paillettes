@@ -1,7 +1,8 @@
-import RGBToHSL from '../../utils/RGBToHSL.js';
-import HSLToRGB from '../../utils/HSLToRGB.js';
+import RGBToHSL from "../../Colors/RGBToHSL.js";
+import HSLToRGB from "../../Colors/HSLToRGB.js";
 
-const frag = `#ifdef GL_FRAGMENT_PRECISION_HIGH
+const frag =
+  `#ifdef GL_FRAGMENT_PRECISION_HIGH
 #define highmedp highp
 #else
 #define highmedp mediump
@@ -14,9 +15,10 @@ varying vec2 outTexCoord;
 uniform float hueRotate;
 uniform float satAdjust;
 uniform float lumAdjust;
-`
-+ RGBToHSL + HSLToRGB + 
-`
+` +
+  RGBToHSL +
+  HSLToRGB +
+  `
 void main(void) {
 	vec4 front = texture2D(uMainSampler, outTexCoord);
 	vec3 hsl = RGBToHSL(front.rgb);
