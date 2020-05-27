@@ -6,14 +6,20 @@ export enum DifficultyModes {
   hard,
   hardcore,
 }
+export enum Worlds {
+  middleAges,
+  today,
+}
 
 export interface MainState {
   difficulty: DifficultyModes;
+  world: Worlds;
 }
 
 export default class MainStateManager extends State {
   private static instance: MainStateManager;
   public state: MainState;
+  private remainingWorlds: Worlds[];
 
   /**
    * The Singleton's constructor should always be private to prevent direct
@@ -23,7 +29,10 @@ export default class MainStateManager extends State {
     super();
     this.state = {
       difficulty: DifficultyModes.easy,
+      world: Worlds.middleAges,
     };
+    this.remainingWorlds = [Worlds.middleAges, Worlds.today];
+    this.changeWorld();
   }
 
   /**
@@ -36,7 +45,6 @@ export default class MainStateManager extends State {
     if (!this.instance) {
       this.instance = new MainStateManager();
     }
-
     return this.instance;
   }
 
@@ -52,5 +60,16 @@ export default class MainStateManager extends State {
   public decrementDifficulty() {
     const { difficulty } = this.state;
     this.setState({ difficulty: difficulty < 1 ? 0 : difficulty - 1 });
+  }
+
+  public changeWorld() {
+    const world: Worlds = this.remainingWorlds[
+      Math.floor(Math.random() * this.remainingWorlds.length)
+    ];
+
+    if (world !== undefined) {
+      this.remainingWorlds = this.remainingWorlds.filter((w) => w !== world);
+      this.setState({ world: world });
+    }
   }
 }
