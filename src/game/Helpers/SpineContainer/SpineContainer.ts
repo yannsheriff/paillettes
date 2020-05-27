@@ -12,7 +12,7 @@ declare global {
         faceDirection(dir: 1 | -1): void
         drawDebug(bool: boolean): void
         playAnimation(animationname: string, loop: boolean): void
-        playOnceThenLoopNextAnimation(firstAnimation: string, secondAnimation: string): void
+        playOnceThenLoopNextAnimation(firstAnimation: string, secondAnimation: string, delay: number): void
         allowCollideWorldBounds(bool: boolean): void
         runVelocity(number: number): void
         changeAnimationSpeed(number: number): void
@@ -78,12 +78,15 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
     }
 
     public playAnimation(animationname: string, loop: boolean) {
-        this.SpineGameObject.play(animationname, loop)
+        this.SpineGameObject.clearTrack(1) // just in case
+        this.SpineGameObject.setEmptyAnimation(0, 0)
+        this.SpineGameObject.setAnimation(0, animationname, loop)
     }
 
-    public playOnceThenLoopNextAnimation(firstAnimation: string, secondAnimation: string) {
-        this.SpineGameObject.setAnimation(0, firstAnimation, false)
-        this.SpineGameObject.addAnimation(0, secondAnimation, true, 0)
+    public playOnceThenLoopNextAnimation(firstAnimation: string, secondAnimation: string, delay: number) {
+        this.SpineGameObject.setEmptyAnimation(1, 1)
+        this.SpineGameObject.addAnimation(1, firstAnimation, false, delay)
+        this.SpineGameObject.addAnimation(1, secondAnimation, true, 0)
     }
 
     public changeSlotColor(slotname: string, r: number, g: number, b: number, a?: number) {

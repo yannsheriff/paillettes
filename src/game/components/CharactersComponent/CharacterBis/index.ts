@@ -1,4 +1,4 @@
-import SpineContainer from "../../../Helpers/SpineContainer/SpineContainer";
+import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 
 class PhysicCharacter extends SpineContainer {
   public SpineContainer: ISpineContainer;
@@ -72,8 +72,8 @@ class PhysicCharacter extends SpineContainer {
     this.SpineContainer.playAnimation("Dance", false);
   }
 
-  public playDanceThenRunAnimation() {
-    this.SpineContainer.playOnceThenLoopNextAnimation("Dance", "Run");
+  public playDanceThenRunAnimation(delay: number) {
+    this.SpineContainer.playOnceThenLoopNextAnimation("Dance", "Run", delay);
   }
 
   /**

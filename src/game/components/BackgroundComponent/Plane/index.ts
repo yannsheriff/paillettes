@@ -1,4 +1,4 @@
-import Align from "../../../Helpers/Align/align";
+import Align from "../../../helpers/Align/align";
 
 // FIRST PLANE = 3
 // SECOND PLANE = 2

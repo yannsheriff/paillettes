@@ -1,6 +1,6 @@
 import Mask from "./Mask";
 import Plane from "./Plane";
-import Align from "../../Helpers/Align/align";
+import Align from "../../helpers/Align/align";
 
 class BackgroundManager {
   private pink: number = 0xff00ab;
