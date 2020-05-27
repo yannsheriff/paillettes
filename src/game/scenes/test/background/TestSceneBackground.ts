@@ -1,6 +1,6 @@
 import config from "./config";
 
-import BackgroundManager from "../../../classes/component/BackgroundManager";
+import BackgroundComponent from "../../../components/BackgroundComponent";
 
 import {
   word_1_plane_1_1,
@@ -51,7 +51,7 @@ export class TestSceneBackground extends Phaser.Scene {
   }
 
   public create() {
-    let background = new BackgroundManager(this);
+    let background = new BackgroundComponent(this);
 
     this.add
       .text(50, 50, "< Retour", { fill: "red" })

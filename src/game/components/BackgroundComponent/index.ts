@@ -1,6 +1,6 @@
-import Mask from "../../physic/Mask";
-import Plane from "../../physic/Plane";
-import Align from "../../utils/align";
+import Mask from "../../classes/physic/Mask";
+import Plane from "../../classes/physic/Plane";
+import Align from "../../classes/utils/align";
 
 class BackgroundManager {
   private pink: number = 0xff00ab;
@@ -37,6 +37,7 @@ class BackgroundManager {
       "word_1_plane_3_6",
     ],
   ];
+
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
 

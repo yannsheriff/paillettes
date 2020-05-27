@@ -29,16 +29,16 @@ import {
   word_1_plane_3_6,
   mask,
 } from "../../assets";
-import Arrow from "../../classes/physic/Arrow";
-import CharacterManager from "../../classes/logic/CharacterManager";
+import Arrow from "../../components/SheetMusicComponent/Arrow";
+import CharacterManager from "../../managers/CharacterManager";
 import Ground from "../../classes/physic/Ground";
 import PhysicCharacter from "../../classes/physic/CharacterBis";
-import SheetMusic from "../../classes/component/sheet-music";
-import PhysicCharacterManager from "../../classes/logic/PhysicCharacterManager";
+import SheetMusicComponent from "../../components/SheetMusicComponent";
+import CharactersComponent from "../../components/CharactersComponent";
+import BackgroundComponent from "../../components/BackgroundComponent";
 import ScoreState from "../../states/scoreState";
 import AnimationManager from "../../services/animations";
 import { mainAnimations } from "../../assets/animations";
-import BackgroundManager from "../../classes/component/BackgroundManager";
 import DragQueen from "../../classes/physic/DragQueen";
 
 export class GameScene extends Phaser.Scene {
@@ -146,12 +146,12 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.animationManager.register();
-    new BackgroundManager(this);
-    new PhysicCharacterManager(this);
+    new BackgroundComponent(this);
+    new CharactersComponent(this);
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
     this.ground = new Ground(this);
-    new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
+    new SheetMusicComponent(this, this.CharacterManager, sheetX, sheetY);
     this.dragQueen = new DragQueen(
       this,
       window.innerWidth / 3,

@@ -1,5 +1,5 @@
-import PhysicCharacter from "../../physic/CharacterBis";
-import CharacterManager from "../CharacterManager";
+import PhysicCharacter from "../../classes/physic/CharacterBis";
+import CharacterManager from "../../managers/CharacterManager";
 
 const charactersWorld1 = [
   "world_1_man_1",
