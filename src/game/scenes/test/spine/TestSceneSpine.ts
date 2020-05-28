@@ -4,6 +4,7 @@ import { button, mask, char } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent";
 
 export class TestSceneSpine extends Phaser.Scene {
+  private dragQueen: Array<DragQueen> = [];
   private characterList: Array<CharacterBis> = [];
   private configList: Array<Phaser.GameObjects.Text> = [];
   constructor() {
@@ -109,6 +110,7 @@ export class TestSceneSpine extends Phaser.Scene {
       "Run",
       true
     );  
+    this.dragQueen.push(dragQueen)
   }
 
   public addCharacter(assetName: string) {
@@ -122,6 +124,7 @@ export class TestSceneSpine extends Phaser.Scene {
       assetName,
       "NBidle",
       "",
+      false,
       false
     );
     this.characterList.push(character);
@@ -189,8 +192,12 @@ export class TestSceneSpine extends Phaser.Scene {
     this.configList.forEach((config) => {
       config.destroy();
     });
+    this.dragQueen.forEach((dragqueen) => {
+      dragqueen.destroy();
+    });
     this.characterList = [];
     this.configList = [];
+    this.dragQueen = [];
   }
 
   public update() {}
