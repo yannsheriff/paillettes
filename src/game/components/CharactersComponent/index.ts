@@ -37,29 +37,6 @@ class PhysicCharacterManager {
     characterManager.isCharacterUnlocked((id, isUnlocked) => {
       console.log("isCharacterUnlocked", id, isUnlocked);
     });
-
-    /*
-     *
-     * Création des colliders
-     * temporairement visible
-     *
-     */
-    const characterOverlap = scene.add.rectangle(
-      window.innerWidth / 4 + window.innerWidth / 12 / 2,
-      window.innerHeight / 2,
-      window.innerWidth / 12,
-      window.innerHeight
-    ) as any;
-
-    scene.physics.add.existing(characterOverlap);
-
-    // scene.physics.add.overlap(
-    //     this.characters,
-    //     characterOverlap,
-    //     this.handleCharacterOverlap,
-    //     () => true,
-    //     this
-    // );
   }
 
   public generateNewPhysicCharacter(id: string) {
