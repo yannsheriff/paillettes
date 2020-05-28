@@ -1,5 +1,4 @@
 import config from "./config";
-import "../../../helpers/SpineContainer/SpineContainer";
 import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
 import { button, mask, char } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent";
@@ -96,7 +95,7 @@ export class TestSceneSpine extends Phaser.Scene {
       .on("pointerdown", () => {
         debug = !debug;
         this.characterList.forEach((character) => {
-          character.SpineContainer.drawDebug(debug);
+          character.drawDebug(debug);
         });
       });
   }
@@ -137,7 +136,7 @@ export class TestSceneSpine extends Phaser.Scene {
         .text(50, y, skin, { fill: "black" })
         .setInteractive()
         .on("pointerdown", () => {
-          character.SpineContainer.changeSkin(skin);
+          character.changeSkin(skin);
         });
       this.configList.push(skinconfig);
       y += 25;
@@ -150,7 +149,7 @@ export class TestSceneSpine extends Phaser.Scene {
         .text(50, y, animation, { fill: "black" })
         .setInteractive()
         .on("pointerdown", () => {
-          character.SpineContainer.playAnimation(animation, true);
+          character.playAnimation(animation, true);
         });
       this.configList.push(animconfig);
       y += 25;
@@ -164,7 +163,7 @@ export class TestSceneSpine extends Phaser.Scene {
         .text(180, y, "speed : " + speed, { fill: "black" })
         .setInteractive()
         .on("pointerdown", () => {
-          character.SpineContainer.changeAnimationSpeed(speed);
+          character.changeAnimationSpeed(speed);
         });
       this.configList.push(speedconfig);
       y += 25;
@@ -176,7 +175,7 @@ export class TestSceneSpine extends Phaser.Scene {
     //   .setInteractive()
     //   .on('pointerdown', () => {
     //     if (this.dragQueen) {
-    //       this.dragQueen.SpineContainer.changeSlotColor(slot, 255, 0, 0)
+    //       this.dragQueen.changeSlotColor(slot, 255, 0, 0)
     //     }
     //   })
     //   y += 25;

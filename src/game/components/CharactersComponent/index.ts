@@ -66,7 +66,7 @@ class PhysicCharacterManager {
 
     let charObj = new PhysicCharacter(
       this.scene,
-      window.innerWidth + 500,
+      window.innerWidth,
       window.innerHeight / 1.5,
       charactersWorld1[rand],
       "NBidle",
@@ -82,7 +82,7 @@ class PhysicCharacterManager {
 
   public addCollision(character: PhysicCharacter) {
     this.collider = this.scene.physics.add.overlap(
-      character.SpineContainer,
+      character,
       this.colliderZone,
       () => { this.checkIfUnlocked(character) },
       () => true,

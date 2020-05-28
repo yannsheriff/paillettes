@@ -2,7 +2,6 @@ import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 
 class PhysicCharacter extends SpineContainer {
   public scene: Phaser.Scene
-  public SpineContainer: ISpineContainer;
   public planeY: number = 0;
   public id: string;
   public speed: number = 80;
@@ -21,28 +20,28 @@ class PhysicCharacter extends SpineContainer {
     this.id = id;
     this.scene = scene;
 
-    this.SpineContainer = scene.add.spineContainer(x, y, key, anim, loop);
+    scene.add.existing(this);
 
     // apply default skin to character
-    this.SpineContainer.applyDefaultSkin(false);
+    this.applyDefaultSkin(false);
 
-    this.SpineContainer.mixAnimation("Run", "Dance");
-    this.SpineContainer.mixAnimation("Dance", "Run");
+    this.mixAnimation("Run", "Dance");
+    this.mixAnimation("Dance", "Run");
 
     this.setScale(0.5); // container and hitbox size
-    this.SpineContainer.setScale(0.5); // asset size
-    this.SpineContainer.setDepth(10);
+    this.setScale(0.5); // asset size
+    this.setDepth(10);
 
-    this.SpineContainer.drawDebug(false);
+    this.drawDebug(false);
 
-    // this.SpineContainer.playAnimation("NBidle", false)
+    // this.playAnimation("NBidle", false)
 
-    // this.SpineContainer.faceDirection(-1)
+    // this.faceDirection(-1)
 
     this.runTowardCrowd()
 
-    const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body;
-    this.SpineContainer.setPhysicsSize(body.width * 0.5, body.height * 0.9);
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    this.setPhysicsSize(body.width * 0.5, body.height * 0.9);
 
     // this.initDestroy()
   }
@@ -62,7 +61,7 @@ class PhysicCharacter extends SpineContainer {
 
   public failAndDestroy() {
     this.stop()
-    this.SpineContainer.playAnimation("Fail", false);
+    this.playAnimation("Fail", false);
 
     setTimeout(() => {
       this.deleteCharacter();
@@ -70,7 +69,7 @@ class PhysicCharacter extends SpineContainer {
   }
 
   public transformAndJoinCrowd() {
-    this.SpineContainer.playOnceThenLoopNextAnimation("Transition", "Run", 0);
+    this.playOnceThenLoopNextAnimation("Transition", "Run", 0);
   }
 
   // 
@@ -89,23 +88,23 @@ class PhysicCharacter extends SpineContainer {
   }
 
   public stop() {
-    this.SpineContainer.runVelocity(0)
+    this.runVelocity(0)
   }
 
   public playTransformationAnimation() {
-    this.SpineContainer.playAnimation("Transition", false);
+    this.playAnimation("Transition", false);
   }
 
   public playRunAnimation() {
-    this.SpineContainer.playAnimation("Run", true);
+    this.playAnimation("Run", true);
   }
 
   public playDanceAnimation() {
-    this.SpineContainer.playAnimation("Dance", false);
+    this.playAnimation("Dance", false);
   }
 
   public playDanceThenRunAnimation(delay: number) {
-    this.SpineContainer.playOnceThenLoopNextAnimation("Dance", "Run", delay);
+    this.playOnceThenLoopNextAnimation("Dance", "Run", delay);
   }
 
   /**
@@ -113,7 +112,7 @@ class PhysicCharacter extends SpineContainer {
    */
   public deleteCharacter() {
     this.destroy();
-    this.SpineContainer.delete();
+    this.delete();
   }
 }
 
