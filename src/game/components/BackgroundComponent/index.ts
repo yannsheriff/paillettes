@@ -1,6 +1,6 @@
 import Mask from "./Mask";
 import Plane from "./Plane";
-import Align from "../../helpers/Align/align";
+import Align from "../../helperss/Align/align";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
 
 class BackgroundManager {

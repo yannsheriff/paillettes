@@ -1,4 +1,4 @@
-import { AnimationData } from "../../helpers/Animations";
+import { AnimationData } from "../../helperss/Animations";
 import { glow, good, oops, perfect } from "../index";
 
 export const mainAnimations: AnimationData[] = [

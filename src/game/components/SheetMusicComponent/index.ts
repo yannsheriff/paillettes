@@ -1,15 +1,15 @@
 import Grid from "./Grid";
 import { EventEmitter } from "events";
-import MusicPlayer, { NoteWithTrack, NOTE_DELAY } from "../../helpers/Music";
+import MusicPlayer, { NoteWithTrack, NOTE_DELAY } from "../../helperss/Music";
 import CharacterManager from "../../managers/CharacterManager";
 import Arrow from "./Arrow";
-import { delay, promiseGenerator } from "../../helpers/StepEventEmitter";
+import { delay, promiseGenerator } from "../../helperss/StepEventEmitter";
 import ScoreState from "../../states/score";
 import Score from "./Score";
 import MainStateManager, { MainState } from "../../states/main";
 import { DifficultyModes } from "../../states/main";
 import Subtitle from "./Subtitle";
-import { Musics } from "../../helpers/Music/musics";
+import { Musics } from "../../helperss/Music/musics";
 // import { Musics } from "../../../plugins/Music/musics";
 
 export type Direction = "left" | "right" | "up" | "down";
