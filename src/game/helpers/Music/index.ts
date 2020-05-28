@@ -1,6 +1,7 @@
 import * as Tone from "tone";
 import { EventEmitter } from "events";
 import muscisFile, { Musics } from "./musics";
+import { SampleLibrary } from "./instruments";
 
 interface Note {
   duration: number;
@@ -54,8 +55,13 @@ export default class MusicPlayer {
     gain.toDestination();
 
     for (let index = 0; index < filteredTracks.length; index++) {
-      this.synths.push(new Tone.Synth());
-      this.synths[index].oscillator.type = "sine";
+      const instrument = this.generateInstrument(filteredTracks[index].name);
+      this.synths.push(instrument);
+
+      // if (this.synths[index].oscillator) {
+      //   this.synths[index].oscillator.type = "sine";
+      // }
+
       this.synths[index].connect(gain);
     }
 
@@ -95,6 +101,20 @@ export default class MusicPlayer {
   // private sendTick = (time: number) => {
   //   this.emitter.emit("tick", time);
   // };
+
+  private generateInstrument(name: string) {
+    switch (name) {
+      case "main":
+        return SampleLibrary.load({
+          instruments: "flute",
+        });
+
+      default:
+        const synth = new Tone.Synth();
+        synth.oscillator.type = "sine";
+        return synth;
+    }
+  }
 
   private createNoteMap = (track: Track) => {
     const map = track.notes.map((note) => note.name);
