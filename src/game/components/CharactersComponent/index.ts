@@ -15,13 +15,13 @@ class PhysicCharacterManager {
   private mainState: MainState;
   private mainManager: MainStateManager;
 
-  public characters: Array<PhysicCharacter>;
+  public crowd: Array<PhysicCharacter>;
   public actualCharacter: Array<PhysicCharacter>;
   public testY: number = 200;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
-    this.characters = [];
+    this.crowd = [];
     this.actualCharacter = [];
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.subscribe(this.onMainStateChange);
@@ -29,12 +29,21 @@ class PhysicCharacterManager {
 
     const characterManager = CharacterManager.getInstance();
 
+    let collider = scene.add.rectangle(
+      200,
+      200,
+      200,
+      window.innerHeight
+    )
+
     characterManager.onNewCharacter((id) => {
-      console.log("new character", id);
       this.generateNewPhysicCharacter(id)
     });
 
     characterManager.isCharacterUnlocked((id, isUnlocked) => {
+      if (isUnlocked) {
+        this.transformAndJoinCrowd()
+      }
       console.log("isCharacterUnlocked", id, isUnlocked);
     });
   }
@@ -51,32 +60,37 @@ class PhysicCharacterManager {
       id,
       false
     );
-    this.characters.push(charObj);
+    this.actualCharacter.push(charObj);
     this.testY += 120;
   }
 
+  public transformAndJoinCrowd() {
+    this.actualCharacter[0].playTransformationAnimation();
+    this.crowd.push(this.actualCharacter[0]);
+  }
+
   public playTransformation(id: string) {
-    this.characters.forEach((character) => {
+    this.crowd.forEach((character) => {
       character.playTransformationAnimation();
     });
   }
 
   public playAllDance() {
-    this.characters.forEach((character) => {
+    this.crowd.forEach((character) => {
       character.playDanceAnimation();
     });
   }
 
   public playDanseThenRun() {
     let delay = 0.08;
-    this.characters.forEach((character) => {
+    this.crowd.forEach((character) => {
       character.playDanceThenRunAnimation(delay);
       delay += 0.08;
     });
   }
 
   public playAllRun() {
-    this.characters.forEach((character) => {
+    this.crowd.forEach((character) => {
       character.playRunAnimation();
     });
   }
