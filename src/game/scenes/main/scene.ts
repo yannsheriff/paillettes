@@ -29,31 +29,34 @@ import {
   word_1_plane_3_6,
   mask,
 } from "../../assets";
-import Arrow from "../../classes/physic/Arrow";
-import CharacterManager from "../../classes/logic/CharacterManager";
-import Ground from "../../classes/physic/Ground";
-import PhysicCharacter from "../../classes/physic/CharacterBis";
-import SheetMusic from "../../classes/component/sheet-music";
-import ScoreState from "../../states/scoreState";
-import AnimationManager from "../../../services/animations";
+import Arrow from "../../components/SheetMusicComponent/Arrow";
+import CharacterManager from "../../managers/CharacterManager";
+import GroundComponent from "../../components/GroundComponent";
+import PhysicCharacter from "../../components/CharactersComponent/CharacterBis";
+import SheetMusicComponent from "../../components/SheetMusicComponent";
+import CharactersComponent from "../../components/CharactersComponent";
+import BackgroundComponent from "../../components/BackgroundComponent";
+import ScoreState from "../../states/score";
+import AnimationManager from "../../helpers/Animations";
 import { mainAnimations } from "../../assets/animations";
-import BackgroundManager from "../../classes/logic/BackgroundManager";
-import DragQueen from "../../classes/physic/DragQueen";
+import DragQueen from "../../components/DragQueenComponent";
+import MainGameManager from "../../managers/MainGameManager";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
   private CharacterManager: CharacterManager;
   private scoreManager: ScoreState;
-  private ground?: Ground;
+  private ground?: GroundComponent;
   private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
   private dragQueen?: DragQueen;
 
   constructor() {
     super(config);
-    this.CharacterManager = new CharacterManager();
+    this.CharacterManager = CharacterManager.getInstance();
     this.scoreManager = ScoreState.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
+    MainGameManager.getInstance();
   }
 
   public preload(): void {
@@ -95,12 +98,34 @@ export class GameScene extends Phaser.Scene {
     // drag queen
     this.load.setPath("assets/spine/dragqueen/");
     this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
-    // drag queen
-    this.load.setPath("assets/spine/world1/man1");
+
+    // man 1
+    this.load.setPath("assets/spine/world1/man1/");
     this.load.spine(
       "world_1_man_1",
       "world_1_man_1.json",
       "world_1_man_1.atlas"
+    );
+    // man 2
+    this.load.setPath("assets/spine/world1/man2/");
+    this.load.spine(
+      "world_1_man_2",
+      "world_1_man_2.json",
+      "world_1_man_2.atlas"
+    );
+    // woman 1
+    this.load.setPath("assets/spine/world1/woman1/");
+    this.load.spine(
+      "world_1_woman_1",
+      "world_1_woman_1.json",
+      "world_1_woman_1.atlas"
+    );
+    // woman 1
+    this.load.setPath("assets/spine/world1/woman2/");
+    this.load.spine(
+      "world_1_woman_2",
+      "world_1_woman_2.json",
+      "world_1_woman_2.atlas"
     );
   }
 
@@ -111,22 +136,24 @@ export class GameScene extends Phaser.Scene {
    *
    */
   handleCharacterOverlap = (character: Arrow) => {
-    if (this.CharacterManager.isCharacterSuccesfull(character.id)) {
-      character.setVelocity(0);
-      character.setAcceleration(0);
-      character.setPosition(this.score * 50 + 50, 50);
-      this.scoreManager.registerCharactere();
-      this.score += 1;
-    }
+    console.log("test");
+    // if (this.characterManager.isCharacterSuccesfull(character.id)) {
+    //   character.setVelocity(0);
+    //   character.setAcceleration(0);
+    //   character.setPosition(this.score * 50 + 50, 50);
+    //   this.scoreManager.registerCharactere();
+    //   this.score += 1;
+    // }
   };
 
   public create() {
     this.animationManager.register();
-    new BackgroundManager(this);
+    new BackgroundComponent(this);
+    new CharactersComponent(this);
+    this.ground = new GroundComponent(this);
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
-    this.ground = new Ground(this);
-    new SheetMusic(this, this.CharacterManager, sheetX, sheetY);
+    new SheetMusicComponent(this, this.CharacterManager, sheetX, sheetY);
     this.dragQueen = new DragQueen(
       this,
       window.innerWidth / 3,
