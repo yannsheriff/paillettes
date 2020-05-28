@@ -5,7 +5,7 @@ class PhysicCharacter extends SpineContainer {
   public SpineContainer: ISpineContainer;
   public planeY: number = 0;
   public id: string;
-  public speed: number = 50;
+  public speed: number = 80;
   public crowdPosition: number = 200; // x position
 
   constructor(
@@ -40,8 +40,6 @@ class PhysicCharacter extends SpineContainer {
     // this.SpineContainer.faceDirection(-1)
 
     this.runTowardCrowd()
-    // scene.physics.moveTo(this.SpineContainer, 500, window.innerHeight / 1.5, 300);
-
 
     const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body;
     this.SpineContainer.setPhysicsSize(body.width * 0.5, body.height * 0.9);
@@ -78,11 +76,11 @@ class PhysicCharacter extends SpineContainer {
   // 
   public runTowardCrowd() {
     this.scene.tweens.add({
-      targets: this.SpineContainer,
+      targets: this,
       x: this.crowdPosition,
       duration: 100 * this.speed,
       ease: 'Sine.easeIn',
-      repeat: -1,
+      repeat: 0,
       yoyo: false,
       onComplete: () => {
         // this.playRunAnimation()
