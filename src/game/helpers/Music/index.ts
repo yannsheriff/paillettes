@@ -1,7 +1,7 @@
 import * as Tone from "tone";
 import { EventEmitter } from "events";
 import muscisFile, { Musics } from "./musics";
-import { SampleLibrary } from "./instruments";
+import { SampleLibrary, AvailableInstrument } from "./instruments";
 
 interface Note {
   duration: number;
@@ -37,7 +37,7 @@ export const NOTE_DELAY = 5000;
 
 export default class MusicPlayer {
   private emitter: EventEmitter;
-  private synths: Tone.Synth[] = [];
+  private synths: Array<Tone.Synth | Tone.Sampler> = [];
   public noteMap: Map<string, 0 | 1 | 2 | 3> = new Map();
 
   constructor(songName: Musics, evtEmitter: EventEmitter) {
@@ -57,11 +57,6 @@ export default class MusicPlayer {
     for (let index = 0; index < filteredTracks.length; index++) {
       const instrument = this.generateInstrument(filteredTracks[index].name);
       this.synths.push(instrument);
-
-      // if (this.synths[index].oscillator) {
-      //   this.synths[index].oscillator.type = "sine";
-      // }
-
       this.synths[index].connect(gain);
     }
 
@@ -102,11 +97,16 @@ export default class MusicPlayer {
   //   this.emitter.emit("tick", time);
   // };
 
-  private generateInstrument(name: string) {
+  private generateInstrument(name: string): Tone.Sampler | Tone.Synth {
     switch (name) {
       case "main":
         return SampleLibrary.load({
-          instruments: "flute",
+          instruments: AvailableInstrument.flute,
+        });
+
+      case "piano":
+        return SampleLibrary.load({
+          instruments: AvailableInstrument.piano,
         });
 
       default:

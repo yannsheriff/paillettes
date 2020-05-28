@@ -1,45 +1,46 @@
 import * as Tone from "tone";
 
+export enum AvailableInstrument {
+  flute = "flute",
+  bass = "bassElectric",
+  piano = "piano",
+}
+
+interface LoadObject {
+  instruments: AvailableInstrument;
+  onload?: () => void;
+}
 export const SampleLibrary = {
-  minify: false,
-  ext: ".[mp3|ogg]", // use setExt to change the extensions on all files // do not change this variable //
   baseUrl: "/assets/instruments/",
-  list: ["flute"],
-  onload: () => console.log("didMoal"),
+  onload: () => console.log("didLoad"),
 
-  load: function (arg) {
-    var t, i;
-    arg ? (t = arg) : (t = {});
-    t.instruments = t.instruments || this.list;
-    t.baseUrl = t.baseUrl || this.baseUrl;
-    t.onload = t.onload || this.onload;
+  load: function (arg: LoadObject) {
+    const onload = arg.onload || this.onload;
+    var newT = this[arg.instruments];
 
-    var newT = this[t.instruments];
-    var s = new Tone.Sampler(newT, {
-      baseUrl: t.baseUrl + t.instruments + "/",
-      onload: t.onload,
+    return new Tone.Sampler(newT, {
+      baseUrl: this.baseUrl + arg.instruments + "/",
+      onload,
     });
-
-    return s;
   },
 
-  "bass-electric": {
-    "A#2": "As2.[mp3|ogg]",
-    "A#3": "As3.[mp3|ogg]",
-    "A#4": "As4.[mp3|ogg]",
-    "A#5": "As5.[mp3|ogg]",
-    "C#2": "Cs2.[mp3|ogg]",
-    "C#3": "Cs3.[mp3|ogg]",
-    "C#4": "Cs4.[mp3|ogg]",
-    "C#5": "Cs5.[mp3|ogg]",
-    E2: "E2.[mp3|ogg]",
-    E3: "E3.[mp3|ogg]",
-    E4: "E4.[mp3|ogg]",
-    E5: "E5.[mp3|ogg]",
-    G2: "G2.[mp3|ogg]",
-    G3: "G3.[mp3|ogg]",
-    G4: "G4.[mp3|ogg]",
-    G5: "G5.[mp3|ogg]",
+  bassElectric: {
+    "A#2": "As2.mp3",
+    "A#3": "As3.mp3",
+    "A#4": "As4.mp3",
+    "A#5": "As5.mp3",
+    "C#2": "Cs2.mp3",
+    "C#3": "Cs3.mp3",
+    "C#4": "Cs4.mp3",
+    "C#5": "Cs5.mp3",
+    E2: "E2.mp3",
+    E3: "E3.mp3",
+    E4: "E4.mp3",
+    E5: "E5.mp3",
+    G2: "G2.mp3",
+    G3: "G3.mp3",
+    G4: "G4.mp3",
+    G5: "G5.mp3",
   },
 
   bassoon: {

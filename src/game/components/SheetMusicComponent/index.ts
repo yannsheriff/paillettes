@@ -152,7 +152,7 @@ class SheetMusic {
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
         this.isPlaying = true;
-        this.player = new MusicPlayer(Musics.hungup, this.arrowEmitter);
+        this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
         this.player.start();
       }
       // this.throttleArrow({
