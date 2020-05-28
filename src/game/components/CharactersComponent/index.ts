@@ -12,20 +12,23 @@ const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 class PhysicCharacterManager {
   private scene: Phaser.Scene;
   public characters: Array<PhysicCharacter>;
+  public actualCharacter: Array<PhysicCharacter>;
   public testY: number = 200;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.characters = [];
+    this.actualCharacter = [];
 
     const characterManager = CharacterManager.getInstance();
 
     characterManager.onNewCharacter((id) => {
       console.log("new character", id);
+      this.generateNewPhysicCharacter(id)
     });
 
-    characterManager.isCharacterUnlocked((isUnlocked) => {
-      console.log("new character", isUnlocked);
+    characterManager.isCharacterUnlocked((id, isUnlocked) => {
+      console.log("isCharacterUnlocked", id, isUnlocked);
     });
 
     /*
@@ -43,8 +46,6 @@ class PhysicCharacterManager {
 
     scene.physics.add.existing(characterOverlap);
 
-    this.generateNewPhysicCharacter();
-
     // scene.physics.add.overlap(
     //     this.characters,
     //     characterOverlap,
@@ -54,18 +55,16 @@ class PhysicCharacterManager {
     // );
   }
 
-  public generateNewPhysicCharacter() {
+  public generateNewPhysicCharacter(id: string) {
     let rand = Math.floor(Math.floor(Math.random() * charactersWorld1.length));
 
     let charObj = new PhysicCharacter(
       this.scene,
-      // window.innerWidth / 2,
-      this.testY,
+      window.innerWidth + 500,
       window.innerHeight / 1.5,
       charactersWorld1[rand],
       "NBidle",
-      // ID,
-      "",
+      id,
       false
     );
     this.characters.push(charObj);

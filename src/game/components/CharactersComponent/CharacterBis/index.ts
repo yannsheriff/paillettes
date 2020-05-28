@@ -4,7 +4,7 @@ class PhysicCharacter extends SpineContainer {
   public SpineContainer: ISpineContainer;
   public planeY: number = 0;
   public id: string;
-  public speed: number = 70;
+  public speed: number = 90;
 
   constructor(
     scene: Phaser.Scene,
@@ -35,7 +35,7 @@ class PhysicCharacter extends SpineContainer {
     this.SpineContainer.drawDebug(false);
 
     // this.SpineContainer.faceDirection(-1)
-    // this.SpineContainer.runVelocity(- this.speed)
+    this.SpineContainer.runVelocity(- this.speed)
 
     const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body;
     this.SpineContainer.setPhysicsSize(body.width * 0.5, body.height * 0.9);
