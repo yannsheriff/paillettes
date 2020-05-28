@@ -129,23 +129,6 @@ export class GameScene extends Phaser.Scene {
     );
   }
 
-  /*
-   *
-   * handleCharacterOverlap
-   * Do something with character if is valid
-   *
-   */
-  handleCharacterOverlap = (character: Arrow) => {
-    console.log("test");
-    // if (this.characterManager.isCharacterSuccesfull(character.id)) {
-    //   character.setVelocity(0);
-    //   character.setAcceleration(0);
-    //   character.setPosition(this.score * 50 + 50, 50);
-    //   this.scoreManager.registerCharactere();
-    //   this.score += 1;
-    // }
-  };
-
   public create() {
     this.animationManager.register();
     new BackgroundComponent(this);
@@ -161,31 +144,6 @@ export class GameScene extends Phaser.Scene {
       "dragqueen",
       "Run",
       true
-    );
-
-    const characters: Array<PhysicCharacter> = [];
-
-    /*
-     *
-     * Création des colliders
-     * temporairement visible
-     *
-     */
-    const goodArrowCollider = this.add.rectangle(
-      sheetX + window.innerWidth / 12 / 2,
-      window.innerHeight / 2,
-      window.innerWidth / 12,
-      window.innerHeight
-    ) as any;
-
-    this.physics.add.existing(goodArrowCollider);
-
-    this.physics.add.overlap(
-      characters,
-      goodArrowCollider,
-      this.handleCharacterOverlap,
-      () => true,
-      this
     );
   }
 
