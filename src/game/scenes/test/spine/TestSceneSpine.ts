@@ -2,6 +2,7 @@ import config from "./config";
 import "../../../helpers/SpineContainer/SpineContainer";
 import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
 import { button, mask, char } from "../../../assets";
+import DragQueen from "../../../components/DragQueenComponent";
 
 export class TestSceneSpine extends Phaser.Scene {
   private characterList: Array<CharacterBis> = [];
@@ -41,6 +42,10 @@ export class TestSceneSpine extends Phaser.Scene {
       "world_1_woman_2.json",
       "world_1_woman_2.atlas"
     );
+
+    // drag queen
+    this.load.setPath("assets/spine/dragqueen/");
+    this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
   }
 
   public create() {
@@ -58,6 +63,13 @@ export class TestSceneSpine extends Phaser.Scene {
       });
 
     let y = 50;
+
+    this.add
+      .text(400, 50, "Ajouter la Drag Queen", { fill: "red" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.addDragQueen()
+      });
 
     charactersWorld1.forEach((character) => {
       this.add
@@ -87,6 +99,17 @@ export class TestSceneSpine extends Phaser.Scene {
           character.SpineContainer.drawDebug(debug);
         });
       });
+  }
+
+  public addDragQueen() {
+    let dragQueen = new DragQueen(
+      this,
+      window.innerWidth / 3,
+      window.innerHeight / 1.5,
+      "dragqueen",
+      "Run",
+      true
+    );  
   }
 
   public addCharacter(assetName: string) {
