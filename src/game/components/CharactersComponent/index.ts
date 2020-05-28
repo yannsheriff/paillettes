@@ -1,6 +1,7 @@
 import PhysicCharacter from "./CharacterBis";
 import CharacterManager from "../../managers/CharacterManager";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
+import Align from "../../helpers/Align/align"
 
 const charactersWorld1 = [
   "world_1_man_1",
@@ -14,10 +15,14 @@ class PhysicCharacterManager {
   private scene: Phaser.Scene;
   private mainState: MainState;
   private mainManager: MainStateManager;
+  private colliderZone: Phaser.GameObjects.Rectangle;
+  private collider?: Phaser.Physics.Arcade.Collider;
+  private overlapTrigger: boolean = false;
 
   public crowd: Array<PhysicCharacter>;
   public actualCharacter: Array<PhysicCharacter>;
   public testY: number = 200;
+  public nextUnlocked: string = ''
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
@@ -29,26 +34,35 @@ class PhysicCharacterManager {
 
     const characterManager = CharacterManager.getInstance();
 
-    let collider = scene.add.rectangle(
+    this.colliderZone = this.scene.add.rectangle(
       200,
       200,
       200,
       window.innerHeight
-    )
+    );
+
+    Align.centerV(this.colliderZone)
+    Align.centerH(this.colliderZone)
+    Align.scaleToGameH(this.colliderZone, 1)
+
+    this.scene.physics.add.existing(this.colliderZone);
 
     characterManager.onNewCharacter((id) => {
+      console.log("generateNewPhysicCharacter", id);
+
       this.generateNewPhysicCharacter(id)
     });
 
     characterManager.isCharacterUnlocked((id, isUnlocked) => {
-      if (isUnlocked) {
-        this.transformAndJoinCrowd()
-      }
       console.log("isCharacterUnlocked", id, isUnlocked);
+      if (isUnlocked) {
+        this.nextUnlocked = id
+      }
     });
   }
 
   public generateNewPhysicCharacter(id: string) {
+    // random character
     let rand = Math.floor(Math.floor(Math.random() * charactersWorld1.length));
 
     let charObj = new PhysicCharacter(
@@ -61,7 +75,35 @@ class PhysicCharacterManager {
       false
     );
     this.actualCharacter.push(charObj);
+
     this.testY += 120;
+
+    this.addCollision(charObj)
+  }
+
+  public addCollision(character: PhysicCharacter) {
+    this.collider = this.scene.physics.add.overlap(
+      character.SpineContainer,
+      this.colliderZone,
+      () => { this.checkIfUnlocked(character) },
+      () => true,
+      this
+    );
+  }
+
+  public checkIfUnlocked(character: PhysicCharacter) {
+    // first we destroy the collision otherwise it will endless loop
+    if (this.collider) {
+      this.scene.physics.world.removeCollider(this.collider);
+    };
+
+    if (this.nextUnlocked === character.id) {
+      character.stop()
+      // character.transformAndJoinCrowd()
+    } else {
+      character.failAndDestroy()
+    }
+    this.actualCharacter = []
   }
 
   public transformAndJoinCrowd() {
@@ -96,7 +138,7 @@ class PhysicCharacterManager {
   }
 
   // DEBUG PURPOSE
-  public playAllAnimations() {}
+  public playAllAnimations() { }
 
   private startWolrdTransition(world: Worlds) {
     console.log("PhysicCharacterManager", world);

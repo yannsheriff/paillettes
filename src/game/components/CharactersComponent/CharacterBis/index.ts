@@ -1,10 +1,11 @@
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 
 class PhysicCharacter extends SpineContainer {
+  public scene: Phaser.Scene
   public SpineContainer: ISpineContainer;
   public planeY: number = 0;
   public id: string;
-  public speed: number = 90;
+  public speed: number = 150;
 
   constructor(
     scene: Phaser.Scene,
@@ -17,10 +18,9 @@ class PhysicCharacter extends SpineContainer {
   ) {
     super(scene, x, y, key, anim, loop);
     this.id = id;
+    this.scene = scene;
 
     this.SpineContainer = scene.add.spineContainer(x, y, key, anim, loop);
-
-    // this.SpineContainer.allowCollideWorldBounds(true)
 
     // apply default skin to character
     this.SpineContainer.applyDefaultSkin(false);
@@ -35,7 +35,10 @@ class PhysicCharacter extends SpineContainer {
     this.SpineContainer.drawDebug(false);
 
     // this.SpineContainer.faceDirection(-1)
-    this.SpineContainer.runVelocity(- this.speed)
+
+    this.launch()
+    // scene.physics.moveTo(this.SpineContainer, 500, window.innerHeight / 1.5, 500);
+
 
     const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body;
     this.SpineContainer.setPhysicsSize(body.width * 0.5, body.height * 0.9);
@@ -56,8 +59,25 @@ class PhysicCharacter extends SpineContainer {
     }, timeToExitCanvas);
   }
 
+  public failAndDestroy() {
+    this.stop()
+    this.SpineContainer.playAnimation("Fail", false);
+
+    setTimeout(() => {
+      this.deleteCharacter();
+    }, 2000);
+  }
+
+  public transformAndJoinCrowd() {
+    this.SpineContainer.playOnceThenLoopNextAnimation("Transition", "Run", 0);
+  }
+
   public launch() {
-    this.SpineContainer.spineBody.setVelocityX(-50);
+    this.SpineContainer.runVelocity(- this.speed)
+  }
+
+  public stop() {
+    this.SpineContainer.runVelocity(0)
   }
 
   public playTransformationAnimation() {
