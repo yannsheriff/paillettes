@@ -1,5 +1,6 @@
 import PhysicCharacter from "./CharacterBis";
 import CharacterManager from "../../managers/CharacterManager";
+import MainStateManager, { MainState, Worlds } from "../../states/main";
 
 const charactersWorld1 = [
   "world_1_man_1",
@@ -11,6 +12,9 @@ const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
 class PhysicCharacterManager {
   private scene: Phaser.Scene;
+  private mainState: MainState;
+  private mainManager: MainStateManager;
+
   public characters: Array<PhysicCharacter>;
   public actualCharacter: Array<PhysicCharacter>;
   public testY: number = 200;
@@ -19,6 +23,9 @@ class PhysicCharacterManager {
     this.scene = scene;
     this.characters = [];
     this.actualCharacter = [];
+    this.mainManager = MainStateManager.getInstance();
+    this.mainManager.subscribe(this.onMainStateChange);
+    this.mainState = this.mainManager.state;
 
     const characterManager = CharacterManager.getInstance();
 
@@ -99,6 +106,29 @@ class PhysicCharacterManager {
 
   // DEBUG PURPOSE
   public playAllAnimations() {}
+
+  private startWolrdTransition(world: Worlds) {
+    console.log("PhysicCharacterManager", world);
+  }
+
+  private endWolrdTransition() {
+    console.log("End World Transition");
+  }
+
+  private onMainStateChange = (state: MainState) => {
+    if (state.world !== this.mainState.world) {
+      this.startWolrdTransition(state.world);
+    }
+
+    if (
+      state.isInTransition !== this.mainState.isInTransition &&
+      !state.isInTransition
+    ) {
+      this.endWolrdTransition();
+    }
+
+    this.mainState = state;
+  };
 }
 
 export default PhysicCharacterManager;

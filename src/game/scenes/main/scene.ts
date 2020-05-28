@@ -36,10 +36,11 @@ import PhysicCharacter from "../../components/CharactersComponent/CharacterBis";
 import SheetMusicComponent from "../../components/SheetMusicComponent";
 import CharactersComponent from "../../components/CharactersComponent";
 import BackgroundComponent from "../../components/BackgroundComponent";
-import ScoreState from "../../states/scoreState";
+import ScoreState from "../../states/score";
 import AnimationManager from "../../helpers/Animations";
 import { mainAnimations } from "../../assets/animations";
 import DragQueen from "../../components/DragQueenComponent";
+import MainGameManager from "../../managers/MainGameManager";
 
 export class GameScene extends Phaser.Scene {
   private score: number = 0;
@@ -55,6 +56,7 @@ export class GameScene extends Phaser.Scene {
     this.CharacterManager = CharacterManager.getInstance();
     this.scoreManager = ScoreState.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
+    MainGameManager.getInstance();
   }
 
   public preload(): void {

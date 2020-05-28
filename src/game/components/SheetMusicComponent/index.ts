@@ -4,10 +4,10 @@ import MusicPlayer, { NoteWithTrack, NOTE_DELAY } from "../../helpers/Music";
 import CharacterManager from "../../managers/CharacterManager";
 import Arrow from "./Arrow";
 import { delay, promiseGenerator } from "../../helpers/StepEventEmitter";
-import ScoreState from "../../states/scoreState";
+import ScoreState from "../../states/score";
 import Score from "./Score";
-import MainStateManager, { MainState } from "../../states/mainState";
-import { DifficultyModes } from "../../states/mainState";
+import MainStateManager, { MainState } from "../../states/main";
+import { DifficultyModes } from "../../states/main";
 import Subtitle from "./Subtitle";
 import { Musics } from "../../helpers/Music/musics";
 // import { Musics } from "../../../plugins/Music/musics";
@@ -142,6 +142,16 @@ class SheetMusic {
         this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
         this.player.start();
       }
+      // this.throttleArrow({
+      //   name: "E4",
+      //   duration: 3,
+      //   durationTicks: 3,
+      //   track: 1,
+      //   velocity: 1,
+      //   ticks: 1,
+      //   time: 1,
+      //   midi: 1,
+      // });
     });
   };
 
@@ -238,6 +248,7 @@ class SheetMusic {
           } else {
             this.subtitle?.fail();
             this.scoreManager.registerFail();
+            this.characterManager.registerFailedArrow(arrow.id);
           }
         }
       );

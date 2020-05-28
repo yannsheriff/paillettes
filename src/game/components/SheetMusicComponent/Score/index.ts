@@ -1,4 +1,4 @@
-import ScoreState from "../../../states/scoreState";
+import ScoreState from "../../../states/score";
 
 class Score {
   private score: Phaser.GameObjects.Text;
@@ -27,7 +27,7 @@ class Score {
       align: "center", // 'left'|'center'|'right'|'justify'
       lineSpacing: -0.02,
       fixedWidth: 300,
-      depth: 11
+      depth: 11,
     });
     this.subtitle.setText("SCORE");
     this.subtitle.setDepth(11);

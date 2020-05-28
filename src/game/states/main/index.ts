@@ -1,4 +1,4 @@
-import State from "./state";
+import State from "../state";
 
 export enum DifficultyModes {
   easy,
@@ -14,7 +14,16 @@ export enum Worlds {
 export interface MainState {
   difficulty: DifficultyModes;
   world: Worlds;
+  isInTransition: boolean;
+  didChangeWorld: boolean;
 }
+
+const initialState = {
+  difficulty: DifficultyModes.easy,
+  world: Worlds.middleAges,
+  didChangeWorld: false,
+  isInTransition: false,
+};
 
 export default class MainStateManager extends State {
   private static instance: MainStateManager;
@@ -27,12 +36,8 @@ export default class MainStateManager extends State {
    */
   private constructor() {
     super();
-    this.state = {
-      difficulty: DifficultyModes.easy,
-      world: Worlds.middleAges,
-    };
-    this.remainingWorlds = [Worlds.middleAges, Worlds.today];
-    this.changeWorld();
+    this.state = initialState;
+    this.remainingWorlds = [Worlds.today];
   }
 
   /**
@@ -67,9 +72,17 @@ export default class MainStateManager extends State {
       Math.floor(Math.random() * this.remainingWorlds.length)
     ];
 
-    if (world !== undefined) {
-      this.remainingWorlds = this.remainingWorlds.filter((w) => w !== world);
-      this.setState({ world: world });
-    }
+    this.remainingWorlds = this.remainingWorlds.filter((w) => w !== world);
+    this.setState({
+      world: world,
+      isInTransition: true,
+      didChangeWorld: true,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        isInTransition: false,
+      });
+    }, 15000);
   }
 }
