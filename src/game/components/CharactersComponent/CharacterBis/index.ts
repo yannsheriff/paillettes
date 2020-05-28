@@ -5,7 +5,8 @@ class PhysicCharacter extends SpineContainer {
   public SpineContainer: ISpineContainer;
   public planeY: number = 0;
   public id: string;
-  public speed: number = 150;
+  public speed: number = 50;
+  public crowdPosition: number = 200; // x position
 
   constructor(
     scene: Phaser.Scene,
@@ -34,10 +35,12 @@ class PhysicCharacter extends SpineContainer {
 
     this.SpineContainer.drawDebug(false);
 
+    // this.SpineContainer.playAnimation("NBidle", false)
+
     // this.SpineContainer.faceDirection(-1)
 
-    this.launch()
-    // scene.physics.moveTo(this.SpineContainer, 500, window.innerHeight / 1.5, 500);
+    this.runTowardCrowd()
+    // scene.physics.moveTo(this.SpineContainer, 500, window.innerHeight / 1.5, 300);
 
 
     const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body;
@@ -65,15 +68,26 @@ class PhysicCharacter extends SpineContainer {
 
     setTimeout(() => {
       this.deleteCharacter();
-    }, 2000);
+    }, 1000);
   }
 
   public transformAndJoinCrowd() {
     this.SpineContainer.playOnceThenLoopNextAnimation("Transition", "Run", 0);
   }
 
-  public launch() {
-    this.SpineContainer.runVelocity(- this.speed)
+  // 
+  public runTowardCrowd() {
+    this.scene.tweens.add({
+      targets: this.SpineContainer,
+      x: this.crowdPosition,
+      duration: 100 * this.speed,
+      ease: 'Sine.easeIn',
+      repeat: -1,
+      yoyo: false,
+      onComplete: () => {
+        // this.playRunAnimation()
+      },
+  });
   }
 
   public stop() {

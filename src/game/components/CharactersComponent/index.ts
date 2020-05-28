@@ -49,7 +49,6 @@ class PhysicCharacterManager {
 
     characterManager.onNewCharacter((id) => {
       console.log("generateNewPhysicCharacter", id);
-
       this.generateNewPhysicCharacter(id)
     });
 
@@ -92,14 +91,15 @@ class PhysicCharacterManager {
   }
 
   public checkIfUnlocked(character: PhysicCharacter) {
-    // first we destroy the collision otherwise it will endless loop
+    // first we destroy the collision to avoid endless loop
     if (this.collider) {
       this.scene.physics.world.removeCollider(this.collider);
     };
 
     if (this.nextUnlocked === character.id) {
-      character.stop()
-      // character.transformAndJoinCrowd()
+      // character.stop()
+      // character.playTransformationAnimation()
+      // character.playRunAnimation()
     } else {
       character.failAndDestroy()
     }
