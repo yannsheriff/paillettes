@@ -112,10 +112,6 @@ class SheetMusic {
 
     this.arrowEmitter.on("note", this.throttleArrow);
 
-    // setInterval(() => {
-    //   this.throttleArrow();
-    // }, 5000);
-
     this.score = new Score(
       this.scene,
       this.posX - this.inputZoneWidth,
@@ -139,7 +135,7 @@ class SheetMusic {
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
         this.isPlaying = true;
-        this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
+        this.player = new MusicPlayer(Musics.hungup, this.arrowEmitter);
         this.player.start();
       }
       // this.throttleArrow({
@@ -197,19 +193,6 @@ class SheetMusic {
         this.scale
       );
       this.arrows.push(arrow);
-      // if (shouldLaunchCharacter) {
-      //   const char = new PhysicCharacter(
-      //     this.scene,
-      //     window.innerWidth,
-      //     window.innerHeight / 1.5,
-      //     "world_1_man_1",
-      //     "Run",
-      //     ID,
-      //     true
-      //   );
-
-      //   this.characters.push(char);
-      // }
     });
   };
 

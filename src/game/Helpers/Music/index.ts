@@ -124,11 +124,10 @@ export default class MusicPlayer {
     const notes = map
       .filter((a, b) => map.indexOf(a) === b)
       .sort(this.byNoteHeight);
-    const noteByHeight = Math.round(notes.length / 4);
+    const noteByHeight = notes.length / 4;
 
     notes.forEach((note, index) => {
       const pos = Math.floor(index / noteByHeight);
-
       if (pos === 0 || pos === 1 || pos === 2 || pos === 3) {
         this.noteMap.set(note, pos);
       }
