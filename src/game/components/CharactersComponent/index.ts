@@ -48,7 +48,6 @@ class PhysicCharacterManager {
     this.scene.physics.add.existing(this.colliderZone);
 
     characterManager.onNewCharacter((id) => {
-      console.log("generateNewPhysicCharacter", id);
       this.generateNewPhysicCharacter(id)
     });
 
@@ -62,17 +61,23 @@ class PhysicCharacterManager {
 
   public generateNewPhysicCharacter(id: string) {
     // random character
-    let rand = Math.floor(Math.floor(Math.random() * charactersWorld1.length));
+    let rand = Math.floor(Math.floor(Math.random() * charactersWorld1.length + 1));
 
     let charObj = new PhysicCharacter(
       this.scene,
       window.innerWidth,
       window.innerHeight / 1.5,
-      charactersWorld1[rand],
+      charactersWorld1[rand - 1],
       "NBidle",
       id,
-      false
+      false,
+      true
     );
+
+    console.log(charObj)
+
+    console.log("new " + charactersWorld1[rand] + ' ' + id);
+
     this.actualCharacter.push(charObj);
 
     this.testY += 120;
@@ -98,7 +103,7 @@ class PhysicCharacterManager {
 
     if (this.nextUnlocked === character.id) {
       // character.stop()
-      // character.playTransformationAnimation()
+      character.playTransformationAnimation()
       // character.playRunAnimation()
     } else {
       character.failAndDestroy()

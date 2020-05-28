@@ -14,7 +14,8 @@ class PhysicCharacter extends SpineContainer {
     key: string,
     anim: string,
     id: string,
-    loop?: boolean
+    loop?: boolean,
+    runAnimation: boolean = false
   ) {
     super(scene, x, y, key, anim, loop);
     this.id = id;
@@ -25,6 +26,7 @@ class PhysicCharacter extends SpineContainer {
     // apply default skin to character
     this.applyDefaultSkin(false);
 
+    this.mixAnimation("Transition", "Run");
     this.mixAnimation("Run", "Dance");
     this.mixAnimation("Dance", "Run");
 
@@ -38,7 +40,9 @@ class PhysicCharacter extends SpineContainer {
 
     // this.faceDirection(-1)
 
-    this.runTowardCrowd()
+    if (runAnimation) {
+      this.runTowardCrowd()
+    }
 
     const body = this.body as Phaser.Physics.Arcade.Body;
     this.setPhysicsSize(body.width * 0.5, body.height * 0.9);
@@ -74,15 +78,16 @@ class PhysicCharacter extends SpineContainer {
 
   // 
   public runTowardCrowd() {
+    let delay = Math.floor(Math.random() * 300) - 150;
     this.scene.tweens.add({
       targets: this,
-      x: this.crowdPosition,
+      x: this.crowdPosition + delay,
       duration: 100 * this.speed,
       ease: 'Sine.easeIn',
       repeat: 0,
       yoyo: false,
       onComplete: () => {
-        // this.playRunAnimation()
+        this.playRunAnimation()
       },
   });
   }
