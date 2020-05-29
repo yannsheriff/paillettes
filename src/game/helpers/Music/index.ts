@@ -1,7 +1,7 @@
 import * as Tone from "tone";
-// import gaga from "./zelda.json";
 import { EventEmitter } from "events";
 import muscisFile, { Musics } from "./musics";
+import { SampleLibrary, AvailableInstrument } from "./instruments";
 
 interface Note {
   duration: number;
@@ -35,33 +35,9 @@ interface Track {
 
 export const NOTE_DELAY = 5000;
 
-/**
- * Permet de de reduire le nombre d'evenement qui appel une callback
- * @param delay le temps min entre deux appel à la callback.
- * @param fn La fonction à appeler.
- */
-export function throttle(delay: number, fn: (...args: any) => unknown) {
-  let lastCall = 0;
-  let requestCount = 1;
-  let called = true;
-
-  return function (...args: any) {
-    const now = new Date().getTime();
-    requestCount += 1;
-    requestCount = called ? 1 : requestCount;
-    if (now - lastCall < delay) {
-      called = false;
-      return;
-    }
-    lastCall = now;
-    called = true;
-    return fn(requestCount, ...args);
-  };
-}
-
 export default class MusicPlayer {
   private emitter: EventEmitter;
-  private synths: Tone.Synth[] = [];
+  private synths: Array<Tone.Synth | Tone.Sampler> = [];
   public noteMap: Map<string, 0 | 1 | 2 | 3> = new Map();
 
   constructor(songName: Musics, evtEmitter: EventEmitter) {
@@ -79,8 +55,8 @@ export default class MusicPlayer {
     gain.toDestination();
 
     for (let index = 0; index < filteredTracks.length; index++) {
-      this.synths.push(new Tone.Synth());
-      this.synths[index].oscillator.type = "sine";
+      const instrument = this.generateInstrument(filteredTracks[index].name);
+      this.synths.push(instrument);
       this.synths[index].connect(gain);
     }
 
@@ -106,18 +82,39 @@ export default class MusicPlayer {
         new Tone.Part(this.playNote, NotesWithTrack).start(0);
       }
     });
-
-    Tone.Transport.scheduleRepeat((time) => {
-      this.sendTick(time);
-    }, "4n");
+    // TODO if tempo is not needed we can remove it wait until 20/06/2020
+    // Tone.Transport.scheduleRepeat((time) => {
+    //   this.sendTick(time);
+    // }, "4n");
   };
 
   private sendEvent = (time: number, event: NoteWithTrack) => {
     this.emitter.emit("note", event);
   };
-  private sendTick = (time: number) => {
-    this.emitter.emit("tick", time);
-  };
+
+  // TODO if tempo is not needed we can remove it wait until 20/06/2020
+  // private sendTick = (time: number) => {
+  //   this.emitter.emit("tick", time);
+  // };
+
+  private generateInstrument(name: string): Tone.Sampler | Tone.Synth {
+    switch (name) {
+      case "main":
+        return SampleLibrary.load({
+          instruments: AvailableInstrument.flute,
+        });
+
+      case "piano":
+        return SampleLibrary.load({
+          instruments: AvailableInstrument.piano,
+        });
+
+      default:
+        const synth = new Tone.Synth();
+        synth.oscillator.type = "sine";
+        return synth;
+    }
+  }
 
   private createNoteMap = (track: Track) => {
     const map = track.notes.map((note) => note.name);
@@ -151,19 +148,10 @@ export default class MusicPlayer {
         time,
         event.velocity
       );
-    } catch (error) {
-      console.warn("Note at same time : ", event.name, time);
-    }
+    } catch (error) {}
   };
 
   public start() {
     Tone.Transport.start();
   }
 }
-
-// document.addEventListener("click", (e) => {
-//   const evt = new EventEmitter();
-//   const player = new MusicPlayer(gaga, evt);
-//   evt.on("note", () => console.log("coucou"));
-//   player.start();
-// });
