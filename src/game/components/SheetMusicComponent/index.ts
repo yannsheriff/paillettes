@@ -232,6 +232,7 @@ class SheetMusic {
             this.subtitle?.fail();
             this.scoreManager.registerFail();
             this.characterManager.registerFailedArrow(arrow.id);
+            setTimeout(() => arrow.destroy, 1000);
           }
         }
       );
