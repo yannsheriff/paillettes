@@ -6,6 +6,7 @@ class PhysicCharacter extends SpineContainer {
   public id: string;
   public speed: number = 80;
   public crowdPosition: number = 200; // x position
+  public tweenX?: Phaser.Tweens.Tween;
 
   constructor(
     scene: Phaser.Scene,
@@ -59,7 +60,6 @@ class PhysicCharacter extends SpineContainer {
 
     setTimeout(() => {
       this.deleteCharacter();
-      console.log("personnage deleted");
     }, timeToExitCanvas);
   }
 
@@ -79,7 +79,7 @@ class PhysicCharacter extends SpineContainer {
   // 
   public runTowardCrowd() {
     let delay = Math.floor(Math.random() * 300) - 150;
-    this.scene.tweens.add({
+    this.tweenX = this.scene.tweens.add({
       targets: this,
       x: this.crowdPosition + delay,
       duration: 100 * this.speed,
@@ -89,7 +89,7 @@ class PhysicCharacter extends SpineContainer {
       onComplete: () => {
         this.playRunAnimation()
       },
-  });
+    });
   }
 
   public stop() {
@@ -113,11 +113,11 @@ class PhysicCharacter extends SpineContainer {
   }
 
   /**
-   * deleteCharacter
+   * destroy physic character + remove its tween
    */
   public deleteCharacter() {
+    if (this.tweenX) { this.tweenX.remove(); }
     this.destroy();
-    this.delete();
   }
 }
 
