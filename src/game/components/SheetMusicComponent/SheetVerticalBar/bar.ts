@@ -4,6 +4,7 @@ class Bar extends Phaser.Physics.Arcade.Image {
   constructor(
     scene: Phaser.Scene,
     speed: number,
+    //TODO : calculate start posdtion from velocity and grid size
     x: number = window.innerWidth,
     y: number = window.innerHeight - 275,
     scale: number
