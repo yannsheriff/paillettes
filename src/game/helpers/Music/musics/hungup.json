@@ -2606,35 +2606,6 @@
   },
   "tracks": [
     {
-      "channel": 0,
-      "controlChanges": {
-        "0": [
-          {
-            "number": 0,
-            "ticks": 375,
-            "time": 0.375,
-            "value": 0
-          }
-        ],
-        "32": [
-          {
-            "number": 32,
-            "ticks": 380,
-            "time": 0.37999999999999995,
-            "value": 0
-          }
-        ]
-      },
-      "pitchBends": [],
-      "instrument": {
-        "family": "piano",
-        "name": "acoustic grand piano",
-        "number": 0
-      },
-      "name": "HUNG UP",
-      "notes": []
-    },
-    {
       "channel": 15,
       "controlChanges": {
         "7": [
@@ -4167,7 +4138,7 @@
         "name": "electric bass (finger)",
         "number": 33
       },
-      "name": "",
+      "name": "bass",
       "notes": [
         {
           "duration": 0.2159999999999993,
@@ -12936,7 +12907,7 @@
         "name": "synth bass 1",
         "number": 38
       },
-      "name": "",
+      "name": "bass",
       "notes": [
         {
           "duration": 0.0400000000000027,
