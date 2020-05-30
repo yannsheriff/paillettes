@@ -25,6 +25,8 @@ export default class State {
       ...this.state,
       ...partState,
     };
+    console.log(this.state);
+
     this.dispatch();
   }
 
