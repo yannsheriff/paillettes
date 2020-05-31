@@ -1,7 +1,6 @@
 import config from "./config";
 
 import {
-  char,
   ground,
   arrowD,
   arrowL,
@@ -50,6 +49,7 @@ export class GameScene extends Phaser.Scene {
   private animationManager: AnimationManager;
   private grid?: Phaser.GameObjects.Image;
   private dragQueen?: DragQueen;
+  public isDebug?: boolean = false;
 
   constructor() {
     super(config);
@@ -61,7 +61,6 @@ export class GameScene extends Phaser.Scene {
 
   public preload(): void {
     this.animationManager.preload();
-    this.load.image("char", char);
     this.load.image("ground", ground);
     this.load.image("left", arrowL);
     this.load.image("right", arrowR);
@@ -145,6 +144,18 @@ export class GameScene extends Phaser.Scene {
       "Run",
       true
     );
+
+    // @ts-ignore
+    this.isDebug = this.game.config.physics.arcade.debug
+
+    // test number of items displayed in scene
+    if (this.isDebug) {
+      window.setInterval(() => {
+        // @ts-ignore
+        console.log(this.add.displayList.list)
+      }, 5000);
+    }    
+    
   }
 
   public update() {

@@ -16,7 +16,8 @@ class Plane extends Phaser.GameObjects.Sprite {
     y: number = 0,
     texture: string = "",
     plane: number,
-    globalspeed: number = 1
+    globalspeed: number = 1,
+    isAlreadyInScene: boolean = false
   ) {
     super(scene, x, y, texture);
 
@@ -29,8 +30,15 @@ class Plane extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    this.setScale(1.3);
-    Align.outsideRight(this);
+    this.setScale(1);
+
+    if (!isAlreadyInScene) {
+      Align.outsideRight(this);
+    } else {
+      Align.outsideRight(this);
+      // to do
+      // Align.left(this);
+    }
 
     this.centerBottom();
 
@@ -56,6 +64,10 @@ class Plane extends Phaser.GameObjects.Sprite {
   public updatePlaneSpeed(newSpeed: number) {
     this.speed = newSpeed * this.planeNb;
     this.planeBody.setVelocityX(-this.speed);
+  }
+
+  public deletePlane() {
+    this.destroy();
   }
 }
 
