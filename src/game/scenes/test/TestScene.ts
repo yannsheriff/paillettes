@@ -28,6 +28,12 @@ export class TestScene extends Phaser.Scene {
       .on('pointerdown', () => {
         this.scene.start('TestSceneCharacters');
       })
+    this.add
+      .text(100, 400, 'Tester le blob', { fill: 'red' })
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.scene.start('TestSceneBlob');
+      })
   }
 
   public update() {

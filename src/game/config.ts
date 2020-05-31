@@ -6,6 +6,7 @@ import TestScene from "./scenes/test";
 import TestSceneSpine from "./scenes/test/spine";
 import TestSceneBackground from "./scenes/test/background";
 import TestSceneCharacters from "./scenes/test/characters";
+import TestSceneBlob from "./scenes/test/blob";
 
 export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;
@@ -28,11 +29,11 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: false,
+      debug: true,
     },
   },
-  scene: [MainScene],
-  // scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCharacters],
+  // scene: [MainScene],
+  scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCharacters, TestSceneBlob],
   plugins: {
     scene: [
       { key: "SpinePlugin", plugin: window.SpinePlugin, mapping: "spine" },
