@@ -46,7 +46,7 @@ export class TestSceneSpine extends Phaser.Scene {
       .text(50, 50, "Ajouter un nouveau personnage", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
-        this.PhysicCharacterManager?.generateNewPhysicCharacter('');
+        this.PhysicCharacterManager?.generateTestPhysicCharacter();
       });
 
     this.add

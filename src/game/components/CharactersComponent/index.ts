@@ -74,9 +74,9 @@ class PhysicCharacterManager {
       true
     );
 
-    console.log(charObj)
+    // console.log(charObj)
 
-    console.log("new " + charactersWorld1[rand] + ' ' + id);
+    // console.log("new " + charactersWorld1[rand] + ' ' + id);
 
     this.actualCharacter.push(charObj);
 
@@ -144,6 +144,26 @@ class PhysicCharacterManager {
 
   // DEBUG PURPOSE
   public playAllAnimations() { }
+
+  public generateTestPhysicCharacter() {
+    // random character
+    let rand = Math.floor(Math.floor(Math.random() * charactersWorld1.length + 1));
+
+    let charObj = new PhysicCharacter(
+      this.scene,
+      this.testY,
+      window.innerHeight / 1.5,
+      charactersWorld1[rand - 1],
+      "NBidle",
+      '',
+      false,
+      false
+    );
+
+    this.crowd.push(charObj)
+
+    this.testY += 120;
+  }
 
   private startWolrdTransition(world: Worlds) {
     console.log("PhysicCharacterManager", world);
