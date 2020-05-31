@@ -9,6 +9,10 @@ export class TestSceneSpine extends Phaser.Scene {
   }
 
   public preload(): void {
+    // 
+    // WORLD 1 
+    // 
+
     // man 1
     this.load.setPath("assets/spine/world1/man1/");
     this.load.spine(
@@ -36,6 +40,65 @@ export class TestSceneSpine extends Phaser.Scene {
       "world_1_woman_2",
       "world_1_woman_2.json",
       "world_1_woman_2.atlas"
+    );
+
+    // 
+    // WORLD 2
+    // 
+    
+    // man 1
+    this.load.setPath("assets/spine/world2/man1/");
+    this.load.spine(
+      "world_2_man_1",
+      "world_2_man_1.json",
+      "world_2_man_1.atlas"
+    );
+    // // man 2
+    this.load.setPath("assets/spine/world2/man2/");
+    this.load.spine(
+      "world_2_man_2",
+      "world_2_man_2.json",
+      "world_2_man_2.atlas"
+    );
+    // // woman 1
+    this.load.setPath("assets/spine/world2/woman1/");
+    this.load.spine(
+      "world_2_woman_1",
+      "world_2_woman_1.json",
+      "world_2_woman_1.atlas"
+    );
+    // // woman 1
+    this.load.setPath("assets/spine/world2/woman2/");
+    this.load.spine(
+      "world_2_woman_2",
+      "world_2_woman_2.json",
+      "world_2_woman_2.atlas"
+    );
+
+    // 
+    // WORLD 3
+    // 
+    
+    // man 1
+    this.load.setPath("assets/spine/world3/man1/");
+    this.load.spine(
+      "world_3_man_1",
+      "world_3_man_1.json",
+      "world_3_man_1.atlas"
+    );
+    // woman 1
+    this.load.setPath("assets/spine/world3/woman1/");
+    this.load.spine(
+      "world_3_woman_1",
+      "world_3_woman_1.json",
+      "world_3_woman_1.atlas"
+    );
+    // woman 2
+    this.load.setPath("assets/spine/world3/woman2/");
+    this.load.spine(
+      "world_3_woman_2",
+      "world_3_woman_2.json",
+      "world_3_woman_2.atlas"
     );
   }
 
