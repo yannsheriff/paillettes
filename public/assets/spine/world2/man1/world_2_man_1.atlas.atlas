@@ -1,0 +1,153 @@
+
+world_2_man_1.atlas.png
+size: 1147,236
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BACK FEET
+  rotate: false
+  xy: 1026, 98
+  size: 89, 50
+  orig: 91, 53
+  offset: 1, 1
+  index: -1
+BACK HAND
+  rotate: true
+  xy: 104, 2
+  size: 34, 52
+  orig: 36, 54
+  offset: 1, 1
+  index: -1
+Color1/BACK ARM
+  rotate: true
+  xy: 559, 9
+  size: 36, 100
+  orig: 39, 103
+  offset: 1, 2
+  index: -1
+Color1/BACK FOREARM
+  rotate: true
+  xy: 158, 3
+  size: 33, 134
+  orig: 38, 137
+  offset: 2, 2
+  index: -1
+Color1/FRONT ARM
+  rotate: true
+  xy: 2, 2
+  size: 34, 100
+  orig: 45, 106
+  offset: 5, 5
+  index: -1
+Color1/FRONT FOREARM
+  rotate: true
+  xy: 294, 3
+  size: 33, 128
+  orig: 43, 130
+  offset: 6, 1
+  index: -1
+Color1/TORSO
+  rotate: false
+  xy: 593, 49
+  size: 133, 185
+  orig: 135, 188
+  offset: 1, 2
+  index: -1
+Color2/BACK ARM
+  rotate: true
+  xy: 661, 11
+  size: 36, 99
+  orig: 42, 105
+  offset: 1, 5
+  index: -1
+Color2/BACK FOREARM
+  rotate: true
+  xy: 424, 4
+  size: 32, 133
+  orig: 37, 138
+  offset: 2, 4
+  index: -1
+Color2/FRONT ARM
+  rotate: true
+  xy: 762, 13
+  size: 35, 99
+  orig: 37, 102
+  offset: 1, 1
+  index: -1
+Color2/FRONT FOREARM
+  rotate: false
+  xy: 992, 15
+  size: 32, 133
+  orig: 46, 138
+  offset: 6, 3
+  index: -1
+Color2/TORSO
+  rotate: false
+  xy: 728, 50
+  size: 132, 184
+  orig: 134, 186
+  offset: 1, 1
+  index: -1
+DOWN BACK LEG
+  rotate: false
+  xy: 547, 47
+  size: 21, 187
+  orig: 24, 194
+  offset: 1, 4
+  index: -1
+DOWN FRONT LEG
+  rotate: false
+  xy: 570, 47
+  size: 21, 187
+  orig: 24, 195
+  offset: 1, 4
+  index: -1
+FRONT FEET
+  rotate: true
+  xy: 1026, 8
+  size: 88, 50
+  orig: 90, 53
+  offset: 1, 1
+  index: -1
+FRONT HAND
+  rotate: true
+  xy: 863, 13
+  size: 163, 99
+  orig: 165, 102
+  offset: 1, 1
+  index: -1
+HEAD
+  rotate: true
+  xy: 1078, 32
+  size: 64, 66
+  orig: 66, 69
+  offset: 1, 1
+  index: -1
+NB
+  rotate: true
+  xy: 2, 38
+  size: 196, 543
+  orig: 198, 545
+  offset: 1, 1
+  index: -1
+SHADOW NB
+  rotate: false
+  xy: 863, 178
+  size: 279, 56
+  orig: 282, 60
+  offset: 2, 1
+  index: -1
+UP BACK LEG
+  rotate: false
+  xy: 964, 23
+  size: 26, 153
+  orig: 29, 155
+  offset: 2, 1
+  index: -1
+UP FRONT LEG
+  rotate: true
+  xy: 992, 150
+  size: 26, 153
+  orig: 28, 155
+  offset: 1, 1
+  index: -1
