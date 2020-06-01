@@ -9,10 +9,14 @@ export enum FreeLetter {
 
 export interface FreestyleState {
   remainingLetters: FreeLetter[];
+  isFreestyleActivated: boolean;
+  activationTime: number;
 }
 
 const initialState: FreestyleState = {
   remainingLetters: [FreeLetter.F, FreeLetter.R, FreeLetter.E1, FreeLetter.E2],
+  isFreestyleActivated: false,
+  activationTime: 0,
 };
 
 export default class FreestyleStateManager extends State {
@@ -52,5 +56,14 @@ export default class FreestyleStateManager extends State {
   public failLetter = () => {
     this.setState({ remainingLetters: initialState.remainingLetters });
     console.log(this.state);
+  };
+
+  public activateFreeMode = () => {
+    if (!this.state.isFreestyleActivated) {
+      this.setState({
+        isFreestyleActivated: true,
+        activationTime: new Date().getTime(),
+      });
+    }
   };
 }
