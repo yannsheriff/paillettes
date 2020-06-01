@@ -11,7 +11,8 @@ import { DifficultyModes } from "../../states/main";
 import Subtitle from "./Subtitle";
 import { Musics } from "../../helpers/Music/musics";
 import { Direction } from "./GridObject";
-import Letter from "./Letter";
+import Letter, { directionMatchRemaingLetters } from "./Letter";
+import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
@@ -25,13 +26,17 @@ const directionTable: {
   2: "down",
   3: "up",
 };
+
+export type GridObject = Arrow | Letter;
 class SheetMusic {
-  public gridObjects: Array<Arrow | Letter>;
+  public gridObjects: Array<GridObject>;
   public characterManager: CharacterManager;
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
   private scoreManager: ScoreState;
+  private freestyleManager: FreestyleStateManager;
   private mainState: MainState;
+  private freestyleState: FreestyleState;
   public isPlaying: boolean;
   private score?: Score;
   private player: MusicPlayer | undefined;
@@ -77,6 +82,8 @@ class SheetMusic {
     this.arrowEmitter = new EventEmitter();
     this.promiseGenerator = new promiseGenerator();
     this.scoreManager = ScoreState.getInstance();
+    this.freestyleManager = FreestyleStateManager.getInstance();
+    this.freestyleState = FreestyleStateManager.getInstance().state;
     this.mainState = MainStateManager.getInstance().state;
     this.sheetWidth = window.innerWidth - x - this.inputZoneWidth;
     this.noteDelay =
@@ -92,6 +99,7 @@ class SheetMusic {
     this.timeToFail = this.calculateTimeToExit();
 
     MainStateManager.getInstance().subscribe(this.onStateChange);
+    this.freestyleManager.subscribe((state) => (this.freestyleState = state));
 
     this.scoreManager.onFail(this.failedArrow);
     this.scoreManager.onSuccess(this.successArrow);
@@ -154,7 +162,7 @@ class SheetMusic {
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
         this.isPlaying = true;
-        this.player = new MusicPlayer(Musics.hungup, this.arrowEmitter);
+        this.player = new MusicPlayer(Musics.zelda, this.arrowEmitter);
         this.player.start();
       }
       // this.throttleArrow({
@@ -213,37 +221,44 @@ class SheetMusic {
    *  * on enregistre les point
    *  * on supprime la flèche
    */
-  private handleArrowOverlap = (arrow: Arrow) => {
-    if (!arrow.didCollide) {
-      arrow.didCollide = true;
+  private handleArrowOverlap = (gridObject: GridObject) => {
+    if (!gridObject.didCollide) {
+      gridObject.didCollide = true;
 
       const stepPromise = this.promiseGenerator.getPromise();
       const startTime = new Date().getTime();
 
       Promise.race([delay(this.timeToFail), stepPromise]).then(
         (winningPromise: string) => {
-          if (winningPromise.includes(arrow.direction)) {
+          if (winningPromise.includes(gridObject.direction)) {
             const time = new Date().getTime() - startTime;
             if (time > this.timeToPerfect && time < this.timeToGood) {
-              this.scoreManager.registerPerfectArrow(arrow);
+              this.scoreManager.registerPerfectArrow(gridObject);
             } else {
-              this.scoreManager.registerGoodArrow(arrow);
+              this.scoreManager.registerGoodArrow(gridObject);
             }
           } else {
-            this.scoreManager.registerFail(arrow);
+            this.scoreManager.registerFail(gridObject);
           }
         }
       );
     }
   };
 
-  private successArrow = (arrow: Arrow) => {
+  private successArrow = (gridObject: GridObject) => {
+    if (gridObject instanceof Letter) {
+      this.freestyleManager.validateLetter(gridObject.letter);
+    }
+
     this.inputAnimation!.anims.play("glow");
-    arrow.destroy();
+    gridObject.destroy();
   };
 
-  private failedArrow = (arrow: Arrow) => {
-    setTimeout(() => arrow.destroy, 1000);
+  private failedArrow = (gridObject: GridObject) => {
+    if (gridObject instanceof Letter) {
+      this.freestyleManager.failLetter();
+    }
+    setTimeout(() => gridObject.destroy, 1000);
   };
 
   /**
@@ -277,7 +292,13 @@ class SheetMusic {
    */
   private generateGridObject = (direction: Direction): Arrow | Letter => {
     const { ID } = this.characterManager.getArrowID();
-    if (this.arrowUntilLetter === 0) {
+    if (
+      this.arrowUntilLetter < 1 &&
+      directionMatchRemaingLetters(
+        direction,
+        this.freestyleState.remainingLetters
+      )
+    ) {
       this.arrowUntilLetter = 4;
       return new Letter(
         this.scene,
