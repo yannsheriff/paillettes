@@ -10,9 +10,8 @@ import MainStateManager, { MainState } from "../../states/main";
 import { DifficultyModes } from "../../states/main";
 import Subtitle from "./Subtitle";
 import { Musics } from "../../helpers/Music/musics";
-import Letter from "./Letter";
 import { Direction } from "./GridObject";
-// import { Musics } from "../../../plugins/Music/musics";
+import Letter from "./Letter";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
@@ -27,7 +26,7 @@ const directionTable: {
   3: "up",
 };
 class SheetMusic {
-  public arrows: Array<Arrow>;
+  public gridObjects: Array<Arrow | Letter>;
   public characterManager: CharacterManager;
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
@@ -56,7 +55,7 @@ class SheetMusic {
   private lastCall: number;
   private subtitle?: Subtitle;
   private called: boolean;
-  private characters: Array<any>;
+  private arrowUntilLetter: number;
 
   constructor(
     scene: Phaser.Scene,
@@ -64,15 +63,15 @@ class SheetMusic {
     x: number,
     y: number
   ) {
-    this.arrows = [];
+    this.gridObjects = [];
     this.posX = x;
     this.posY = y;
     this.scene = scene;
     this.lastCall = 0;
     this.requestCount = 1;
+    this.arrowUntilLetter = 4;
     this.called = true;
     this.characterManager = characterManager;
-    this.characters = [];
     this.throttleValue = 1000;
     this.isPlaying = false;
     this.arrowEmitter = new EventEmitter();
@@ -137,7 +136,7 @@ class SheetMusic {
     );
 
     this.scene.physics.add.overlap(
-      this.arrows,
+      this.gridObjects,
       inputZone,
       this.handleArrowOverlap,
       () => true,
@@ -197,18 +196,8 @@ class SheetMusic {
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
 
     directions.forEach((direction) => {
-      const { ID } = this.characterManager.getArrowID();
-      const arrow = new Arrow(
-        this.scene,
-        ID,
-        this.arrowSpeed,
-        heightBetweenSheetHBar * this.scale,
-        this.gridTop,
-        undefined,
-        direction,
-        this.scale
-      );
-      this.arrows.push(arrow);
+      const gridObject = this.generateGridObject(direction);
+      this.gridObjects.push(gridObject);
     });
   };
 
@@ -278,6 +267,41 @@ class SheetMusic {
   }
 
   /**
+   * Helper fonction
+   *
+   * Generation d'une flèche ou d'une lettre
+   * selon le besoin
+   */
+  private generateGridObject = (direction: Direction): Arrow | Letter => {
+    const { ID } = this.characterManager.getArrowID();
+    if (this.arrowUntilLetter === 0) {
+      this.arrowUntilLetter = 4;
+      return new Letter(
+        this.scene,
+        ID,
+        this.arrowSpeed,
+        heightBetweenSheetHBar * this.scale,
+        this.gridTop,
+        undefined,
+        direction,
+        this.scale
+      );
+    }
+
+    this.arrowUntilLetter -= 1;
+    return new Arrow(
+      this.scene,
+      ID,
+      this.arrowSpeed,
+      heightBetweenSheetHBar * this.scale,
+      this.gridTop,
+      undefined,
+      direction,
+      this.scale
+    );
+  };
+
+  /**
    * Return directions from note.
    *
    * This function take a single note in param and a a quantity. Then it return
@@ -311,14 +335,14 @@ class SheetMusic {
    * Permet de gérer le delaie entre l'evenement note et l'appel
    * a la creation de la flèche
    */
-  delayArrow = (calls: number, note: NoteWithTrack) => {
+  private delayArrow = (calls: number, note: NoteWithTrack) => {
     setTimeout(() => {
       return this.createArrow(calls, note);
     }, this.noteDelay);
   };
 
   // throttleArrow = throttle(this.throttleValue, this.delayArrow);
-  throttleArrow = (note: NoteWithTrack) => {
+  private throttleArrow = (note: NoteWithTrack) => {
     const now = new Date().getTime();
     this.requestCount += 1;
     this.requestCount = this.called ? 1 : this.requestCount;
