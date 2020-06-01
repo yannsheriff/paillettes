@@ -28,6 +28,9 @@ import {
   word_1_plane_3_5,
   word_1_plane_3_6,
   mask,
+  F,
+  R,
+  E1,
 } from "../../assets";
 import Arrow from "../../components/SheetMusicComponent/Arrow";
 import CharacterManager from "../../managers/CharacterManager";
@@ -66,6 +69,9 @@ export class GameScene extends Phaser.Scene {
     this.load.image("left", arrowL);
     this.load.image("right", arrowR);
     this.load.image("up", arrowU);
+    this.load.image("F", F);
+    this.load.image("R", R);
+    this.load.image("E1", E1);
     this.load.image("grid", grid);
     this.load.image("down", arrowD);
     this.load.image("zoneInput", zoneInput);

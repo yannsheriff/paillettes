@@ -10,9 +10,9 @@ import MainStateManager, { MainState } from "../../states/main";
 import { DifficultyModes } from "../../states/main";
 import Subtitle from "./Subtitle";
 import { Musics } from "../../helpers/Music/musics";
+import Letter from "./Letter";
+import { Direction } from "./GridObject";
 // import { Musics } from "../../../plugins/Music/musics";
-
-export type Direction = "left" | "right" | "up" | "down";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
