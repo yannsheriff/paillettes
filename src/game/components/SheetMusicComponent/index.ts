@@ -11,7 +11,8 @@ import { DifficultyModes } from "../../states/main";
 import Subtitle from "./Subtitle";
 import { Musics } from "../../helpers/Music/musics";
 import { Direction } from "./GridObject";
-import Letter from "./Letter";
+import Letter, { directionMatchRemaingLetters } from "./Letter";
+import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
@@ -31,7 +32,9 @@ class SheetMusic {
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
   private scoreManager: ScoreState;
+  private freestyleManager: FreestyleStateManager;
   private mainState: MainState;
+  private freestyleState: FreestyleState;
   public isPlaying: boolean;
   private score?: Score;
   private player: MusicPlayer | undefined;
@@ -77,6 +80,8 @@ class SheetMusic {
     this.arrowEmitter = new EventEmitter();
     this.promiseGenerator = new promiseGenerator();
     this.scoreManager = ScoreState.getInstance();
+    this.freestyleManager = FreestyleStateManager.getInstance();
+    this.freestyleState = FreestyleStateManager.getInstance().state;
     this.mainState = MainStateManager.getInstance().state;
     this.sheetWidth = window.innerWidth - x - this.inputZoneWidth;
     this.noteDelay =
@@ -92,6 +97,7 @@ class SheetMusic {
     this.timeToFail = this.calculateTimeToExit();
 
     MainStateManager.getInstance().subscribe(this.onStateChange);
+    this.freestyleManager.subscribe((state) => (this.freestyleState = state));
 
     this.create();
   }
@@ -151,7 +157,7 @@ class SheetMusic {
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
         this.isPlaying = true;
-        this.player = new MusicPlayer(Musics.hungup, this.arrowEmitter);
+        this.player = new MusicPlayer(Musics.zelda, this.arrowEmitter);
         this.player.start();
       }
       // this.throttleArrow({
@@ -210,16 +216,16 @@ class SheetMusic {
    *  * on enregistre les point
    *  * on supprime la flèche
    */
-  private handleArrowOverlap = (arrow: Arrow) => {
-    if (!arrow.didCollide) {
-      arrow.didCollide = true;
+  private handleArrowOverlap = (gridObject: Arrow | Letter) => {
+    if (!gridObject.didCollide) {
+      gridObject.didCollide = true;
 
       const stepPromise = this.promiseGenerator.getPromise();
       const startTime = new Date().getTime();
 
       Promise.race([delay(this.timeToFail), stepPromise]).then(
         (winningPromise: string) => {
-          if (winningPromise.includes(arrow.direction)) {
+          if (winningPromise.includes(gridObject.direction)) {
             const time = new Date().getTime() - startTime;
             if (time > this.timeToPerfect && time < this.timeToGood) {
               this.scoreManager.registerPerfectArrow();
@@ -228,15 +234,25 @@ class SheetMusic {
               this.scoreManager.registerGoodArrow();
               this.subtitle?.good();
             }
+
+            if (gridObject instanceof Letter) {
+              this.freestyleManager.validateLetter(gridObject.letter);
+            }
+
             this.inputAnimation!.anims.play("glow");
-            this.characterManager.registerSuccesfullArrow(arrow.id);
-            arrow.destroy();
+            this.characterManager.registerSuccesfullArrow(gridObject.id);
+
+            gridObject.destroy();
             this.score!.updateScore();
           } else {
             this.subtitle?.fail();
             this.scoreManager.registerFail();
-            this.characterManager.registerFailedArrow(arrow.id);
-            setTimeout(() => arrow.destroy, 1000);
+            this.characterManager.registerFailedArrow(gridObject.id);
+
+            if (gridObject instanceof Letter) {
+              this.freestyleManager.failLetter();
+            }
+            setTimeout(() => gridObject.destroy, 1000);
           }
         }
       );
@@ -274,7 +290,13 @@ class SheetMusic {
    */
   private generateGridObject = (direction: Direction): Arrow | Letter => {
     const { ID } = this.characterManager.getArrowID();
-    if (this.arrowUntilLetter === 0) {
+    if (
+      this.arrowUntilLetter < 1 &&
+      directionMatchRemaingLetters(
+        direction,
+        this.freestyleState.remainingLetters
+      )
+    ) {
       this.arrowUntilLetter = 4;
       return new Letter(
         this.scene,

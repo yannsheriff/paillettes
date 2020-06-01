@@ -15,6 +15,15 @@ const imageMap = new Map([
   [FreeLetter.E2, "E1"],
 ]);
 
+export function directionMatchRemaingLetters(
+  direction: Direction,
+  remainingLetters: FreeLetter[]
+): boolean {
+  const letter = letterMap[direction];
+  const hasLetter = remainingLetters.find((l) => l === letter);
+  return hasLetter !== undefined ? true : false;
+}
+
 class Letter extends GridObject {
   public letter: FreeLetter;
   constructor(

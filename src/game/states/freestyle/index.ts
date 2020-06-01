@@ -46,9 +46,11 @@ export default class FreestyleStateManager extends State {
       (l) => l !== letter
     );
     this.setState({ remainingLetters });
+    console.log(this.state);
   };
 
   public failLetter = () => {
     this.setState({ remainingLetters: initialState.remainingLetters });
+    console.log(this.state);
   };
 }
