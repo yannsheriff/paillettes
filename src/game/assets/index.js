@@ -1,14 +1,24 @@
 // UI
 export { default as char } from "./char.png";
-export { default as arrowL } from "./arrows/left.png";
-export { default as arrowR } from "./arrows/right.png";
-export { default as arrowU } from "./arrows/up.png";
-export { default as arrowD } from "./arrows/down.png";
 export { default as grid } from "./Interaction/grid.svg";
 export { default as button } from "./UI/barreFever.png";
 export { default as zoneInput } from "./Interaction/ZoneInput.svg";
 export { default as verticalLine } from "./Interaction/ligneVertical.svg";
 export { default as glow } from "./Interaction/glow.png";
+export { default as E2_SPRITE } from "./UI/E2_SPRITE.png";
+export { default as E1_SPRITE } from "./UI/E1_SPRITE.png";
+export { default as R_SPRITE } from "./UI/R_SPRITE.png";
+export { default as F_SPRITE } from "./UI/F_SPRITE.png";
+
+// Arrow
+export { default as arrowL } from "./arrows/left.png";
+export { default as arrowR } from "./arrows/right.png";
+export { default as arrowU } from "./arrows/up.png";
+export { default as arrowD } from "./arrows/down.png";
+export { default as F } from "./arrows/F.png";
+export { default as E1 } from "./arrows/E1.png";
+export { default as E2 } from "./arrows/E2.png";
+export { default as R } from "./arrows/R.png";
 
 // MASK
 export { default as mask } from "./mask/mask.png";

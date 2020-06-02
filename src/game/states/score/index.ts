@@ -1,6 +1,6 @@
 import MainStateManager, { MainState, DifficultyModes } from "../main";
 import State from "../state";
-import Arrow from "../../components/SheetMusicComponent/Arrow";
+import { GridObject } from "../../components/SheetMusicComponent";
 
 export interface ScoreState {
   score: number;
@@ -16,10 +16,10 @@ export default class ScoreStateManager extends State {
   private static instance: ScoreStateManager;
   private mainState: MainState;
   private mainStateManager: MainStateManager;
-  private failCallbacks: Array<(gridObject: Arrow) => any>;
-  private goodCallbacks: Array<(gridObject: Arrow) => any>;
-  private perfectCallbacks: Array<(gridObject: Arrow) => any>;
-  private successCallbacks: Array<(gridObject: Arrow) => any>;
+  private failCallbacks: Array<(gridObject: GridObject) => any>;
+  private goodCallbacks: Array<(gridObject: GridObject) => any>;
+  private perfectCallbacks: Array<(gridObject: GridObject) => any>;
+  private successCallbacks: Array<(gridObject: GridObject) => any>;
   public state: ScoreState;
 
   /**
@@ -59,19 +59,19 @@ export default class ScoreStateManager extends State {
    * Finally, any singleton should define some business logic, which can be
    * executed on its instance.
    */
-  public registerGoodArrow(arrow: Arrow) {
+  public registerGoodArrow(arrow: GridObject) {
     this.setState({ score: this.state.score + 10 });
     this.dispatchGood(arrow);
     this.handleCombo(ComboType.good);
   }
 
-  public registerPerfectArrow(arrow: Arrow) {
+  public registerPerfectArrow(arrow: GridObject) {
     this.setState({ score: this.state.score + 15 });
     this.dispatchPerfect(arrow);
     this.handleCombo(ComboType.perfect);
   }
 
-  public registerFail(arrow: Arrow) {
+  public registerFail(arrow: GridObject) {
     this.dispatchFail(arrow);
     this.handleCombo(ComboType.fail);
   }
@@ -80,28 +80,28 @@ export default class ScoreStateManager extends State {
     this.setState({ score: this.state.score + 10 });
   }
 
-  public onPerfect(callback: (arrow: Arrow) => any) {
+  public onPerfect(callback: (arrow: GridObject) => any) {
     this.perfectCallbacks.push(callback);
   }
-  public onGood(callback: (arrow: Arrow) => any) {
+  public onGood(callback: (arrow: GridObject) => any) {
     this.goodCallbacks.push(callback);
   }
-  public onFail(callback: (arrow: Arrow) => any) {
+  public onFail(callback: (arrow: GridObject) => any) {
     this.failCallbacks.push(callback);
   }
-  public onSuccess(callback: (arrow: Arrow) => any) {
+  public onSuccess(callback: (arrow: GridObject) => any) {
     this.successCallbacks.push(callback);
   }
 
-  private dispatchGood(arrow: Arrow) {
+  private dispatchGood(arrow: GridObject) {
     this.goodCallbacks.forEach((callback) => callback(arrow));
     this.successCallbacks.forEach((callback) => callback(arrow));
   }
-  private dispatchPerfect(arrow: Arrow) {
+  private dispatchPerfect(arrow: GridObject) {
     this.perfectCallbacks.forEach((callback) => callback(arrow));
     this.successCallbacks.forEach((callback) => callback(arrow));
   }
-  private dispatchFail(arrow: Arrow) {
+  private dispatchFail(arrow: GridObject) {
     this.failCallbacks.forEach((callback) => callback(arrow));
   }
 
