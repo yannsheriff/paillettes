@@ -23,6 +23,8 @@ import {
 } from "../../../assets";
 
 export class TestSceneBackground extends Phaser.Scene {
+  public background?: BackgroundComponent;
+
   constructor() {
     super(config);
   }
@@ -51,13 +53,38 @@ export class TestSceneBackground extends Phaser.Scene {
   }
 
   public create() {
-    let background = new BackgroundComponent(this);
+    this.background = new BackgroundComponent(this);
+
+    // @ts-ignore
+    let isDebug = this.game.config.physics.arcade.debug
+
+    // test number of items displayed in scene
+    if (isDebug) {
+      window.setInterval(() => {
+        // @ts-ignore
+        console.log(this.add.displayList.list)
+      }, 5000);
+    }    
 
     this.add
       .text(50, 50, "< Retour", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
         this.scene.start("TestScene");
+      });
+
+    this.add
+      .text(150, 50, "Augmenter la vitesse", { fill: "red" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.background?.updateSpeed(20)
+      });
+
+    this.add
+      .text(150, 100, "Changer de monde", { fill: "red" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.background?.updateSpeed(20)
       });
   }
 

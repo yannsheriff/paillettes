@@ -74,7 +74,7 @@ class Plane extends Phaser.GameObjects.Sprite {
   }
 
   public updatePlaneSpeed(newSpeed: number) {
-    this.speed = newSpeed * this.planeNb;
+    this.speed = newSpeed * this.mappingPlane;
     this.planeBody.setVelocityX(-this.speed);
   }
 

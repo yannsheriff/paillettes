@@ -156,14 +156,13 @@ class BackgroundManager {
   }
 
   public updateSpeed(newSpeed: number) {
-    this.globalSpeed = newSpeed;
+    this.globalSpeed += newSpeed;
     this.currentPlanes.forEach((planeelement) => {
-      planeelement.updatePlaneSpeed(newSpeed);
+      planeelement.updatePlaneSpeed(this.globalSpeed);
     });
     this.nextPlanes.forEach((planeelement) => {
-      planeelement.updatePlaneSpeed(newSpeed);
+      planeelement.updatePlaneSpeed(this.globalSpeed);
     });
-    this.globalSpeed += 20;
   }
 
   private startWorldTransition(world: Worlds) {
