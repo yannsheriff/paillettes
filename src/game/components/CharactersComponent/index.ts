@@ -174,7 +174,7 @@ class PhysicCharacterManager {
     this.testY += 120;
   }
 
-  private startWolrdTransition(world: Worlds) {
+  private startWorldTransition(world: Worlds) {
     console.log("PhysicCharacterManager", world);
   }
 
@@ -184,7 +184,7 @@ class PhysicCharacterManager {
 
   private onMainStateChange = (state: MainState) => {
     if (state.world !== this.mainState.world) {
-      this.startWolrdTransition(state.world);
+      this.startWorldTransition(state.world);
     }
 
     if (

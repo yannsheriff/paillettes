@@ -147,7 +147,7 @@ class BackgroundManager {
     this.globalSpeed += 20;
   }
 
-  private startWolrdTransition(world: Worlds) {
+  private startWorldTransition(world: Worlds) {
     console.log("BackgroundManager -> startWolrdTransition -> world", world);
   }
 
@@ -157,7 +157,7 @@ class BackgroundManager {
 
   private onMainStateChange = (state: MainState) => {
     if (state.world !== this.mainState.world) {
-      this.startWolrdTransition(state.world);
+      this.startWorldTransition(state.world);
     }
 
     if (
