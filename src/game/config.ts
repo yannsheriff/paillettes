@@ -29,11 +29,11 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: true,
+      debug: false,
     },
   },
-  scene: [MainScene],
-  // scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCharacters, TestSceneBlob],
+  // scene: [MainScene],
+  scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCharacters, TestSceneBlob],
   plugins: {
     scene: [
       { key: "SpinePlugin", plugin: window.SpinePlugin, mapping: "spine" },
