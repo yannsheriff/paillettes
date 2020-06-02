@@ -8,10 +8,10 @@ class Subtitle {
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.create();
-    const scorManager = ScoreStateManager.getInstance();
-    scorManager.onFail(this.fail);
-    scorManager.onGood(this.good);
-    scorManager.onPerfect(this.perfect);
+    const scoreManager = ScoreStateManager.getInstance();
+    scoreManager.onFail(this.fail);
+    scoreManager.onGood(this.good);
+    scoreManager.onPerfect(this.perfect);
   }
 
   private create() {
