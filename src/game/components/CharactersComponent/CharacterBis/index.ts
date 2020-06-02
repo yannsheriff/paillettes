@@ -1,3 +1,4 @@
+import Align from "../../../helpers/Align/align";
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 
 class PhysicCharacter extends SpineContainer {
@@ -7,6 +8,7 @@ class PhysicCharacter extends SpineContainer {
   public speed: number = 80;
   public crowdPosition: number = 200; // x position
   public tweenX?: Phaser.Tweens.Tween;
+  public scale: number = 0.5;
 
   constructor(
     scene: Phaser.Scene,
@@ -32,10 +34,11 @@ class PhysicCharacter extends SpineContainer {
     this.mixAnimation("Dance", "Run");
 
     this.setScale(0.5); // container and hitbox size
-    this.setScale(0.5); // asset size
     this.setDepth(10);
 
-    this.drawDebug(false);
+    Align.rightSpine(this, this.spine, this.scale);
+
+    this.drawDebug(true);
 
     // this.playAnimation("NBidle", false)
 
