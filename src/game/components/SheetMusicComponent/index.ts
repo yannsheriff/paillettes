@@ -13,6 +13,7 @@ import { Musics } from "../../helpers/Music/musics";
 import { Direction } from "./GridObject";
 import Letter, { directionMatchRemaingLetters } from "./Letter";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
+import FreeLights from "./FreeLights";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
@@ -120,6 +121,15 @@ class SheetMusic {
       this.posY,
       this.scale
     );
+
+    new FreeLights(
+      this.scene,
+      this.posX + this.inputZoneWidth / 2,
+      this.posY,
+      this.inputZoneWidth,
+      this.scale
+    );
+
     const inputZone = this.scene.add.image(
       this.posX + this.inputZoneWidth / 2,
       this.posY,

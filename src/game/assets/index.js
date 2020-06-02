@@ -5,6 +5,10 @@ export { default as button } from "./UI/barreFever.png";
 export { default as zoneInput } from "./Interaction/ZoneInput.svg";
 export { default as verticalLine } from "./Interaction/ligneVertical.svg";
 export { default as glow } from "./Interaction/glow.png";
+export { default as E2_SPRITE } from "./UI/E2_SPRITE.png";
+export { default as E1_SPRITE } from "./UI/E1_SPRITE.png";
+export { default as R_SPRITE } from "./UI/R_SPRITE.png";
+export { default as F_SPRITE } from "./UI/F_SPRITE.png";
 
 // Arrow
 export { default as arrowL } from "./arrows/left.png";
