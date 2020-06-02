@@ -48,8 +48,8 @@ class PhysicCharacter extends SpineContainer {
       this.runTowardCrowd()
     }
 
-    const body = this.body as Phaser.Physics.Arcade.Body;
-    this.setPhysicsSize(body.width * 0.5, body.height * 0.9);
+    // const body = this.body as Phaser.Physics.Arcade.Body;
+    // this.setPhysicsSize(body.width * 0.5, body.height * 0.9);
 
     // this.initDestroy()
   }

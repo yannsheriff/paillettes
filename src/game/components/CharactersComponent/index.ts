@@ -48,6 +48,8 @@ class PhysicCharacterManager {
       window.innerHeight
     );
 
+    this.generateNewPhysicCharacter('')
+
     Align.centerV(this.colliderZone)
     Align.centerH(this.colliderZone)
     Align.scaleToGameH(this.colliderZone, 1)
@@ -72,7 +74,7 @@ class PhysicCharacterManager {
 
     let charObj = new PhysicCharacter(
       this.scene,
-      window.innerWidth,
+      0,
       window.innerHeight / 1.5,
       charactersWorld1[rand - 1],
       "NBidle",

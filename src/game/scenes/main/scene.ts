@@ -130,9 +130,9 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.animationManager.register();
-    new BackgroundComponent(this);
+    // new BackgroundComponent(this);
     new CharactersComponent(this);
-    this.ground = new GroundComponent(this);
+    // this.ground = new GroundComponent(this);
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
     new SheetMusicComponent(this, this.CharacterManager, sheetX, sheetY);
