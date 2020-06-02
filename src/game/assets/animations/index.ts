@@ -8,6 +8,7 @@ import {
   R_SPRITE,
   E1_SPRITE,
   E2_SPRITE,
+  freestyle,
 } from "../index";
 
 export const mainAnimations: AnimationData[] = [
@@ -20,6 +21,26 @@ export const mainAnimations: AnimationData[] = [
     endFrame: 16,
     frameRate: 24,
     repeat: 0,
+  },
+  {
+    key: "freestyle-enter",
+    asset: freestyle,
+    frameWidth: 1353,
+    frameHeight: 310,
+    startFrame: 0,
+    endFrame: 26,
+    frameRate: 24,
+    repeat: 0,
+  },
+  {
+    key: "freestyle-loop",
+    asset: freestyle,
+    frameWidth: 1353,
+    frameHeight: 310,
+    startFrame: 26,
+    endFrame: 50,
+    frameRate: 24,
+    repeat: -1,
   },
   {
     key: "good",

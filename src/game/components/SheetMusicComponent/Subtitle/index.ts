@@ -1,4 +1,7 @@
 import ScoreStateManager from "../../../states/score";
+import FreestyleStateManager, {
+  FreestyleState,
+} from "../../../states/freestyle";
 
 class Subtitle {
   private scene: Phaser.Scene;
@@ -12,6 +15,7 @@ class Subtitle {
     scoreManager.onFail(this.fail);
     scoreManager.onGood(this.good);
     scoreManager.onPerfect(this.perfect);
+    FreestyleStateManager.getInstance().subscribe(this.checkFreestyle);
   }
 
   private create() {
@@ -32,6 +36,19 @@ class Subtitle {
   };
   public fail = () => {
     this.animation!.anims.play("oops");
+  };
+
+  private checkFreestyle = (state: FreestyleState) => {
+    if (state.isFreestyleActivated) {
+      setTimeout(() => {
+        this.animation!.anims.play("freestyle-enter").once(
+          "animationcomplete",
+          () => {
+            this.animation!.anims.play("freestyle-loop");
+          }
+        );
+      }, 2500);
+    }
   };
 }
 

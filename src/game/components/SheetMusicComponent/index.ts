@@ -302,6 +302,7 @@ class SheetMusic {
    */
   private generateGridObject = (direction: Direction): Arrow | Letter => {
     const { ID } = this.characterManager.getArrowID();
+
     if (
       this.arrowUntilLetter < 1 &&
       directionMatchRemaingLetters(
@@ -371,7 +372,9 @@ class SheetMusic {
    */
   private delayArrow = (calls: number, note: NoteWithTrack) => {
     setTimeout(() => {
-      return this.createArrow(calls, note);
+      if (!this.freestyleState.isFreestyleActivated) {
+        return this.createArrow(calls, note);
+      }
     }, this.noteDelay);
   };
 
@@ -386,7 +389,10 @@ class SheetMusic {
     }
     this.lastCall = now;
     this.called = true;
-    this.delayArrow(this.requestCount, note);
+
+    if (!this.freestyleState.isFreestyleActivated) {
+      this.delayArrow(this.requestCount, note);
+    }
   };
 }
 
