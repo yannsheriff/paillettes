@@ -1,6 +1,6 @@
 import config from "./config";
 import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
-import { button, mask, char } from "../../../assets";
+import { button, mask } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent";
 
 export class TestSceneSpine extends Phaser.Scene {

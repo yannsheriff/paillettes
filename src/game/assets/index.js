@@ -1,5 +1,4 @@
 // UI
-export { default as char } from "./char.png";
 export { default as arrowL } from "./arrows/left.png";
 export { default as arrowR } from "./arrows/right.png";
 export { default as arrowU } from "./arrows/up.png";
@@ -14,7 +13,6 @@ export { default as glow } from "./Interaction/glow.png";
 export { default as mask } from "./mask/mask.png";
 
 // LANDSCAPE
-export { default as ground } from "./landscape/ground.png";
 export { default as sol } from "./ground/sol.png";
 export { default as good } from "./indications/GOOD.png";
 export { default as oops } from "./indications/Oops.png";

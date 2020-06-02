@@ -1,7 +1,6 @@
 import config from "./config";
 
 import {
-  ground,
   arrowD,
   arrowL,
   arrowR,
@@ -61,7 +60,6 @@ export class GameScene extends Phaser.Scene {
 
   public preload(): void {
     this.animationManager.preload();
-    this.load.image("ground", ground);
     this.load.image("left", arrowL);
     this.load.image("right", arrowR);
     this.load.image("up", arrowU);
@@ -130,9 +128,9 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.animationManager.register();
-    // new BackgroundComponent(this);
+    new BackgroundComponent(this);
     new CharactersComponent(this);
-    // this.ground = new GroundComponent(this);
+    this.ground = new GroundComponent(this);
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4.5;
     new SheetMusicComponent(this, this.CharacterManager, sheetX, sheetY);
