@@ -95,7 +95,7 @@ class BackgroundManager {
     );
 
     setTimeout(() => {
-      planeinstance.destroy(true);
+      planeinstance.deletePlane();
       this.currentPlanes[planeArrayNb] = this.nextPlanes[planeArrayNb];
     }, timeToExitCanvas);
   }
