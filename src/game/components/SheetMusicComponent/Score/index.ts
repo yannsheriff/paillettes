@@ -1,14 +1,13 @@
-import ScoreState from "../../../states/score";
+import ScoreStateManager, { ScoreState } from "../../../states/score";
 
 class Score {
   private score: Phaser.GameObjects.Text;
   private subtitle: Phaser.GameObjects.Text;
-  private scoreManager: ScoreState;
 
   constructor(scene: Phaser.Scene, x: number, y: number, scale: number) {
     const font = 25 * scale;
     const fontScore = 55 * scale;
-    this.scoreManager = ScoreState.getInstance();
+    ScoreStateManager.getInstance().subscribe(this.updateScore);
 
     this.subtitle = scene.add.text(x - 100, y, "", {
       fontFamily: "LondrinaSolid",
@@ -35,9 +34,9 @@ class Score {
     this.score.setDepth(11);
   }
 
-  public updateScore() {
-    this.score.setText(this.scoreManager.state.score.toString());
-  }
+  public updateScore = (scoreState: ScoreState) => {
+    this.score.setText(scoreState.score.toString());
+  };
 }
 
 export default Score;
