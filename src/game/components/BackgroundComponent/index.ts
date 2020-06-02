@@ -44,34 +44,45 @@ class BackgroundManager {
         "world_1_plane_3_6",
       ]
     ],
-    // WORLD 2
+    // WORLD 2 - temporary assets
     [
       [
-        "world_1_plane_1_1",
-        "world_1_plane_1_2",
+        "world_3_plane_1_1",
+        "world_3_plane_1_1",
+        "world_3_plane_1_1"
       ],
       [
-        "world_1_plane_2_1",
-        "world_1_plane_2_2",
+        "world_3_plane_2_1",
+        "world_3_plane_2_2",
+        "world_3_plane_2_3",
+        "world_3_plane_2_4"
       ],
       [
-        "world_1_plane_3_1",
-        "world_1_plane_3_2",
-      ]
+        "world_3_plane_3_1",
+        "world_3_plane_3_2",
+        "world_3_plane_3_3",
+        "world_3_plane_3_4"
+      ],
     ],
     // WORLD 3
     [
-      ["world_3_plane_1_1"],
-
-      ["world_3_plane_2_1",
+      [
+        "world_3_plane_1_1",
+        "world_3_plane_1_1",
+        "world_3_plane_1_1"
+      ],
+      [
+        "world_3_plane_2_1",
         "world_3_plane_2_2",
         "world_3_plane_2_3",
-        "world_3_plane_2_4"],
-
-      ["world_3_plane_3_1",
+        "world_3_plane_2_4"
+      ],
+      [
+        "world_3_plane_3_1",
         "world_3_plane_3_2",
         "world_3_plane_3_3",
-        "world_3_plane_3_4"],
+        "world_3_plane_3_4"
+      ],
     ]
   ];
 
@@ -83,12 +94,10 @@ class BackgroundManager {
     this.mainState = this.mainManager.state;
     this.world = this.mainManager.state.world;
 
-    console.log(this.world)
-
     let mask = new Mask(scene, 600, 400, "mask", 0, this.pink);
     Align.left(mask);
 
-    for (let planenb = 1; planenb < 4; planenb++) {
+    for (let planenb = 2; planenb < 4; planenb++) {
       this.generatePlanes(planenb, true);
     }
   }
@@ -119,15 +128,16 @@ class BackgroundManager {
       this.nextPlanes[arrayNb] = planeObj;
     }
 
-    this.initDestroy(planeObj, arrayNb);
+    this.initDestroy(planeObj, planenb, arrayNb);
     this.initNextPlane(planeObj, planenb);
   }
 
-  public initDestroy(planeinstance: Plane, planeArrayNumber: number) {
+  public initDestroy(planeinstance: Plane, planeNumber: PlaneSpace, planeArrayNumber: number) {
     const timeToExitCanvas = this.calculateTime(
       planeinstance.width,
       planeinstance.scale,
       planeinstance.speed,
+      planeNumber,
       this.canvasWidth,
       true
     );
@@ -143,6 +153,7 @@ class BackgroundManager {
       planeinstance.width,
       planeinstance.scale,
       planeinstance.speed,
+      planeNumber,
       this.canvasWidth,
       false
     );
@@ -155,13 +166,18 @@ class BackgroundManager {
   // get random asset depending on world and plane
   // avoid getting twice the same asset in a row
   public getRandomAsset(arrayNb: number) {
-    let rand = Math.floor(Math.random() * (this.planesAssets[this.world][arrayNb].length - 1) + 1);
-    // do {
-    //   console.log('getRandomAsset')
-    //   rand = Math.floor(
-    //     Math.random() * (this.planesAssets[this.world][arrayNb].length - 1) + 1
-    //   );
-    // } while (rand === this.currentAsset[arrayNb]);
+    let rand;
+
+    do {
+      rand = Math.floor(
+        Math.random() * (this.planesAssets[this.world][arrayNb].length)
+      );
+
+      // handle bug and prevent for infite loop
+      if (this.planesAssets[this.world][arrayNb].length <= 1) {
+        return rand;
+      }
+    } while (rand === this.currentAsset[arrayNb] || 0);
 
     return rand;
   }
@@ -170,16 +186,27 @@ class BackgroundManager {
    * Helper fonction
    *
    * Permet de calculer en sec combien de temps met
-   * le plan à sortir du canvas
+   * le plan à sortir du canvas et dans combien de temps
+   * il doit en créer un nouveau
    */
   public calculateTime(
     planeWidth: number,
     planeScale: number,
     planeSpeed: number,
+    planeNb: PlaneSpace,
     canvasWidth: number,
     isExit: boolean
   ): number {
-    let latency = -50;
+    let latency; // this value set the distance between 2 assets
+
+    if (planeNb === 1) {
+      latency = -70
+    } else if (planeNb === 2) {
+      latency = -100;
+    } else {
+      latency = -150;
+    }
+
     const v = planeSpeed;
     let d = planeWidth * planeScale + latency;
     if (isExit) {
