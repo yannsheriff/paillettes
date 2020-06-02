@@ -14,6 +14,18 @@ import { Musics } from "../../helpers/Music/musics";
 
 export type Direction = "left" | "right" | "up" | "down";
 
+const heightBetweenSheetHBar = 158;
+const directionTable: {
+  0: Direction;
+  1: Direction;
+  2: Direction;
+  3: Direction;
+} = {
+  0: "right",
+  1: "left",
+  2: "down",
+  3: "up",
+};
 class SheetMusic {
   public arrows: Array<Arrow>;
   public characterManager: CharacterManager;
@@ -26,7 +38,9 @@ class SheetMusic {
   private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
   private sheetWidth: number;
+  private gridTop: number;
   private noteDelay: number;
+  private timeToFail: number;
   private scale = 0.8;
   private inputZoneWidth = 210 * this.scale;
   private inputPerfectZoneWidth = 70;
@@ -66,7 +80,8 @@ class SheetMusic {
     this.scoreManager = ScoreState.getInstance();
     this.mainState = MainStateManager.getInstance().state;
     this.sheetWidth = window.innerWidth - x - this.inputZoneWidth;
-    this.noteDelay = Math.round((this.sheetWidth / this.arrowSpeed) * 1000);
+    this.noteDelay =
+      NOTE_DELAY - Math.round((this.sheetWidth / this.arrowSpeed) * 1000);
     this.halfGoodZoneWidth =
       (this.inputZoneWidth - this.inputPerfectZoneWidth) / 2;
     this.timeToPerfect = (this.halfGoodZoneWidth / this.arrowSpeed) * 1000;
@@ -74,8 +89,13 @@ class SheetMusic {
       ((this.halfGoodZoneWidth + this.inputPerfectZoneWidth) /
         this.arrowSpeed) *
       1000;
+    this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
+    this.timeToFail = this.calculateTimeToExit();
 
     MainStateManager.getInstance().subscribe(this.onStateChange);
+
+    this.scoreManager.onFail(this.failedArrow);
+    this.scoreManager.onSuccess(this.successArrow);
 
     this.create();
   }
@@ -112,10 +132,6 @@ class SheetMusic {
 
     this.arrowEmitter.on("note", this.throttleArrow);
 
-    // setInterval(() => {
-    //   this.throttleArrow();
-    // }, 5000);
-
     this.score = new Score(
       this.scene,
       this.posX - this.inputZoneWidth,
@@ -139,7 +155,7 @@ class SheetMusic {
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
         this.isPlaying = true;
-        this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
+        this.player = new MusicPlayer(Musics.hungup, this.arrowEmitter);
         this.player.start();
       }
       // this.throttleArrow({
@@ -179,37 +195,23 @@ class SheetMusic {
    * Cette fonction crée une flèche et l'ajoute a la scène.
    */
   createArrow = (calls: number, note: NoteWithTrack) => {
-    const nbOfArrow = calls > 1 ? 2 : 1;
+    let nbOfArrow =
+      this.mainState.difficulty !== DifficultyModes.easy ? calls : 1;
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
 
     directions.forEach((direction) => {
       const { ID } = this.characterManager.getArrowID();
-
-      // TODO ici on fait le calcule a chaque fois, on pourrais optimiser.
       const arrow = new Arrow(
         this.scene,
         ID,
         this.arrowSpeed,
-        158 * this.scale,
-        this.posY - (158 * this.scale) / 2,
+        heightBetweenSheetHBar * this.scale,
+        this.gridTop,
         undefined,
         direction,
         this.scale
       );
       this.arrows.push(arrow);
-      // if (shouldLaunchCharacter) {
-      //   const char = new PhysicCharacter(
-      //     this.scene,
-      //     window.innerWidth,
-      //     window.innerHeight / 1.5,
-      //     "world_1_man_1",
-      //     "Run",
-      //     ID,
-      //     true
-      //   );
-
-      //   this.characters.push(char);
-      // }
     });
   };
 
@@ -226,33 +228,33 @@ class SheetMusic {
     if (!arrow.didCollide) {
       arrow.didCollide = true;
 
-      const timeToFail = this.calculateTimeToExit(arrow.width, arrow.scale);
       const stepPromise = this.promiseGenerator.getPromise();
       const startTime = new Date().getTime();
 
-      Promise.race([delay(timeToFail), stepPromise]).then(
+      Promise.race([delay(this.timeToFail), stepPromise]).then(
         (winningPromise: string) => {
           if (winningPromise.includes(arrow.direction)) {
             const time = new Date().getTime() - startTime;
             if (time > this.timeToPerfect && time < this.timeToGood) {
-              this.scoreManager.registerPerfectArrow();
-              this.subtitle?.perfect();
+              this.scoreManager.registerPerfectArrow(arrow);
             } else {
-              this.scoreManager.registerGoodArrow();
-              this.subtitle?.good();
+              this.scoreManager.registerGoodArrow(arrow);
             }
-            this.inputAnimation!.anims.play("glow");
-            this.characterManager.registerSuccesfullArrow(arrow.id);
-            arrow.destroy();
-            this.score!.updateScore();
           } else {
-            this.subtitle?.fail();
-            this.scoreManager.registerFail();
-            this.characterManager.registerFailedArrow(arrow.id);
+            this.scoreManager.registerFail(arrow);
           }
         }
       );
     }
+  };
+
+  private successArrow = (arrow: Arrow) => {
+    this.inputAnimation!.anims.play("glow");
+    arrow.destroy();
+  };
+
+  private failedArrow = (arrow: Arrow) => {
+    setTimeout(() => arrow.destroy, 1000);
   };
 
   /**
@@ -261,8 +263,20 @@ class SheetMusic {
    * Elle permet de caluculer le temps pour sortir de la zone d'input
    * en fonction de la taille des flèches
    */
-  private calculateTimeToExit(arrowWidth: number, arrowScale: number): number {
-    const halfHitboxTime = ((arrowWidth * arrowScale) / this.arrowSpeed) * 1000;
+  private calculateTimeToExit(): number {
+    const arrow = new Arrow(
+      this.scene,
+      "a",
+      0,
+      heightBetweenSheetHBar * this.scale,
+      0,
+      undefined,
+      "left",
+      this.scale
+    );
+    const halfHitboxTime =
+      ((arrow.width * arrow.scale) / this.arrowSpeed) * 1000;
+    arrow.destroy();
     return (this.inputZoneWidth / this.arrowSpeed) * 1000 + halfHitboxTime;
   }
 
@@ -276,18 +290,6 @@ class SheetMusic {
     note: string,
     quantity: number
   ): Direction[] => {
-    const directionTable: {
-      0: Direction;
-      1: Direction;
-      2: Direction;
-      3: Direction;
-    } = {
-      0: "right",
-      1: "left",
-      2: "down",
-      3: "up",
-    };
-
     if (this.player) {
       const direction = this.player.noteMap.get(note)!;
       if (quantity <= 1) {
@@ -298,6 +300,7 @@ class SheetMusic {
       const arrayOfDirectionWithoutPrevious = arrayOfDirection.filter(
         (d) => d !== direction
       );
+
       const randomNoteDirection =
         arrayOfDirectionWithoutPrevious[Math.floor(Math.random() * 3)];
 
@@ -312,10 +315,9 @@ class SheetMusic {
    * a la creation de la flèche
    */
   delayArrow = (calls: number, note: NoteWithTrack) => {
-    const time = NOTE_DELAY - this.noteDelay;
     setTimeout(() => {
       return this.createArrow(calls, note);
-    }, time);
+    }, this.noteDelay);
   };
 
   // throttleArrow = throttle(this.throttleValue, this.delayArrow);
@@ -323,10 +325,6 @@ class SheetMusic {
     const now = new Date().getTime();
     this.requestCount += 1;
     this.requestCount = this.called ? 1 : this.requestCount;
-    this.requestCount =
-      this.mainState.difficulty === DifficultyModes.easy
-        ? 1
-        : this.requestCount;
     if (now - this.lastCall < this.throttleValue) {
       this.called = false;
       return;
