@@ -1,6 +1,7 @@
 import config from "./config";
 
 import BackgroundComponent from "../../../components/BackgroundComponent";
+import MainStateManager from "../../../states/main";
 
 import {
   word_1_plane_1_1,
@@ -24,9 +25,11 @@ import {
 
 export class TestSceneBackground extends Phaser.Scene {
   public background?: BackgroundComponent;
+  private mainManager: MainStateManager;
 
   constructor() {
     super(config);
+    this.mainManager = MainStateManager.getInstance();
   }
 
   public preload(): void {
@@ -67,24 +70,24 @@ export class TestSceneBackground extends Phaser.Scene {
     }    
 
     this.add
-      .text(50, 50, "< Retour", { fill: "red" })
+      .text(50, 550, "< Retour", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
         this.scene.start("TestScene");
       });
 
     this.add
-      .text(150, 50, "Augmenter la vitesse", { fill: "red" })
+      .text(150, 550, "Augmenter la vitesse", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
         this.background?.updateSpeed(20)
       });
 
     this.add
-      .text(150, 100, "Changer de monde", { fill: "red" })
+      .text(150, 600, "Changer de monde", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
-        this.background?.updateSpeed(20)
+        this.mainManager.changeWorld()
       });
   }
 

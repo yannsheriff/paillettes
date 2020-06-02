@@ -16,10 +16,11 @@ class BackgroundManager {
   private nextPlanes: Array<Plane> = [];
   private scene: Phaser.Scene;
   private canvasWidth: number = 0;
-  private world: Worlds = 1;
+  private world: Worlds;
   private currentAsset: Array<number> = []
   private planesAssets: Array<Array<Array<string>>> = [
-    [
+    // WORLD 1
+    [ 
       [
         "word_1_plane_1_1",
         "word_1_plane_1_2",
@@ -42,6 +43,21 @@ class BackgroundManager {
         "word_1_plane_3_5",
         "word_1_plane_3_6",
       ]
+    ],
+    // WORLD 2
+    [
+      [
+        "word_1_plane_1_1",
+        "word_1_plane_1_2",
+      ],
+      [
+        "word_1_plane_2_1",
+        "word_1_plane_2_2",
+      ],
+      [
+        "word_1_plane_3_1",
+        "word_1_plane_3_2",
+      ]
     ]
   ];
 
@@ -51,6 +67,9 @@ class BackgroundManager {
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.subscribe(this.onMainStateChange);
     this.mainState = this.mainManager.state;
+    this.world = this.mainManager.state.world;
+
+    console.log(this.world)
 
     let mask = new Mask(scene, 600, 400, "mask", 0, this.pink);
     Align.left(mask);
@@ -75,7 +94,7 @@ class BackgroundManager {
       this.scene,
       0,
       0,
-      this.planesAssets[this.world - 1][arrayNb][rand],
+      this.planesAssets[this.world][arrayNb][rand],
       planenb,
       this.globalSpeed
     );
@@ -122,15 +141,15 @@ class BackgroundManager {
   // get random asset depending on world and plane
   // avoid getting twice the same asset in a row
   public getRandomAsset(arrayNb: number) {
-    let rand;
-    do {
-      rand = Math.floor(
-        Math.random() * (this.planesAssets[this.world - 1][arrayNb].length - 1) + 1
-      );
-    } while (rand === this.currentAsset[arrayNb]);
+    let rand = Math.floor(Math.random() * (this.planesAssets[this.world][arrayNb].length - 1) + 1);
+    // do {
+    //   console.log('getRandomAsset')
+    //   rand = Math.floor(
+    //     Math.random() * (this.planesAssets[this.world][arrayNb].length - 1) + 1
+    //   );
+    // } while (rand === this.currentAsset[arrayNb]);
 
     return rand;
-    
   }
 
   /**
@@ -165,11 +184,12 @@ class BackgroundManager {
     });
   }
 
-  private startWorldTransition(world: Worlds) {
+  public startWorldTransition(world: Worlds) {
+    this.world = world;
     console.log("BackgroundManager -> startWolrdTransition -> world", world);
   }
 
-  private endWolrdTransition() {
+  private endWorldTransition() {
     console.log("End World Transition");
   }
 
@@ -182,7 +202,7 @@ class BackgroundManager {
       state.isInTransition !== this.mainState.isInTransition &&
       !state.isInTransition
     ) {
-      this.endWolrdTransition();
+      this.endWorldTransition();
     }
 
     this.mainState = state;
