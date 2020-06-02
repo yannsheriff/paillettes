@@ -1,5 +1,5 @@
 import Mask from "./Mask";
-import Plane from "./Plane";
+import Plane, { PlaneSpace } from "./Plane";
 import Align from "../../helpers/Align/align";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
 
@@ -16,29 +16,32 @@ class BackgroundManager {
   private nextPlanes: Array<Plane> = [];
   private scene: Phaser.Scene;
   private canvasWidth: number = 0;
-  private planesAssets: Array<Array<string>> = [
+  private world: Worlds = 1;
+  private planesAssets: Array<Array<Array<string>>> = [
     [
-      "word_1_plane_1_1",
-      "word_1_plane_1_2",
-      "word_1_plane_1_3",
-      "word_1_plane_1_4",
-    ],
-    [
-      "word_1_plane_2_1",
-      "word_1_plane_2_2",
-      "word_1_plane_2_3",
-      "word_1_plane_2_4",
-      "word_1_plane_2_5",
-      "word_1_plane_2_6",
-    ],
-    [
-      "word_1_plane_3_1",
-      "word_1_plane_3_2",
-      "word_1_plane_3_3",
-      "word_1_plane_3_4",
-      "word_1_plane_3_5",
-      "word_1_plane_3_6",
-    ],
+      [
+        "word_1_plane_1_1",
+        "word_1_plane_1_2",
+        "word_1_plane_1_3",
+        "word_1_plane_1_4",
+      ],
+      [
+        "word_1_plane_2_1",
+        "word_1_plane_2_2",
+        "word_1_plane_2_3",
+        "word_1_plane_2_4",
+        "word_1_plane_2_5",
+        "word_1_plane_2_6",
+      ],
+      [
+        "word_1_plane_3_1",
+        "word_1_plane_3_2",
+        "word_1_plane_3_3",
+        "word_1_plane_3_4",
+        "word_1_plane_3_5",
+        "word_1_plane_3_6",
+      ]
+    ]
   ];
 
   constructor(scene: Phaser.Scene) {
@@ -51,7 +54,7 @@ class BackgroundManager {
     let mask = new Mask(scene, 600, 400, "mask", 0, this.pink);
     Align.left(mask);
 
-    for (let planenb = 0; planenb < 3; planenb++) {
+    for (let planenb = 1; planenb < 4; planenb++) {
       this.generatePlanes(planenb, true);
     }
   }
@@ -60,32 +63,33 @@ class BackgroundManager {
    * Generate a new plane and set its destroy time
    * and the time it will generate the next one
    */
-  public generatePlanes(planenb: number, isInit: boolean) {
+  public generatePlanes(planenb: PlaneSpace, isInit: boolean) {
+    let arrayNb = planenb - 1
     // get random asset for plane
     let rand = Math.floor(
-      Math.random() * (this.planesAssets[planenb].length - 1) + 1
+      Math.random() * (this.planesAssets[this.world - 1][arrayNb].length - 1) + 1
     );
 
     let planeObj = new Plane(
       this.scene,
       0,
       0,
-      this.planesAssets[planenb][rand],
+      this.planesAssets[this.world - 1][arrayNb][rand],
       planenb,
       this.globalSpeed
     );
 
     if (isInit) {
-      this.currentPlanes[planenb] = planeObj;
+      this.currentPlanes[arrayNb] = planeObj;
     } else {
-      this.nextPlanes[planenb] = planeObj;
+      this.nextPlanes[arrayNb] = planeObj;
     }
 
-    this.initDestroy(this.currentPlanes[planenb], planenb);
-    this.initNextPlane(this.currentPlanes[planenb], planenb);
+    this.initDestroy(planeObj, arrayNb);
+    this.initNextPlane(planeObj, planenb);
   }
 
-  public initDestroy(planeinstance: Plane, planeArrayNb: number) {
+  public initDestroy(planeinstance: Plane, planeArrayNumber: number) {
     const timeToExitCanvas = this.calculateTime(
       planeinstance.width,
       planeinstance.scale,
@@ -96,11 +100,11 @@ class BackgroundManager {
 
     setTimeout(() => {
       planeinstance.deletePlane();
-      this.currentPlanes[planeArrayNb] = this.nextPlanes[planeArrayNb];
+      this.currentPlanes[planeArrayNumber - 1] = this.nextPlanes[planeArrayNumber - 1];
     }, timeToExitCanvas);
   }
 
-  public initNextPlane(planeinstance: Plane, planeArrayNb: number) {
+  public initNextPlane(planeinstance: Plane, planeNumber: PlaneSpace) {
     const timeBeforeGenerateNextPlane = this.calculateTime(
       planeinstance.width,
       planeinstance.scale,
@@ -110,7 +114,7 @@ class BackgroundManager {
     );
 
     setTimeout(() => {
-      this.generatePlanes(planeArrayNb, false);
+      this.generatePlanes(planeNumber, false);
     }, timeBeforeGenerateNextPlane);
   }
 
