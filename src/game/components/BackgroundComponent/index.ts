@@ -20,44 +20,58 @@ class BackgroundManager {
   private currentAsset: Array<number> = []
   private planesAssets: Array<Array<Array<string>>> = [
     // WORLD 1
-    [ 
+    [
       [
-        "word_1_plane_1_1",
-        "word_1_plane_1_2",
-        "word_1_plane_1_3",
-        "word_1_plane_1_4",
+        "world_1_plane_1_1",
+        "world_1_plane_1_2",
+        "world_1_plane_1_3",
+        "world_1_plane_1_4",
       ],
       [
-        "word_1_plane_2_1",
-        "word_1_plane_2_2",
-        "word_1_plane_2_3",
-        "word_1_plane_2_4",
-        "word_1_plane_2_5",
-        "word_1_plane_2_6",
+        "world_1_plane_2_1",
+        "world_1_plane_2_2",
+        "world_1_plane_2_3",
+        "world_1_plane_2_4",
+        "world_1_plane_2_5",
+        "world_1_plane_2_6",
       ],
       [
-        "word_1_plane_3_1",
-        "word_1_plane_3_2",
-        "word_1_plane_3_3",
-        "word_1_plane_3_4",
-        "word_1_plane_3_5",
-        "word_1_plane_3_6",
+        "world_1_plane_3_1",
+        "world_1_plane_3_2",
+        "world_1_plane_3_3",
+        "world_1_plane_3_4",
+        "world_1_plane_3_5",
+        "world_1_plane_3_6",
       ]
     ],
     // WORLD 2
     [
       [
-        "word_1_plane_1_1",
-        "word_1_plane_1_2",
+        "world_1_plane_1_1",
+        "world_1_plane_1_2",
       ],
       [
-        "word_1_plane_2_1",
-        "word_1_plane_2_2",
+        "world_1_plane_2_1",
+        "world_1_plane_2_2",
       ],
       [
-        "word_1_plane_3_1",
-        "word_1_plane_3_2",
+        "world_1_plane_3_1",
+        "world_1_plane_3_2",
       ]
+    ],
+    // WORLD 3
+    [
+      ["world_3_plane_1_1"],
+
+      ["world_3_plane_2_1",
+        "world_3_plane_2_2",
+        "world_3_plane_2_3",
+        "world_3_plane_2_4"],
+
+      ["world_3_plane_3_1",
+        "world_3_plane_3_2",
+        "world_3_plane_3_3",
+        "world_3_plane_3_4"],
     ]
   ];
 
