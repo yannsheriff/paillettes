@@ -1,5 +1,6 @@
 import Character from "./Character";
 import { generateId } from "./Character/utils";
+import ScoreStateManager from "../../states/score";
 
 class CharacterManager {
   public actualCharacter: Character;
@@ -15,6 +16,12 @@ class CharacterManager {
     this.characters.set(this.actualCharacter.ID, this.actualCharacter);
     this.createCallback = [];
     this.onEndCallback = [];
+
+    const scoreStateManager = ScoreStateManager.getInstance();
+    scoreStateManager.onFail((arrow) => this.registerFailedArrow(arrow.id));
+    scoreStateManager.onSuccess((arrow) =>
+      this.registerSuccesfullArrow(arrow.id)
+    );
   }
 
   public static getInstance(): CharacterManager {
@@ -44,7 +51,7 @@ class CharacterManager {
     return { ID: id };
   }
 
-  public registerSuccesfullArrow(ID: string) {
+  public registerSuccesfullArrow = (ID: string) => {
     const lastArrowcCharacterId = this.lastArrowID.get(ID);
     const characterId = lastArrowcCharacterId ? lastArrowcCharacterId : ID;
     if (this.successfullArrows.has(characterId)) {
@@ -59,16 +66,16 @@ class CharacterManager {
       this.callOnEnd!(this.actualCharacter.ID, isSuccessfull);
       return;
     }
-  }
+  };
 
-  public registerFailedArrow(ID: string) {
+  public registerFailedArrow = (ID: string) => {
     const lastArrowcCharacterId = this.lastArrowID.get(ID);
     if (lastArrowcCharacterId !== undefined) {
       const isSuccessfull = this.isCharacterSuccesfull(lastArrowcCharacterId);
       this.callOnEnd!(this.actualCharacter.ID, isSuccessfull);
       return;
     }
-  }
+  };
 
   private isCharacterSuccesfull(ID: string) {
     const successfulArrows = this.successfullArrows.get(ID);

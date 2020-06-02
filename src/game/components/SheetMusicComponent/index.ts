@@ -94,6 +94,9 @@ class SheetMusic {
 
     MainStateManager.getInstance().subscribe(this.onStateChange);
 
+    this.scoreManager.onFail(this.failedArrow);
+    this.scoreManager.onSuccess(this.successArrow);
+
     this.create();
   }
 
@@ -233,25 +236,25 @@ class SheetMusic {
           if (winningPromise.includes(arrow.direction)) {
             const time = new Date().getTime() - startTime;
             if (time > this.timeToPerfect && time < this.timeToGood) {
-              this.scoreManager.registerPerfectArrow();
-              this.subtitle?.perfect();
+              this.scoreManager.registerPerfectArrow(arrow);
             } else {
-              this.scoreManager.registerGoodArrow();
-              this.subtitle?.good();
+              this.scoreManager.registerGoodArrow(arrow);
             }
-            this.inputAnimation!.anims.play("glow");
-            this.characterManager.registerSuccesfullArrow(arrow.id);
-            arrow.destroy();
-            this.score!.updateScore();
           } else {
-            this.subtitle?.fail();
-            this.scoreManager.registerFail();
-            this.characterManager.registerFailedArrow(arrow.id);
-            setTimeout(() => arrow.destroy, 1000);
+            this.scoreManager.registerFail(arrow);
           }
         }
       );
     }
+  };
+
+  private successArrow = (arrow: Arrow) => {
+    this.inputAnimation!.anims.play("glow");
+    arrow.destroy();
+  };
+
+  private failedArrow = (arrow: Arrow) => {
+    setTimeout(() => arrow.destroy, 1000);
   };
 
   /**
