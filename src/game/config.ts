@@ -32,14 +32,14 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: true,
     },
   },
-  // scene: [MainScene],
-  scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCharacters, TestSceneBlob],
+  scene: [MainScene],
+  // scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCharacters, TestSceneBlob],
   plugins: {
     scene: [
       { key: "SpinePlugin", plugin: window.SpinePlugin, mapping: "spine" },
     ],
   },
-  backgroundColor: "#feeff1",
+  backgroundColor: "#e3e3e3",
 };
 
 export default gameConfig;
