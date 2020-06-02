@@ -30,7 +30,13 @@ class Plane extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    this.setScale(1);
+    if (this.planeNb === 2) {
+      this.setScale(1.2);
+    } else if (this.planeNb === 1) {
+      this.setScale(1.3);
+    } else {
+      this.setScale(1);
+    }
 
     if (!isAlreadyInScene) {
       Align.outsideRight(this);
