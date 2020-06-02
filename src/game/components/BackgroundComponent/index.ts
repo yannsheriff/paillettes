@@ -17,6 +17,7 @@ class BackgroundManager {
   private scene: Phaser.Scene;
   private canvasWidth: number = 0;
   private world: Worlds = 1;
+  private currentAsset: Array<number> = []
   private planesAssets: Array<Array<Array<string>>> = [
     [
       [
@@ -65,10 +66,10 @@ class BackgroundManager {
    */
   public generatePlanes(planenb: PlaneSpace, isInit: boolean) {
     let arrayNb = planenb - 1
-    // get random asset for plane
-    let rand = Math.floor(
-      Math.random() * (this.planesAssets[this.world - 1][arrayNb].length - 1) + 1
-    );
+
+    let rand = this.getRandomAsset(arrayNb)
+
+    this.currentAsset[arrayNb] = rand
 
     let planeObj = new Plane(
       this.scene,
@@ -116,6 +117,20 @@ class BackgroundManager {
     setTimeout(() => {
       this.generatePlanes(planeNumber, false);
     }, timeBeforeGenerateNextPlane);
+  }
+
+  // get random asset depending on world and plane
+  // avoid getting twice the same asset in a row
+  public getRandomAsset(arrayNb: number) {
+    let rand;
+    do {
+      rand = Math.floor(
+        Math.random() * (this.planesAssets[this.world - 1][arrayNb].length - 1) + 1
+      );
+    } while (rand === this.currentAsset[arrayNb]);
+
+    return rand;
+    
   }
 
   /**
