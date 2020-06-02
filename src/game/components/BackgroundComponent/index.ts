@@ -127,7 +127,7 @@ class BackgroundManager {
     canvasWidth: number,
     isExit: boolean
   ): number {
-    let latency = 50;
+    let latency = -50;
     const v = planeSpeed;
     let d = planeWidth * planeScale + latency;
     if (isExit) {
