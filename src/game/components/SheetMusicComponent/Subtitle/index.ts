@@ -1,3 +1,5 @@
+import ScoreStateManager from "../../../states/score";
+
 class Subtitle {
   private scene: Phaser.Scene;
 
@@ -6,6 +8,10 @@ class Subtitle {
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.create();
+    const scoreManager = ScoreStateManager.getInstance();
+    scoreManager.onFail(this.fail);
+    scoreManager.onGood(this.good);
+    scoreManager.onPerfect(this.perfect);
   }
 
   private create() {
@@ -18,15 +24,15 @@ class Subtitle {
     this.animation.setDepth(11);
   }
 
-  public perfect() {
+  public perfect = () => {
     this.animation!.anims.play("perfect");
-  }
-  public good() {
+  };
+  public good = () => {
     this.animation!.anims.play("good");
-  }
-  public fail() {
+  };
+  public fail = () => {
     this.animation!.anims.play("oops");
-  }
+  };
 }
 
 export default Subtitle;

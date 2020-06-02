@@ -1,5 +1,6 @@
 import MainStateManager, { MainState, DifficultyModes } from "../main";
 import State from "../state";
+import Arrow from "../../components/SheetMusicComponent/Arrow";
 
 export interface ScoreState {
   score: number;
@@ -15,6 +16,10 @@ export default class ScoreStateManager extends State {
   private static instance: ScoreStateManager;
   private mainState: MainState;
   private mainStateManager: MainStateManager;
+  private failCallbacks: Array<(gridObject: Arrow) => any>;
+  private goodCallbacks: Array<(gridObject: Arrow) => any>;
+  private perfectCallbacks: Array<(gridObject: Arrow) => any>;
+  private successCallbacks: Array<(gridObject: Arrow) => any>;
   public state: ScoreState;
 
   /**
@@ -27,6 +32,10 @@ export default class ScoreStateManager extends State {
       score: 0,
       combo: 0,
     };
+    this.failCallbacks = [];
+    this.goodCallbacks = [];
+    this.successCallbacks = [];
+    this.perfectCallbacks = [];
     this.mainStateManager = MainStateManager.getInstance();
     this.mainState = this.mainStateManager.state;
     this.mainStateManager.subscribe((state) => (this.mainState = state));
@@ -50,22 +59,50 @@ export default class ScoreStateManager extends State {
    * Finally, any singleton should define some business logic, which can be
    * executed on its instance.
    */
-  public registerGoodArrow() {
+  public registerGoodArrow(arrow: Arrow) {
     this.setState({ score: this.state.score + 10 });
+    this.dispatchGood(arrow);
     this.handleCombo(ComboType.good);
   }
 
-  public registerPerfectArrow() {
+  public registerPerfectArrow(arrow: Arrow) {
     this.setState({ score: this.state.score + 15 });
+    this.dispatchPerfect(arrow);
     this.handleCombo(ComboType.perfect);
   }
 
-  public registerFail() {
+  public registerFail(arrow: Arrow) {
+    this.dispatchFail(arrow);
     this.handleCombo(ComboType.fail);
   }
 
   public registerCharactere() {
     this.setState({ score: this.state.score + 10 });
+  }
+
+  public onPerfect(callback: (arrow: Arrow) => any) {
+    this.perfectCallbacks.push(callback);
+  }
+  public onGood(callback: (arrow: Arrow) => any) {
+    this.goodCallbacks.push(callback);
+  }
+  public onFail(callback: (arrow: Arrow) => any) {
+    this.failCallbacks.push(callback);
+  }
+  public onSuccess(callback: (arrow: Arrow) => any) {
+    this.successCallbacks.push(callback);
+  }
+
+  private dispatchGood(arrow: Arrow) {
+    this.goodCallbacks.forEach((callback) => callback(arrow));
+    this.successCallbacks.forEach((callback) => callback(arrow));
+  }
+  private dispatchPerfect(arrow: Arrow) {
+    this.perfectCallbacks.forEach((callback) => callback(arrow));
+    this.successCallbacks.forEach((callback) => callback(arrow));
+  }
+  private dispatchFail(arrow: Arrow) {
+    this.failCallbacks.forEach((callback) => callback(arrow));
   }
 
   private handleCombo(comboType: ComboType) {
@@ -100,7 +137,7 @@ export default class ScoreStateManager extends State {
     }
   }
 
-  incrementDifficulty = () => {
+  private incrementDifficulty = () => {
     const { difficulty } = this.mainState;
     const { combo } = this.state;
 
@@ -118,7 +155,7 @@ export default class ScoreStateManager extends State {
     }
   };
 
-  decrementDifficulty = () => {
+  private decrementDifficulty = () => {
     const { difficulty } = this.mainState;
     const { combo } = this.state;
 
