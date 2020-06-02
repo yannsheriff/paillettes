@@ -12,7 +12,8 @@ export { default as arrowR } from "./arrows/right.png";
 export { default as arrowU } from "./arrows/up.png";
 export { default as arrowD } from "./arrows/down.png";
 export { default as F } from "./arrows/F.png";
-export { default as E1 } from "./arrows/E.png";
+export { default as E1 } from "./arrows/E1.png";
+export { default as E2 } from "./arrows/E2.png";
 export { default as R } from "./arrows/R.png";
 
 // MASK

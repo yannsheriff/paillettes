@@ -12,7 +12,7 @@ const imageMap = new Map([
   [FreeLetter.F, "F"],
   [FreeLetter.R, "R"],
   [FreeLetter.E1, "E1"],
-  [FreeLetter.E2, "E1"],
+  [FreeLetter.E2, "E2"],
 ]);
 
 export function directionMatchRemaingLetters(

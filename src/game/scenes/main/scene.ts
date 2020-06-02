@@ -31,6 +31,7 @@ import {
   F,
   R,
   E1,
+  E2,
 } from "../../assets";
 import Arrow from "../../components/SheetMusicComponent/Arrow";
 import CharacterManager from "../../managers/CharacterManager";
@@ -72,6 +73,7 @@ export class GameScene extends Phaser.Scene {
     this.load.image("F", F);
     this.load.image("R", R);
     this.load.image("E1", E1);
+    this.load.image("E2", E2);
     this.load.image("grid", grid);
     this.load.image("down", arrowD);
     this.load.image("zoneInput", zoneInput);
