@@ -8,6 +8,13 @@ const charactersWorld1 = [
   "world_1_man_2",
   "world_1_woman_1",
   "world_1_woman_2",
+  "world_2_man_1",
+  "world_2_man_2",
+  "world_2_woman_1",
+  "world_2_woman_2",
+  "world_3_man_1",
+  "world_3_woman_1",
+  "world_3_woman_2",
 ];
 const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
@@ -74,9 +81,9 @@ class PhysicCharacterManager {
       true
     );
 
-    console.log(charObj)
+    // console.log(charObj)
 
-    console.log("new " + charactersWorld1[rand] + ' ' + id);
+    // console.log("new " + charactersWorld1[rand] + ' ' + id);
 
     this.actualCharacter.push(charObj);
 
@@ -144,6 +151,26 @@ class PhysicCharacterManager {
 
   // DEBUG PURPOSE
   public playAllAnimations() { }
+
+  public generateTestPhysicCharacter() {
+    // random character
+    let rand = Math.floor(Math.floor(Math.random() * charactersWorld1.length + 1));
+
+    let charObj = new PhysicCharacter(
+      this.scene,
+      this.testY,
+      window.innerHeight / 1.5,
+      charactersWorld1[rand - 1],
+      "NBidle",
+      '',
+      false,
+      false
+    );
+
+    this.crowd.push(charObj)
+
+    this.testY += 120;
+  }
 
   private startWolrdTransition(world: Worlds) {
     console.log("PhysicCharacterManager", world);

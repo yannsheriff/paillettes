@@ -1,0 +1,132 @@
+
+world_3_woman_1.png
+size: 808,540
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BACK FEET
+  rotate: false
+  xy: 739, 124
+  size: 63, 50
+  orig: 65, 52
+  offset: 1, 1
+  index: -1
+BACK HAND
+  rotate: false
+  xy: 711, 464
+  size: 64, 74
+  orig: 66, 76
+  offset: 1, 1
+  index: -1
+Color1/TORSO
+  rotate: false
+  xy: 214, 300
+  size: 263, 238
+  orig: 265, 241
+  offset: 1, 2
+  index: -1
+Color2/TORSO
+  rotate: false
+  xy: 214, 60
+  size: 263, 238
+  orig: 265, 241
+  offset: 1, 2
+  index: -1
+DONW BACK LEG
+  rotate: false
+  xy: 673, 134
+  size: 64, 218
+  orig: 66, 225
+  offset: 1, 4
+  index: -1
+DOWN BACK ARM
+  rotate: true
+  xy: 732, 41
+  size: 29, 68
+  orig: 31, 70
+  offset: 1, 1
+  index: -1
+DOWN FRONT ARM
+  rotate: true
+  xy: 732, 11
+  size: 28, 68
+  orig: 32, 70
+  offset: 3, 1
+  index: -1
+DOWN FRONT LEG
+  rotate: false
+  xy: 479, 104
+  size: 100, 248
+  orig: 102, 251
+  offset: 1, 2
+  index: -1
+FRONT FEET
+  rotate: false
+  xy: 732, 72
+  size: 63, 50
+  orig: 65, 52
+  offset: 1, 1
+  index: -1
+FRONT HAND
+  rotate: false
+  xy: 711, 388
+  size: 64, 74
+  orig: 66, 76
+  offset: 1, 1
+  index: -1
+HEAD
+  rotate: false
+  xy: 581, 18
+  size: 149, 113
+  orig: 151, 116
+  offset: 1, 2
+  index: -1
+NB
+  rotate: false
+  xy: 2, 14
+  size: 210, 524
+  orig: 244, 527
+  offset: 33, 2
+  index: -1
+PANCHO BACK
+  rotate: false
+  xy: 479, 354
+  size: 230, 184
+  orig: 232, 188
+  offset: 1, 1
+  index: -1
+SHADOW NB
+  rotate: false
+  xy: 214, 2
+  size: 279, 56
+  orig: 282, 60
+  offset: 2, 1
+  index: -1
+UP BACK ARM
+  rotate: false
+  xy: 777, 452
+  size: 29, 86
+  orig: 31, 88
+  offset: 1, 1
+  index: -1
+UP BACK LEG
+  rotate: false
+  xy: 739, 176
+  size: 66, 210
+  orig: 69, 212
+  offset: 2, 1
+  index: -1
+UP FRONT ARM
+  rotate: true
+  xy: 479, 73
+  size: 29, 86
+  orig: 31, 88
+  offset: 1, 1
+  index: -1
+UP FRONT LEG
+  rotate: false
+  xy: 581, 133
+  size: 90, 219
+  orig: 98, 221
+  offset: 1, 1
+  index: -1

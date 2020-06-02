@@ -14,6 +14,11 @@ export class TestSceneSpine extends Phaser.Scene {
   public preload(): void {
     this.load.image("btn", button);
     this.load.image("mask", mask);
+
+    // 
+    // WORLD 1 
+    // 
+
     // man 1
     this.load.setPath("assets/spine/world1/man1/");
     this.load.spine(
@@ -43,17 +48,83 @@ export class TestSceneSpine extends Phaser.Scene {
       "world_1_woman_2.atlas"
     );
 
+    // 
+    // WORLD 2
+    // 
+    
+    // man 1
+    this.load.setPath("assets/spine/world2/man1/");
+    this.load.spine(
+      "world_2_man_1",
+      "world_2_man_1.json",
+      "world_2_man_1.atlas"
+    );
+    // // man 2
+    this.load.setPath("assets/spine/world2/man2/");
+    this.load.spine(
+      "world_2_man_2",
+      "world_2_man_2.json",
+      "world_2_man_2.atlas"
+    );
+    // // woman 1
+    this.load.setPath("assets/spine/world2/woman1/");
+    this.load.spine(
+      "world_2_woman_1",
+      "world_2_woman_1.json",
+      "world_2_woman_1.atlas"
+    );
+    // // woman 1
+    this.load.setPath("assets/spine/world2/woman2/");
+    this.load.spine(
+      "world_2_woman_2",
+      "world_2_woman_2.json",
+      "world_2_woman_2.atlas"
+    );
+
+    // 
+    // WORLD 3
+    // 
+    
+    // man 1
+    this.load.setPath("assets/spine/world3/man1/");
+    this.load.spine(
+      "world_3_man_1",
+      "world_3_man_1.json",
+      "world_3_man_1.atlas"
+    );
+    // woman 1
+    this.load.setPath("assets/spine/world3/woman1/");
+    this.load.spine(
+      "world_3_woman_1",
+      "world_3_woman_1.json",
+      "world_3_woman_1.atlas"
+    );
+    // woman 2
+    this.load.setPath("assets/spine/world3/woman2/");
+    this.load.spine(
+      "world_3_woman_2",
+      "world_3_woman_2.json",
+      "world_3_woman_2.atlas"
+    );
+
     // drag queen
     this.load.setPath("assets/spine/dragqueen/");
     this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
   }
 
   public create() {
-    let charactersWorld1 = [
+    let characters = [
       "world_1_man_1",
       "world_1_man_2",
       "world_1_woman_1",
       "world_1_woman_2",
+      "world_2_man_1",
+      "world_2_man_2",
+      "world_2_woman_1",
+      "world_2_woman_2",
+      "world_3_man_1",
+      "world_3_woman_1",
+      "world_3_woman_2",
     ];
     this.add
       .text(50, 50, "< Retour", { fill: "red" })
@@ -71,7 +142,7 @@ export class TestSceneSpine extends Phaser.Scene {
         this.addDragQueen()
       });
 
-    charactersWorld1.forEach((character) => {
+    characters.forEach((character) => {
       this.add
         .text(150, y, "Ajouter " + character, { fill: "red" })
         .setInteractive()
@@ -158,12 +229,12 @@ export class TestSceneSpine extends Phaser.Scene {
       y += 25;
     });
 
-    y = 300;
+    y = 500;
     let speeds = [0.2, 0.5, 0.8, 1, 1.2, 1.5, 2];
 
     speeds.forEach((speed) => {
       let speedconfig = this.add
-        .text(180, y, "speed : " + speed, { fill: "black" })
+        .text(50, y, "speed : " + speed, { fill: "black" })
         .setInteractive()
         .on("pointerdown", () => {
           character.changeAnimationSpeed(speed);
