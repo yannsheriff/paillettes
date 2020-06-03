@@ -19,15 +19,15 @@ class Plane extends Phaser.GameObjects.Sprite {
     x: number = 0,
     y: number = 0,
     texture: string = "",
+    frame: string = "",
     plane: number,
     globalspeed: number = 1,
     isAlreadyInScene: boolean = false
   ) {
-    super(scene, x, y, texture);
+    super(scene, x, y, texture, frame);
 
     this.planeNb = plane;
     this.mappingPlane = mappingDepthPlanes[plane - 1]
-
 
     this.speed = globalspeed * this.mappingPlane;
 

@@ -18,74 +18,9 @@ class BackgroundManager {
   private canvasWidth: number = 0;
   private world: Worlds;
   private currentAsset: Array<number> = []
-  private planesAssets: Array<Array<Array<string>>> = [
-    // WORLD 1
-    [
-      [
-        "world_1_plane_1_1",
-        "world_1_plane_1_2",
-        "world_1_plane_1_3",
-        "world_1_plane_1_4",
-      ],
-      [
-        "world_1_plane_2_1",
-        "world_1_plane_2_2",
-        "world_1_plane_2_3",
-        "world_1_plane_2_4",
-        "world_1_plane_2_5",
-        "world_1_plane_2_6",
-      ],
-      [
-        "world_1_plane_3_1",
-        "world_1_plane_3_2",
-        "world_1_plane_3_3",
-        "world_1_plane_3_4",
-        "world_1_plane_3_5",
-        "world_1_plane_3_6",
-      ]
-    ],
-    // WORLD 2 - temporary assets
-    [
-      [
-        "world_3_plane_1_1",
-        "world_3_plane_1_1",
-        "world_3_plane_1_1"
-      ],
-      [
-        "world_3_plane_2_1",
-        "world_3_plane_2_2",
-        "world_3_plane_2_3",
-        "world_3_plane_2_4"
-      ],
-      [
-        "world_3_plane_3_1",
-        "world_3_plane_3_2",
-        "world_3_plane_3_3",
-        "world_3_plane_3_4"
-      ],
-    ],
-    // WORLD 3
-    [
-      [
-        "world_3_plane_1_1",
-        "world_3_plane_1_1",
-        "world_3_plane_1_1"
-      ],
-      [
-        "world_3_plane_2_1",
-        "world_3_plane_2_2",
-        "world_3_plane_2_3",
-        "world_3_plane_2_4"
-      ],
-      [
-        "world_3_plane_3_1",
-        "world_3_plane_3_2",
-        "world_3_plane_3_3",
-        "world_3_plane_3_4"
-      ],
-    ]
-  ];
-
+  private numberAssets: Array<Array<number>> = [
+    [ 11, 6, 7 ] // 24 assets in World 1
+  ]
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.canvasWidth = scene.sys.game.canvas.width;
@@ -97,7 +32,7 @@ class BackgroundManager {
     let mask = new Mask(scene, 600, 400, "mask", 0, this.pink);
     Align.left(mask);
 
-    for (let planenb = 2; planenb < 4; planenb++) {
+    for (let planenb = 1; planenb < 4; planenb++) {
       this.generatePlanes(planenb, true);
     }
   }
@@ -111,13 +46,14 @@ class BackgroundManager {
 
     let rand = this.getRandomAsset(arrayNb)
 
-    this.currentAsset[arrayNb] = rand
+    // console.log('plane' + planenb + '/w1_p' + planenb + '_' + rand)
 
     let planeObj = new Plane(
       this.scene,
       0,
       0,
-      this.planesAssets[this.world][arrayNb][rand],
+      'world1', // 'world' + this.world + 1
+      'plane' + planenb + '/w1_p' + planenb + '_' + rand,
       planenb,
       this.globalSpeed
     );
@@ -170,15 +106,15 @@ class BackgroundManager {
 
     do {
       rand = Math.floor(
-        Math.random() * (this.planesAssets[this.world][arrayNb].length)
+        Math.random() * (this.numberAssets[this.world][arrayNb] - 1) + 1
       );
 
       // handle bug and prevent for infite loop
-      if (this.planesAssets[this.world][arrayNb].length <= 1) {
+      if (this.numberAssets[this.world][arrayNb] <= 1) {
         return rand;
       }
     } while (rand === this.currentAsset[arrayNb] || 0);
-
+    
     return rand;
   }
 

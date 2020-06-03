@@ -4,31 +4,6 @@ import BackgroundComponent from "../../../components/BackgroundComponent";
 import MainStateManager from "../../../states/main";
 
 import {
-  world_1_plane_1_1,
-  world_1_plane_1_2,
-  world_1_plane_1_3,
-  world_1_plane_1_4,
-  world_1_plane_2_1,
-  world_1_plane_2_2,
-  world_1_plane_2_3,
-  world_1_plane_2_4,
-  world_1_plane_2_5,
-  world_1_plane_2_6,
-  world_1_plane_3_1,
-  world_1_plane_3_2,
-  world_1_plane_3_3,
-  world_1_plane_3_4,
-  world_1_plane_3_5,
-  world_1_plane_3_6,
-  world_3_plane_1_1,
-  world_3_plane_2_1,
-  world_3_plane_2_2,
-  world_3_plane_2_3,
-  world_3_plane_2_4,
-  world_3_plane_3_1,
-  world_3_plane_3_2,
-  world_3_plane_3_3,
-  world_3_plane_3_4,
   mask,
 } from "../../../assets";
 
@@ -42,38 +17,8 @@ export class TestSceneBackground extends Phaser.Scene {
   }
 
   public preload(): void {
-    // world 1
-    this.load.image("world_1_plane_1_1", world_1_plane_1_1);
-    this.load.image("world_1_plane_1_2", world_1_plane_1_2);
-    this.load.image("world_1_plane_1_3", world_1_plane_1_3);
-    this.load.image("world_1_plane_1_4", world_1_plane_1_4);
-
-    this.load.image("world_1_plane_2_1", world_1_plane_2_1);
-    this.load.image("world_1_plane_2_2", world_1_plane_2_2);
-    this.load.image("world_1_plane_2_3", world_1_plane_2_3);
-    this.load.image("world_1_plane_2_4", world_1_plane_2_4);
-    this.load.image("world_1_plane_2_5", world_1_plane_2_5);
-    this.load.image("world_1_plane_2_6", world_1_plane_2_6);
-
-    this.load.image("world_1_plane_3_1", world_1_plane_3_1);
-    this.load.image("world_1_plane_3_2", world_1_plane_3_2);
-    this.load.image("world_1_plane_3_3", world_1_plane_3_3);
-    this.load.image("world_1_plane_3_4", world_1_plane_3_4);
-    this.load.image("world_1_plane_3_5", world_1_plane_3_5);
-    this.load.image("world_1_plane_3_6", world_1_plane_3_6);
-
-    // world 3
-    this.load.image("world_3_plane_1_1", world_3_plane_1_1);
-
-    this.load.image("world_3_plane_2_1", world_3_plane_2_1);
-    this.load.image("world_3_plane_2_2", world_3_plane_2_2);
-    this.load.image("world_3_plane_2_3", world_3_plane_2_3);
-    this.load.image("world_3_plane_2_4", world_3_plane_2_4);
-    
-    this.load.image("world_3_plane_3_1", world_3_plane_3_1);
-    this.load.image("world_3_plane_3_2", world_3_plane_3_2);
-    this.load.image("world_3_plane_3_3", world_3_plane_3_3);
-    this.load.image("world_3_plane_3_4", world_3_plane_3_4);
+    this.load.setPath("assets/spritesheets/world1/");
+    this.load.multiatlas('world1', 'world1_spritesheet.json');
 
     this.load.image("mask", mask);
   }
