@@ -1,6 +1,6 @@
 import GridObject, { Direction } from "../GridObject";
 
-class Arrow extends GridObject {
+class FreeArrow extends GridObject {
   constructor(
     scene: Phaser.Scene,
     id: string,
@@ -11,8 +11,8 @@ class Arrow extends GridObject {
     direction: Direction,
     scale: number
   ) {
-    super(scene, id, speed, height, y, x, direction, scale, direction);
+    super(scene, id, speed, height, y, x, direction, scale, "freeStar");
   }
 }
 
-export default Arrow;
+export default FreeArrow;

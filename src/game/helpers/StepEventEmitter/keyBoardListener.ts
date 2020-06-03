@@ -1,6 +1,6 @@
 import EventEmitter from "events";
 import { StepEventType } from "./gamepadListener";
-import { Direction } from "../../components/SheetMusicComponent/Arrow";
+import { Direction } from "../../components/SheetMusicComponent/GridObject";
 
 const keyTable: Map<number, Direction> = new Map([
   [37, "left"],
@@ -14,8 +14,7 @@ class KeyboardListener {
    * Define properties
    */
   private stepEventEmitter: EventEmitter | undefined;
-  private simultaneousDirection: Direction | undefined;
-  private timeout: NodeJS.Timeout | undefined;
+  private simultaneousDirection: string | undefined;
 
   /**
    * Init KeyboardListener
@@ -40,19 +39,17 @@ class KeyboardListener {
     const event = keyTable.get(e.keyCode);
 
     if (this.simultaneousDirection !== undefined) {
-      const event = this.simultaneousDirection + " " + keyTable.get(e.keyCode);
-      this.stepEventEmitter?.emit(StepEventType.stepdown, event);
-      this.simultaneousDirection = undefined;
-      clearTimeout(this.timeout!);
-      return;
+      this.simultaneousDirection = this.simultaneousDirection + " " + event;
+    } else {
+      this.simultaneousDirection = event;
+      setTimeout(() => {
+        this.stepEventEmitter?.emit(
+          StepEventType.stepdown,
+          this.simultaneousDirection
+        );
+        this.simultaneousDirection = undefined;
+      }, 50);
     }
-
-    this.timeout = setTimeout(() => {
-      this.simultaneousDirection = undefined;
-      this.stepEventEmitter?.emit(StepEventType.stepdown, event);
-    }, 50);
-
-    this.simultaneousDirection = event;
   };
 }
 

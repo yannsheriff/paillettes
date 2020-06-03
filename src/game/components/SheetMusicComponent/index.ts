@@ -10,9 +10,12 @@ import MainStateManager, { MainState } from "../../states/main";
 import { DifficultyModes } from "../../states/main";
 import Subtitle from "./Subtitle";
 import { Musics } from "../../helpers/Music/musics";
-// import { Musics } from "../../../plugins/Music/musics";
-
-export type Direction = "left" | "right" | "up" | "down";
+import { Direction } from "./GridObject";
+import Letter, { directionMatchRemaingLetters } from "./Letter";
+import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
+import FreeLights from "./FreeLights";
+import FreeArrow from "./FreeArrow";
+import Chrono from "./Chrono";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
@@ -26,15 +29,18 @@ const directionTable: {
   2: "down",
   3: "up",
 };
+
+export type GridObject = Arrow | Letter;
 class SheetMusic {
-  public arrows: Array<Arrow>;
+  public gridObjects: Array<GridObject>;
   public characterManager: CharacterManager;
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
   private scoreManager: ScoreState;
+  private freestyleManager: FreestyleStateManager;
   private mainState: MainState;
+  private freestyleState: FreestyleState;
   public isPlaying: boolean;
-  private score?: Score;
   private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
   private sheetWidth: number;
@@ -54,9 +60,9 @@ class SheetMusic {
   private throttleValue: number;
   private requestCount: number;
   private lastCall: number;
-  private subtitle?: Subtitle;
   private called: boolean;
-  private characters: Array<any>;
+  private arrowUntilLetter: number;
+  private freeInterval?: NodeJS.Timeout;
 
   constructor(
     scene: Phaser.Scene,
@@ -64,20 +70,22 @@ class SheetMusic {
     x: number,
     y: number
   ) {
-    this.arrows = [];
+    this.gridObjects = [];
     this.posX = x;
     this.posY = y;
     this.scene = scene;
     this.lastCall = 0;
     this.requestCount = 1;
+    this.arrowUntilLetter = 4;
     this.called = true;
     this.characterManager = characterManager;
-    this.characters = [];
     this.throttleValue = 1000;
     this.isPlaying = false;
     this.arrowEmitter = new EventEmitter();
     this.promiseGenerator = new promiseGenerator();
     this.scoreManager = ScoreState.getInstance();
+    this.freestyleManager = FreestyleStateManager.getInstance();
+    this.freestyleState = FreestyleStateManager.getInstance().state;
     this.mainState = MainStateManager.getInstance().state;
     this.sheetWidth = window.innerWidth - x - this.inputZoneWidth;
     this.noteDelay =
@@ -93,6 +101,7 @@ class SheetMusic {
     this.timeToFail = this.calculateTimeToExit();
 
     MainStateManager.getInstance().subscribe(this.onStateChange);
+    this.freestyleManager.subscribe(this.onFreeStateChange);
 
     this.scoreManager.onFail(this.failedArrow);
     this.scoreManager.onSuccess(this.successArrow);
@@ -113,6 +122,32 @@ class SheetMusic {
       this.posY,
       this.scale
     );
+
+    new FreeLights(
+      this.scene,
+      this.posX + this.inputZoneWidth / 2,
+      this.posY,
+      this.inputZoneWidth,
+      this.scale
+    );
+
+    new Chrono(
+      this.scene,
+      this.posX + this.inputZoneWidth / 2,
+      this.posY,
+      this.inputZoneWidth / 2,
+      this.scale
+    );
+
+    new Score(
+      this.scene,
+      this.posX - this.inputZoneWidth,
+      this.posY - 50 * this.scale,
+      this.scale
+    );
+
+    new Subtitle(this.scene);
+
     const inputZone = this.scene.add.image(
       this.posX + this.inputZoneWidth / 2,
       this.posY,
@@ -132,22 +167,13 @@ class SheetMusic {
 
     this.arrowEmitter.on("note", this.throttleArrow);
 
-    this.score = new Score(
-      this.scene,
-      this.posX - this.inputZoneWidth,
-      this.posY - 50 * this.scale,
-      this.scale
-    );
-
     this.scene.physics.add.overlap(
-      this.arrows,
+      this.gridObjects,
       inputZone,
       this.handleArrowOverlap,
       () => true,
       this
     );
-
-    this.subtitle = new Subtitle(this.scene);
 
     /*
      * Start Music temporairement un event on click
@@ -155,7 +181,7 @@ class SheetMusic {
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
         this.isPlaying = true;
-        this.player = new MusicPlayer(Musics.hungup, this.arrowEmitter);
+        this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
         this.player.start();
       }
       // this.throttleArrow({
@@ -189,6 +215,21 @@ class SheetMusic {
     }
   };
 
+  private onFreeStateChange = (state: FreestyleState) => {
+    if (
+      this.freestyleState.isFreestyleActivated !== state.isFreestyleActivated
+    ) {
+      if (state.isFreestyleActivated) {
+        this.freeInterval = setInterval(() => {
+          this.createFreeArrowColumn();
+        }, 500);
+      } else {
+        clearInterval(this.freeInterval!);
+      }
+    }
+    this.freestyleState = state;
+  };
+
   /**
    * Create an arrow
    *
@@ -200,18 +241,21 @@ class SheetMusic {
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
 
     directions.forEach((direction) => {
-      const { ID } = this.characterManager.getArrowID();
-      const arrow = new Arrow(
-        this.scene,
-        ID,
-        this.arrowSpeed,
-        heightBetweenSheetHBar * this.scale,
-        this.gridTop,
-        undefined,
-        direction,
-        this.scale
-      );
-      this.arrows.push(arrow);
+      const gridObject = this.generateGridObject(direction);
+      this.gridObjects.push(gridObject);
+    });
+  };
+
+  /**
+   * Create column of free arrow
+   *
+   * Cette fonction crée une colonne de fleche free.
+   */
+  createFreeArrowColumn = () => {
+    const directions: Direction[] = ["down", "left", "right", "up"];
+    directions.forEach((direction) => {
+      const gridObject = this.generateGridObject(direction);
+      this.gridObjects.push(gridObject);
     });
   };
 
@@ -224,37 +268,44 @@ class SheetMusic {
    *  * on enregistre les point
    *  * on supprime la flèche
    */
-  private handleArrowOverlap = (arrow: Arrow) => {
-    if (!arrow.didCollide) {
-      arrow.didCollide = true;
+  private handleArrowOverlap = (gridObject: GridObject) => {
+    if (!gridObject.didCollide) {
+      gridObject.didCollide = true;
 
       const stepPromise = this.promiseGenerator.getPromise();
       const startTime = new Date().getTime();
 
       Promise.race([delay(this.timeToFail), stepPromise]).then(
         (winningPromise: string) => {
-          if (winningPromise.includes(arrow.direction)) {
+          if (winningPromise.includes(gridObject.direction)) {
             const time = new Date().getTime() - startTime;
             if (time > this.timeToPerfect && time < this.timeToGood) {
-              this.scoreManager.registerPerfectArrow(arrow);
+              this.scoreManager.registerPerfectArrow(gridObject);
             } else {
-              this.scoreManager.registerGoodArrow(arrow);
+              this.scoreManager.registerGoodArrow(gridObject);
             }
           } else {
-            this.scoreManager.registerFail(arrow);
+            this.scoreManager.registerFail(gridObject);
           }
         }
       );
     }
   };
 
-  private successArrow = (arrow: Arrow) => {
+  private successArrow = (gridObject: GridObject) => {
+    if (gridObject instanceof Letter) {
+      this.freestyleManager.validateLetter(gridObject.letter);
+    }
+
     this.inputAnimation!.anims.play("glow");
-    arrow.destroy();
+    gridObject.destroy();
   };
 
-  private failedArrow = (arrow: Arrow) => {
-    setTimeout(() => arrow.destroy, 1000);
+  private failedArrow = (gridObject: GridObject) => {
+    if (gridObject instanceof Letter) {
+      this.freestyleManager.failLetter();
+    }
+    setTimeout(() => gridObject.destroy, 1000);
   };
 
   /**
@@ -279,6 +330,60 @@ class SheetMusic {
     arrow.destroy();
     return (this.inputZoneWidth / this.arrowSpeed) * 1000 + halfHitboxTime;
   }
+
+  /**
+   * Helper fonction
+   *
+   * Generation d'une flèche ou d'une lettre
+   * selon le besoin
+   */
+  private generateGridObject = (direction: Direction): Arrow | Letter => {
+    const { ID } = this.characterManager.getArrowID();
+    if (this.freestyleState.isFreestyleActivated) {
+      return new FreeArrow(
+        this.scene,
+        ID,
+        this.arrowSpeed,
+        heightBetweenSheetHBar * this.scale,
+        this.gridTop,
+        undefined,
+        direction,
+        this.scale
+      );
+    }
+
+    if (
+      this.arrowUntilLetter < 1 &&
+      directionMatchRemaingLetters(
+        direction,
+        this.freestyleState.remainingLetters
+      )
+    ) {
+      this.arrowUntilLetter = 4;
+      return new Letter(
+        this.scene,
+        ID,
+        this.arrowSpeed,
+        heightBetweenSheetHBar * this.scale,
+        this.gridTop,
+        undefined,
+        direction,
+        this.scale
+      );
+    }
+
+    this.arrowUntilLetter -= 1;
+    return new Arrow(
+      this.scene,
+      ID,
+      this.arrowSpeed,
+      heightBetweenSheetHBar * this.scale,
+      this.gridTop,
+      undefined,
+      direction,
+      this.scale
+    );
+  };
 
   /**
    * Return directions from note.
@@ -314,14 +419,16 @@ class SheetMusic {
    * Permet de gérer le delaie entre l'evenement note et l'appel
    * a la creation de la flèche
    */
-  delayArrow = (calls: number, note: NoteWithTrack) => {
+  private delayArrow = (calls: number, note: NoteWithTrack) => {
     setTimeout(() => {
-      return this.createArrow(calls, note);
+      if (!this.freestyleState.isFreestyleActivated) {
+        return this.createArrow(calls, note);
+      }
     }, this.noteDelay);
   };
 
   // throttleArrow = throttle(this.throttleValue, this.delayArrow);
-  throttleArrow = (note: NoteWithTrack) => {
+  private throttleArrow = (note: NoteWithTrack) => {
     const now = new Date().getTime();
     this.requestCount += 1;
     this.requestCount = this.called ? 1 : this.requestCount;
@@ -331,6 +438,7 @@ class SheetMusic {
     }
     this.lastCall = now;
     this.called = true;
+
     this.delayArrow(this.requestCount, note);
   };
 }

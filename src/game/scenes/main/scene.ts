@@ -10,6 +10,11 @@ import {
   verticalLine,
   sol,
   mask,
+  F,
+  R,
+  E1,
+  E2,
+  FREEStar,
 } from "../../assets";
 import Arrow from "../../components/SheetMusicComponent/Arrow";
 import CharacterManager from "../../managers/CharacterManager";
@@ -47,6 +52,11 @@ export class GameScene extends Phaser.Scene {
     this.load.image("left", arrowL);
     this.load.image("right", arrowR);
     this.load.image("up", arrowU);
+    this.load.image("F", F);
+    this.load.image("R", R);
+    this.load.image("E1", E1);
+    this.load.image("E2", E2);
+    this.load.image("freeStar", FREEStar);
     this.load.image("grid", grid);
     this.load.image("down", arrowD);
     this.load.image("zoneInput", zoneInput);
@@ -99,7 +109,7 @@ export class GameScene extends Phaser.Scene {
     new CharactersComponent(this);
     this.ground = new GroundComponent(this);
     const sheetX = window.innerWidth / 4;
-    const sheetY = (window.innerHeight / 6) * 4.5;
+    const sheetY = (window.innerHeight / 6) * 4;
     new SheetMusicComponent(this, this.CharacterManager, sheetX, sheetY);
     this.dragQueen = new DragQueen(
       this,
