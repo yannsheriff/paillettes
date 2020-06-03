@@ -1,0 +1,139 @@
+
+world_3_man_2.png
+size: 1428,188
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BACK ARM
+  rotate: false
+  xy: 1338, 51
+  size: 31, 77
+  orig: 36, 81
+  offset: 3, 3
+  index: -1
+BACK FEET
+  rotate: false
+  xy: 911, 4
+  size: 63, 35
+  orig: 65, 39
+  offset: 1, 1
+  index: -1
+BACK FOREARM
+  rotate: true
+  xy: 1338, 19
+  size: 30, 88
+  orig: 32, 91
+  offset: 1, 2
+  index: -1
+BACK HAND
+  rotate: true
+  xy: 1371, 64
+  size: 36, 52
+  orig: 38, 58
+  offset: 1, 1
+  index: -1
+CAPE
+  rotate: true
+  xy: 911, 41
+  size: 145, 181
+  orig: 145, 181
+  offset: 0, 0
+  index: -1
+Color1/TORSO
+  rotate: true
+  xy: 574, 33
+  size: 153, 167
+  orig: 155, 169
+  offset: 1, 1
+  index: -1
+Color2/TORSO
+  rotate: true
+  xy: 743, 34
+  size: 152, 166
+  orig: 154, 168
+  offset: 1, 1
+  index: -1
+DOWN BACK LEG
+  rotate: true
+  xy: 667, 13
+  size: 18, 46
+  orig: 20, 48
+  offset: 1, 1
+  index: -1
+DOWN FRONT LEG
+  rotate: true
+  xy: 1187, 9
+  size: 18, 46
+  orig: 20, 48
+  offset: 1, 1
+  index: -1
+FRONT ARM
+  rotate: true
+  xy: 743, 2
+  size: 30, 76
+  orig: 35, 80
+  offset: 2, 3
+  index: -1
+FRONT FEET
+  rotate: false
+  xy: 976, 4
+  size: 62, 35
+  orig: 64, 38
+  offset: 1, 1
+  index: -1
+FRONT FOREARM
+  rotate: true
+  xy: 821, 3
+  size: 29, 88
+  orig: 32, 91
+  offset: 1, 2
+  index: -1
+FRONT HAND
+  rotate: true
+  xy: 1040, 4
+  size: 35, 52
+  orig: 38, 58
+  offset: 1, 1
+  index: -1
+HAIR
+  rotate: true
+  xy: 1094, 29
+  size: 99, 242
+  orig: 99, 242
+  offset: 0, 0
+  index: -1
+HEAD
+  rotate: false
+  xy: 1375, 102
+  size: 48, 84
+  orig: 50, 89
+  offset: 1, 1
+  index: -1
+NB
+  rotate: true
+  xy: 2, 12
+  size: 174, 570
+  orig: 176, 572
+  offset: 1, 1
+  index: -1
+SHADOW NB
+  rotate: false
+  xy: 1094, 130
+  size: 279, 56
+  orig: 282, 60
+  offset: 2, 1
+  index: -1
+UP BACK LEG
+  rotate: true
+  xy: 1094, 5
+  size: 22, 91
+  orig: 24, 93
+  offset: 1, 1
+  index: -1
+UP FRONT LEG
+  rotate: true
+  xy: 574, 8
+  size: 23, 91
+  orig: 25, 93
+  offset: 1, 1
+  index: -1
