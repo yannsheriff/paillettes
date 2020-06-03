@@ -7,14 +7,7 @@ const charactersWorld1 = [
   "world_1_man_1",
   "world_1_man_2",
   "world_1_woman_1",
-  "world_1_woman_2",
-  "world_2_man_1",
-  "world_2_man_2",
-  "world_2_woman_1",
-  "world_2_woman_2",
-  "world_3_man_1",
-  "world_3_woman_1",
-  "world_3_woman_2",
+  "world_1_woman_2"
 ];
 const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
@@ -47,8 +40,6 @@ class PhysicCharacterManager {
       200,
       window.innerHeight
     );
-
-    this.generateNewPhysicCharacter('')
 
     Align.centerV(this.colliderZone)
     Align.centerH(this.colliderZone)
