@@ -5,11 +5,13 @@ import FreestyleStateManager, {
 
 class Subtitle {
   private scene: Phaser.Scene;
+  private freeState: FreestyleState;
 
   private animation?: Phaser.Physics.Arcade.Sprite;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
+    this.freeState = FreestyleStateManager.getInstance().state;
     this.create();
     const scoreManager = ScoreStateManager.getInstance();
     scoreManager.onFail(this.fail);
@@ -29,13 +31,19 @@ class Subtitle {
   }
 
   public perfect = () => {
-    this.animation!.anims.play("perfect");
+    if (!this.freeState.isFreestyleActivated) {
+      this.animation!.anims.play("perfect");
+    }
   };
   public good = () => {
-    this.animation!.anims.play("good");
+    if (!this.freeState.isFreestyleActivated) {
+      this.animation!.anims.play("good");
+    }
   };
   public fail = () => {
-    this.animation!.anims.play("oops");
+    if (!this.freeState.isFreestyleActivated) {
+      this.animation!.anims.play("oops");
+    }
   };
 
   private checkFreestyle = (state: FreestyleState) => {
@@ -49,6 +57,8 @@ class Subtitle {
         );
       }, 2500);
     }
+
+    this.freeState = state;
   };
 }
 

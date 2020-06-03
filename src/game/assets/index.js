@@ -19,6 +19,7 @@ export { default as F } from "./arrows/F.png";
 export { default as E1 } from "./arrows/E1.png";
 export { default as E2 } from "./arrows/E2.png";
 export { default as R } from "./arrows/R.png";
+export { default as FREEStar } from "./arrows/FREEStar.png";
 
 // MASK
 export { default as mask } from "./mask/mask.png";

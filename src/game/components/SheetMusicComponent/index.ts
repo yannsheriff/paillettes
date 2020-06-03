@@ -14,6 +14,7 @@ import { Direction } from "./GridObject";
 import Letter, { directionMatchRemaingLetters } from "./Letter";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 import FreeLights from "./FreeLights";
+import FreeArrow from "./FreeArrow";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
@@ -100,7 +101,7 @@ class SheetMusic {
     this.timeToFail = this.calculateTimeToExit();
 
     MainStateManager.getInstance().subscribe(this.onStateChange);
-    this.freestyleManager.subscribe((state) => (this.freestyleState = state));
+    this.freestyleManager.subscribe(this.onFreeStateChange);
 
     this.scoreManager.onFail(this.failedArrow);
     this.scoreManager.onSuccess(this.successArrow);
@@ -206,6 +207,19 @@ class SheetMusic {
     }
   };
 
+  private onFreeStateChange = (state: FreestyleState) => {
+    if (
+      this.freestyleState.isFreestyleActivated !== state.isFreestyleActivated
+    ) {
+      if (state.isFreestyleActivated) {
+        setInterval(() => {
+          this.createFreeArrowColumn();
+        }, 500);
+      }
+    }
+    this.freestyleState = state;
+  };
+
   /**
    * Create an arrow
    *
@@ -216,6 +230,19 @@ class SheetMusic {
       this.mainState.difficulty !== DifficultyModes.easy ? calls : 1;
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
 
+    directions.forEach((direction) => {
+      const gridObject = this.generateGridObject(direction);
+      this.gridObjects.push(gridObject);
+    });
+  };
+
+  /**
+   * Create column of free arrow
+   *
+   * Cette fonction crée une colonne de fleche free.
+   */
+  createFreeArrowColumn = () => {
+    const directions: Direction[] = ["down", "left", "right", "up"];
     directions.forEach((direction) => {
       const gridObject = this.generateGridObject(direction);
       this.gridObjects.push(gridObject);
@@ -302,6 +329,18 @@ class SheetMusic {
    */
   private generateGridObject = (direction: Direction): Arrow | Letter => {
     const { ID } = this.characterManager.getArrowID();
+    if (this.freestyleState.isFreestyleActivated) {
+      return new FreeArrow(
+        this.scene,
+        ID,
+        this.arrowSpeed,
+        heightBetweenSheetHBar * this.scale,
+        this.gridTop,
+        undefined,
+        direction,
+        this.scale
+      );
+    }
 
     if (
       this.arrowUntilLetter < 1 &&
@@ -390,9 +429,7 @@ class SheetMusic {
     this.lastCall = now;
     this.called = true;
 
-    if (!this.freestyleState.isFreestyleActivated) {
-      this.delayArrow(this.requestCount, note);
-    }
+    this.delayArrow(this.requestCount, note);
   };
 }
 
