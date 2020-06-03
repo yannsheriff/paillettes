@@ -11,12 +11,14 @@ export interface FreestyleState {
   remainingLetters: FreeLetter[];
   isFreestyleActivated: boolean;
   activationTime: number;
+  freestyleDuration: number;
 }
 
 const initialState: FreestyleState = {
   remainingLetters: [FreeLetter.F, FreeLetter.R, FreeLetter.E1, FreeLetter.E2],
   isFreestyleActivated: false,
   activationTime: 0,
+  freestyleDuration: 15000,
 };
 
 export default class FreestyleStateManager extends State {
@@ -71,7 +73,7 @@ export default class FreestyleStateManager extends State {
           activationTime: undefined,
           remainingLetters: initialState.remainingLetters,
         });
-      }, 2000);
+      }, this.state.freestyleDuration);
     }
   };
 }

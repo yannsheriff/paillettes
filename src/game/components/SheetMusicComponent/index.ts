@@ -15,6 +15,7 @@ import Letter, { directionMatchRemaingLetters } from "./Letter";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 import FreeLights from "./FreeLights";
 import FreeArrow from "./FreeArrow";
+import Chrono from "./Chrono";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
@@ -40,7 +41,6 @@ class SheetMusic {
   private mainState: MainState;
   private freestyleState: FreestyleState;
   public isPlaying: boolean;
-  private score?: Score;
   private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
   private sheetWidth: number;
@@ -60,7 +60,6 @@ class SheetMusic {
   private throttleValue: number;
   private requestCount: number;
   private lastCall: number;
-  private subtitle?: Subtitle;
   private called: boolean;
   private arrowUntilLetter: number;
   private freeInterval?: NodeJS.Timeout;
@@ -132,6 +131,23 @@ class SheetMusic {
       this.scale
     );
 
+    new Chrono(
+      this.scene,
+      this.posX + this.inputZoneWidth / 2,
+      this.posY,
+      this.inputZoneWidth / 2,
+      this.scale
+    );
+
+    new Score(
+      this.scene,
+      this.posX - this.inputZoneWidth,
+      this.posY - 50 * this.scale,
+      this.scale
+    );
+
+    new Subtitle(this.scene);
+
     const inputZone = this.scene.add.image(
       this.posX + this.inputZoneWidth / 2,
       this.posY,
@@ -151,13 +167,6 @@ class SheetMusic {
 
     this.arrowEmitter.on("note", this.throttleArrow);
 
-    this.score = new Score(
-      this.scene,
-      this.posX - this.inputZoneWidth,
-      this.posY - 50 * this.scale,
-      this.scale
-    );
-
     this.scene.physics.add.overlap(
       this.gridObjects,
       inputZone,
@@ -165,8 +174,6 @@ class SheetMusic {
       () => true,
       this
     );
-
-    this.subtitle = new Subtitle(this.scene);
 
     /*
      * Start Music temporairement un event on click
