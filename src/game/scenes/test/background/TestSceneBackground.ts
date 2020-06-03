@@ -35,7 +35,7 @@ export class TestSceneBackground extends Phaser.Scene {
         // @ts-ignore
         console.log(this.add.displayList.list)
       }, 5000);
-    }    
+    }
 
     this.add
       .text(50, 550, "< Retour", { fill: "red" })

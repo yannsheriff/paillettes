@@ -7,6 +7,8 @@ export class TestSceneSpine extends Phaser.Scene {
   private dragQueen: Array<DragQueen> = [];
   private characterList: Array<CharacterBis> = [];
   private configList: Array<Phaser.GameObjects.Text> = [];
+  private characterAssets: Array<string> = []
+
   constructor() {
     super(config);
   }
@@ -15,117 +17,32 @@ export class TestSceneSpine extends Phaser.Scene {
     this.load.image("btn", button);
     this.load.image("mask", mask);
 
-    // 
-    // WORLD 1 
-    // 
+    for (let world = 1; world <= 2; world++) {
+      for (let spine = 1; spine <= 2; spine++) {
+        this.load.setPath("assets/spine/world" + world + "/man" + spine + "/");
+        this.load.spine(
+          "world_" + world + "_man_" + spine,
+          "world_" + world + "_man_" + spine + ".json",
+          "world_" + world + "_man_" + spine + ".atlas"
+        );
 
-    // man 1
-    this.load.setPath("assets/spine/world1/man1/");
-    this.load.spine(
-      "world_1_man_1",
-      "world_1_man_1.json",
-      "world_1_man_1.atlas"
-    );
-    // man 2
-    this.load.setPath("assets/spine/world1/man2/");
-    this.load.spine(
-      "world_1_man_2",
-      "world_1_man_2.json",
-      "world_1_man_2.atlas"
-    );
-    // woman 1
-    this.load.setPath("assets/spine/world1/woman1/");
-    this.load.spine(
-      "world_1_woman_1",
-      "world_1_woman_1.json",
-      "world_1_woman_1.atlas"
-    );
-    // woman 1
-    this.load.setPath("assets/spine/world1/woman2/");
-    this.load.spine(
-      "world_1_woman_2",
-      "world_1_woman_2.json",
-      "world_1_woman_2.atlas"
-    );
+        this.load.setPath("assets/spine/world" + world + "/woman" + spine + "/");
+        this.load.spine(
+          "world_" + world + "_woman_" + spine,
+          "world_" + world + "_woman_" + spine + ".json",
+          "world_" + world + "_woman_" + spine + ".atlas"
+        );
 
-    // 
-    // WORLD 2
-    // 
-    
-    // man 1
-    this.load.setPath("assets/spine/world2/man1/");
-    this.load.spine(
-      "world_2_man_1",
-      "world_2_man_1.json",
-      "world_2_man_1.atlas"
-    );
-    // // man 2
-    this.load.setPath("assets/spine/world2/man2/");
-    this.load.spine(
-      "world_2_man_2",
-      "world_2_man_2.json",
-      "world_2_man_2.atlas"
-    );
-    // // woman 1
-    this.load.setPath("assets/spine/world2/woman1/");
-    this.load.spine(
-      "world_2_woman_1",
-      "world_2_woman_1.json",
-      "world_2_woman_1.atlas"
-    );
-    // // woman 1
-    this.load.setPath("assets/spine/world2/woman2/");
-    this.load.spine(
-      "world_2_woman_2",
-      "world_2_woman_2.json",
-      "world_2_woman_2.atlas"
-    );
-
-    // 
-    // WORLD 3
-    // 
-    
-    // man 1
-    this.load.setPath("assets/spine/world3/man1/");
-    this.load.spine(
-      "world_3_man_1",
-      "world_3_man_1.json",
-      "world_3_man_1.atlas"
-    );
-    // woman 1
-    this.load.setPath("assets/spine/world3/woman1/");
-    this.load.spine(
-      "world_3_woman_1",
-      "world_3_woman_1.json",
-      "world_3_woman_1.atlas"
-    );
-    // woman 2
-    this.load.setPath("assets/spine/world3/woman2/");
-    this.load.spine(
-      "world_3_woman_2",
-      "world_3_woman_2.json",
-      "world_3_woman_2.atlas"
-    );
-
+        this.characterAssets.push("world_" + world + "_woman_" + spine)
+        this.characterAssets.push("world_" + world + "_man_" + spine)
+      }      
+    }
     // drag queen
     this.load.setPath("assets/spine/dragqueen/");
     this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
   }
 
   public create() {
-    let characters = [
-      "world_1_man_1",
-      "world_1_man_2",
-      "world_1_woman_1",
-      "world_1_woman_2",
-      "world_2_man_1",
-      "world_2_man_2",
-      "world_2_woman_1",
-      "world_2_woman_2",
-      "world_3_man_1",
-      "world_3_woman_1",
-      "world_3_woman_2",
-    ];
     this.add
       .text(50, 50, "< Retour", { fill: "red" })
       .setInteractive()
@@ -142,7 +59,7 @@ export class TestSceneSpine extends Phaser.Scene {
         this.addDragQueen()
       });
 
-    characters.forEach((character) => {
+    this.characterAssets.forEach((character) => {
       this.add
         .text(150, y, "Ajouter " + character, { fill: "red" })
         .setInteractive()
