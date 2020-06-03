@@ -17,7 +17,7 @@ export class TestSceneSpine extends Phaser.Scene {
     this.load.image("btn", button);
     this.load.image("mask", mask);
 
-    for (let world = 1; world <= 2; world++) {
+    for (let world = 1; world <= 3; world++) {
       for (let spine = 1; spine <= 2; spine++) {
         this.load.setPath("assets/spine/world" + world + "/man" + spine + "/");
         this.load.spine(
