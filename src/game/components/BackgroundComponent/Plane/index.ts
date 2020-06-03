@@ -1,33 +1,38 @@
 import Align from "../../../helpers/Align/align";
 
 export enum PlaneSpace {
-  third = 3,
-  second = 2,
-  first = 1
+  first,
+  second,
+  third
 }
-
-const mappingDepthPlanes = [3, 2, 1];
 
 class Plane extends Phaser.GameObjects.Sprite {
   public planeBody: Phaser.Physics.Arcade.Body;
   public speed: number;
-  public planeNb: PlaneSpace;
+  public planeSpace: PlaneSpace;
   public mappingPlane: number; // used to set depth, speed, increment etc 
-
+  private mapPlane: Map<PlaneSpace, number> = new Map(
+    [
+      [PlaneSpace.first, 3],
+      [PlaneSpace.second, 2],
+      [PlaneSpace.third, 1] 
+    ]);
+  
   constructor(
     scene: Phaser.Scene,
     x: number = 0,
     y: number = 0,
     texture: string = "",
     frame: string = "",
-    plane: number,
+    planeSpace: PlaneSpace,
     globalspeed: number = 1,
     isAlreadyInScene: boolean = false
   ) {
     super(scene, x, y, texture, frame);
 
-    this.planeNb = plane;
-    this.mappingPlane = mappingDepthPlanes[plane - 1]
+    this.planeSpace = planeSpace
+    // @ts-ignore
+    this.mappingPlane = this.mapPlane.get(this.planeSpace)
 
     this.speed = globalspeed * this.mappingPlane;
 
@@ -36,9 +41,9 @@ class Plane extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    if (this.planeNb === 2) {
+    if (this.planeSpace === PlaneSpace.second) {
       this.setScale(1.2);
-    } else if (this.planeNb === 3) {
+    } else if (this.planeSpace === PlaneSpace.third) {
       this.setScale(1.3);
     } else {
       this.setScale(1);

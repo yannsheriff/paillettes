@@ -18,9 +18,11 @@ class BackgroundManager {
   private canvasWidth: number = 0;
   private world: Worlds;
   private currentAsset: Array<number> = []
-  private numberAssets: Array<Array<number>> = [
-    [ 11, 6, 7 ] // 24 assets in World 1
-  ]
+  private numberAssets: Map<Worlds, number[]> = new Map([
+    [Worlds.middleAges, [ 11, 6, 7 ]] // 24 assets in World 1
+  ]);
+
+  // numberAssets.get(Worlds.middleAges)
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.canvasWidth = scene.sys.game.canvas.width;
@@ -32,7 +34,7 @@ class BackgroundManager {
     let mask = new Mask(scene, 600, 400, "mask", 0, this.pink);
     Align.left(mask);
 
-    for (let planenb = 1; planenb < 4; planenb++) {
+    for (let planenb = 0; planenb < 3; planenb++) {
       this.generatePlanes(planenb, true);
     }
   }
@@ -41,61 +43,67 @@ class BackgroundManager {
    * Generate a new plane and set its destroy time
    * and the time it will generate the next one
    */
-  public generatePlanes(planenb: PlaneSpace, isInit: boolean) {
-    let arrayNb = planenb - 1
+  public generatePlanes(planeNumber: PlaneSpace, isInit: boolean) {
+    let planeSpace;
 
-    let rand = this.getRandomAsset(arrayNb)
-
-    // console.log('plane' + planenb + '/w1_p' + planenb + '_' + rand)
+    if (planeNumber === 0) {
+      planeSpace = PlaneSpace.first
+    } else if (planeNumber === 1) {
+      planeSpace = PlaneSpace.second
+    } else {
+      planeSpace = PlaneSpace.third
+    }
+    
+    let rand = this.getRandomAsset(planeSpace)
 
     let planeObj = new Plane(
       this.scene,
       0,
       0,
       'world1', // 'world' + this.world + 1
-      'plane' + planenb + '/w1_p' + planenb + '_' + rand,
-      planenb,
+      'plane' + (planeNumber + 1) + '/w1_p' + (planeNumber + 1) + '_' + rand,
+      planeSpace,
       this.globalSpeed
     );
 
     if (isInit) {
-      this.currentPlanes[arrayNb] = planeObj;
+      this.currentPlanes[planeNumber] = planeObj;
     } else {
-      this.nextPlanes[arrayNb] = planeObj;
+      this.nextPlanes[planeNumber] = planeObj;
     }
 
-    this.initDestroy(planeObj, planenb, arrayNb);
-    this.initNextPlane(planeObj, planenb);
+    this.initDestroy(planeObj, planeNumber, planeNumber);
+    this.initNextPlane(planeObj, planeSpace);
   }
 
-  public initDestroy(planeinstance: Plane, planeNumber: PlaneSpace, planeArrayNumber: number) {
+  public initDestroy(planeinstance: Plane, planeSpace: PlaneSpace, planeNb: number) {
     const timeToExitCanvas = this.calculateTime(
       planeinstance.width,
       planeinstance.scale,
       planeinstance.speed,
-      planeNumber,
+      planeSpace,
       this.canvasWidth,
       true
     );
 
     setTimeout(() => {
       planeinstance.deletePlane();
-      this.currentPlanes[planeArrayNumber - 1] = this.nextPlanes[planeArrayNumber - 1];
+      this.currentPlanes[planeNb] = this.nextPlanes[planeNb];
     }, timeToExitCanvas);
   }
 
-  public initNextPlane(planeinstance: Plane, planeNumber: PlaneSpace) {
+  public initNextPlane(planeinstance: Plane, planeSpace: PlaneSpace) {
     const timeBeforeGenerateNextPlane = this.calculateTime(
       planeinstance.width,
       planeinstance.scale,
       planeinstance.speed,
-      planeNumber,
+      planeSpace,
       this.canvasWidth,
       false
     );
 
     setTimeout(() => {
-      this.generatePlanes(planeNumber, false);
+      this.generatePlanes(planeSpace, false);
     }, timeBeforeGenerateNextPlane);
   }
 
@@ -104,13 +112,13 @@ class BackgroundManager {
   public getRandomAsset(arrayNb: number) {
     let rand;
 
+    const worldAssets = this.numberAssets.get(this.world)![arrayNb]
+
     do {
-      rand = Math.floor(
-        Math.random() * (this.numberAssets[this.world][arrayNb] - 1) + 1
-      );
+      rand = Math.floor(Math.random() * (worldAssets - 1) + 1);
 
       // handle bug and prevent for infite loop
-      if (this.numberAssets[this.world][arrayNb] <= 1) {
+      if (worldAssets <= 1) {
         return rand;
       }
     } while (rand === this.currentAsset[arrayNb] || 0);
@@ -129,15 +137,15 @@ class BackgroundManager {
     planeWidth: number,
     planeScale: number,
     planeSpeed: number,
-    planeNb: PlaneSpace,
+    planeSpace: PlaneSpace,
     canvasWidth: number,
     isExit: boolean
   ): number {
-    let latency; // this value set the distance between 2 assets
-
-    if (planeNb === 1) {
+    let latency = 0; // this value set the distance between 2 assets
+    
+    if (planeSpace === PlaneSpace.first) {
       latency = -70
-    } else if (planeNb === 2) {
+    } else if (planeSpace === PlaneSpace.second) {
       latency = -100;
     } else {
       latency = -150;
