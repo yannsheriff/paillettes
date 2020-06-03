@@ -14,6 +14,8 @@ import { Direction } from "./GridObject";
 import Letter, { directionMatchRemaingLetters } from "./Letter";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 import FreeLights from "./FreeLights";
+import FreeArrow from "./FreeArrow";
+import Chrono from "./Chrono";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
@@ -39,7 +41,6 @@ class SheetMusic {
   private mainState: MainState;
   private freestyleState: FreestyleState;
   public isPlaying: boolean;
-  private score?: Score;
   private player: MusicPlayer | undefined;
   private scene: Phaser.Scene;
   private sheetWidth: number;
@@ -59,9 +60,9 @@ class SheetMusic {
   private throttleValue: number;
   private requestCount: number;
   private lastCall: number;
-  private subtitle?: Subtitle;
   private called: boolean;
   private arrowUntilLetter: number;
+  private freeInterval?: NodeJS.Timeout;
 
   constructor(
     scene: Phaser.Scene,
@@ -100,7 +101,7 @@ class SheetMusic {
     this.timeToFail = this.calculateTimeToExit();
 
     MainStateManager.getInstance().subscribe(this.onStateChange);
-    this.freestyleManager.subscribe((state) => (this.freestyleState = state));
+    this.freestyleManager.subscribe(this.onFreeStateChange);
 
     this.scoreManager.onFail(this.failedArrow);
     this.scoreManager.onSuccess(this.successArrow);
@@ -130,6 +131,23 @@ class SheetMusic {
       this.scale
     );
 
+    new Chrono(
+      this.scene,
+      this.posX + this.inputZoneWidth / 2,
+      this.posY,
+      this.inputZoneWidth / 2,
+      this.scale
+    );
+
+    new Score(
+      this.scene,
+      this.posX - this.inputZoneWidth,
+      this.posY - 50 * this.scale,
+      this.scale
+    );
+
+    new Subtitle(this.scene);
+
     const inputZone = this.scene.add.image(
       this.posX + this.inputZoneWidth / 2,
       this.posY,
@@ -149,13 +167,6 @@ class SheetMusic {
 
     this.arrowEmitter.on("note", this.throttleArrow);
 
-    this.score = new Score(
-      this.scene,
-      this.posX - this.inputZoneWidth,
-      this.posY - 50 * this.scale,
-      this.scale
-    );
-
     this.scene.physics.add.overlap(
       this.gridObjects,
       inputZone,
@@ -163,8 +174,6 @@ class SheetMusic {
       () => true,
       this
     );
-
-    this.subtitle = new Subtitle(this.scene);
 
     /*
      * Start Music temporairement un event on click
@@ -206,6 +215,21 @@ class SheetMusic {
     }
   };
 
+  private onFreeStateChange = (state: FreestyleState) => {
+    if (
+      this.freestyleState.isFreestyleActivated !== state.isFreestyleActivated
+    ) {
+      if (state.isFreestyleActivated) {
+        this.freeInterval = setInterval(() => {
+          this.createFreeArrowColumn();
+        }, 500);
+      } else {
+        clearInterval(this.freeInterval!);
+      }
+    }
+    this.freestyleState = state;
+  };
+
   /**
    * Create an arrow
    *
@@ -216,6 +240,19 @@ class SheetMusic {
       this.mainState.difficulty !== DifficultyModes.easy ? calls : 1;
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
 
+    directions.forEach((direction) => {
+      const gridObject = this.generateGridObject(direction);
+      this.gridObjects.push(gridObject);
+    });
+  };
+
+  /**
+   * Create column of free arrow
+   *
+   * Cette fonction crée une colonne de fleche free.
+   */
+  createFreeArrowColumn = () => {
+    const directions: Direction[] = ["down", "left", "right", "up"];
     directions.forEach((direction) => {
       const gridObject = this.generateGridObject(direction);
       this.gridObjects.push(gridObject);
@@ -302,6 +339,19 @@ class SheetMusic {
    */
   private generateGridObject = (direction: Direction): Arrow | Letter => {
     const { ID } = this.characterManager.getArrowID();
+    if (this.freestyleState.isFreestyleActivated) {
+      return new FreeArrow(
+        this.scene,
+        ID,
+        this.arrowSpeed,
+        heightBetweenSheetHBar * this.scale,
+        this.gridTop,
+        undefined,
+        direction,
+        this.scale
+      );
+    }
+
     if (
       this.arrowUntilLetter < 1 &&
       directionMatchRemaingLetters(
@@ -371,7 +421,9 @@ class SheetMusic {
    */
   private delayArrow = (calls: number, note: NoteWithTrack) => {
     setTimeout(() => {
-      return this.createArrow(calls, note);
+      if (!this.freestyleState.isFreestyleActivated) {
+        return this.createArrow(calls, note);
+      }
     }, this.noteDelay);
   };
 
@@ -386,6 +438,7 @@ class SheetMusic {
     }
     this.lastCall = now;
     this.called = true;
+
     this.delayArrow(this.requestCount, note);
   };
 }

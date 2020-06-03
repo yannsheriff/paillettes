@@ -19,6 +19,7 @@ export { default as F } from "./arrows/F.png";
 export { default as E1 } from "./arrows/E1.png";
 export { default as E2 } from "./arrows/E2.png";
 export { default as R } from "./arrows/R.png";
+export { default as FREEStar } from "./arrows/FREEStar.png";
 
 // MASK
 export { default as mask } from "./mask/mask.png";
@@ -29,6 +30,7 @@ export { default as sol } from "./ground/sol.png";
 export { default as good } from "./indications/GOOD.png";
 export { default as oops } from "./indications/Oops.png";
 export { default as perfect } from "./indications/Perfect.png";
+export { default as freestyle } from "./indications/FREESTYLE.png";
 
 // LANDSCAPE WORLD 1
 export { default as word_1_plane_1_1 } from "./landscape/world1/plane1/1.png";
