@@ -64,6 +64,14 @@ export default class FreestyleStateManager extends State {
         isFreestyleActivated: true,
         activationTime: new Date().getTime(),
       });
+
+      setTimeout(() => {
+        this.setState({
+          isFreestyleActivated: false,
+          activationTime: undefined,
+          remainingLetters: initialState.remainingLetters,
+        });
+      }, 2000);
     }
   };
 }

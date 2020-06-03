@@ -63,6 +63,7 @@ class SheetMusic {
   private subtitle?: Subtitle;
   private called: boolean;
   private arrowUntilLetter: number;
+  private freeInterval?: NodeJS.Timeout;
 
   constructor(
     scene: Phaser.Scene,
@@ -212,9 +213,11 @@ class SheetMusic {
       this.freestyleState.isFreestyleActivated !== state.isFreestyleActivated
     ) {
       if (state.isFreestyleActivated) {
-        setInterval(() => {
+        this.freeInterval = setInterval(() => {
           this.createFreeArrowColumn();
         }, 500);
+      } else {
+        clearInterval(this.freeInterval!);
       }
     }
     this.freestyleState = state;

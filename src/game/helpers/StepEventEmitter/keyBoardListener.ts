@@ -15,7 +15,6 @@ class KeyboardListener {
    */
   private stepEventEmitter: EventEmitter | undefined;
   private simultaneousDirection: string | undefined;
-  private timeout: NodeJS.Timeout | undefined;
 
   /**
    * Init KeyboardListener
@@ -43,7 +42,7 @@ class KeyboardListener {
       this.simultaneousDirection = this.simultaneousDirection + " " + event;
     } else {
       this.simultaneousDirection = event;
-      this.timeout = setTimeout(() => {
+      setTimeout(() => {
         this.stepEventEmitter?.emit(
           StepEventType.stepdown,
           this.simultaneousDirection
