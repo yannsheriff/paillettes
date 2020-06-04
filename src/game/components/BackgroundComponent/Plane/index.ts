@@ -52,9 +52,7 @@ class Plane extends Phaser.GameObjects.Sprite {
     if (!isAlreadyInScene) {
       Align.outsideRight(this);
     } else {
-      Align.outsideRight(this);
-      // to do
-      // Align.left(this);
+      Align.center(this);
     }
 
     this.centerBottom();
