@@ -16,6 +16,7 @@ import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 import FreeLights from "./FreeLights";
 import FreeArrow from "./FreeArrow";
 import Chrono from "./Chrono";
+import GodMother from "./GodMother";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
@@ -128,6 +129,13 @@ class SheetMusic {
       this.posX + this.inputZoneWidth / 2,
       this.posY,
       this.inputZoneWidth,
+      this.scale
+    );
+
+    new GodMother(
+      this.scene,
+      this.posX + this.inputZoneWidth / 2,
+      this.posY,
       this.scale
     );
 
