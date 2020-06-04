@@ -12,14 +12,13 @@ class Blob extends Phaser.GameObjects.Graphics {
         y: window.innerHeight / 2
     }
     private rayon: number = window.innerWidth / 2; // le blob prend 1/3 de l'écran
-    private variation: number = 70;
+    private variation: number = 100;
     private noise: SimplexNoise = new SimplexNoise(Math.random);
 
     constructor(
         scene: Phaser.Scene
     ) {
         super(scene);
-
         scene.add.existing(this);
         this.drawBlob()
     }
