@@ -1,5 +1,5 @@
 import config from "./config";
-import Mask from "../../../components/BackgroundComponent/Mask"
+import Blob from "../../../components/BackgroundComponent/Blob"
 import Plane, { PlaneSpace } from "../../../components/BackgroundComponent/Plane";
 import Align from "../../../helpers/Align/align";
 import SimplexNoise from "simplex-noise";
@@ -40,43 +40,9 @@ export class TestSceneBlob extends Phaser.Scene {
         this.scene.start("TestScene");
       });
 
-    this.blob = this.add.graphics();
-
-    // let mask = new Mask(this, 600, 400, "mask", 0, this.pink);
-    // Align.left(mask);
+    new Blob(this);
 
     new Plane(this, 0, 0, 'world1', 'plane1/w1_p1_1', PlaneSpace.first, 0, true);
-  }
-
-  public update() {
-    this.drawBlob()
-  }
-
-  public drawBlob() {
-    if (this.blob) {
-      this.speed += 0.004; // maybe refacto
-
-      this.blob.clear()
-      this.blob.lineStyle(2, this.pink, 1);
-      this.blob.fillStyle(this.pink, 1);
-      this.blob.moveTo(this.blobPosition.x, this.blobPosition.y); // center
-
-      for (var i = - Math.PI / 2; i < Math.PI / 2 + 0.02; i += 0.02 * (Math.PI / 2)) {
-        let value2d =
-          this.noise.noise2D(
-            Math.cos(i) + this.speed,
-            Math.sin(i) + this.speed
-          ) * this.variation;
-        let x = Math.cos(i) * (this.rayon + value2d) + (this.blobPosition.x);
-        let y =
-          Math.sin(i) * (this.rayon + value2d) + (this.blobPosition.y);
-        this.blob.lineTo(x, y);
-      }
-
-      this.blob.fillPath();
-      this.blob.setDepth(7).setBlendMode('SCREEN')
-    }
-
   }
 }
 
