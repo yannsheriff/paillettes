@@ -34,24 +34,29 @@ export class TestSceneBlob extends Phaser.Scene {
     // let mask = new Mask(this, 600, 400, "mask", 0, this.pink);
     // Align.left(mask);
 
-    let speed = 50;
-    let radius = 150;
+    let speed = 150;
+    let blobPosition = {
+      x: 0,
+      y: window.innerHeight / 2
+    }
+    let rayon = window.innerWidth/3; // le blob prend 1/3 de l'écran
+    let variation = 50;
     let graphics = this.add.graphics();
     let simplex = new SimplexNoise(Math.random);
 
     graphics.lineStyle(2, this.pink, 1);
     graphics.fillStyle(this.pink, 1);
-    graphics.moveTo(window.innerWidth/2, window.innerHeight/2); // center
+    graphics.moveTo(blobPosition.x, blobPosition.y); // center
 
     for (var i = 0; i < Math.PI * 2 + 5; i += 0.01) {
       let value2d =
         simplex.noise2D(
           Math.cos(i) + speed,
           Math.sin(i) + speed
-        ) * 20;
-      let x = Math.cos(i) * (radius + value2d) + (window.innerWidth/2);
+        ) * variation;
+      let x = Math.cos(i) * (rayon + value2d) + (blobPosition.x);
       let y =
-        Math.sin(i) * (radius + value2d) + (window.innerHeight/2);
+        Math.sin(i) * (rayon + value2d) + (blobPosition.y);
       graphics.lineTo(x, y);
     }
 
