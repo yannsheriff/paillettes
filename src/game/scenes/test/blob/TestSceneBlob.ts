@@ -11,7 +11,6 @@ export class TestSceneBlob extends Phaser.Scene {
   private blue: number = 0x2b3aff;
   private purple: number = 0x6a23ff;
   private red: number = 0xff0b0b;
-  private blob?: Phaser.GameObjects.Graphics;
   private speed: number = 5;
   private blobPosition: any = {
     x: 0,
@@ -21,6 +20,7 @@ export class TestSceneBlob extends Phaser.Scene {
   private variation: number = 70;
   private noise: SimplexNoise = new SimplexNoise(Math.random);
   private test: Array<number> = [];
+  private blob?: Blob;
 
   constructor() {
     super(config);
@@ -40,7 +40,25 @@ export class TestSceneBlob extends Phaser.Scene {
         this.scene.start("TestScene");
       });
 
-    new Blob(this);
+    this.blob = new Blob(this);
+
+    this.add
+      .text(50, 100, "Activer mode Freestyle", { fill: "red" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        if(this.blob) {
+          this.blob.playFreestyle()
+        }
+      });
+
+    this.add
+      .text(50, 150, "Sortir mode Freestyle", { fill: "red" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        if(this.blob) {
+          this.blob.stopFreestyle()
+        }
+      });
 
     new Plane(this, 0, 0, 'world1', 'plane1/w1_p1_1', PlaneSpace.first, 0, true);
   }

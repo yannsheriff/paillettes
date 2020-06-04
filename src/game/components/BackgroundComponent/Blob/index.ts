@@ -6,13 +6,14 @@ class Blob extends Phaser.GameObjects.Graphics {
     private purple: number = 0x6a23ff;
     private red: number = 0xff0b0b;
     private blob?: Phaser.GameObjects.Graphics;
-    private speed: number = 5;
+    private speed: number = 2;
     private blobPosition: any = {
         x: 0,
         y: window.innerHeight / 2
     }
-    private rayon: number = window.innerWidth / 2; // le blob prend 1/3 de l'écran
-    private variation: number = 100;
+    private initialRayon = window.innerWidth / 2;
+    private rayon: number = this.initialRayon; // le blob prend 1/3 de l'écran
+    private variation: number = 80;
     private noise: SimplexNoise = new SimplexNoise(Math.random);
 
     constructor(
@@ -28,7 +29,7 @@ class Blob extends Phaser.GameObjects.Graphics {
     }
 
     public drawBlob() {
-        this.speed += 0.004; // maybe refacto
+        this.speed += 0.005; // maybe refacto
 
         this.clear()
         this.lineStyle(2, this.pink, 1);
@@ -49,6 +50,32 @@ class Blob extends Phaser.GameObjects.Graphics {
 
         this.fillPath();
         this.setDepth(7).setBlendMode('SCREEN')
+    }
+
+    // DEBUG FUNCTIONS
+    public updateSpeed(newSpeed: number) {
+        this.speed = newSpeed
+    }
+
+    public playFreestyle() {
+        this.scene.tweens.add({
+            targets: this,
+            rayon: window.innerWidth + 500,
+            duration: 700,
+            ease: 'back.in',
+            repeat: 0,
+            yoyo: false,
+        });
+    }
+    public stopFreestyle() {
+        this.scene.tweens.add({
+            targets: this,
+            rayon: this.initialRayon,
+            duration: 700,
+            ease: 'back.out',
+            repeat: 0,
+            yoyo: false,
+        });
     }
 
 }
