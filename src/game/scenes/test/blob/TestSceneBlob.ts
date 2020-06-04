@@ -11,6 +11,16 @@ export class TestSceneBlob extends Phaser.Scene {
   private blue: number = 0x2b3aff;
   private purple: number = 0x6a23ff;
   private red: number = 0xff0b0b;
+  private blob?: Phaser.GameObjects.Graphics;
+  private speed: number = 5;
+  private blobPosition: any = {
+    x: 0,
+    y: window.innerHeight / 2
+  }
+  private rayon: number = window.innerWidth / 2; // le blob prend 1/3 de l'écran
+  private variation: number = 70;
+  private noise: SimplexNoise = new SimplexNoise(Math.random);
+  private test: Array<number> = [];
 
   constructor() {
     super(config);
@@ -30,45 +40,44 @@ export class TestSceneBlob extends Phaser.Scene {
         this.scene.start("TestScene");
       });
 
-    
+    this.blob = this.add.graphics();
+
     // let mask = new Mask(this, 600, 400, "mask", 0, this.pink);
     // Align.left(mask);
 
-    let speed = 150;
-    let blobPosition = {
-      x: 0,
-      y: window.innerHeight / 2
-    }
-    let rayon = window.innerWidth/3; // le blob prend 1/3 de l'écran
-    let variation = 50;
-    let graphics = this.add.graphics();
-    let simplex = new SimplexNoise(Math.random);
-
-    graphics.lineStyle(2, this.pink, 1);
-    graphics.fillStyle(this.pink, 1);
-    graphics.moveTo(blobPosition.x, blobPosition.y); // center
-
-    for (var i = 0; i < Math.PI * 2 + 5; i += 0.01) {
-      let value2d =
-        simplex.noise2D(
-          Math.cos(i) + speed,
-          Math.sin(i) + speed
-        ) * variation;
-      let x = Math.cos(i) * (rayon + value2d) + (blobPosition.x);
-      let y =
-        Math.sin(i) * (rayon + value2d) + (blobPosition.y);
-      graphics.lineTo(x, y);
-    }
-
-    graphics.fillPath();
-    graphics.setDepth(7).setBlendMode('SCREEN')
-
-
     new Plane(this, 0, 0, 'world1', 'plane1/w1_p1_1', PlaneSpace.first, 0, true);
-
   }
 
-  public update() { }
+  public update() {
+    this.drawBlob()
+  }
+
+  public drawBlob() {
+    if (this.blob) {
+      this.speed += 0.004; // maybe refacto
+
+      this.blob.clear()
+      this.blob.lineStyle(2, this.pink, 1);
+      this.blob.fillStyle(this.pink, 1);
+      this.blob.moveTo(this.blobPosition.x, this.blobPosition.y); // center
+
+      for (var i = - Math.PI / 2; i < Math.PI / 2 + 0.02; i += 0.02 * (Math.PI / 2)) {
+        let value2d =
+          this.noise.noise2D(
+            Math.cos(i) + this.speed,
+            Math.sin(i) + this.speed
+          ) * this.variation;
+        let x = Math.cos(i) * (this.rayon + value2d) + (this.blobPosition.x);
+        let y =
+          Math.sin(i) * (this.rayon + value2d) + (this.blobPosition.y);
+        this.blob.lineTo(x, y);
+      }
+
+      this.blob.fillPath();
+      this.blob.setDepth(7).setBlendMode('SCREEN')
+    }
+
+  }
 }
 
 export default TestSceneBlob;
