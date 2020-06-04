@@ -26,6 +26,10 @@ class Align {
     obj.x = window.innerWidth / 2;
     obj.y = window.innerHeight / 2;
   }
+  static centerSpine(obj, spine, scale) {
+    obj.x = window.innerWidth / 2;
+    obj.y = window.innerHeight / 2 + (spine.displayHeight * scale / 2);
+  }
   static left(obj) {
 	  obj.x = obj.displayWidth / 2;
   }

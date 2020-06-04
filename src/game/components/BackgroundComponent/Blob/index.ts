@@ -1,10 +1,13 @@
 import SimplexNoise from "simplex-noise";
 
 class Blob extends Phaser.GameObjects.Graphics {
-    private pink: number = 0xff00ab;
-    private blue: number = 0x2b3aff;
-    private purple: number = 0x6a23ff;
-    private red: number = 0xff0b0b;
+    private drawColor: number;
+    private colors: Array<[string, number]> = [
+        ['pink', 0xff00ab],
+        ['blue', 0x2b3aff],
+        ['purple', 0x6a23ff],
+        ['red', 0xff0b0b]
+    ];
     private blob?: Phaser.GameObjects.Graphics;
     private speed: number = 2;
     private blobPosition: any = {
@@ -21,6 +24,7 @@ class Blob extends Phaser.GameObjects.Graphics {
     ) {
         super(scene);
         scene.add.existing(this);
+        this.drawColor = this.colors[0][1]
         this.drawBlob()
     }
 
@@ -32,8 +36,8 @@ class Blob extends Phaser.GameObjects.Graphics {
         this.speed += 0.005; // maybe refacto
 
         this.clear()
-        this.lineStyle(2, this.pink, 1);
-        this.fillStyle(this.pink, 1);
+        this.lineStyle(2, this.drawColor, 1);
+        this.fillStyle(this.drawColor, 1);
         this.moveTo(this.blobPosition.x, this.blobPosition.y); // center
 
         for (var i = - Math.PI / 2; i < Math.PI / 2 + 0.02; i += 0.02 * (Math.PI / 2)) {
@@ -50,11 +54,6 @@ class Blob extends Phaser.GameObjects.Graphics {
 
         this.fillPath();
         this.setDepth(7).setBlendMode('SCREEN')
-    }
-
-    // DEBUG FUNCTIONS
-    public updateSpeed(newSpeed: number) {
-        this.speed = newSpeed
     }
 
     public playFreestyle() {
@@ -78,5 +77,18 @@ class Blob extends Phaser.GameObjects.Graphics {
         });
     }
 
+    public changeColor() {
+        let randColor = this.colors[
+            Math.floor(Math.random() * this.colors.length)
+        ];
+        this.scene.tweens.add({
+            targets: this,
+            drawColor: randColor[1],
+            duration: 700,
+            ease: 'back.out',
+            repeat: 0,
+            yoyo: false,
+        });
+    }
 }
 export default Blob;

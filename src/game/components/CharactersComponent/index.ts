@@ -21,7 +21,7 @@ class PhysicCharacterManager {
 
   public crowd: Array<PhysicCharacter>;
   public actualCharacter: Array<PhysicCharacter>;
-  public testY: number = 200;
+  public testY: number = 50;
   public nextUnlocked: string = ''
 
   constructor(scene: Phaser.Scene) {
@@ -130,7 +130,7 @@ class PhysicCharacterManager {
 
   public playDanseThenRun() {
     let delay = 0.08;
-    this.crowd.forEach((character) => {
+    this.crowd.slice().reverse().forEach((character) => {
       character.playDanceThenRunAnimation(delay);
       delay += 0.08;
     });
@@ -145,19 +145,20 @@ class PhysicCharacterManager {
   // DEBUG PURPOSE
   public playAllAnimations() { }
 
-  public generateTestPhysicCharacter() {
+  public generateTestPhysicCharacter(assets: string[]) {
     // random character
-    let rand = Math.floor(Math.floor(Math.random() * charactersWorld1.length + 1));
+    let rand = Math.floor(Math.floor(Math.random() * assets.length + 1));
 
     let charObj = new PhysicCharacter(
       this.scene,
       this.testY,
       window.innerHeight / 1.5,
-      charactersWorld1[rand - 1],
+      assets[rand - 1],
       "NBidle",
       '',
       false,
-      false
+      false,
+      true
     );
 
     this.crowd.push(charObj)

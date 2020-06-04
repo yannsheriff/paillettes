@@ -18,7 +18,8 @@ class PhysicCharacter extends SpineContainer {
     anim: string,
     id: string,
     loop?: boolean,
-    runAnimation: boolean = false
+    runAnimation: boolean = false,
+    isDebug: boolean = false
   ) {
     super(scene, x, y, key, anim, loop);
     this.id = id;
@@ -36,9 +37,13 @@ class PhysicCharacter extends SpineContainer {
     this.setScale(0.5); // container and hitbox size
     this.setDepth(10);
 
-    Align.rightSpine(this, this.spine, this.scale);
+    if (!isDebug) {
+      Align.rightSpine(this, this.spine, this.scale);
+    } else {
+      // Align.centerSpine(this, this.spine, this.scale);
+    }
 
-    this.drawDebug(true);
+    this.drawDebug(false);
 
     // this.playAnimation("NBidle", false)
 
