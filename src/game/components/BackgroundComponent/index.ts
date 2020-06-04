@@ -1,4 +1,4 @@
-import Mask from "./Mask";
+import Blob from "./Blob";
 import Plane, { PlaneSpace } from "./Plane";
 import Align from "../../helpers/Align/align";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
@@ -31,8 +31,8 @@ class BackgroundManager {
     this.mainState = this.mainManager.state;
     this.world = this.mainManager.state.world;
 
-    let mask = new Mask(scene, 600, 400, "mask", 0, this.pink);
-    Align.left(mask);
+    // let mask = new Mask(scene, 600, 400, "mask", 0, this.pink);
+    // Align.left(mask);
 
     for (let planenb = 0; planenb < 3; planenb++) {
       this.generatePlanes(planenb, true);
