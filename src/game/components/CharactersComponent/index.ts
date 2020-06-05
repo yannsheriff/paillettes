@@ -52,7 +52,7 @@ class PhysicCharacterManager {
     });
 
     characterManager.isCharacterUnlocked((id, isUnlocked) => {
-      console.log("isCharacterUnlocked", id, isUnlocked);
+      // console.log("isCharacterUnlocked", id, isUnlocked);
       if (isUnlocked) {
         this.nextUnlocked = id
       }

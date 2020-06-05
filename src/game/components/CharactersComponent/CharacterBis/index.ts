@@ -38,7 +38,7 @@ class PhysicCharacter extends SpineContainer {
     this.setDepth(10);
 
     if (!isDebug) {
-      Align.rightSpine(this, this.spine, this.scale);
+      Align.outsideRightSpine(this, this.spine, this.scale);
     } else {
       // Align.centerSpine(this, this.spine, this.scale);
     }

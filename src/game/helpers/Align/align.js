@@ -42,7 +42,7 @@ class Align {
   static outsideRight(obj) {
     obj.x = window.innerWidth + obj.displayWidth / 2 + 10;
   }
-  static ousideRightSpine(obj, spine, scale) {
+  static outsideRightSpine(obj, spine, scale) {
     obj.x = window.innerWidth + (spine.displayWidth * scale) / 2;
   }
 }
