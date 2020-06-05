@@ -324,10 +324,9 @@ class SheetMusic {
       undefined,
       "left",
       this.scale
-    );
-    const halfHitboxTime =
-      ((arrow.width * arrow.scale) / this.arrowSpeed) * 1000;
-    arrow.destroy();
+      );
+    const halfHitboxTime = ((arrow.width * arrow.scale) / this.arrowSpeed) * 1000;
+    arrow.deleteArrow();
     return (this.inputZoneWidth / this.arrowSpeed) * 1000 + halfHitboxTime;
   }
 
@@ -340,6 +339,7 @@ class SheetMusic {
   private generateGridObject = (direction: Direction): Arrow | Letter => {
     const { ID } = this.characterManager.getArrowID();
     if (this.freestyleState.isFreestyleActivated) {
+      // @ts-ignore
       return new FreeArrow(
         this.scene,
         ID,
