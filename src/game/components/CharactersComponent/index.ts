@@ -3,11 +3,11 @@ import CharacterManager from "../../managers/CharacterManager";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
 import Align from "../../helpers/Align/align"
 
-const charactersWorld1 = [
-  "world_1_man_1",
-  "world_1_man_2",
-  "world_1_woman_1",
-  "world_1_woman_2"
+const characters = [
+  "world__man_1", // world_1_man_1
+  "world__man_2",
+  "world__woman_1",
+  "world__woman_2"
 ];
 const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
@@ -20,6 +20,7 @@ class PhysicCharacterManager {
   private overlapTrigger: boolean = false;
 
   public crowd: Array<PhysicCharacter>;
+  public world: Worlds;
   public actualCharacter: Array<PhysicCharacter>;
   public testY: number = 50;
   public nextUnlocked: string = ''
@@ -31,6 +32,7 @@ class PhysicCharacterManager {
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.subscribe(this.onMainStateChange);
     this.mainState = this.mainManager.state;
+    this.world = this.mainManager.state.world;
 
     const characterManager = CharacterManager.getInstance();
 
@@ -60,14 +62,17 @@ class PhysicCharacterManager {
   }
 
   public generateNewPhysicCharacter(id: string) {
-    // random character
-    let rand = Math.floor(Math.floor(Math.random() * charactersWorld1.length + 1));
+    // man or woman
+    let gender = Math.round(Math.random()) === 0 ? 'man' : 'woman'
+    let nb = Math.floor(Math.random() * 2) + 1;;
+
+    console.log("world_" + this.world + "_" + gender + "_" + nb)
 
     let charObj = new PhysicCharacter(
       this.scene,
       0,
       window.innerHeight / 1.5,
-      charactersWorld1[rand - 1],
+      "world_" + this.world + "_" + gender + "_" + nb,
       "NBidle",
       id,
       false,
@@ -167,6 +172,7 @@ class PhysicCharacterManager {
   }
 
   private startWorldTransition(world: Worlds) {
+    this.world = world;
     console.log("PhysicCharacterManager", world);
   }
 
