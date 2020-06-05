@@ -20,7 +20,6 @@ class GodMother {
     const freeManager = FreestyleStateManager.getInstance();
     this.freestyleState = freeManager.state;
     freeManager.subscribe(this.stateChange);
-    this.create();
   }
 
   private create() {

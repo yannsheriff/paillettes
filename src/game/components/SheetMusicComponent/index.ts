@@ -306,14 +306,14 @@ class SheetMusic {
     }
 
     this.inputAnimation!.anims.play("glow");
-    gridObject.destroy();
+    gridObject.delete();
   };
 
   private failedArrow = (gridObject: GridObject) => {
     if (gridObject instanceof Letter) {
       this.freestyleManager.failLetter();
     }
-    setTimeout(() => gridObject.destroy, 1000);
+    setTimeout(() => gridObject.delete, 1000);
   };
 
   /**

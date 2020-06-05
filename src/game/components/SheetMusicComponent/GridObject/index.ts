@@ -40,6 +40,10 @@ class GridObject extends Phaser.Physics.Arcade.Sprite {
   launch() {
     this.setVelocityX(-this.speed);
   }
+
+  delete() {
+    this.destroy();
+  }
 }
 
 export default GridObject;
