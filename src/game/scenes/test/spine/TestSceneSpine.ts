@@ -113,7 +113,8 @@ export class TestSceneSpine extends Phaser.Scene {
       "NBidle",
       "",
       false,
-      false
+      false,
+      true
     );
     this.characterList.push(character);
     this.addDebug(character);

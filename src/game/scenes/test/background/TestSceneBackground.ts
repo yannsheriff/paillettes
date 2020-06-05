@@ -19,6 +19,9 @@ export class TestSceneBackground extends Phaser.Scene {
   public preload(): void {
     this.load.setPath("assets/spritesheets/world1/");
     this.load.multiatlas('world1', 'world1_spritesheet.json');
+    
+    this.load.setPath("assets/spritesheets/world3/");
+    this.load.multiatlas('world3', 'world3_spritesheet.json');
 
     this.load.image("mask", mask);
   }

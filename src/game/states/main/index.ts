@@ -7,9 +7,9 @@ export enum DifficultyModes {
   hardcore,
 }
 export enum Worlds {
-  middleAges,
-  today,
-  nineteenCentury
+  middleAges = 1,
+  today = 2,
+  nineteenCentury = 3
 }
 
 export interface MainState {
@@ -38,7 +38,7 @@ export default class MainStateManager extends State {
   private constructor() {
     super();
     this.state = initialState;
-    this.remainingWorlds = [Worlds.today, Worlds.nineteenCentury];
+    this.remainingWorlds = [Worlds.nineteenCentury];
   }
 
   /**

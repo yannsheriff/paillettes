@@ -19,7 +19,8 @@ class BackgroundManager {
   private world: Worlds;
   private currentAsset: Array<number> = []
   private numberAssets: Map<Worlds, number[]> = new Map([
-    [Worlds.middleAges, [ 11, 6, 7 ]] // 24 assets in World 1
+    [Worlds.middleAges, [ 11, 6, 7 ]], // 24 assets in World 1
+    [Worlds.nineteenCentury, [ 6, 6, 6 ]] // 24 assets in World 1
   ]);
 
   // numberAssets.get(Worlds.middleAges)
@@ -60,8 +61,8 @@ class BackgroundManager {
       this.scene,
       0,
       0,
-      'world1', // 'world' + this.world + 1
-      'plane' + (planeNumber + 1) + '/w1_p' + (planeNumber + 1) + '_' + rand,
+      'world' + this.world, // 'world' + this.world + 1
+      'plane' + (planeNumber + 1) + '/w' + this.world + '_p' + (planeNumber + 1) + '_' + rand,
       planeSpace,
       this.globalSpeed
     );
@@ -154,7 +155,7 @@ class BackgroundManager {
     const v = planeSpeed;
     let d = planeWidth * planeScale + latency;
     if (isExit) {
-      d += canvasWidth;
+      d += canvasWidth - latency;
     }
     return (d / v) * 1000;
   }
