@@ -1,7 +1,6 @@
 import config from "./config";
 import Blob from "../../../components/BackgroundComponent/Blob"
 import Plane, { PlaneSpace } from "../../../components/BackgroundComponent/Plane";
-import Align from "../../../helpers/Align/align";
 import SimplexNoise from "simplex-noise";
 
 import { mask } from "../../../assets";
@@ -60,14 +59,14 @@ export class TestSceneBlob extends Phaser.Scene {
         }
       });
 
-    this.add
-      .text(50, 200, "Changer de couleur", { fill: "red" })
-      .setInteractive()
-      .on("pointerdown", () => {
-        if(this.blob) {
-          this.blob.changeColor()
-        }
-      });
+    // this.add
+    //   .text(50, 200, "Changer de couleur", { fill: "red" })
+    //   .setInteractive()
+    //   .on("pointerdown", () => {
+    //     if(this.blob) {
+    //       // this.blob.changeColor()
+    //     }
+    //   });
 
     new Plane(this, 0, 0, 'world1', 'plane1/w1_p1_1', PlaneSpace.first, 0, true);
   }

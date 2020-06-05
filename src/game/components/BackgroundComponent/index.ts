@@ -4,13 +4,9 @@ import Align from "../../helpers/Align/align";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
 
 class BackgroundManager {
-  private pink: number = 0xff00ab;
-  private blue: number = 0x2b3aff;
-  private purple: number = 0x6a23ff;
-  private red: number = 0xff0b0b;
-  private white: number = 0xffffff;
   private mainState: MainState;
   private mainManager: MainStateManager;
+  private blob: Blob;
   private globalSpeed: number = 50;
   private currentPlanes: Array<Plane> = [];
   private nextPlanes: Array<Plane> = [];
@@ -32,8 +28,7 @@ class BackgroundManager {
     this.mainState = this.mainManager.state;
     this.world = this.mainManager.state.world;
 
-    // let mask = new Mask(scene, 600, 400, "mask", 0, this.pink);
-    // Align.left(mask);
+    this.blob = new Blob(this.scene)
 
     for (let planenb = 0; planenb < 3; planenb++) {
       this.generatePlanes(planenb, true);

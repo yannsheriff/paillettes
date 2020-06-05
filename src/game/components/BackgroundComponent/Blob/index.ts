@@ -1,13 +1,18 @@
 import SimplexNoise from "simplex-noise";
+import MainStateManager, { MainState, Worlds } from "../../../states/main";
 
 class Blob extends Phaser.GameObjects.Graphics {
+    private mainState: MainState;
+    private mainManager: MainStateManager;
     private drawColor: number;
-    private colors: Array<[string, number]> = [
-        ['pink', 0xff00ab],
-        ['blue', 0x2b3aff],
-        ['purple', 0x6a23ff],
-        ['red', 0xff0b0b]
-    ];
+    private pink: number = 0xff00ab;
+    private blue: number = 0x2b3aff;
+    private purple: number = 0x6a23ff;
+    private red: number = 0xff0b0b;
+    private worldColors: Map<Worlds, number> = new Map([
+        [Worlds.middleAges, this.pink], // pink
+        [Worlds.nineteenCentury, this.blue] // blue
+    ]);
     private blob?: Phaser.GameObjects.Graphics;
     private speed: number = 2;
     private blobPosition: any = {
@@ -24,7 +29,10 @@ class Blob extends Phaser.GameObjects.Graphics {
     ) {
         super(scene);
         scene.add.existing(this);
-        this.drawColor = this.colors[0][1]
+        this.mainManager = MainStateManager.getInstance();
+        this.mainManager.subscribe(this.onMainStateChange);
+        this.mainState = this.mainManager.state;
+        this.drawColor = this.worldColors.get(this.mainManager.state.world)!;
         this.drawBlob()
     }
 
@@ -77,18 +85,30 @@ class Blob extends Phaser.GameObjects.Graphics {
         });
     }
 
-    public changeColor() {
-        let randColor = this.colors[
-            Math.floor(Math.random() * this.colors.length)
-        ];
+    public changeColor(world: Worlds) {
         this.scene.tweens.add({
             targets: this,
-            drawColor: randColor[1],
+            drawColor: this.worldColors.get(world)!,
             duration: 700,
             ease: 'back.out',
             repeat: 0,
             yoyo: false,
         });
     }
+
+    private onMainStateChange = (state: MainState) => {
+        if (state.world !== this.mainState.world) {
+            this.changeColor(state.world);
+        }
+
+        // if (
+        //   state.isInTransition !== this.mainState.isInTransition &&
+        //   !state.isInTransition
+        // ) {
+        //   this.endWorldTransition();
+        // }
+
+        this.mainState = state;
+    };
 }
 export default Blob;

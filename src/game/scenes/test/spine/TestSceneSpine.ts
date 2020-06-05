@@ -104,7 +104,6 @@ export class TestSceneSpine extends Phaser.Scene {
   public addCharacter(assetName: string) {
     this.destroyAllCharacters();
 
-    let rand = Math.floor(Math.random() * 2);
     let character = new CharacterBis(
       this,
       700,
