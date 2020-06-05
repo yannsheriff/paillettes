@@ -1,0 +1,153 @@
+
+world_2_woman_2.png
+size: 1763,218
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BACK FEET
+  rotate: false
+  xy: 1709, 53
+  size: 52, 30
+  orig: 1922, 1082
+  offset: 940, 262
+  index: -1
+BACK FOREARM
+  rotate: false
+  xy: 1182, 161
+  size: 35, 55
+  orig: 1922, 1082
+  offset: 994, 399
+  index: -1
+BACK HAND
+  rotate: true
+  xy: 380, 2
+  size: 21, 42
+  orig: 1922, 1082
+  offset: 1001, 379
+  index: -1
+BACK LEG
+  rotate: false
+  xy: 1539, 13
+  size: 27, 68
+  orig: 1922, 1082
+  offset: 936, 280
+  index: -1
+Color1/BACK ARM
+  rotate: true
+  xy: 1441, 24
+  size: 57, 96
+  orig: 1922, 1082
+  offset: 977, 413
+  index: -1
+Color1/FRONT ARM
+  rotate: true
+  xy: 1574, 27
+  size: 56, 96
+  orig: 1922, 1082
+  offset: 836, 427
+  index: -1
+Color1/HEAD
+  rotate: false
+  xy: 1574, 85
+  size: 159, 131
+  orig: 1922, 1082
+  offset: 849, 534
+  index: -1
+Color1/POMPOM2
+  rotate: false
+  xy: 1242, 64
+  size: 167, 152
+  orig: 1922, 1082
+  offset: 930, 303
+  index: -1
+Color1/TORSO
+  rotate: true
+  xy: 642, 26
+  size: 190, 257
+  orig: 1922, 1082
+  offset: 840, 319
+  index: -1
+Color2/BACK ARM
+  rotate: true
+  xy: 1342, 4
+  size: 58, 97
+  orig: 1922, 1082
+  offset: 978, 412
+  index: -1
+Color2/FRONT ARM
+  rotate: true
+  xy: 1242, 3
+  size: 59, 98
+  orig: 1922, 1082
+  offset: 833, 426
+  index: -1
+Color2/HEAD
+  rotate: false
+  xy: 1411, 83
+  size: 161, 133
+  orig: 1922, 1082
+  offset: 848, 533
+  index: -1
+Color2/POMPOM2
+  rotate: false
+  xy: 901, 4
+  size: 169, 154
+  orig: 1922, 1082
+  offset: 930, 300
+  index: -1
+Color2/TORSO
+  rotate: true
+  xy: 380, 25
+  size: 191, 260
+  orig: 1922, 1082
+  offset: 840, 316
+  index: -1
+FRONT FEET
+  rotate: false
+  xy: 1709, 21
+  size: 52, 30
+  orig: 1922, 1082
+  offset: 915, 261
+  index: -1
+FRONT FOREARM
+  rotate: false
+  xy: 1672, 28
+  size: 35, 55
+  orig: 1922, 1082
+  offset: 840, 413
+  index: -1
+FRONT HAND
+  rotate: true
+  xy: 424, 2
+  size: 21, 41
+  orig: 1922, 1082
+  offset: 847, 394
+  index: -1
+FRONT LEG
+  rotate: false
+  xy: 1735, 143
+  size: 26, 73
+  orig: 1922, 1082
+  offset: 912, 279
+  index: -1
+NB
+  rotate: true
+  xy: 2, 5
+  size: 211, 376
+  orig: 1922, 1082
+  offset: 827, 259
+  index: -1
+POMPOM
+  rotate: false
+  xy: 1072, 5
+  size: 168, 153
+  orig: 1922, 1082
+  offset: 772, 305
+  index: -1
+SHADOW NB
+  rotate: false
+  xy: 901, 160
+  size: 279, 56
+  orig: 1922, 1082
+  offset: 804, 236
+  index: -1

@@ -1,0 +1,409 @@
+{
+	"textures": [
+		{
+			"image": "world1_spritesheet-0.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1924,
+				"h": 2011
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "plane3/w1_p3_1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 383
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 383
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 960,
+						"h": 383
+					}
+				},
+				{
+					"filename": "plane3/w1_p3_3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 367
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 367
+					},
+					"frame": {
+						"x": 963,
+						"y": 1,
+						"w": 960,
+						"h": 367
+					}
+				},
+				{
+					"filename": "plane3/w1_p3_4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 361
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 361
+					},
+					"frame": {
+						"x": 963,
+						"y": 370,
+						"w": 960,
+						"h": 361
+					}
+				},
+				{
+					"filename": "plane1/w1_p1_5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 348
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 348
+					},
+					"frame": {
+						"x": 1,
+						"y": 386,
+						"w": 960,
+						"h": 348
+					}
+				},
+				{
+					"filename": "plane3/w1_p3_6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 346
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 346
+					},
+					"frame": {
+						"x": 963,
+						"y": 733,
+						"w": 960,
+						"h": 346
+					}
+				},
+				{
+					"filename": "plane3/w1_p3_2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 341
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 341
+					},
+					"frame": {
+						"x": 1,
+						"y": 736,
+						"w": 960,
+						"h": 341
+					}
+				},
+				{
+					"filename": "plane1/w1_p1_2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 252
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 252
+					},
+					"frame": {
+						"x": 1,
+						"y": 1079,
+						"w": 960,
+						"h": 252
+					}
+				},
+				{
+					"filename": "plane1/w1_p1_4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 228
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 228
+					},
+					"frame": {
+						"x": 963,
+						"y": 1081,
+						"w": 960,
+						"h": 228
+					}
+				},
+				{
+					"filename": "plane1/w1_p1_6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 228
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 228
+					},
+					"frame": {
+						"x": 963,
+						"y": 1311,
+						"w": 960,
+						"h": 228
+					}
+				},
+				{
+					"filename": "plane1/w1_p1_1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 197
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 197
+					},
+					"frame": {
+						"x": 1,
+						"y": 1333,
+						"w": 960,
+						"h": 197
+					}
+				},
+				{
+					"filename": "plane1/w1_p1_3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 169
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 169
+					},
+					"frame": {
+						"x": 1,
+						"y": 1532,
+						"w": 960,
+						"h": 169
+					}
+				},
+				{
+					"filename": "plane2/w1_p2_6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 705,
+						"h": 307
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 705,
+						"h": 307
+					},
+					"frame": {
+						"x": 1,
+						"y": 1703,
+						"w": 705,
+						"h": 307
+					}
+				},
+				{
+					"filename": "plane3/w1_p3_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 960,
+						"h": 379
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 959,
+						"h": 379
+					},
+					"frame": {
+						"x": 963,
+						"y": 1541,
+						"w": 959,
+						"h": 379
+					}
+				}
+			]
+		},
+		{
+			"image": "world1_spritesheet-1.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 710,
+				"h": 1513
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "plane2/w1_p2_1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 708,
+						"h": 303
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 708,
+						"h": 303
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 708,
+						"h": 303
+					}
+				},
+				{
+					"filename": "plane2/w1_p2_2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 708,
+						"h": 303
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 708,
+						"h": 303
+					},
+					"frame": {
+						"x": 1,
+						"y": 306,
+						"w": 708,
+						"h": 303
+					}
+				},
+				{
+					"filename": "plane2/w1_p2_4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 708,
+						"h": 303
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 708,
+						"h": 303
+					},
+					"frame": {
+						"x": 1,
+						"y": 611,
+						"w": 708,
+						"h": 303
+					}
+				},
+				{
+					"filename": "plane2/w1_p2_5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 708,
+						"h": 297
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 708,
+						"h": 297
+					},
+					"frame": {
+						"x": 1,
+						"y": 916,
+						"w": 708,
+						"h": 297
+					}
+				},
+				{
+					"filename": "plane2/w1_p2_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 708,
+						"h": 297
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 707,
+						"h": 297
+					},
+					"frame": {
+						"x": 1,
+						"y": 1215,
+						"w": 707,
+						"h": 297
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:60148d3036ba6ef27fb144d61fea2ea5:2a1e14caac0605d9e0ceba210d6ee7f2:63219dbb4701416be5e30bcfae5064b9$"
+	}
+}

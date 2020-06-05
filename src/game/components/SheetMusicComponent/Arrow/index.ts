@@ -13,6 +13,10 @@ class Arrow extends GridObject {
   ) {
     super(scene, id, speed, height, y, x, direction, scale, direction);
   }
+
+  public deleteArrow() {
+    this.destroy()
+  }
 }
 
 export default Arrow;

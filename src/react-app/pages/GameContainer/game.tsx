@@ -75,7 +75,7 @@ export default class Game extends React.Component<any> {
     }
 
     // // resize the game
-    game.scale.resize(newWidth * smooth, newHeight * smooth);
+    // game.scale.resize(newWidth * smooth, newHeight * smooth);
 
     // // scale the width and height of the css
     game.canvas.style.width = newWidth * scale + "px";

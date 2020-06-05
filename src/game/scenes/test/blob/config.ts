@@ -3,7 +3,7 @@ import * as Phaser from "phaser";
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
   visible: false,
-  key: "TestSceneCharacters"
+  key: "TestSceneBlob"
 };
 
 export default sceneConfig;

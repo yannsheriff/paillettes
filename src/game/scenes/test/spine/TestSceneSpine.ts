@@ -1,11 +1,14 @@
 import config from "./config";
-import "../../../helpers/SpineContainer/SpineContainer";
 import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
-import { button, mask, char } from "../../../assets";
+import { button, mask } from "../../../assets";
+import DragQueen from "../../../components/DragQueenComponent";
 
 export class TestSceneSpine extends Phaser.Scene {
+  private dragQueen: Array<DragQueen> = [];
   private characterList: Array<CharacterBis> = [];
   private configList: Array<Phaser.GameObjects.Text> = [];
+  private characterAssets: Array<string> = []
+
   constructor() {
     super(config);
   }
@@ -13,43 +16,33 @@ export class TestSceneSpine extends Phaser.Scene {
   public preload(): void {
     this.load.image("btn", button);
     this.load.image("mask", mask);
-    // man 1
-    this.load.setPath("assets/spine/world1/man1/");
-    this.load.spine(
-      "world_1_man_1",
-      "world_1_man_1.json",
-      "world_1_man_1.atlas"
-    );
-    // man 2
-    this.load.setPath("assets/spine/world1/man2/");
-    this.load.spine(
-      "world_1_man_2",
-      "world_1_man_2.json",
-      "world_1_man_2.atlas"
-    );
-    // woman 1
-    this.load.setPath("assets/spine/world1/woman1/");
-    this.load.spine(
-      "world_1_woman_1",
-      "world_1_woman_1.json",
-      "world_1_woman_1.atlas"
-    );
-    // woman 1
-    this.load.setPath("assets/spine/world1/woman2/");
-    this.load.spine(
-      "world_1_woman_2",
-      "world_1_woman_2.json",
-      "world_1_woman_2.atlas"
-    );
+
+    for (let world = 1; world <= 3; world++) {
+      for (let spine = 1; spine <= 2; spine++) {
+        this.load.setPath("assets/spine/world" + world + "/man" + spine + "/");
+        this.load.spine(
+          "world_" + world + "_man_" + spine,
+          "world_" + world + "_man_" + spine + ".json",
+          "world_" + world + "_man_" + spine + ".atlas"
+        );
+
+        this.load.setPath("assets/spine/world" + world + "/woman" + spine + "/");
+        this.load.spine(
+          "world_" + world + "_woman_" + spine,
+          "world_" + world + "_woman_" + spine + ".json",
+          "world_" + world + "_woman_" + spine + ".atlas"
+        );
+
+        this.characterAssets.push("world_" + world + "_woman_" + spine)
+        this.characterAssets.push("world_" + world + "_man_" + spine)
+      }      
+    }
+    // drag queen
+    this.load.setPath("assets/spine/dragqueen/");
+    this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
   }
 
   public create() {
-    let charactersWorld1 = [
-      "world_1_man_1",
-      "world_1_man_2",
-      "world_1_woman_1",
-      "world_1_woman_2",
-    ];
     this.add
       .text(50, 50, "< Retour", { fill: "red" })
       .setInteractive()
@@ -59,7 +52,14 @@ export class TestSceneSpine extends Phaser.Scene {
 
     let y = 50;
 
-    charactersWorld1.forEach((character) => {
+    this.add
+      .text(400, 50, "Ajouter la Drag Queen", { fill: "red" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.addDragQueen()
+      });
+
+    this.characterAssets.forEach((character) => {
       this.add
         .text(150, y, "Ajouter " + character, { fill: "red" })
         .setInteractive()
@@ -84,15 +84,26 @@ export class TestSceneSpine extends Phaser.Scene {
       .on("pointerdown", () => {
         debug = !debug;
         this.characterList.forEach((character) => {
-          character.SpineContainer.drawDebug(debug);
+          character.drawDebug(debug);
         });
       });
+  }
+
+  public addDragQueen() {
+    let dragQueen = new DragQueen(
+      this,
+      window.innerWidth / 3,
+      window.innerHeight / 1.5,
+      "dragqueen",
+      "Run",
+      true
+    );  
+    this.dragQueen.push(dragQueen)
   }
 
   public addCharacter(assetName: string) {
     this.destroyAllCharacters();
 
-    let rand = Math.floor(Math.random() * 2);
     let character = new CharacterBis(
       this,
       700,
@@ -100,7 +111,9 @@ export class TestSceneSpine extends Phaser.Scene {
       assetName,
       "NBidle",
       "",
-      false
+      false,
+      false,
+      true
     );
     this.characterList.push(character);
     this.addDebug(character);
@@ -114,7 +127,7 @@ export class TestSceneSpine extends Phaser.Scene {
         .text(50, y, skin, { fill: "black" })
         .setInteractive()
         .on("pointerdown", () => {
-          character.SpineContainer.changeSkin(skin);
+          character.changeSkin(skin);
         });
       this.configList.push(skinconfig);
       y += 25;
@@ -127,21 +140,21 @@ export class TestSceneSpine extends Phaser.Scene {
         .text(50, y, animation, { fill: "black" })
         .setInteractive()
         .on("pointerdown", () => {
-          character.SpineContainer.playAnimation(animation, true);
+          character.playAnimation(animation, true);
         });
       this.configList.push(animconfig);
       y += 25;
     });
 
-    y = 300;
+    y = 500;
     let speeds = [0.2, 0.5, 0.8, 1, 1.2, 1.5, 2];
 
     speeds.forEach((speed) => {
       let speedconfig = this.add
-        .text(180, y, "speed : " + speed, { fill: "black" })
+        .text(50, y, "speed : " + speed, { fill: "black" })
         .setInteractive()
         .on("pointerdown", () => {
-          character.SpineContainer.changeAnimationSpeed(speed);
+          character.changeAnimationSpeed(speed);
         });
       this.configList.push(speedconfig);
       y += 25;
@@ -153,7 +166,7 @@ export class TestSceneSpine extends Phaser.Scene {
     //   .setInteractive()
     //   .on('pointerdown', () => {
     //     if (this.dragQueen) {
-    //       this.dragQueen.SpineContainer.changeSlotColor(slot, 255, 0, 0)
+    //       this.dragQueen.changeSlotColor(slot, 255, 0, 0)
     //     }
     //   })
     //   y += 25;
@@ -167,8 +180,12 @@ export class TestSceneSpine extends Phaser.Scene {
     this.configList.forEach((config) => {
       config.destroy();
     });
+    this.dragQueen.forEach((dragqueen) => {
+      dragqueen.destroy();
+    });
     this.characterList = [];
     this.configList = [];
+    this.dragQueen = [];
   }
 
   public update() {}
