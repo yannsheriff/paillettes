@@ -1,14 +1,17 @@
 import config from "./config";
 
+import GroundComponent from "../../../components/GroundComponent";
 import BackgroundComponent from "../../../components/BackgroundComponent";
 import MainStateManager from "../../../states/main";
 
 import {
   mask,
+  sol
 } from "../../../assets";
 
 export class TestSceneBackground extends Phaser.Scene {
   public background?: BackgroundComponent;
+  public ground?: GroundComponent;
   private mainManager: MainStateManager;
 
   constructor() {
@@ -17,6 +20,8 @@ export class TestSceneBackground extends Phaser.Scene {
   }
 
   public preload(): void {
+    this.load.image("sol", sol);
+
     this.load.setPath("assets/spritesheets/world1/");
     this.load.multiatlas('world1', 'world1_spritesheet.json');
     
@@ -41,25 +46,33 @@ export class TestSceneBackground extends Phaser.Scene {
     }
 
     this.add
-      .text(50, 550, "< Retour", { fill: "red" })
+      .text(50, 50, "< Retour", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
         this.scene.start("TestScene");
       });
 
     this.add
-      .text(150, 550, "Augmenter la vitesse", { fill: "red" })
+      .text(150, 50, "Augmenter la vitesse", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
         this.background?.updateSpeed(20)
       });
 
     this.add
-      .text(150, 600, "Changer de monde", { fill: "red" })
+      .text(150, 100, "Ajouter le sol", { fill: "red" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.ground = new GroundComponent(this);
+      });
+
+    this.add
+      .text(150, 150, "Changer de monde", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
         this.mainManager.changeWorld()
       });
+
   }
 
   public update() {}

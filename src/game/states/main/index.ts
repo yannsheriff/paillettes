@@ -9,7 +9,8 @@ export enum DifficultyModes {
 export enum Worlds {
   middleAges = 1,
   today = 2,
-  nineteenCentury = 3
+  nineteenCentury = 3,
+  prehistory = 4
 }
 
 export interface MainState {

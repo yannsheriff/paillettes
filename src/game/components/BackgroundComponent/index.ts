@@ -15,7 +15,7 @@ class BackgroundManager {
   private world: Worlds;
   private currentAsset: Array<number> = []
   private numberAssets: Map<Worlds, number[]> = new Map([
-    [Worlds.middleAges, [ 11, 6, 7 ]], // 24 assets in World 1
+    [Worlds.middleAges, [ 6, 6, 6 ]], // 24 assets in World 1
     [Worlds.nineteenCentury, [ 6, 6, 6 ]] // 24 assets in World 1
   ]);
 

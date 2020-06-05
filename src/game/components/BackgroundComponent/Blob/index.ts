@@ -11,7 +11,9 @@ class Blob extends Phaser.GameObjects.Graphics {
     private red: number = 0xff0b0b;
     private worldColors: Map<Worlds, number> = new Map([
         [Worlds.middleAges, this.pink], // pink
-        [Worlds.nineteenCentury, this.blue] // blue
+        [Worlds.today, this.blue], // blue
+        [Worlds.nineteenCentury, this.purple], // blue
+        [Worlds.prehistory, this.red], // blue
     ]);
     private blob?: Phaser.GameObjects.Graphics;
     private speed: number = 2;
