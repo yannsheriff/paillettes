@@ -9,6 +9,10 @@ export { default as E1_SPRITE } from "./UI/E1_SPRITE.png";
 export { default as R_SPRITE } from "./UI/R_SPRITE.png";
 export { default as F_SPRITE } from "./UI/F_SPRITE.png";
 
+export { default as GodMotherIn } from "./animations/god_mother_in.png";
+export { default as GodMotherLoop } from "./animations/god_mother_loop.png";
+
+// Arrow
 // ARROW
 export { default as arrowL } from "./arrows/left.png";
 export { default as arrowR } from "./arrows/right.png";

@@ -16,6 +16,7 @@ import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 import FreeLights from "./FreeLights";
 import FreeArrow from "./FreeArrow";
 import Chrono from "./Chrono";
+import GodMother from "./GodMother";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
@@ -128,6 +129,13 @@ class SheetMusic {
       this.posX + this.inputZoneWidth / 2,
       this.posY,
       this.inputZoneWidth,
+      this.scale
+    );
+
+    new GodMother(
+      this.scene,
+      this.posX + this.inputZoneWidth / 2,
+      this.posY,
       this.scale
     );
 
@@ -298,14 +306,14 @@ class SheetMusic {
     }
 
     this.inputAnimation!.anims.play("glow");
-    gridObject.destroy();
+    gridObject.delete();
   };
 
   private failedArrow = (gridObject: GridObject) => {
     if (gridObject instanceof Letter) {
       this.freestyleManager.failLetter();
     }
-    setTimeout(() => gridObject.destroy, 1000);
+    setTimeout(() => gridObject.delete, 1000);
   };
 
   /**
@@ -324,8 +332,9 @@ class SheetMusic {
       undefined,
       "left",
       this.scale
-      );
-    const halfHitboxTime = ((arrow.width * arrow.scale) / this.arrowSpeed) * 1000;
+    );
+    const halfHitboxTime =
+      ((arrow.width * arrow.scale) / this.arrowSpeed) * 1000;
     arrow.deleteArrow();
     return (this.inputZoneWidth / this.arrowSpeed) * 1000 + halfHitboxTime;
   }
@@ -337,12 +346,10 @@ class SheetMusic {
    * selon le besoin
    */
   private generateGridObject = (direction: Direction): Arrow | Letter => {
-    const { ID } = this.characterManager.getArrowID();
     if (this.freestyleState.isFreestyleActivated) {
       // @ts-ignore
       return new FreeArrow(
         this.scene,
-        ID,
         this.arrowSpeed,
         heightBetweenSheetHBar * this.scale,
         this.gridTop,
@@ -352,6 +359,7 @@ class SheetMusic {
       );
     }
 
+    const { ID } = this.characterManager.getArrowID();
     if (
       this.arrowUntilLetter < 1 &&
       directionMatchRemaingLetters(
