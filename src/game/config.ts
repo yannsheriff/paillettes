@@ -5,7 +5,8 @@ import MainScene from "./scenes/main";
 import TestScene from "./scenes/test";
 import TestSceneSpine from "./scenes/test/spine";
 import TestSceneBackground from "./scenes/test/background";
-import TestSceneCharacters from "./scenes/test/characters";
+import TestSceneCrowd from "./scenes/test/crowd";
+import TestSceneBlob from "./scenes/test/blob";
 
 export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;
@@ -32,13 +33,13 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     },
   },
   scene: [MainScene],
-  // scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCharacters],
+  // scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCrowd, TestSceneBlob],
   plugins: {
     scene: [
       { key: "SpinePlugin", plugin: window.SpinePlugin, mapping: "spine" },
     ],
   },
-  backgroundColor: "#feeff1",
+  backgroundColor: "#e3e3e3",
 };
 
 export default gameConfig;

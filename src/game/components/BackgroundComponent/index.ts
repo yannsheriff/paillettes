@@ -1,55 +1,34 @@
-import Mask from "./Mask";
-import Plane from "./Plane";
+import Blob from "./Blob";
+import Plane, { PlaneSpace } from "./Plane";
 import Align from "../../helpers/Align/align";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
 
 class BackgroundManager {
-  private pink: number = 0xff00ab;
-  private blue: number = 0x2b3aff;
-  private purple: number = 0x6a23ff;
-  private red: number = 0xff0b0b;
-  private white: number = 0xffffff;
   private mainState: MainState;
   private mainManager: MainStateManager;
+  private blob: Blob;
   private globalSpeed: number = 50;
   private currentPlanes: Array<Plane> = [];
   private nextPlanes: Array<Plane> = [];
   private scene: Phaser.Scene;
   private canvasWidth: number = 0;
-  private planesAssets: Array<Array<string>> = [
-    [
-      "word_1_plane_1_1",
-      "word_1_plane_1_2",
-      "word_1_plane_1_3",
-      "word_1_plane_1_4",
-    ],
-    [
-      "word_1_plane_2_1",
-      "word_1_plane_2_2",
-      "word_1_plane_2_3",
-      "word_1_plane_2_4",
-      "word_1_plane_2_5",
-      "word_1_plane_2_6",
-    ],
-    [
-      "word_1_plane_3_1",
-      "word_1_plane_3_2",
-      "word_1_plane_3_3",
-      "word_1_plane_3_4",
-      "word_1_plane_3_5",
-      "word_1_plane_3_6",
-    ],
-  ];
+  private world: Worlds;
+  private currentAsset: Array<number> = []
+  private numberAssets: Map<Worlds, number[]> = new Map([
+    [Worlds.middleAges, [ 6, 6, 6 ]], // 24 assets in World 1
+    [Worlds.nineteenCentury, [ 6, 6, 6 ]] // 24 assets in World 1
+  ]);
 
+  // numberAssets.get(Worlds.middleAges)
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.canvasWidth = scene.sys.game.canvas.width;
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.subscribe(this.onMainStateChange);
     this.mainState = this.mainManager.state;
+    this.world = this.mainManager.state.world;
 
-    let mask = new Mask(scene, 600, 400, "mask", 0, this.pink);
-    Align.left(mask);
+    this.blob = new Blob(this.scene)
 
     for (let planenb = 0; planenb < 3; planenb++) {
       this.generatePlanes(planenb, true);
@@ -60,111 +39,151 @@ class BackgroundManager {
    * Generate a new plane and set its destroy time
    * and the time it will generate the next one
    */
-  public generatePlanes(planenb: number, isInit: boolean) {
-    // get random asset for plane
-    let rand = Math.floor(
-      Math.random() * (this.planesAssets[planenb].length - 1) + 1
-    );
+  public generatePlanes(planeNumber: PlaneSpace, isInit: boolean) {
+    let planeSpace;
+
+    if (planeNumber === 0) {
+      planeSpace = PlaneSpace.first
+    } else if (planeNumber === 1) {
+      planeSpace = PlaneSpace.second
+    } else {
+      planeSpace = PlaneSpace.third
+    }
+    
+    let rand = this.getRandomAsset(planeSpace)
 
     let planeObj = new Plane(
       this.scene,
       0,
       0,
-      this.planesAssets[planenb][rand],
-      planenb,
+      'world' + this.world, // 'world' + this.world + 1
+      'plane' + (planeNumber + 1) + '/w' + this.world + '_p' + (planeNumber + 1) + '_' + rand,
+      planeSpace,
       this.globalSpeed
     );
 
     if (isInit) {
-      this.currentPlanes[planenb] = planeObj;
+      this.currentPlanes[planeNumber] = planeObj;
     } else {
-      this.nextPlanes[planenb] = planeObj;
+      this.nextPlanes[planeNumber] = planeObj;
     }
 
-    this.initDestroy(this.currentPlanes[planenb], planenb);
-    this.initNextPlane(this.currentPlanes[planenb], planenb);
+    this.initDestroy(planeObj, planeNumber, planeNumber);
+    this.initNextPlane(planeObj, planeSpace);
   }
 
-  public initDestroy(planeinstance: Plane, planeArrayNb: number) {
+  public initDestroy(planeinstance: Plane, planeSpace: PlaneSpace, planeNb: number) {
     const timeToExitCanvas = this.calculateTime(
       planeinstance.width,
       planeinstance.scale,
       planeinstance.speed,
+      planeSpace,
       this.canvasWidth,
       true
     );
 
     setTimeout(() => {
-      planeinstance.destroy(true);
-      this.currentPlanes[planeArrayNb] = this.nextPlanes[planeArrayNb];
+      planeinstance.deletePlane();
+      this.currentPlanes[planeNb] = this.nextPlanes[planeNb];
     }, timeToExitCanvas);
   }
 
-  public initNextPlane(planeinstance: Plane, planeArrayNb: number) {
+  public initNextPlane(planeinstance: Plane, planeSpace: PlaneSpace) {
     const timeBeforeGenerateNextPlane = this.calculateTime(
       planeinstance.width,
       planeinstance.scale,
       planeinstance.speed,
+      planeSpace,
       this.canvasWidth,
       false
     );
 
     setTimeout(() => {
-      this.generatePlanes(planeArrayNb, false);
+      this.generatePlanes(planeSpace, false);
     }, timeBeforeGenerateNextPlane);
+  }
+
+  // get random asset depending on world and plane
+  // avoid getting twice the same asset in a row
+  public getRandomAsset(arrayNb: number) {
+    let rand;
+
+    const worldAssets = this.numberAssets.get(this.world)![arrayNb]
+
+    do {
+      rand = Math.floor(Math.random() * (worldAssets - 1) + 1);
+
+      // handle bug and prevent for infite loop
+      if (worldAssets <= 1) {
+        return rand;
+      }
+    } while (rand === this.currentAsset[arrayNb] || 0);
+    
+    return rand;
   }
 
   /**
    * Helper fonction
    *
    * Permet de calculer en sec combien de temps met
-   * le plan à sortir du canvas
+   * le plan à sortir du canvas et dans combien de temps
+   * il doit en créer un nouveau
    */
   public calculateTime(
     planeWidth: number,
     planeScale: number,
     planeSpeed: number,
+    planeSpace: PlaneSpace,
     canvasWidth: number,
     isExit: boolean
   ): number {
-    let latency = 50;
+    let latency = 0; // this value set the distance between 2 assets
+    
+    if (planeSpace === PlaneSpace.first) {
+      latency = -70
+    } else if (planeSpace === PlaneSpace.second) {
+      latency = -100;
+    } else {
+      latency = -150;
+    }
+
     const v = planeSpeed;
     let d = planeWidth * planeScale + latency;
     if (isExit) {
-      d += canvasWidth;
+      d += canvasWidth - latency;
     }
     return (d / v) * 1000;
   }
 
   public updateSpeed(newSpeed: number) {
-    this.globalSpeed = newSpeed;
+    this.globalSpeed += newSpeed;
     this.currentPlanes.forEach((planeelement) => {
-      planeelement.updatePlaneSpeed(newSpeed);
+      planeelement.updatePlaneSpeed(this.globalSpeed);
     });
     this.nextPlanes.forEach((planeelement) => {
-      planeelement.updatePlaneSpeed(newSpeed);
+      planeelement.updatePlaneSpeed(this.globalSpeed);
     });
-    this.globalSpeed += 20;
   }
 
-  private startWolrdTransition(world: Worlds) {
+  public startWorldTransition(world: Worlds) {
+    this.world = world;
     console.log("BackgroundManager -> startWolrdTransition -> world", world);
   }
 
-  private endWolrdTransition() {
+  private endWorldTransition() {
     console.log("End World Transition");
   }
 
   private onMainStateChange = (state: MainState) => {
     if (state.world !== this.mainState.world) {
-      this.startWolrdTransition(state.world);
+      this.startWorldTransition(state.world);
     }
 
     if (
       state.isInTransition !== this.mainState.isInTransition &&
       !state.isInTransition
     ) {
-      this.endWolrdTransition();
+      this.endWorldTransition();
     }
 
     this.mainState = state;

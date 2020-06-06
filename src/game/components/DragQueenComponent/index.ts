@@ -1,7 +1,7 @@
 import SpineContainer from "../../helpers/SpineContainer/SpineContainer";
 
 class DragQueen extends SpineContainer {
-  public SpineContainer: ISpineContainer;
+  // public SpineContainer: ISpineContainer;
 
   constructor(
     scene: Phaser.Scene,
@@ -12,18 +12,19 @@ class DragQueen extends SpineContainer {
     loop?: boolean
   ) {
     super(scene, x, y, key, anim, loop);
-    this.SpineContainer = scene.add.spineContainer(x, y, key, anim, loop);
-    this.setScale(0.8); // container and hitbox size
-    this.SpineContainer.setScale(0.8); // asset size
-    // this.SpineContainer.allowCollideWorldBounds(true)
+    scene.add.existing(this)
 
-    this.SpineContainer.setDepth(15);
-    this.SpineContainer.drawDebug(false);
+    this.setScale(0.8); // asset size
+    this.drawDebug(true)
+    // this.allowCollideWorldBounds(true)
 
-    // this.SpineContainer.runVelocity(50)
+    this.setDepth(15);
+    this.drawDebug(false);
 
-    const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body;
-    this.SpineContainer.setPhysicsSize(body.width * 0.5, body.height * 0.9);
+    // this.runVelocity(50)
+
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    this.setPhysicsSize(body.width * 0.5, body.height * 0.9);
   }
 
   // public launch() {

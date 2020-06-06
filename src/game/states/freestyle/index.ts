@@ -11,12 +11,18 @@ export interface FreestyleState {
   remainingLetters: FreeLetter[];
   isFreestyleActivated: boolean;
   activationTime: number;
+  freestyleDuration: number;
 }
 
 const initialState: FreestyleState = {
-  remainingLetters: [FreeLetter.F, FreeLetter.R, FreeLetter.E1, FreeLetter.E2],
+  remainingLetters: [
+    // FreeLetter.F,
+    FreeLetter.R,
+    // FreeLetter.E1, FreeLetter.E2
+  ],
   isFreestyleActivated: false,
   activationTime: 0,
+  freestyleDuration: 15000,
 };
 
 export default class FreestyleStateManager extends State {
@@ -50,12 +56,10 @@ export default class FreestyleStateManager extends State {
       (l) => l !== letter
     );
     this.setState({ remainingLetters });
-    console.log(this.state);
   };
 
   public failLetter = () => {
     this.setState({ remainingLetters: initialState.remainingLetters });
-    console.log(this.state);
   };
 
   public activateFreeMode = () => {
@@ -64,6 +68,14 @@ export default class FreestyleStateManager extends State {
         isFreestyleActivated: true,
         activationTime: new Date().getTime(),
       });
+
+      setTimeout(() => {
+        this.setState({
+          isFreestyleActivated: false,
+          activationTime: undefined,
+          remainingLetters: initialState.remainingLetters,
+        });
+      }, this.state.freestyleDuration);
     }
   };
 }

@@ -26,14 +26,24 @@ class Align {
     obj.x = window.innerWidth / 2;
     obj.y = window.innerHeight / 2;
   }
+  static centerSpine(obj, spine, scale) {
+    obj.x = window.innerWidth / 2;
+    obj.y = window.innerHeight / 2 + (spine.displayHeight * scale / 2);
+  }
   static left(obj) {
 	  obj.x = obj.displayWidth / 2;
   }
   static right(obj) {
 	  obj.x = window.innerWidth - obj.displayWidth / 2;
   }
+  static rightSpine(obj, spine, scale) {
+    obj.x = window.innerWidth - (spine.displayWidth * scale) / 2;
+  }
   static outsideRight(obj) {
     obj.x = window.innerWidth + obj.displayWidth / 2 + 10;
+  }
+  static outsideRightSpine(obj, spine, scale) {
+    obj.x = window.innerWidth + (spine.displayWidth * scale) / 2;
   }
 }
 

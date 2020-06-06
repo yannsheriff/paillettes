@@ -1,44 +1,36 @@
 import config from "./config";
 import CharactersComponent from "../../../components/CharactersComponent";
 
-export class TestSceneSpine extends Phaser.Scene {
+export class TestSceneCrowd extends Phaser.Scene {
   public PhysicCharacterManager?: CharactersComponent;
+  public characterAssets: Array<string> = []
 
   constructor() {
     super(config);
   }
 
   public preload(): void {
-    // man 1
-    this.load.setPath("assets/spine/world1/man1/");
-    this.load.spine(
-      "world_1_man_1",
-      "world_1_man_1.json",
-      "world_1_man_1.atlas"
-    );
-    // man 2
-    this.load.setPath("assets/spine/world1/man2/");
-    this.load.spine(
-      "world_1_man_2",
-      "world_1_man_2.json",
-      "world_1_man_2.atlas"
-    );
-    // woman 1
-    this.load.setPath("assets/spine/world1/woman1/");
-    this.load.spine(
-      "world_1_woman_1",
-      "world_1_woman_1.json",
-      "world_1_woman_1.atlas"
-    );
-    // woman 1
-    this.load.setPath("assets/spine/world1/woman2/");
-    this.load.spine(
-      "world_1_woman_2",
-      "world_1_woman_2.json",
-      "world_1_woman_2.atlas"
-    );
-  }
+    for (let world = 1; world <= 3; world++) {
+      for (let spine = 1; spine <= 2; spine++) {
+        this.load.setPath("assets/spine/world" + world + "/man" + spine + "/");
+        this.load.spine(
+          "world_" + world + "_man_" + spine,
+          "world_" + world + "_man_" + spine + ".json",
+          "world_" + world + "_man_" + spine + ".atlas"
+        );
 
+        this.load.setPath("assets/spine/world" + world + "/woman" + spine + "/");
+        this.load.spine(
+          "world_" + world + "_woman_" + spine,
+          "world_" + world + "_woman_" + spine + ".json",
+          "world_" + world + "_woman_" + spine + ".atlas"
+        );
+
+        this.characterAssets.push("world_" + world + "_woman_" + spine)
+        this.characterAssets.push("world_" + world + "_man_" + spine)
+      }      
+    }
+  }
   public create() {
     this.PhysicCharacterManager = new CharactersComponent(this);
 
@@ -46,7 +38,7 @@ export class TestSceneSpine extends Phaser.Scene {
       .text(50, 50, "Ajouter un nouveau personnage", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
-        this.PhysicCharacterManager?.generateNewPhysicCharacter();
+        this.PhysicCharacterManager?.generateTestPhysicCharacter(this.characterAssets);
       });
 
     this.add
@@ -80,4 +72,4 @@ export class TestSceneSpine extends Phaser.Scene {
   public update() {}
 }
 
-export default TestSceneSpine;
+export default TestSceneCrowd;

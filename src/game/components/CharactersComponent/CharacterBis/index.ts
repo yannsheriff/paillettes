@@ -1,10 +1,14 @@
+import Align from "../../../helpers/Align/align";
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 
 class PhysicCharacter extends SpineContainer {
-  public SpineContainer: ISpineContainer;
+  public scene: Phaser.Scene
   public planeY: number = 0;
   public id: string;
-  public speed: number = 70;
+  public speed: number = 80;
+  public crowdPosition: number = 200; // x position
+  public tweenX?: Phaser.Tweens.Tween;
+  public scale: number = 0.5;
 
   constructor(
     scene: Phaser.Scene,
@@ -13,32 +17,44 @@ class PhysicCharacter extends SpineContainer {
     key: string,
     anim: string,
     id: string,
-    loop?: boolean
+    loop?: boolean,
+    runAnimation: boolean = false,
+    isDebug: boolean = false
   ) {
     super(scene, x, y, key, anim, loop);
     this.id = id;
+    this.scene = scene;
 
-    this.SpineContainer = scene.add.spineContainer(x, y, key, anim, loop);
-
-    // this.SpineContainer.allowCollideWorldBounds(true)
+    scene.add.existing(this);
 
     // apply default skin to character
-    this.SpineContainer.applyDefaultSkin(false);
+    this.applyDefaultSkin(false);
 
-    this.SpineContainer.mixAnimation("Run", "Dance");
-    this.SpineContainer.mixAnimation("Dance", "Run");
+    this.mixAnimation("Transition", "Run");
+    this.mixAnimation("Run", "Dance");
+    this.mixAnimation("Dance", "Run");
 
     this.setScale(0.5); // container and hitbox size
-    this.SpineContainer.setScale(0.5); // asset size
-    this.SpineContainer.setDepth(10);
+    this.setDepth(10);
 
-    this.SpineContainer.drawDebug(false);
+    if (!isDebug) {
+      Align.outsideRightSpine(this, this.spine, this.scale);
+    } else {
+      // Align.centerSpine(this, this.spine, this.scale);
+    }
 
-    // this.SpineContainer.faceDirection(-1)
-    // this.SpineContainer.runVelocity(- this.speed)
+    this.drawDebug(false);
 
-    const body = this.SpineContainer.body as Phaser.Physics.Arcade.Body;
-    this.SpineContainer.setPhysicsSize(body.width * 0.5, body.height * 0.9);
+    // this.playAnimation("NBidle", false)
+
+    // this.faceDirection(-1)
+
+    if (runAnimation) {
+      this.runTowardCrowd()
+    }
+
+    // const body = this.body as Phaser.Physics.Arcade.Body;
+    // this.setPhysicsSize(body.width * 0.5, body.height * 0.9);
 
     // this.initDestroy()
   }
@@ -52,36 +68,64 @@ class PhysicCharacter extends SpineContainer {
 
     setTimeout(() => {
       this.deleteCharacter();
-      console.log("personnage deleted");
     }, timeToExitCanvas);
   }
 
-  public launch() {
-    this.SpineContainer.spineBody.setVelocityX(-50);
+  public failAndDestroy() {
+    this.stop()
+    this.playAnimation("Fail", false);
+
+    setTimeout(() => {
+      this.deleteCharacter();
+    }, 1000);
+  }
+
+  public transformAndJoinCrowd() {
+    this.playOnceThenLoopNextAnimation("Transition", "Run", 0);
+  }
+
+  // 
+  public runTowardCrowd() {
+    let delay = Math.floor(Math.random() * 300) - 150;
+    this.tweenX = this.scene.tweens.add({
+      targets: this,
+      x: this.crowdPosition + delay,
+      duration: 100 * this.speed,
+      ease: 'Sine.easeIn',
+      repeat: 0,
+      yoyo: false,
+      onComplete: () => {
+        this.playRunAnimation()
+      },
+    });
+  }
+
+  public stop() {
+    this.runVelocity(0)
   }
 
   public playTransformationAnimation() {
-    this.SpineContainer.playAnimation("Transition", false);
+    this.playAnimation("Transition", false);
   }
 
   public playRunAnimation() {
-    this.SpineContainer.playAnimation("Run", true);
+    this.playAnimation("Run", true);
   }
 
   public playDanceAnimation() {
-    this.SpineContainer.playAnimation("Dance", false);
+    this.playAnimation("Dance", false);
   }
 
   public playDanceThenRunAnimation(delay: number) {
-    this.SpineContainer.playOnceThenLoopNextAnimation("Dance", "Run", delay);
+    this.playOnceThenLoopNextAnimation("Dance", "Run", delay);
   }
 
   /**
-   * deleteCharacter
+   * destroy physic character + remove its tween
    */
   public deleteCharacter() {
+    if (this.tweenX) { this.tweenX.remove(); }
     this.destroy();
-    this.SpineContainer.delete();
   }
 }
 
