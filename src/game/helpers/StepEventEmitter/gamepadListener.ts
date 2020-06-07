@@ -1,4 +1,5 @@
 import EventEmitter from "events";
+import { Direction } from "readline";
 
 const buttonTable = new Map([
   [0, "left"],

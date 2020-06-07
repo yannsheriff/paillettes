@@ -7,7 +7,6 @@ import {
   arrowU,
   grid,
   zoneInput,
-  verticalLine,
   sol,
   mask,
   F,
@@ -16,10 +15,8 @@ import {
   E2,
   FREEStar,
 } from "../../assets";
-import Arrow from "../../components/SheetMusicComponent/Arrow";
 import CharacterManager from "../../managers/CharacterManager";
 import GroundComponent from "../../components/GroundComponent";
-import PhysicCharacter from "../../components/CharactersComponent/CharacterBis";
 import SheetMusicComponent from "../../components/SheetMusicComponent";
 import CharactersComponent from "../../components/CharactersComponent";
 import BackgroundComponent from "../../components/BackgroundComponent";
@@ -35,7 +32,6 @@ export class GameScene extends Phaser.Scene {
   private scoreManager: ScoreState;
   private ground?: GroundComponent;
   private animationManager: AnimationManager;
-  private grid?: Phaser.GameObjects.Image;
   private dragQueen?: DragQueen;
   public isDebug?: boolean = false;
 
@@ -60,14 +56,13 @@ export class GameScene extends Phaser.Scene {
     this.load.image("grid", grid);
     this.load.image("down", arrowD);
     this.load.image("zoneInput", zoneInput);
-    this.load.image("verticalLine", verticalLine);
 
     this.load.image("sol", sol);
 
     this.load.setPath("assets/spritesheets/world1/");
-    this.load.multiatlas('world1', 'world1_spritesheet.json');
+    this.load.multiatlas("world1", "world1_spritesheet.json");
     this.load.setPath("assets/spritesheets/world3/");
-    this.load.multiatlas('world3', 'world3_spritesheet.json');
+    this.load.multiatlas("world3", "world3_spritesheet.json");
 
     this.load.image("mask", mask);
 
@@ -84,13 +79,15 @@ export class GameScene extends Phaser.Scene {
           "world_" + world + "_man_" + spine + ".atlas"
         );
 
-        this.load.setPath("assets/spine/world" + world + "/woman" + spine + "/");
+        this.load.setPath(
+          "assets/spine/world" + world + "/woman" + spine + "/"
+        );
         this.load.spine(
           "world_" + world + "_woman_" + spine,
           "world_" + world + "_woman_" + spine + ".json",
           "world_" + world + "_woman_" + spine + ".atlas"
         );
-      }      
+      }
     }
   }
 
@@ -104,7 +101,7 @@ export class GameScene extends Phaser.Scene {
     new SheetMusicComponent(this, this.CharacterManager, sheetX, sheetY);
     this.dragQueen = new DragQueen(
       this,
-      window.innerWidth / 3,
+      window.innerWidth / 5,
       window.innerHeight / 1.5,
       "dragqueen",
       "Run",
@@ -112,16 +109,15 @@ export class GameScene extends Phaser.Scene {
     );
 
     // @ts-ignore
-    this.isDebug = this.game.config.physics.arcade.debug
+    this.isDebug = this.game.config.physics.arcade.debug;
 
     // test number of items displayed in scene
     if (this.isDebug) {
       window.setInterval(() => {
         // @ts-ignore
-        console.log(this.add.displayList.list)
+        console.log(this.add.displayList.list);
       }, 5000);
-    }    
-    
+    }
   }
 
   public update() {

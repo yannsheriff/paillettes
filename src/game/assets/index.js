@@ -2,7 +2,6 @@
 export { default as grid } from "./Interaction/grid.svg";
 export { default as button } from "./UI/barreFever.png";
 export { default as zoneInput } from "./Interaction/ZoneInput.svg";
-export { default as verticalLine } from "./Interaction/ligneVertical.svg";
 export { default as glow } from "./Interaction/glow.png";
 export { default as E2_SPRITE } from "./UI/E2_SPRITE.png";
 export { default as E1_SPRITE } from "./UI/E1_SPRITE.png";
@@ -23,6 +22,12 @@ export { default as E1 } from "./arrows/E1.png";
 export { default as E2 } from "./arrows/E2.png";
 export { default as R } from "./arrows/R.png";
 export { default as FREEStar } from "./arrows/FREEStar.png";
+
+// interaction sprite
+export { default as up } from "./Interaction/up.png";
+export { default as down } from "./Interaction/down.png";
+export { default as left } from "./Interaction/left.png";
+export { default as right } from "./Interaction/right.png";
 
 // MASK
 export { default as mask } from "./mask/mask.png";

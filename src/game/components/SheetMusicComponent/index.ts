@@ -17,6 +17,7 @@ import FreeLights from "./FreeLights";
 import FreeArrow from "./FreeArrow";
 import Chrono from "./Chrono";
 import GodMother from "./GodMother";
+import InputZone from "./InputZone";
 
 const heightBetweenSheetHBar = 158;
 const directionTable: {
@@ -126,8 +127,8 @@ class SheetMusic {
 
     new FreeLights(
       this.scene,
-      this.posX + this.inputZoneWidth / 2,
-      this.posY,
+      this.posX - 50,
+      this.posY + 50,
       this.inputZoneWidth,
       this.scale
     );
@@ -147,37 +148,23 @@ class SheetMusic {
       this.scale
     );
 
-    new Score(
-      this.scene,
-      this.posX - this.inputZoneWidth,
-      this.posY - 50 * this.scale,
-      this.scale
-    );
+    new Score(this.scene, this.posX - 50, this.posY - 50, this.scale);
 
     new Subtitle(this.scene);
 
-    const inputZone = this.scene.add.image(
-      this.posX + this.inputZoneWidth / 2,
-      this.posY,
-      "zoneInput"
-    ) as any;
-
-    this.scene.physics.add.existing(inputZone);
-    inputZone.setScale(this.scale);
-    inputZone.setDepth(11);
-
-    this.inputAnimation = this.scene.physics.add.sprite(
-      this.posX + this.inputZoneWidth / 2,
-      this.posY - 3,
-      "glow"
-    );
-    this.inputAnimation.setScale(this.scale).setDepth(11);
+    const collider = new InputZone(
+      this.scene,
+      this.posX + this.inputZoneWidth,
+      this.gridTop,
+      heightBetweenSheetHBar * this.scale,
+      this.scale
+    ).collider;
 
     this.arrowEmitter.on("note", this.throttleArrow);
 
     this.scene.physics.add.overlap(
       this.gridObjects,
-      inputZone,
+      collider,
       this.handleArrowOverlap,
       () => true,
       this
@@ -305,7 +292,6 @@ class SheetMusic {
       this.freestyleManager.validateLetter(gridObject.letter);
     }
 
-    this.inputAnimation!.anims.play("glow");
     gridObject.delete();
   };
 
@@ -393,6 +379,7 @@ class SheetMusic {
     );
   };
 
+  //TODO : refacto this function can be put outside
   /**
    * Return directions from note.
    *

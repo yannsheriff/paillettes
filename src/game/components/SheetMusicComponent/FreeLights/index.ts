@@ -5,7 +5,6 @@ import FreestyleStateManager, {
 
 type light = {
   name: string;
-  angle: number;
   sprite?: Phaser.GameObjects.Sprite;
 };
 const letterArray = [FreeLetter.F, FreeLetter.R, FreeLetter.E1, FreeLetter.E2];
@@ -36,10 +35,10 @@ class FreeLights {
     this.scale = scale;
 
     this.lights = new Map([
-      [FreeLetter.F, { name: "F_", angle: 120, sprite: undefined }],
-      [FreeLetter.R, { name: "R_", angle: 100, sprite: undefined }],
-      [FreeLetter.E1, { name: "E1_", angle: 80, sprite: undefined }],
-      [FreeLetter.E2, { name: "E2_", angle: 60, sprite: undefined }],
+      [FreeLetter.F, { name: "F_", sprite: undefined }],
+      [FreeLetter.R, { name: "R_", sprite: undefined }],
+      [FreeLetter.E1, { name: "E1_", sprite: undefined }],
+      [FreeLetter.E2, { name: "E2_", sprite: undefined }],
     ]);
 
     this.create();
@@ -47,13 +46,9 @@ class FreeLights {
   }
 
   private create() {
-    this.lights.forEach((light: light) => {
+    this.lights.forEach((light: light, index) => {
       light.sprite = this.scene.physics.add
-        .sprite(
-          this.posX + this.radius * Math.cos(light.angle * (Math.PI / 180)),
-          this.posY + this.radius * Math.sin(light.angle * (Math.PI / 180)),
-          light.name + "OFF"
-        )
+        .sprite(this.posX + 50 * index, this.posY, light.name + "OFF")
         .setDepth(12)
         .setScale(this.scale);
     });

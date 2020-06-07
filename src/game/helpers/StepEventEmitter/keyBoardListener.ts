@@ -14,7 +14,8 @@ class KeyboardListener {
    * Define properties
    */
   private stepEventEmitter: EventEmitter | undefined;
-  private simultaneousDirection: string | undefined;
+  private simultaneousDirectionDown: Direction[] = [];
+  private simultaneousDirectionUp: Direction[] = [];
 
   /**
    * Init KeyboardListener
@@ -26,28 +27,40 @@ class KeyboardListener {
   };
 
   private listen = () => {
-    document.addEventListener("keydown", this.emit);
-    document.addEventListener("keyup", (e) => {
-      const event = keyTable.get(e.keyCode);
-      if (event !== undefined) {
-        this.stepEventEmitter?.emit(StepEventType.stepup, event);
-      }
-    });
+    document.addEventListener("keydown", this.emitDown);
+    document.addEventListener("keyup", this.emitUp);
   };
 
-  private emit = (e: KeyboardEvent) => {
+  private emitDown = (e: KeyboardEvent) => {
     const event = keyTable.get(e.keyCode);
 
-    if (this.simultaneousDirection !== undefined) {
-      this.simultaneousDirection = this.simultaneousDirection + " " + event;
+    if (this.simultaneousDirectionDown.length !== 0) {
+      this.simultaneousDirectionDown.push(event!);
     } else {
-      this.simultaneousDirection = event;
+      this.simultaneousDirectionDown = [event!];
       setTimeout(() => {
         this.stepEventEmitter?.emit(
           StepEventType.stepdown,
-          this.simultaneousDirection
+          this.simultaneousDirectionDown
         );
-        this.simultaneousDirection = undefined;
+        this.simultaneousDirectionDown = [];
+      }, 50);
+    }
+  };
+
+  private emitUp = (e: KeyboardEvent) => {
+    const event = keyTable.get(e.keyCode);
+
+    if (this.simultaneousDirectionUp.length !== 0) {
+      this.simultaneousDirectionUp.push(event!);
+    } else {
+      this.simultaneousDirectionUp = [event!];
+      setTimeout(() => {
+        this.stepEventEmitter?.emit(
+          StepEventType.stepup,
+          this.simultaneousDirectionUp
+        );
+        this.simultaneousDirectionUp = [];
       }, 50);
     }
   };
