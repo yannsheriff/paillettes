@@ -46,7 +46,7 @@ export class TestSceneBlob extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => {
         if(this.blob) {
-          this.blob.playFreestyle()
+          this.blob.freestyle(true)
         }
       });
 
@@ -55,7 +55,7 @@ export class TestSceneBlob extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => {
         if(this.blob) {
-          this.blob.stopFreestyle()
+          this.blob.freestyle(false)
         }
       });
 
