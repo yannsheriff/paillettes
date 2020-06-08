@@ -16,19 +16,18 @@ class PhysicCharacterManager {
   private mainState: MainState;
   private mainManager: MainStateManager;
   private colliderZone: Phaser.GameObjects.Rectangle;
-  private collider?: Phaser.Physics.Arcade.Collider;
+  private colliders: Array<Phaser.Physics.Arcade.Collider> = [];
   private overlapTrigger: boolean = false;
 
   public crowd: Array<PhysicCharacter>;
   public world: Worlds;
-  public actualCharacter: Array<PhysicCharacter>;
-  public testY: number = 50;
+  private charactersBW: Map<string, PhysicCharacter> = new Map();
+  public testX: number = 0;
   public nextUnlocked: string = ''
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.crowd = [];
-    this.actualCharacter = [];
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.subscribe(this.onMainStateChange);
     this.mainState = this.mainManager.state;
@@ -54,74 +53,64 @@ class PhysicCharacterManager {
     });
 
     characterManager.isCharacterUnlocked((id, isUnlocked) => {
-      // console.log("isCharacterUnlocked", id, isUnlocked);
       if (isUnlocked) {
-        this.nextUnlocked = id
+        this.charactersBW.get(id)?.unlock()
       }
     });
   }
 
   public generateNewPhysicCharacter(id: string) {
-    // man or woman
     let gender = Math.round(Math.random()) === 0 ? 'man' : 'woman'
     let nb = Math.floor(Math.random() * 2) + 1;;
 
-    console.log("world_" + this.world + "_" + gender + "_" + nb)
+    // console.log("world_" + this.world + "_" + gender + "_" + nb)
 
     let charObj = new PhysicCharacter(
       this.scene,
-      0,
-      window.innerHeight / 1.5,
       "world_" + this.world + "_" + gender + "_" + nb,
       "NBidle",
       id,
       false,
-      true
+      true,
+      false,
+      this.crowd.length
     );
 
-    // console.log(charObj)
-
-    // console.log("new " + charactersWorld1[rand] + ' ' + id);
-
-    this.actualCharacter.push(charObj);
-
-    this.testY += 120;
+    this.charactersBW.set(id, charObj);
 
     this.addCollision(charObj)
   }
 
   public addCollision(character: PhysicCharacter) {
-    this.collider = this.scene.physics.add.overlap(
+    let newCollider = this.scene.physics.add.overlap(
       character,
       this.colliderZone,
       () => { this.checkIfUnlocked(character) },
       () => true,
       this
     );
+
+    // every character has its collider
+    this.colliders.push(newCollider);
   }
 
   public checkIfUnlocked(character: PhysicCharacter) {
     // first we destroy the collision to avoid endless loop
-    if (this.collider) {
-      this.scene.physics.world.removeCollider(this.collider);
-    };
+    // correspond to the collision with the current character
+    this.scene.physics.world.removeCollider(this.colliders[0]);
+    this.colliders.shift();
 
-    if (this.nextUnlocked === character.id) {
-      // character.stop()
-      character.playTransformationAnimation()
-      // character.playRunAnimation()
+    if (character.isUnlock) {
+      this.crowd.push(character)
+      character.joinCrowd(this.crowd.length + 1)
     } else {
       character.failAndDestroy()
     }
-    this.actualCharacter = []
+    
+    this.charactersBW.delete(character.id)
   }
 
-  public transformAndJoinCrowd() {
-    this.actualCharacter[0].playTransformationAnimation();
-    this.crowd.push(this.actualCharacter[0]);
-  }
-
-  public playTransformation(id: string) {
+  public playTransformation() {
     this.crowd.forEach((character) => {
       character.playTransformationAnimation();
     });
@@ -148,7 +137,6 @@ class PhysicCharacterManager {
   }
 
   // DEBUG PURPOSE
-  public playAllAnimations() { }
 
   public generateTestPhysicCharacter(assets: string[]) {
     // random character
@@ -156,8 +144,6 @@ class PhysicCharacterManager {
 
     let charObj = new PhysicCharacter(
       this.scene,
-      this.testY,
-      window.innerHeight / 1.5,
       assets[rand - 1],
       "NBidle",
       '',
@@ -166,9 +152,10 @@ class PhysicCharacterManager {
       true
     );
 
-    this.crowd.push(charObj)
+    charObj.x -= this.testX;
+    this.testX += 50;
 
-    this.testY += 120;
+    this.crowd.push(charObj)
   }
 
   private startWorldTransition(world: Worlds) {

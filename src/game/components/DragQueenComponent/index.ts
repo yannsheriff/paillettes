@@ -1,17 +1,19 @@
 import SpineContainer from "../../helpers/SpineContainer/SpineContainer";
+import Align from "../../helpers/Align/align";
 
 class DragQueen extends SpineContainer {
   // public SpineContainer: ISpineContainer;
 
   constructor(
     scene: Phaser.Scene,
-    x: number,
-    y: number,
     key: string,
     anim: string,
     loop?: boolean
   ) {
-    super(scene, x, y, key, anim, loop);
+    super(scene, 0, 0, key, anim, loop);
+
+    Align.dragPosition(this, this.spine, this.scale);
+    Align.charactersOnGround(this, this.spine, this.scale)
     scene.add.existing(this)
 
     this.setScale(0.8); // asset size
@@ -22,9 +24,6 @@ class DragQueen extends SpineContainer {
     this.drawDebug(false);
 
     // this.runVelocity(50)
-
-    const body = this.body as Phaser.Physics.Arcade.Body;
-    this.setPhysicsSize(body.width * 0.5, body.height * 0.9);
   }
 
   // public launch() {

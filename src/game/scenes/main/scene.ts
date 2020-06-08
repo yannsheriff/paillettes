@@ -110,8 +110,6 @@ export class GameScene extends Phaser.Scene {
     new SheetMusicComponent(this, this.CharacterManager, sheetX, sheetY);
     this.dragQueen = new DragQueen(
       this,
-      window.innerWidth / 5,
-      window.innerHeight / 1.5,
       "dragqueen",
       "Run",
       true

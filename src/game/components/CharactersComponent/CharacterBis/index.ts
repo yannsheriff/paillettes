@@ -6,27 +6,29 @@ class PhysicCharacter extends SpineContainer {
   public planeY: number = 0;
   public id: string;
   public speed: number = 80;
-  public crowdPosition: number = 200; // x position
   public tweenX?: Phaser.Tweens.Tween;
   public scale: number = 0.5;
-
+  public positionInCrowd: number = 0;
+  public crowdPositionX: number = window.innerWidth * 0.25;
+  public isUnlock: boolean = false;
+  public distanceBetweenCharacters: number = 40;
+  
   constructor(
     scene: Phaser.Scene,
-    x: number,
-    y: number,
     key: string,
     anim: string,
     id: string,
-    loop?: boolean,
+    loop: boolean = false,
     runAnimation: boolean = false,
-    isDebug: boolean = false
+    isDebug: boolean = false,
+    positionInCrowd: number = 0,
   ) {
-    super(scene, x, y, key, anim, loop);
+    super(scene, 0, 0, key, anim, loop);
     this.id = id;
     this.scene = scene;
-
+    
     scene.add.existing(this);
-
+    
     // apply default skin to character
     this.applyDefaultSkin(false);
 
@@ -34,27 +36,26 @@ class PhysicCharacter extends SpineContainer {
     this.mixAnimation("Run", "Dance");
     this.mixAnimation("Dance", "Run");
 
-    this.setScale(0.5); // container and hitbox size
+    if (positionInCrowd) {
+      this.positionInCrowd = positionInCrowd;
+    }
+
+    this.setScale(0.45); // container and hitbox size
     this.setDepth(10);
 
     if (!isDebug) {
       Align.outsideRightSpine(this, this.spine, this.scale);
+      Align.charactersOnGround(this, this.spine, this.scale)
     } else {
-      // Align.centerSpine(this, this.spine, this.scale);
+      Align.crowdPosition(this, this.spine, this.scale);
+      Align.charactersOnGround(this, this.spine, this.scale)
     }
 
     this.drawDebug(false);
 
-    // this.playAnimation("NBidle", false)
-
-    // this.faceDirection(-1)
-
     if (runAnimation) {
       this.runTowardCrowd()
     }
-
-    // const body = this.body as Phaser.Physics.Arcade.Body;
-    // this.setPhysicsSize(body.width * 0.5, body.height * 0.9);
 
     // this.initDestroy()
   }
@@ -80,16 +81,16 @@ class PhysicCharacter extends SpineContainer {
     }, 1000);
   }
 
-  public transformAndJoinCrowd() {
-    this.playOnceThenLoopNextAnimation("Transition", "Run", 0);
+  public unlock() {
+    this.isUnlock = true;
   }
 
   // 
   public runTowardCrowd() {
-    let delay = Math.floor(Math.random() * 300) - 150;
+    // join crowd
     this.tweenX = this.scene.tweens.add({
       targets: this,
-      x: this.crowdPosition + delay,
+      x: this.crowdPositionX - this.positionInCrowd * this.distanceBetweenCharacters,
       duration: 100 * this.speed,
       ease: 'Sine.easeIn',
       repeat: 0,
@@ -98,6 +99,12 @@ class PhysicCharacter extends SpineContainer {
         this.playRunAnimation()
       },
     });
+  }
+
+  public joinCrowd(positionInCrowd: number) {
+    this.playAnimation("Transition", false);
+    this.positionInCrowd = positionInCrowd;
+    positionInCrowd % 2 ? this.setDepth(10) : this.setDepth(11);
   }
 
   public stop() {

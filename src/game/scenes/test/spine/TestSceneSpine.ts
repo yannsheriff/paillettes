@@ -17,7 +17,7 @@ export class TestSceneSpine extends Phaser.Scene {
     this.load.image("btn", button);
     this.load.image("mask", mask);
 
-    for (let world = 1; world <= 3; world++) {
+    for (let world = 1; world <= 4; world++) {
       for (let spine = 1; spine <= 2; spine++) {
         this.load.setPath("assets/spine/world" + world + "/man" + spine + "/");
         this.load.spine(
@@ -92,8 +92,6 @@ export class TestSceneSpine extends Phaser.Scene {
   public addDragQueen() {
     let dragQueen = new DragQueen(
       this,
-      window.innerWidth / 3,
-      window.innerHeight / 1.5,
       "dragqueen",
       "Run",
       true
@@ -106,8 +104,6 @@ export class TestSceneSpine extends Phaser.Scene {
 
     let character = new CharacterBis(
       this,
-      700,
-      500,
       assetName,
       "NBidle",
       "",
