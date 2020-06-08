@@ -1,7 +1,7 @@
 import config from "./config";
 import Blob from "../../../components/BackgroundComponent/Blob"
 import Plane, { PlaneSpace } from "../../../components/BackgroundComponent/Plane";
-import SimplexNoise from "simplex-noise";
+import {  Worlds } from "../../../states/main";
 
 import { mask } from "../../../assets";
 
@@ -15,10 +15,6 @@ export class TestSceneBlob extends Phaser.Scene {
     x: 0,
     y: window.innerHeight / 2
   }
-  private rayon: number = window.innerWidth / 2; // le blob prend 1/3 de l'écran
-  private variation: number = 70;
-  private noise: SimplexNoise = new SimplexNoise(Math.random);
-  private test: Array<number> = [];
   private blob?: Blob;
 
   constructor() {
@@ -59,14 +55,14 @@ export class TestSceneBlob extends Phaser.Scene {
         }
       });
 
-    // this.add
-    //   .text(50, 200, "Changer de couleur", { fill: "red" })
-    //   .setInteractive()
-    //   .on("pointerdown", () => {
-    //     if(this.blob) {
-    //       // this.blob.changeColor()
-    //     }
-    //   });
+    this.add
+      .text(50, 200, "Changer de couleur", { fill: "red" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        if(this.blob) {
+          this.blob.changeColor(Worlds.nineteenCentury)
+        }
+      });
 
     new Plane(this, 0, 0, 'world1', 'plane1/w1_p1_1', PlaneSpace.first, 0, true);
   }

@@ -88,25 +88,20 @@ class Blob extends Phaser.GameObjects.Graphics {
             yoyo: false,
         });
     }
-    // public stopFreestyle() {
-    //     this.scene.tweens.add({
-    //         targets: this,
-    //         rayon: ,
-    //         duration: 700,
-    //         ease: 'back.out',
-    //         repeat: 0,
-    //         yoyo: false,
-    //     });
-    // }
-
+    
     public changeColor(world: Worlds) {
+        let colorBlend = { step: 0 };
+        let oldColor = Phaser.Display.Color.ValueToColor(this.drawColor);
+        let newColor = Phaser.Display.Color.ValueToColor(this.worldColors.get(world!)!)
         this.scene.tweens.add({
-            targets: this,
-            drawColor: this.worldColors.get(world)!,
-            duration: 700,
-            ease: 'back.out',
-            repeat: 0,
-            yoyo: false,
+            targets: colorBlend,
+            step: 100,
+            duration: 500,
+            onUpdate: () => {
+                let interpolate = Phaser.Display.Color.Interpolate.ColorWithColor(oldColor, newColor, 100, colorBlend.step);
+                let colourInt = Phaser.Display.Color.GetColor(interpolate.r, interpolate.g, interpolate.b);
+                this.drawColor = colourInt;
+            }
         });
     }
 
