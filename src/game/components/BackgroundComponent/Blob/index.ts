@@ -1,9 +1,15 @@
 import SimplexNoise from "simplex-noise";
 import MainStateManager, { MainState, Worlds } from "../../../states/main";
-
+import FreestyleStateManager, {
+    FreestyleState,
+  } from "../../../states/freestyle";
+  
 class Blob extends Phaser.GameObjects.Graphics {
     private mainState: MainState;
     private mainManager: MainStateManager;
+    private freestyleState: FreestyleState;
+    private freestyleManager: FreestyleStateManager;
+    
     private drawColor: number;
     private pink: number = 0xff00ab;
     private blue: number = 0x2b3aff;
@@ -31,9 +37,14 @@ class Blob extends Phaser.GameObjects.Graphics {
     ) {
         super(scene);
         scene.add.existing(this);
+
         this.mainManager = MainStateManager.getInstance();
         this.mainManager.subscribe(this.onMainStateChange);
         this.mainState = this.mainManager.state;
+        this.freestyleManager = FreestyleStateManager.getInstance();
+        this.freestyleState = this.freestyleManager.state;
+        this.freestyleManager.subscribe(this.onFreestyleStateChange);
+
         this.drawColor = this.worldColors.get(this.mainManager.state.world)!;
         this.drawBlob()
     }
@@ -67,26 +78,26 @@ class Blob extends Phaser.GameObjects.Graphics {
         this.setDepth(7).setBlendMode('SCREEN')
     }
 
-    public playFreestyle() {
+    public freestyle(isFreestyle: boolean) {
         this.scene.tweens.add({
             targets: this,
-            rayon: window.innerWidth + 500,
+            rayon: isFreestyle ? window.innerWidth + 500 : this.initialRayon,
             duration: 700,
-            ease: 'back.in',
+            ease: isFreestyle ? 'back.in' : 'back.out',
             repeat: 0,
             yoyo: false,
         });
     }
-    public stopFreestyle() {
-        this.scene.tweens.add({
-            targets: this,
-            rayon: this.initialRayon,
-            duration: 700,
-            ease: 'back.out',
-            repeat: 0,
-            yoyo: false,
-        });
-    }
+    // public stopFreestyle() {
+    //     this.scene.tweens.add({
+    //         targets: this,
+    //         rayon: ,
+    //         duration: 700,
+    //         ease: 'back.out',
+    //         repeat: 0,
+    //         yoyo: false,
+    //     });
+    // }
 
     public changeColor(world: Worlds) {
         this.scene.tweens.add({
@@ -113,5 +124,19 @@ class Blob extends Phaser.GameObjects.Graphics {
 
         this.mainState = state;
     };
+
+    private onFreestyleStateChange = (state: FreestyleState) => {
+        if (
+          this.freestyleState.isFreestyleActivated !== state.isFreestyleActivated
+        ) {
+          if (state.isFreestyleActivated) {
+            this.freestyle(true)
+          } else {
+            this.freestyle(false)
+          }
+        }
+    
+        this.freestyleState = state;
+      };
 }
 export default Blob;
