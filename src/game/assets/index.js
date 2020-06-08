@@ -33,9 +33,6 @@ export { default as down } from "./Interaction/down.png";
 export { default as left } from "./Interaction/left.png";
 export { default as right } from "./Interaction/right.png";
 
-// MASK
-export { default as mask } from "./mask/mask.png";
-
 // LANDSCAPE
 export { default as sol } from "./ground/sol.png";
 
