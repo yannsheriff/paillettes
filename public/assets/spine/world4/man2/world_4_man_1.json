@@ -1,0 +1,816 @@
+{
+"skeleton": {
+	"hash": "E2IJZdqW5CGQgrqfBxlVQfv+fok",
+	"spine": "3.8.95",
+	"x": -245,
+	"y": -31,
+	"width": 454,
+	"height": 632,
+	"images": "./images/",
+	"audio": "/Users/bastienlepecheur/Desktop/DragQueen/_Spine/PSD/PREHISTOIRE/GOLD MAN"
+},
+"bones": [
+	{ "name": "Hip", "y": 263.64 },
+	{ "name": "SHADOW NB", "parent": "Hip", "x": -0.04, "y": -267.2 },
+	{ "name": "NB", "parent": "Hip", "x": -4.31, "y": -267.21 },
+	{ "name": "Color", "parent": "Hip", "x": 1.92, "y": -267.19 },
+	{ "name": "TORSO", "parent": "Color", "length": 218.11, "rotation": 93.05, "x": -3.62, "y": 250.57 },
+	{ "name": "HEAD", "parent": "TORSO", "length": 54.47, "rotation": -1.53, "x": 217.35, "y": -0.69 },
+	{ "name": "BACK ARM", "parent": "TORSO", "length": 93.52, "rotation": -157.28, "x": 160.26, "y": -62.35 },
+	{ "name": "BACK FOREARM", "parent": "BACK ARM", "length": 75.58, "rotation": 95.48, "x": 90.27, "y": -0.05 },
+	{ "name": "BACK HAND", "parent": "BACK FOREARM", "length": 24.13, "rotation": 104.97, "x": 73.83, "y": -1.49 },
+	{ "name": "FRONT ARM", "parent": "TORSO", "length": 101.65, "rotation": 177.77, "x": 170.39, "y": 73.07 },
+	{ "name": "FRONT FOREARM", "parent": "FRONT ARM", "length": 79.86, "rotation": -1.34, "x": 95.83, "y": -0.64 },
+	{ "name": "FRONT HAND", "parent": "FRONT FOREARM", "length": 58.12, "rotation": -1.63, "x": 77.69, "y": -0.75 },
+	{ "name": "UP FRONT LEG", "parent": "TORSO", "length": 98.74, "rotation": 177.37, "x": -2.73, "y": 30.68 },
+	{ "name": "DOWN FRONT LEG", "parent": "UP FRONT LEG", "length": 95.88, "rotation": 1.31, "x": 95.1, "y": -0.7 },
+	{ "name": "FRONT FEET", "parent": "DOWN FRONT LEG", "length": 52.27, "rotation": -1.74, "x": 87.17, "y": 0.26 },
+	{ "name": "UP BACK LEG", "parent": "TORSO", "length": 99.49, "rotation": 178.2, "x": -2.12, "y": -26.06 },
+	{ "name": "DOWN BACK LEG", "parent": "UP BACK LEG", "length": 87.13, "rotation": -0.3, "x": 98.02, "y": -0.69 },
+	{ "name": "BACK FEET", "parent": "DOWN BACK LEG", "length": 53.04, "rotation": 1.4, "x": 84.97, "y": 0.76 },
+	{ "name": "BACK HAND2", "parent": "BACK HAND", "length": 115.42, "rotation": 16.96, "x": -25.85, "y": -6.64 },
+	{ "name": "BACK HAND3", "parent": "BACK HAND2", "length": 106.84, "rotation": -0.97, "x": 115.42 },
+	{ "name": "BACK HAND4", "parent": "BACK HAND3", "length": 88.63, "rotation": -0.41, "x": 106.84 },
+	{ "name": "BACK HAND5", "parent": "BACK HAND4", "length": 102.92, "rotation": -1.47, "x": 88.63 }
+],
+"slots": [
+	{ "name": "SHADOW NB", "bone": "SHADOW NB", "attachment": "SHADOW NB" },
+	{ "name": "NB", "bone": "NB", "attachment": "NB" },
+	{ "name": "FLOWER", "bone": "Color", "attachment": "FLOWER" },
+	{ "name": "BACK FOREARM", "bone": "BACK FOREARM", "attachment": "BACK FOREARM" },
+	{ "name": "BACK ARM", "bone": "BACK ARM", "attachment": "BACK ARM" },
+	{ "name": "BACK HAND", "bone": "BACK HAND", "attachment": "BACK HAND" },
+	{ "name": "BACK FEET", "bone": "BACK FEET", "attachment": "BACK FEET" },
+	{ "name": "DOWN BACK LEG", "bone": "DOWN BACK LEG", "attachment": "DOWN BACK LEG" },
+	{ "name": "UP BACK LEG", "bone": "UP BACK LEG", "attachment": "UP BACK LEG" },
+	{ "name": "DOWN FRONT LEG", "bone": "DOWN FRONT LEG", "attachment": "DOWN FRONT LEG" },
+	{ "name": "UP FRONT LEG", "bone": "UP FRONT LEG", "attachment": "UP FRONT LEG" },
+	{ "name": "FRONT FEET", "bone": "FRONT FEET", "attachment": "FRONT FEET" },
+	{ "name": "TORSO", "bone": "TORSO", "attachment": "TORSO" },
+	{ "name": "FRONT ARM", "bone": "FRONT ARM", "attachment": "FRONT ARM" },
+	{ "name": "FRONT FOREARM", "bone": "FRONT FOREARM", "attachment": "FRONT FOREARM" },
+	{ "name": "FRONT HAND", "bone": "FRONT HAND", "attachment": "FRONT HAND" },
+	{ "name": "HEAD", "bone": "HEAD", "attachment": "HEAD" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"BACK ARM": {
+				"BACK ARM": { "x": 47.27, "y": 0.46, "rotation": 64.23, "width": 80, "height": 120 }
+			},
+			"BACK FEET": {
+				"BACK FEET": { "x": 24.08, "y": 17.45, "rotation": 87.65, "width": 105, "height": 84 }
+			},
+			"BACK FOREARM": {
+				"BACK FOREARM": { "x": 33.72, "y": -1.81, "rotation": -31.25, "width": 98, "height": 74 }
+			},
+			"BACK HAND": {
+				"BACK HAND": { "x": 3.32, "y": 5.38, "rotation": -136.22, "width": 60, "height": 59 }
+			},
+			"DOWN BACK LEG": {
+				"DOWN BACK LEG": { "x": 41.8, "y": 0.41, "rotation": 89.05, "width": 62, "height": 135 }
+			},
+			"DOWN FRONT LEG": {
+				"DOWN FRONT LEG": { "x": 42.14, "y": 1.91, "rotation": 88.26, "width": 62, "height": 135 }
+			},
+			"FLOWER": {
+				"FLOWER": {
+					"type": "mesh",
+					"uvs": [ 0.97239, 1, 0.74203, 0.80762, 0.53917, 0.64154, 0.32583, 0.45863, 0.33892, 0.54483, 0.31667, 0.61841, 0.25908, 0.61421, 0.20411, 0.50068, 0.16746, 0.59529, 0.10202, 0.61841, 0.06537, 0.57006, 0.06537, 0.45443, 0.09548, 0.40607, 0.01956, 0.38295, 0, 0.30306, 0.02611, 0.21266, 0.10595, 0.20215, 0.07584, 0.04447, 0.11773, 0, 0.17531, 0.00663, 0.21196, 0.10123, 0.26693, 3.2E-4, 0.32452, 0, 0.35462, 0.09282, 0.33237, 0.21686, 0.40828, 0.23999, 0.42661, 0.35141, 0.38996, 0.41659, 0.34284, 0.42079, 0.54702, 0.58898, 0.75251, 0.76137, 0.99938, 0.96275, 0.9971, 1, 0.97508, 0.96959, 0.84194, 0.86045, 0.74655, 0.78439, 0.64636, 0.70061, 0.54341, 0.61683, 0.44047, 0.52754, 0.33342, 0.44045, 0.27783, 0.5099, 0.12479, 0.50108, 0.07675, 0.30266, 0.14675, 0.10754, 0.28949, 0.10533, 0.35675, 0.31589, 0.22018, 0.31368 ],
+					"triangles": [ 0, 33, 32, 32, 33, 31, 1, 34, 0, 0, 34, 33, 33, 34, 31, 1, 35, 34, 35, 30, 34, 31, 34, 30, 2, 36, 1, 1, 36, 35, 35, 36, 30, 2, 37, 36, 37, 29, 36, 28, 38, 39, 3, 39, 38, 2, 38, 37, 4, 5, 40, 9, 41, 8, 9, 10, 41, 37, 38, 29, 5, 6, 40, 6, 7, 40, 8, 41, 7, 38, 28, 29, 36, 29, 30, 10, 11, 41, 40, 3, 4, 3, 38, 2, 3, 40, 46, 11, 12, 41, 41, 12, 7, 7, 12, 46, 16, 46, 42, 40, 7, 46, 46, 43, 20, 43, 46, 16, 3, 46, 39, 39, 46, 28, 28, 45, 27, 28, 46, 45, 27, 45, 26, 13, 42, 12, 46, 12, 42, 13, 14, 42, 45, 25, 26, 46, 24, 45, 45, 24, 25, 46, 44, 24, 46, 20, 44, 14, 15, 42, 42, 15, 16, 24, 44, 23, 16, 17, 43, 17, 18, 43, 43, 19, 20, 43, 18, 19, 20, 21, 44, 44, 22, 23, 44, 21, 22 ],
+					"vertices": [ 1, 18, 0.55, 6.99, 1, 1, 18, 106.47, 5.78, 1, 1, 19, 83.84, 6.89, 1, 2, 20, 75.61, 6.92, 0.98509, 21, -13.19, 6.58, 0.01491, 2, 20, 60.56, 23.69, 0.96136, 21, -28.67, 22.97, 0.03864, 2, 20, 59.73, 44.45, 0.92735, 21, -30.03, 43.7, 0.07265, 2, 20, 80.94, 54.61, 0.77744, 21, -9.09, 54.4, 0.22256, 2, 20, 114.33, 39.8, 0.13625, 21, 24.68, 40.44, 0.86375, 2, 20, 116.15, 68.04, 0.00603, 21, 25.77, 68.73, 0.99397, 1, 21, 46.07, 87.04, 1, 1, 21, 65.14, 83.77, 1, 1, 21, 79.67, 58.25, 1, 1, 21, 75.08, 41.5, 1, 1, 21, 104.9, 51.73, 1, 1, 21, 121.88, 38.05, 1, 1, 21, 123.99, 12.82, 1, 1, 21, 97.01, -5.62, 1, 1, 21, 127.5, -34.34, 1, 1, 21, 118.24, -52.61, 1, 1, 21, 97, -62.78, 1, 1, 21, 72.11, -49.3, 1, 1, 21, 65.31, -82.67, 1, 2, 20, 131.13, -95.49, 0.00134, 21, 44.93, -94.37, 0.99866, 2, 20, 109.17, -80.52, 0.02163, 21, 22.59, -79.97, 0.97837, 2, 20, 102.28, -48.46, 0.25422, 21, 14.88, -48.1, 0.74578, 2, 20, 72.21, -57.92, 0.77539, 21, -14.94, -58.32, 0.22461, 2, 20, 52.24, -36.51, 0.95312, 21, -35.44, -37.43, 0.04688, 1, 20, 57.6, -14.86, 1, 1, 20, 74.04, -4.83, 1, 2, 19, 87.23, -6.41, 0.99984, 20, -19.57, -6.55, 1.6E-4, 1, 18, 107.96, -6.63, 1, 1, 18, -5.01, -6.42, 1, 1, 18, -8.45, 2.44, 1, 1, 18, 3.05, -0.4, 1, 1, 18, 64.04, -0.63, 1, 1, 18, 107.49, -0.32, 1, 1, 19, 38.15, -0.22, 1, 1, 19, 85.23, 0.53, 1, 1, 20, 26.12, 0.24, 1, 1, 20, 75.07, 1.39, 1, 2, 20, 86.72, 27.65, 0.64473, 21, -2.62, 27.59, 0.35527, 2, 20, 142.8, 55.18, 0.00176, 21, 52.75, 56.55, 0.99824, 1, 21, 94.72, 22.46, 1, 1, 21, 94.44, -34.74, 1, 2, 20, 131.08, -65.16, 0.01528, 21, 44.11, -64.05, 0.98472, 2, 20, 81.63, -31, 0.68856, 21, -6.21, -31.16, 0.31144, 1, 21, 42.49, -4.07, 1 ],
+					"hull": 33,
+					"edges": [ 0, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14, 14, 16, 16, 18, 18, 20, 20, 22, 22, 24, 24, 26, 26, 28, 28, 30, 30, 32, 32, 34, 34, 36, 36, 38, 38, 40, 40, 42, 42, 44, 44, 46, 46, 48, 48, 50, 50, 52, 52, 54, 54, 56, 56, 58, 58, 60, 60, 62, 62, 64, 0, 64 ],
+					"width": 408,
+					"height": 254
+				}
+			},
+			"FRONT ARM": {
+				"FRONT ARM": { "x": 50.3, "y": 1.51, "rotation": 89.18, "width": 49, "height": 136 }
+			},
+			"FRONT FEET": {
+				"FRONT FEET": { "x": 21.94, "y": 19.78, "rotation": 90, "width": 105, "height": 85 }
+			},
+			"FRONT FOREARM": {
+				"FRONT FOREARM": { "x": 39.93, "y": 1.37, "rotation": 90.52, "width": 50, "height": 113 }
+			},
+			"FRONT HAND": {
+				"FRONT HAND": { "x": 29.45, "y": -4.44, "rotation": 92.15, "width": 66, "height": 87 }
+			},
+			"HEAD": {
+				"HEAD": { "x": 22.7, "y": 10.81, "rotation": -91.53, "width": 96, "height": 87 }
+			},
+			"NB": {
+				"NB": { "x": -13.69, "y": 291.57, "width": 454, "height": 588 }
+			},
+			"SHADOW NB": {
+				"SHADOW NB": { "x": 1.04, "y": 2.56, "width": 282, "height": 60 }
+			},
+			"UP BACK LEG": {
+				"UP BACK LEG": { "x": 49.34, "y": 1.48, "rotation": 88.75, "width": 64, "height": 148 }
+			},
+			"UP FRONT LEG": {
+				"UP FRONT LEG": { "x": 50.18, "y": 2.32, "rotation": 89.58, "width": 63, "height": 135 }
+			}
+		}
+	},
+	{
+		"name": "Color1",
+		"attachments": {
+			"TORSO": {
+				"TORSO": { "name": "Color1/TORSO", "x": 97.6, "y": 9.12, "rotation": -93.05, "width": 174, "height": 256 }
+			}
+		}
+	},
+	{
+		"name": "Color2",
+		"attachments": {
+			"TORSO": {
+				"TORSO": { "name": "Color2/TORSO", "x": 98.63, "y": 9.57, "rotation": -93.05, "width": 175, "height": 258 }
+			}
+		}
+	}
+],
+"animations": {
+	"Dance": {
+		"slots": {
+			"NB": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"Color": {
+				"translate": [
+					{ "y": 3.16, "curve": 0.284, "c3": 0.625, "c4": 0.38 },
+					{ "time": 0.1, "y": -25.92, "curve": 0.304, "c2": 0.24, "c3": 0.655, "c4": 0.63 },
+					{ "time": 0.2667, "y": 45.94, "curve": 0.345, "c2": 0.37, "c3": 0.687, "c4": 0.73 },
+					{ "time": 0.3333, "y": 56.51, "curve": 0.378, "c2": 0.61, "c3": 0.722 },
+					{ "time": 0.4, "y": 45.94, "curve": 0.378, "c2": 0.52, "c3": 0.748 },
+					{ "time": 0.5, "y": 3.16 }
+				],
+				"scale": [
+					{ "y": 1.032 }
+				]
+			},
+			"FRONT ARM": {
+				"rotate": [
+					{ "angle": -79.19, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1, "angle": -35.16, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2667, "angle": 167.21, "curve": "stepped" },
+					{ "time": 0.4, "angle": 167.21, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": -79.19 }
+				]
+			},
+			"FRONT HAND": {
+				"rotate": [
+					{ "angle": 10.14 }
+				]
+			},
+			"DOWN BACK LEG": {
+				"rotate": [
+					{ "angle": -69.11, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1, "angle": -72.55, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2667, "angle": -120.07, "curve": "stepped" },
+					{ "time": 0.4, "angle": -120.07, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": -69.11 }
+				]
+			},
+			"UP BACK LEG": {
+				"rotate": [
+					{ "angle": -29.5, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1, "angle": 39.64, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2667, "angle": 52.81, "curve": "stepped" },
+					{ "time": 0.4, "angle": 52.81, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": -29.5 }
+				]
+			},
+			"TORSO": {
+				"rotate": [
+					{ "angle": -9.67, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1, "angle": -23.02, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2667, "angle": -6, "curve": 0.25, "c3": 0.625, "c4": 0.5 },
+					{ "time": 0.3333, "angle": -4.73, "curve": 0.375, "c2": 0.5, "c3": 0.75 },
+					{ "time": 0.4, "angle": -6, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": -9.67 }
+				]
+			},
+			"HEAD": {
+				"rotate": [
+					{ "angle": 8.02, "curve": 0.26, "c3": 0.618, "c4": 0.44 },
+					{ "time": 0.1, "angle": 6.52, "curve": 0.359, "c2": 0.43, "c3": 0.756 },
+					{ "time": 0.2667, "angle": 3.56, "curve": "stepped" },
+					{ "time": 0.4, "angle": 3.56, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": 8.02 }
+				]
+			},
+			"BACK HAND4": {
+				"rotate": [
+					{ "angle": 1.33, "curve": 0.297, "c3": 0.634, "c4": 0.37 },
+					{ "time": 0.0667, "angle": 3.41, "curve": 0.321, "c2": 0.28, "c3": 0.655, "c4": 0.61 },
+					{ "time": 0.1, "angle": 1.33, "curve": 0.307, "c2": 0.25, "c3": 0.651, "c4": 0.62 },
+					{ "time": 0.2333, "angle": -3.88, "curve": 0.334, "c2": 0.34, "c3": 0.67, "c4": 0.68 },
+					{ "time": 0.3, "angle": 2.01, "curve": 0.368, "c2": 0.47, "c3": 0.72, "c4": 0.88 },
+					{ "time": 0.4333, "angle": -4.48, "curve": 0.352, "c2": 0.65, "c3": 0.687 },
+					{ "time": 0.5, "angle": 1.33 }
+				]
+			},
+			"BACK HAND2": {
+				"rotate": [
+					{ "angle": 1.33, "curve": 0.297, "c3": 0.634, "c4": 0.37 },
+					{ "time": 0.0667, "angle": 3.41, "curve": 0.321, "c2": 0.28, "c3": 0.655, "c4": 0.61 },
+					{ "time": 0.1, "angle": 1.33, "curve": 0.307, "c2": 0.25, "c3": 0.651, "c4": 0.62 },
+					{ "time": 0.2333, "angle": -3.88, "curve": 0.334, "c2": 0.34, "c3": 0.67, "c4": 0.68 },
+					{ "time": 0.3, "angle": 2.01, "curve": 0.368, "c2": 0.47, "c3": 0.72, "c4": 0.88 },
+					{ "time": 0.4333, "angle": -4.48, "curve": 0.352, "c2": 0.65, "c3": 0.687 },
+					{ "time": 0.5, "angle": 1.33 }
+				]
+			},
+			"BACK HAND3": {
+				"rotate": [
+					{ "angle": 1.33, "curve": 0.297, "c3": 0.634, "c4": 0.37 },
+					{ "time": 0.0667, "angle": 3.41, "curve": 0.321, "c2": 0.28, "c3": 0.655, "c4": 0.61 },
+					{ "time": 0.1, "angle": 1.33, "curve": 0.307, "c2": 0.25, "c3": 0.651, "c4": 0.62 },
+					{ "time": 0.2333, "angle": -3.88, "curve": 0.334, "c2": 0.34, "c3": 0.67, "c4": 0.68 },
+					{ "time": 0.3, "angle": 2.01, "curve": 0.368, "c2": 0.47, "c3": 0.72, "c4": 0.88 },
+					{ "time": 0.4333, "angle": -4.48, "curve": 0.352, "c2": 0.65, "c3": 0.687 },
+					{ "time": 0.5, "angle": 1.33 }
+				]
+			},
+			"FRONT FOREARM": {
+				"rotate": [
+					{ "angle": 21.26, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1, "angle": 37.35, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2667, "angle": -18.37, "curve": "stepped" },
+					{ "time": 0.4, "angle": -18.37, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": 21.26 }
+				]
+			},
+			"UP FRONT LEG": {
+				"rotate": [
+					{ "angle": 41.06, "curve": 0.26, "c3": 0.618, "c4": 0.44 },
+					{ "time": 0.1, "angle": 45.48, "curve": 0.359, "c2": 0.43, "c3": 0.756 },
+					{ "time": 0.2667, "angle": 30.92, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4, "angle": 46.13, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": 41.06 }
+				]
+			},
+			"FRONT FEET": {
+				"rotate": [
+					{ "angle": 6.61 }
+				]
+			},
+			"BACK FEET": {
+				"rotate": [
+					{ "angle": -13.57, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1, "angle": 1.21, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": -13.57 }
+				]
+			},
+			"BACK ARM": {
+				"rotate": [
+					{ "angle": 4.34, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1, "angle": -5.05, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2667, "angle": 161.3, "curve": "stepped" },
+					{ "time": 0.4, "angle": 161.3, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": 4.34 }
+				]
+			},
+			"BACK HAND5": {
+				"rotate": [
+					{ "angle": 12.02, "curve": 0.297, "c3": 0.634, "c4": 0.37 },
+					{ "time": 0.0667, "angle": 14.1, "curve": 0.321, "c2": 0.28, "c3": 0.655, "c4": 0.61 },
+					{ "time": 0.1, "angle": 12.02, "curve": 0.307, "c2": 0.25, "c3": 0.651, "c4": 0.62 },
+					{ "time": 0.2333, "angle": 6.82, "curve": 0.334, "c2": 0.34, "c3": 0.67, "c4": 0.68 },
+					{ "time": 0.3, "angle": 12.71, "curve": 0.368, "c2": 0.47, "c3": 0.72, "c4": 0.88 },
+					{ "time": 0.4333, "angle": 6.21, "curve": 0.352, "c2": 0.65, "c3": 0.687 },
+					{ "time": 0.5, "angle": 12.02 }
+				]
+			},
+			"DOWN FRONT LEG": {
+				"rotate": [
+					{ "angle": -4.55, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1, "angle": -53.19, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2667, "angle": -113.41, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4, "angle": -98.2, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": -4.55 }
+				]
+			},
+			"BACK HAND": {
+				"rotate": [
+					{ "time": 0.1, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2667, "angle": -123.13, "curve": "stepped" },
+					{ "time": 0.4, "angle": -123.13, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5 }
+				]
+			},
+			"BACK FOREARM": {
+				"rotate": [
+					{ "time": 0.1, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2667, "angle": -87.28, "curve": "stepped" },
+					{ "time": 0.4, "angle": -87.28 },
+					{ "time": 0.5 }
+				]
+			}
+		}
+	},
+	"Fail": {
+		"slots": {
+			"BACK ARM": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"BACK FEET": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"BACK FOREARM": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"BACK HAND": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"DOWN BACK LEG": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"DOWN FRONT LEG": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"FLOWER": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"FRONT ARM": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"FRONT FEET": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"FRONT FOREARM": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"FRONT HAND": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"HEAD": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"TORSO": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"UP BACK LEG": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"UP FRONT LEG": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"NB": {
+				"scale": [
+					{ "curve": 0, "c2": 0.06, "c3": 0.788, "c4": 0.8 },
+					{ "time": 0.2333, "y": 0 }
+				]
+			}
+		}
+	},
+	"NBidle": {
+		"slots": {
+			"BACK ARM": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"BACK FEET": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"BACK FOREARM": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"BACK HAND": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"DOWN BACK LEG": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"DOWN FRONT LEG": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"FLOWER": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"FRONT ARM": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"FRONT FEET": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"FRONT FOREARM": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"FRONT HAND": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"HEAD": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"TORSO": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"UP BACK LEG": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"UP FRONT LEG": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		}
+	},
+	"Run": {
+		"slots": {
+			"NB": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"TORSO": {
+				"rotate": [
+					{ "angle": -9.67, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.0667, "angle": -15.33, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3667, "angle": -9.2, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6, "angle": -15.33, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": -9.67 }
+				]
+			},
+			"HEAD": {
+				"rotate": [
+					{ "angle": 8.02, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.0667, "angle": 16.97, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3667, "angle": 16.22, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6, "angle": 9.35, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": 8.02 }
+				]
+			},
+			"FRONT ARM": {
+				"rotate": [
+					{ "angle": -79.19, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1333, "angle": -47.19, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2333, "angle": 17.14, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3, "angle": 34.48, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": 47.26, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6, "angle": 28.3, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6667, "angle": -57.49, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.7333, "angle": -79.34, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": -79.19 }
+				]
+			},
+			"FRONT FOREARM": {
+				"rotate": [
+					{ "angle": 21.26, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2333, "angle": 45.95, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3667, "angle": 71.51, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": 68.08, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6, "angle": 77.43, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": 21.26 }
+				]
+			},
+			"FRONT HAND": {
+				"rotate": [
+					{ "angle": 10.14 }
+				]
+			},
+			"UP FRONT LEG": {
+				"rotate": [
+					{ "angle": 41.06, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.0667, "angle": 38.18, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1333, "angle": -10.75, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2333, "angle": -16.71, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4333, "angle": -30.97, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": 17.75, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6, "angle": 47.17, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.7333, "angle": 59.42, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": 41.06 }
+				]
+			},
+			"DOWN FRONT LEG": {
+				"rotate": [
+					{ "angle": -4.55, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.0667, "angle": -32.4, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1333, "angle": -16.71, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2333, "angle": -44.54, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3, "angle": -58.55, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4333, "angle": -58.8, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": -108.93, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6, "angle": -88.97, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6667, "angle": -42.43, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": -4.55 }
+				]
+			},
+			"FRONT FEET": {
+				"rotate": [
+					{ "angle": 6.61, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.0667, "angle": 2.02, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1333, "angle": 8.31, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2333, "angle": -7.05, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6, "angle": -19.8, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6667, "angle": -0.38, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.7333, "angle": 9.86, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": 6.61 }
+				]
+			},
+			"UP BACK LEG": {
+				"rotate": [
+					{ "angle": -29.5, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.0667, "angle": -17.04, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1333, "angle": 36.24, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2333, "angle": 35.62, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3667, "angle": 66.93, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": 39.09, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6, "angle": -8.51, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6667, "angle": -23.27, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.7333, "angle": -30.64, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": -29.5 }
+				]
+			},
+			"DOWN BACK LEG": {
+				"rotate": [
+					{ "angle": -69.11, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.0667, "angle": -79.26, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1333, "angle": -107.56, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2333, "angle": -40.2, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3, "angle": -33.75, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3667, "angle": -30.74, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4333, "angle": -17.43, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": -37.8, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6, "angle": -26.1, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6667, "angle": -54.43, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.7333, "angle": -65.52, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": -69.11 }
+				]
+			},
+			"BACK FEET": {
+				"rotate": [
+					{ "angle": -13.57, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.0667, "angle": -3.19, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3, "angle": 8.09, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4333, "angle": 4.13, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5, "angle": 0.88, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6, "angle": 11.47, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.6667, "angle": -12.31, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.7333, "angle": -12.86, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": -13.57 }
+				]
+			},
+			"BACK ARM": {
+				"rotate": [
+					{ "angle": 4.34, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3667, "angle": -13.22, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": 4.34 }
+				]
+			},
+			"BACK HAND2": {
+				"rotate": [
+					{ "angle": 1.33, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4333, "angle": -3.55, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": 1.33 }
+				]
+			},
+			"BACK HAND3": {
+				"rotate": [
+					{ "angle": 1.33, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4333, "angle": -3.55, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": 1.33 }
+				]
+			},
+			"BACK HAND4": {
+				"rotate": [
+					{ "angle": 1.33, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4333, "angle": -3.55, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": 1.33 }
+				]
+			},
+			"BACK HAND5": {
+				"rotate": [
+					{ "angle": 12.02, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4333, "angle": -9.82, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "angle": 12.02 }
+				]
+			},
+			"Color": {
+				"translate": [
+					{ "y": 3.16, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.1, "y": -3.16, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3667, "y": 6.33, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5667, "y": -17.4, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "y": 3.16 }
+				],
+				"scale": [
+					{ "y": 1.032 },
+					{ "time": 0.1, "y": 0.936 },
+					{ "time": 0.3667, "y": 1.059 },
+					{ "time": 0.5667, "y": 0.966 },
+					{ "time": 0.8, "y": 1.032 }
+				]
+			}
+		}
+	},
+	"Transition": {
+		"slots": {
+			"BACK ARM": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"BACK FEET": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"BACK FOREARM": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"BACK HAND": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"DOWN BACK LEG": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"DOWN FRONT LEG": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"FLOWER": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"FRONT ARM": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"FRONT FEET": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"FRONT FOREARM": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"FRONT HAND": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"HEAD": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"NB": {
+				"color": [
+					{ "time": 0.2333, "color": "ffffffff" },
+					{ "time": 0.2667, "color": "ffffff00" }
+				]
+			},
+			"TORSO": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"UP BACK LEG": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			},
+			"UP FRONT LEG": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffff00" },
+					{ "time": 0.2667, "color": "ffffffff" }
+				]
+			}
+		},
+		"bones": {
+			"Color": {
+				"translate": [
+					{ "curve": 0, "c2": 0.01, "c3": 0.56, "c4": 0.7 },
+					{ "time": 0.2667, "y": 35.48, "curve": 0, "c2": 0.01, "c3": 0.56, "c4": 0.7 },
+					{ "time": 0.5 }
+				],
+				"scale": [
+					{ "x": 0, "curve": "stepped" },
+					{ "time": 0.2667, "x": 0, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5 }
+				]
+			},
+			"NB": {
+				"translate": [
+					{ "curve": 0, "c2": 0.01, "c3": 0.56, "c4": 0.7 },
+					{ "time": 0.2667, "y": 35.48, "curve": 0, "c2": 0.01, "c3": 0.56, "c4": 0.7 },
+					{ "time": 0.5 }
+				],
+				"scale": [
+					{ "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.2667, "x": 0 }
+				]
+			}
+		}
+	}
+}
+}
