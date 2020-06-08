@@ -1,0 +1,167 @@
+
+world_4_man_2.png
+size: 1284,412
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BACK HAND
+  rotate: true
+  xy: 1135, 286
+  size: 41, 70
+  orig: 44, 73
+  offset: 2, 1
+  index: -1
+Color1/BACK FEET
+  rotate: false
+  xy: 1097, 141
+  size: 70, 76
+  orig: 72, 78
+  offset: 1, 1
+  index: -1
+Color1/DOWN BACK LEG
+  rotate: false
+  xy: 1213, 221
+  size: 69, 189
+  orig: 72, 214
+  offset: 2, 1
+  index: -1
+Color1/DOWN FRONT LEG
+  rotate: true
+  xy: 883, 7
+  size: 68, 211
+  orig: 70, 214
+  offset: 1, 1
+  index: -1
+Color1/FRONT FEET
+  rotate: false
+  xy: 1097, 63
+  size: 70, 76
+  orig: 72, 78
+  offset: 1, 1
+  index: -1
+Color1/TORSO
+  rotate: false
+  xy: 732, 175
+  size: 149, 235
+  orig: 151, 237
+  offset: 1, 1
+  index: -1
+Color1/UP BACK LEG
+  rotate: false
+  xy: 580, 2
+  size: 64, 169
+  orig: 67, 172
+  offset: 1, 1
+  index: -1
+Color1/UP FRONT LEG
+  rotate: false
+  xy: 646, 2
+  size: 64, 169
+  orig: 67, 172
+  offset: 1, 1
+  index: -1
+Color2/BACK FEET
+  rotate: false
+  xy: 1135, 329
+  size: 76, 81
+  orig: 78, 86
+  offset: 1, 1
+  index: -1
+Color2/DOWN BACK LEG
+  rotate: true
+  xy: 883, 148
+  size: 69, 212
+  orig: 72, 215
+  offset: 2, 1
+  index: -1
+Color2/DOWN FRONT LEG
+  rotate: true
+  xy: 883, 77
+  size: 69, 212
+  orig: 72, 215
+  offset: 2, 1
+  index: -1
+Color2/FRONT FEET
+  rotate: false
+  xy: 1208, 143
+  size: 70, 76
+  orig: 72, 78
+  offset: 1, 1
+  index: -1
+Color2/TORSO
+  rotate: false
+  xy: 580, 173
+  size: 150, 237
+  orig: 153, 239
+  offset: 2, 1
+  index: -1
+Color2/UP BACK LEG
+  rotate: false
+  xy: 751, 3
+  size: 64, 170
+  orig: 68, 173
+  offset: 1, 1
+  index: -1
+Color2/UP FRONT LEG
+  rotate: false
+  xy: 817, 3
+  size: 64, 170
+  orig: 67, 173
+  offset: 1, 1
+  index: -1
+DOWN BACK ARM
+  rotate: false
+  xy: 1169, 23
+  size: 36, 86
+  orig: 41, 118
+  offset: 2, 1
+  index: -1
+DOWN FRONT ARM
+  rotate: false
+  xy: 1207, 23
+  size: 35, 86
+  orig: 40, 118
+  offset: 3, 1
+  index: -1
+FRONT HAND
+  rotate: true
+  xy: 1096, 20
+  size: 41, 70
+  orig: 44, 73
+  offset: 1, 1
+  index: -1
+HEAD
+  rotate: false
+  xy: 883, 277
+  size: 250, 133
+  orig: 250, 134
+  offset: 0, 0
+  index: -1
+NB
+  rotate: true
+  xy: 2, 2
+  size: 408, 576
+  orig: 410, 578
+  offset: 1, 1
+  index: -1
+SHADOW NB
+  rotate: false
+  xy: 883, 219
+  size: 279, 56
+  orig: 282, 60
+  offset: 2, 1
+  index: -1
+UP BACK ARM
+  rotate: false
+  xy: 712, 63
+  size: 37, 108
+  orig: 39, 110
+  offset: 1, 1
+  index: -1
+UP FRONT ARM
+  rotate: false
+  xy: 1169, 111
+  size: 37, 108
+  orig: 39, 111
+  offset: 1, 1
+  index: -1
