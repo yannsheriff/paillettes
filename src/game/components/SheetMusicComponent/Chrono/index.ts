@@ -21,7 +21,6 @@ class Chrono {
     this.posX = x;
     this.posY = y;
     this.scale = scale;
-    console.log("Chrono -> scale", scale);
     const freeManager = FreestyleStateManager.getInstance();
     this.freestyleState = freeManager.state;
     freeManager.subscribe(this.stateChange);

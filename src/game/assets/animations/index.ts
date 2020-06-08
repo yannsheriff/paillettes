@@ -188,6 +188,16 @@ export const mainAnimations: AnimationData[] = [
     repeat: 0,
   },
   {
+    key: "freestyle-exit",
+    asset: freestyle,
+    frameWidth: 1353,
+    frameHeight: 310,
+    startFrame: 26,
+    endFrame: 0,
+    frameRate: 24,
+    repeat: 0,
+  },
+  {
     key: "freestyle-loop",
     asset: freestyle,
     frameWidth: 1353,

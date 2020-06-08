@@ -89,7 +89,7 @@ class SheetMusic {
     this.freestyleManager = FreestyleStateManager.getInstance();
     this.freestyleState = FreestyleStateManager.getInstance().state;
     this.mainState = MainStateManager.getInstance().state;
-    this.sheetWidth = window.innerWidth - x - this.inputZoneWidth;
+    this.sheetWidth = window.innerWidth - x;
     this.noteDelay =
       NOTE_DELAY - Math.round((this.sheetWidth / this.arrowSpeed) * 1000);
     this.halfGoodZoneWidth =
@@ -202,8 +202,10 @@ class SheetMusic {
         this.freeInterval = setInterval(() => {
           this.createFreeArrowColumn();
         }, 500);
-      } else {
-        clearInterval(this.freeInterval!);
+
+        setTimeout(() => {
+          clearInterval(this.freeInterval!);
+        }, state.freestyleDuration - Math.round((this.sheetWidth / this.arrowSpeed) * 1000));
       }
     }
     this.freestyleState = state;
