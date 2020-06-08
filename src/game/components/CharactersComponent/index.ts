@@ -16,12 +16,12 @@ class PhysicCharacterManager {
   private mainState: MainState;
   private mainManager: MainStateManager;
   private colliderZone: Phaser.GameObjects.Rectangle;
-  private collider?: Phaser.Physics.Arcade.Collider;
+  private colliders: Array<Phaser.Physics.Arcade.Collider> = [];
   private overlapTrigger: boolean = false;
 
   public crowd: Array<PhysicCharacter>;
   public world: Worlds;
-  private characters: Map<string, PhysicCharacter> = new Map();
+  private charactersBW: Map<string, PhysicCharacter> = new Map();
   public testX: number = 0;
   public nextUnlocked: string = ''
 
@@ -53,9 +53,8 @@ class PhysicCharacterManager {
     });
 
     characterManager.isCharacterUnlocked((id, isUnlocked) => {
-      // console.log("isCharacterUnlocked", id, isUnlocked);
       if (isUnlocked) {
-        this.characters.get(id)?.unlock()
+        this.charactersBW.get(id)?.unlock()
       }
     });
   }
@@ -77,36 +76,38 @@ class PhysicCharacterManager {
       this.crowd.length
     );
 
-    this.characters.set(id, charObj);
-
-    // console.log(this.characters)
+    this.charactersBW.set(id, charObj);
 
     this.addCollision(charObj)
   }
 
   public addCollision(character: PhysicCharacter) {
-    this.collider = this.scene.physics.add.overlap(
+    let newCollider = this.scene.physics.add.overlap(
       character,
       this.colliderZone,
       () => { this.checkIfUnlocked(character) },
       () => true,
       this
     );
+
+    // every character has its collider
+    this.colliders.push(newCollider);
   }
 
   public checkIfUnlocked(character: PhysicCharacter) {
     // first we destroy the collision to avoid endless loop
-    if (this.collider) {
-      this.scene.physics.world.removeCollider(this.collider);
-    };
+    // correspond to the collision with the current character
+    this.scene.physics.world.removeCollider(this.colliders[0]);
+    this.colliders.shift();
 
     if (character.isUnlock) {
       this.crowd.push(character)
       character.joinCrowd(this.crowd.length + 1)
     } else {
-      // remove du map characters
       character.failAndDestroy()
     }
+    
+    this.charactersBW.delete(character.id)
   }
 
   public playTransformation() {
