@@ -33,7 +33,7 @@ class GridObject extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enable(this);
     scene.add.existing(this);
     this.scale = scale;
-    this.setDepth(11);
+    this.setDepth(13);
     this.launch();
   }
 

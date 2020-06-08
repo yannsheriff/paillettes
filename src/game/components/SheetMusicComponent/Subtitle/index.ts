@@ -56,6 +56,8 @@ class Subtitle {
           }
         );
       }, 2500);
+    } else {
+      this.animation!.anims.play("freestyle-exit");
     }
 
     this.freeState = state;
