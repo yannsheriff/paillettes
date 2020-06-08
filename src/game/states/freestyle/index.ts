@@ -16,9 +16,10 @@ export interface FreestyleState {
 
 const initialState: FreestyleState = {
   remainingLetters: [
-    // FreeLetter.F,
+    FreeLetter.F,
     FreeLetter.R,
-    // FreeLetter.E1, FreeLetter.E2
+    FreeLetter.E1, 
+    FreeLetter.E2
   ],
   isFreestyleActivated: false,
   activationTime: 0,

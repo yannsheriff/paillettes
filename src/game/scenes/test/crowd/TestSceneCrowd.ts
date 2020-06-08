@@ -1,5 +1,6 @@
 import config from "./config";
 import CharactersComponent from "../../../components/CharactersComponent";
+import DragQueen from "../../../components/DragQueenComponent";
 
 export class TestSceneCrowd extends Phaser.Scene {
   public PhysicCharacterManager?: CharactersComponent;
@@ -10,7 +11,8 @@ export class TestSceneCrowd extends Phaser.Scene {
   }
 
   public preload(): void {
-    for (let world = 1; world <= 3; world++) {
+    
+    for (let world = 1; world <= 4; world++) {
       for (let spine = 1; spine <= 2; spine++) {
         this.load.setPath("assets/spine/world" + world + "/man" + spine + "/");
         this.load.spine(
@@ -30,8 +32,17 @@ export class TestSceneCrowd extends Phaser.Scene {
         this.characterAssets.push("world_" + world + "_man_" + spine)
       }      
     }
+    // drag queen
+    this.load.setPath("assets/spine/dragqueen/");
+    this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
   }
   public create() {
+    let dragQueen = new DragQueen(
+      this,
+      "dragqueen",
+      "Run",
+      true
+    ); 
     this.PhysicCharacterManager = new CharactersComponent(this);
 
     this.add
@@ -45,7 +56,7 @@ export class TestSceneCrowd extends Phaser.Scene {
       .text(50, 80, "Jouer animation de transformation", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
-        this.PhysicCharacterManager?.playTransformation("");
+        this.PhysicCharacterManager?.playTransformation();
       });
 
     this.add
