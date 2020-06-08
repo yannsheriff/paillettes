@@ -45,6 +45,15 @@ class Align {
   static outsideRightSpine(obj, spine, scale) {
     obj.x = window.innerWidth + (spine.displayWidth * scale) / 2;
   }
+  static dragPosition(obj, spine, scale) {
+    obj.x = window.innerWidth * 0.3;
+  }
+  static crowdPosition(obj, spine, scale) {
+    obj.x = window.innerWidth * 0.25;
+  }
+  static charactersOnGround(obj, spine, scale) {
+    obj.y = window.innerHeight * 0.7;
+  }
 }
 
 export default Align;

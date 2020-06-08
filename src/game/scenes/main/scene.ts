@@ -56,6 +56,7 @@ export class GameScene extends Phaser.Scene {
     this.load.image("F", F);
     this.load.image("R", R);
     this.load.image("E1", E1);
+    this.load.image("E2", E2);
     this.load.image("star-down", starDown);
     this.load.image("star-left", starLeft);
     this.load.image("star-up", starUp);
@@ -110,8 +111,6 @@ export class GameScene extends Phaser.Scene {
     new SheetMusicComponent(this, this.CharacterManager, sheetX, sheetY);
     this.dragQueen = new DragQueen(
       this,
-      window.innerWidth / 5,
-      window.innerHeight / 1.5,
       "dragqueen",
       "Run",
       true
