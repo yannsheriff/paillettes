@@ -39,14 +39,13 @@ class Blob extends Phaser.GameObjects.Graphics {
     }
 
     preUpdate(time: any, delta: any) {
-        // this.drawBlob()
+        this.drawBlob()
     }
 
     public drawBlob() {
         this.speed += 0.005; // maybe refacto
 
         this.clear()
-
         
         this.lineStyle(2, this.drawColor, 1);
         this.fillStyle(this.drawColor, 1);

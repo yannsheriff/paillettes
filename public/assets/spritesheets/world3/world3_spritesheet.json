@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "plane3/w3_p3_2",
+					"filename": "w3_p3_2",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "plane3/w3_p3_4",
+					"filename": "w3_p3_4",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "plane3/w3_p3_1",
+					"filename": "w3_p3_1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "plane3/w3_p3_3",
+					"filename": "w3_p3_3",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "plane3/w3_p3_5",
+					"filename": "w3_p3_5",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "plane3/w3_p3_6",
+					"filename": "w3_p3_6",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -136,7 +136,7 @@
 					}
 				},
 				{
-					"filename": "plane1/w3_p1_1",
+					"filename": "w3_p1_1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -157,7 +157,7 @@
 					}
 				},
 				{
-					"filename": "plane1/w3_p1_4",
+					"filename": "w3_p1_4",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -178,7 +178,7 @@
 					}
 				},
 				{
-					"filename": "plane1/w3_p1_3",
+					"filename": "w3_p1_3",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -199,7 +199,7 @@
 					}
 				},
 				{
-					"filename": "plane1/w3_p1_5",
+					"filename": "w3_p1_5",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -220,7 +220,7 @@
 					}
 				},
 				{
-					"filename": "plane1/w3_p1_6",
+					"filename": "w3_p1_6",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -241,7 +241,7 @@
 					}
 				},
 				{
-					"filename": "plane1/w3_p1_2",
+					"filename": "w3_p1_2",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -273,7 +273,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "plane2/w3_p2_1",
+					"filename": "w3_p2_1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -294,7 +294,7 @@
 					}
 				},
 				{
-					"filename": "plane2/w3_p2_5",
+					"filename": "w3_p2_5",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -315,7 +315,7 @@
 					}
 				},
 				{
-					"filename": "plane2/w3_p2_6",
+					"filename": "w3_p2_6",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -336,7 +336,7 @@
 					}
 				},
 				{
-					"filename": "plane2/w3_p2_2",
+					"filename": "w3_p2_2",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -357,7 +357,7 @@
 					}
 				},
 				{
-					"filename": "plane2/w3_p2_4",
+					"filename": "w3_p2_4",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -378,7 +378,7 @@
 					}
 				},
 				{
-					"filename": "plane2/w3_p2_3",
+					"filename": "w3_p2_3",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {

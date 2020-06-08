@@ -1,6 +1,5 @@
 import Blob from "./Blob";
 import Plane, { PlaneSpace } from "./Plane";
-import Align from "../../helpers/Align/align";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
 
 class BackgroundManager {
@@ -16,6 +15,7 @@ class BackgroundManager {
   private currentAsset: Array<number> = []
   private numberAssets: Map<Worlds, number[]> = new Map([
     [Worlds.middleAges, [ 6, 6, 6 ]], // 24 assets in World 1
+    [Worlds.today, [ 6, 6, 6 ]], // 24 assets in World 1
     [Worlds.nineteenCentury, [ 6, 6, 6 ]] // 24 assets in World 1
   ]);
 
@@ -57,7 +57,7 @@ class BackgroundManager {
       0,
       0,
       'world' + this.world, // 'world' + this.world + 1
-      'plane' + (planeNumber + 1) + '/w' + this.world + '_p' + (planeNumber + 1) + '_' + rand,
+      'w' + this.world + '_p' + (planeNumber + 1) + '_' + rand,
       planeSpace,
       this.globalSpeed
     );
