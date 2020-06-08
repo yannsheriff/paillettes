@@ -48,7 +48,7 @@ class FreeLights {
   private create() {
     this.lights.forEach((light: light, index) => {
       light.sprite = this.scene.physics.add
-        .sprite(this.posX + 50 * index, this.posY, light.name + "OFF")
+        .sprite(this.posX + 42 * index, this.posY, light.name + "OFF")
         .setDepth(12)
         .setScale(this.scale);
     });

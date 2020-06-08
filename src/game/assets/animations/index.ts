@@ -1,6 +1,5 @@
 import { AnimationData } from "../../helpers/Animations";
 import {
-  glow,
   good,
   oops,
   perfect,
@@ -175,16 +174,6 @@ export const mainAnimations: AnimationData[] = [
     frameHeight: 200,
     startFrame: 12,
     endFrame: 32,
-    frameRate: 24,
-    repeat: 0,
-  },
-  {
-    key: "glow",
-    asset: glow,
-    frameWidth: 500,
-    frameHeight: 500,
-    startFrame: 0,
-    endFrame: 16,
     frameRate: 24,
     repeat: 0,
   },

@@ -10,7 +10,17 @@ class FreeArrow extends GridObject {
     direction: Direction,
     scale: number
   ) {
-    super(scene, "free", speed, height, y, x, direction, scale, "freeStar");
+    super(
+      scene,
+      "free",
+      speed,
+      height,
+      y,
+      x,
+      direction,
+      scale,
+      "star-" + direction
+    );
   }
 }
 

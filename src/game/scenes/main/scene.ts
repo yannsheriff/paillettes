@@ -14,6 +14,11 @@ import {
   E1,
   E2,
   FREEStar,
+  starDown,
+  starLeft,
+  starUp,
+  starRight,
+  chrono,
 } from "../../assets";
 import CharacterManager from "../../managers/CharacterManager";
 import GroundComponent from "../../components/GroundComponent";
@@ -51,11 +56,15 @@ export class GameScene extends Phaser.Scene {
     this.load.image("F", F);
     this.load.image("R", R);
     this.load.image("E1", E1);
-    this.load.image("E2", E2);
+    this.load.image("star-down", starDown);
+    this.load.image("star-left", starLeft);
+    this.load.image("star-up", starUp);
+    this.load.image("star-right", starRight);
     this.load.image("freeStar", FREEStar);
     this.load.image("grid", grid);
     this.load.image("down", arrowD);
     this.load.image("zoneInput", zoneInput);
+    this.load.image("chrono", chrono);
 
     this.load.image("sol", sol);
 

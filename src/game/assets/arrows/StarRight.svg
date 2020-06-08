@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="24" cy="24" r="24" fill="#29FAFF" opacity=".161"/>
+    <circle cx="24" cy="24" r="23.027" stroke="#29FAFF" opacity=".481"/>
+    <circle cx="24" cy="24" r="16.541" fill="#29FAFF" opacity=".554"/>
+    <polygon fill="#29FAFF" points="24 30 16.947 33.708 18.294 25.854 12.587 20.292 20.473 19.146 24 12 27.527 19.146 35.413 20.292 29.706 25.854 31.053 33.708"/>
+  </g>
+</svg>

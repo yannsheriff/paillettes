@@ -28,7 +28,7 @@ class InputZone {
   ) {
     this.scene = scene;
     this.collider = scene.add
-      .rectangle(x, y + height / 2, 2, height, 0)
+      .rectangle(x + 40, y + height / 2, 2, height)
       .setDepth(12);
 
     this.posX = x;

@@ -19,7 +19,7 @@ import Chrono from "./Chrono";
 import GodMother from "./GodMother";
 import InputZone from "./InputZone";
 
-const heightBetweenSheetHBar = 158;
+const heightBetweenSheetHBar = 206;
 const directionTable: {
   0: Direction;
   1: Direction;
@@ -118,43 +118,27 @@ class SheetMusic {
    * scene, elle initialise également l'event listener des notes.
    */
   create = () => {
-    new Grid(
-      this.scene,
-      this.posX + this.inputZoneWidth * 0.83,
-      this.posY,
-      this.scale
-    );
+    new Grid(this.scene, this.posX, this.posY, this.scale);
 
     new FreeLights(
       this.scene,
-      this.posX - 50,
-      this.posY + 50,
+      this.posX - 210,
+      this.posY + 30,
       this.inputZoneWidth,
       this.scale
     );
 
-    new GodMother(
-      this.scene,
-      this.posX + this.inputZoneWidth / 2,
-      this.posY,
-      this.scale
-    );
+    new GodMother(this.scene, this.posX, this.posY, this.scale);
 
-    new Chrono(
-      this.scene,
-      this.posX + this.inputZoneWidth / 2,
-      this.posY,
-      this.inputZoneWidth / 2,
-      this.scale
-    );
+    new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
 
-    new Score(this.scene, this.posX - 50, this.posY - 50, this.scale);
+    new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
 
     new Subtitle(this.scene);
 
     const collider = new InputZone(
       this.scene,
-      this.posX + this.inputZoneWidth,
+      this.posX,
       this.gridTop,
       heightBetweenSheetHBar * this.scale,
       this.scale
