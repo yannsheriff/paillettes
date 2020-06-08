@@ -49,8 +49,7 @@ class Blob extends Phaser.GameObjects.Graphics {
 
         
         this.lineStyle(2, this.drawColor, 1);
-        // this.fillStyle(this.drawColor, 1);
-        this.fillGradientStyle(this.blue, this.red, this.blue, this.red, 1);
+        this.fillStyle(this.drawColor, 1);
         this.moveTo(this.blobPosition.x, this.blobPosition.y); // center
 
         for (var i = - Math.PI / 2; i < Math.PI / 2 + 0.02; i += 0.02 * (Math.PI / 2)) {
