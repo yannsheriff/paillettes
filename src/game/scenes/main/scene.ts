@@ -96,20 +96,18 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.animationManager.register();
-    // new BackgroundComponent(this);
+    new BackgroundComponent(this);
     new CharactersComponent(this);
-    // this.ground = new GroundComponent(this);
+    this.ground = new GroundComponent(this);
     const sheetX = window.innerWidth / 4;
     const sheetY = (window.innerHeight / 6) * 4;
     new SheetMusicComponent(this, this.CharacterManager, sheetX, sheetY);
-    // this.dragQueen = new DragQueen(
-    //   this,
-    //   window.innerWidth / 3,
-    //   window.innerHeight / 1.5,
-    //   "dragqueen",
-    //   "Run",
-    //   true
-    // );
+    this.dragQueen = new DragQueen(
+      this,
+      "dragqueen",
+      "Run",
+      true
+    );
 
     // @ts-ignore
     this.isDebug = this.game.config.physics.arcade.debug
