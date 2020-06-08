@@ -2,8 +2,6 @@ import FreestyleStateManager, {
   FreestyleState,
 } from "../../../states/freestyle";
 
-const BACKGROUND_RADIUS = 106 / 2;
-
 function formatToSeconds(ms: number): string {
   const sec = Math.round(ms / 1000).toString();
   return sec.length > 1 ? sec : "0" + sec;
@@ -15,48 +13,34 @@ class Chrono {
   private posY: number;
   private time?: Phaser.GameObjects.Text;
   private scale: number;
-  private background?: Phaser.GameObjects.Shape;
+  private icon?: Phaser.GameObjects.Image;
   private freestyleState: FreestyleState;
 
-  constructor(
-    scene: Phaser.Scene,
-    x: number,
-    y: number,
-    radius: number,
-    scale: number
-  ) {
+  constructor(scene: Phaser.Scene, x: number, y: number, scale: number) {
     this.scene = scene;
     this.posX = x;
     this.posY = y;
     this.scale = scale;
-    console.log("Chrono -> scale", scale);
     const freeManager = FreestyleStateManager.getInstance();
     this.freestyleState = freeManager.state;
     freeManager.subscribe(this.stateChange);
-    // this.create(freeManager.state.freestyleDuration);
   }
 
   private create(time: number) {
-    this.background = this.scene.add
-      .circle(
-        this.posX,
-        this.posY,
-        BACKGROUND_RADIUS * this.scale,
-        Phaser.Display.Color.HexStringToColor("#6f6885").color
-      )
-      .setDepth(12);
-
+    this.icon = this.scene.add
+      .image(this.posX, this.posY, "chrono")
+      .setScale(this.scale)
+      .setDepth(11);
     this.time = this.scene.add.text(
-      this.posX - 20,
-      this.posY - 20,
-      (time / 1000).toString(),
+      this.posX + 20,
+      this.posY - 10,
+      (time / 1000).toString() + " sec",
       {
         fontFamily: "LondrinaSolid",
         fontStyle: "",
-        fontSize: "40px",
+        fontSize: "20px",
         color: "#fff",
         align: "center", // 'left'|'center'|'right'|'justify'
-        depth: 11,
       }
     );
 
@@ -65,7 +49,7 @@ class Chrono {
   }
   private delete() {
     this.time?.destroy();
-    this.background?.destroy();
+    this.icon?.destroy();
   }
 
   lauchChrono = (endTime: number) => {
@@ -73,7 +57,7 @@ class Chrono {
       const now = new Date().getTime();
       const sub = endTime - now;
       const seconds = formatToSeconds(sub);
-      this.time?.setText(seconds.toString());
+      this.time?.setText(seconds.toString() + " sec");
 
       if (sub <= 0) {
         clearInterval(chrono);

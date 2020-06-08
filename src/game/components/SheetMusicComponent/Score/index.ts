@@ -5,7 +5,7 @@ class Score {
   private subtitle: Phaser.GameObjects.Text;
 
   constructor(scene: Phaser.Scene, x: number, y: number, scale: number) {
-    const font = 25 * scale;
+    const font = 20 * scale;
     const fontScore = 55 * scale;
     ScoreStateManager.getInstance().subscribe(this.updateScore);
 
@@ -18,7 +18,7 @@ class Score {
       align: "center",
     });
 
-    this.score = scene.add.text(x - 100, y + 30, "", {
+    this.score = scene.add.text(x - 100, y + 20, "", {
       fontFamily: "LondrinaSolid",
       fontSize: fontScore + "px",
       fontStyle: "",
