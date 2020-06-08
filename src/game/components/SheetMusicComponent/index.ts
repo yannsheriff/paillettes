@@ -313,7 +313,7 @@ class SheetMusic {
     if (gridObject instanceof Letter) {
       this.freestyleManager.failLetter();
     }
-    setTimeout(() => gridObject.delete, 1000);
+    setTimeout(() => gridObject.delete(), 1000);
   };
 
   /**
