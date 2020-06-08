@@ -5,7 +5,6 @@ import BackgroundComponent from "../../../components/BackgroundComponent";
 import MainStateManager from "../../../states/main";
 
 import {
-  mask,
   sol
 } from "../../../assets";
 
@@ -30,8 +29,6 @@ export class TestSceneBackground extends Phaser.Scene {
     
     this.load.setPath("assets/spritesheets/world3/");
     this.load.multiatlas('world3', 'world3_spritesheet.json');
-
-    this.load.image("mask", mask);
   }
 
   public create() {

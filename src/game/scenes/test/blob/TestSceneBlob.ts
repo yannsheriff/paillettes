@@ -3,8 +3,6 @@ import Blob from "../../../components/BackgroundComponent/Blob"
 import Plane, { PlaneSpace } from "../../../components/BackgroundComponent/Plane";
 import {  Worlds } from "../../../states/main";
 
-import { mask } from "../../../assets";
-
 export class TestSceneBlob extends Phaser.Scene {
   private pink: number = 0xff00ab;
   private blue: number = 0x2b3aff;
@@ -22,7 +20,6 @@ export class TestSceneBlob extends Phaser.Scene {
   }
 
   public preload(): void {
-    this.load.image('mask', mask);
     this.load.setPath("assets/spritesheets/world1/");
     this.load.multiatlas('world1', 'world1_spritesheet.json');
   }

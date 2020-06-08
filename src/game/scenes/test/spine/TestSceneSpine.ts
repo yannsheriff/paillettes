@@ -1,6 +1,6 @@
 import config from "./config";
 import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
-import { button, mask } from "../../../assets";
+import { button } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent";
 
 export class TestSceneSpine extends Phaser.Scene {
@@ -15,7 +15,6 @@ export class TestSceneSpine extends Phaser.Scene {
 
   public preload(): void {
     this.load.image("btn", button);
-    this.load.image("mask", mask);
 
     for (let world = 1; world <= 4; world++) {
       for (let spine = 1; spine <= 2; spine++) {
