@@ -12,7 +12,7 @@ class CharacterManager {
   private onEndCallback: Array<(id: string, isUnlocked: boolean) => any>;
 
   private constructor() {
-    this.actualCharacter = new Character(5);
+    this.actualCharacter = new Character(1);
     this.characters.set(this.actualCharacter.ID, this.actualCharacter);
     this.createCallback = [];
     this.onEndCallback = [];
@@ -32,8 +32,8 @@ class CharacterManager {
   }
 
   private generateNewCharacter(): void {
-    let arrowMin = 5
-    let arrowMax = 5
+    let arrowMin = 1
+    let arrowMax = 1
     // every character will have between arrowMin and arrowMax arrows
     const num = Math.floor(Math.random() * (arrowMax - 1 + 1) + arrowMin);
     const character = new Character(num);
