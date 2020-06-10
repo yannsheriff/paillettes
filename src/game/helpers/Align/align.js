@@ -8,10 +8,13 @@ class Align {
     obj.scaleX = obj.scaleY;
   }
   static centerH(obj) {
-	obj.x = window.innerWidth / 2;
+	  obj.x = window.innerWidth / 2;
   }
   static centerV(obj) {
     obj.y = window.innerHeight / 2;
+  }
+  static top(obj) {
+    obj.y = obj.displayHeight / 2;
   }
   static bottom(obj) {
     obj.y = window.innerHeight - obj.displayHeight / 2;
@@ -46,10 +49,11 @@ class Align {
     obj.x = window.innerWidth + (spine.displayWidth * scale) / 2;
   }
   static dragPosition(obj, spine, scale) {
-    obj.x = window.innerWidth * 0.3;
+    const placement = window.innerWidth / 2 - 280
+    obj.x = placement + (spine.displayWidth * scale) / 2;
   }
   static crowdPosition(obj, spine, scale) {
-    obj.x = window.innerWidth * 0.25;
+    obj.x = window.innerWidth / 2 - 220;
   }
   static charactersOnGround(obj, spine, scale) {
     obj.y = window.innerHeight * 0.7;
