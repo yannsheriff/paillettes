@@ -29,6 +29,9 @@ export class TestSceneBackground extends Phaser.Scene {
     
     this.load.setPath("assets/spritesheets/world3/");
     this.load.multiatlas('world3', 'world3_spritesheet.json');
+
+    this.load.setPath("assets/spritesheets/world4/");
+    this.load.multiatlas('world4', 'world4_spritesheet.json');
   }
 
   public create() {
