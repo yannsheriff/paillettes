@@ -1,132 +1,188 @@
 
 world_1_man_1.png
-size: 1211,382
+size: 1056,393
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 BACK ARM
-  rotate: true
-  xy: 1024, 339
-  size: 41, 123
-  orig: 43, 125
-  offset: 1, 1
-  index: -1
-BACK FEET
-  rotate: true
-  xy: 1149, 291
-  size: 89, 25
-  orig: 91, 30
-  offset: 1, 1
-  index: -1
-BACK FOREARM
-  rotate: true
-  xy: 1088, 12
-  size: 35, 120
-  orig: 37, 122
-  offset: 1, 1
-  index: -1
-BACK HAND
   rotate: false
-  xy: 1024, 184
-  size: 47, 62
-  orig: 50, 64
-  offset: 2, 1
+  xy: 663, 21
+  size: 37, 109
+  orig: 42, 111
+  offset: 4, 1
+  index: -1
+BACK WING
+  rotate: false
+  xy: 553, 2
+  size: 108, 128
+  orig: 110, 134
+  offset: 1, 1
+  index: -1
+BAGUETTE
+  rotate: true
+  xy: 819, 43
+  size: 89, 48
+  orig: 91, 50
+  offset: 1, 1
+  index: -1
+Color1/BACK FEET
+  rotate: false
+  xy: 792, 6
+  size: 53, 32
+  orig: 55, 36
+  offset: 1, 1
+  index: -1
+Color1/DOWN BACK LEG
+  rotate: true
+  xy: 905, 137
+  size: 20, 46
+  orig: 22, 48
+  offset: 1, 1
+  index: -1
+Color1/DOWN FRONT LEG
+  rotate: false
+  xy: 997, 89
+  size: 19, 46
+  orig: 21, 48
+  offset: 1, 1
+  index: -1
+Color1/FRONT FEET
+  rotate: true
+  xy: 963, 83
+  size: 52, 32
+  orig: 54, 36
+  offset: 1, 1
   index: -1
 Color1/TORSO
   rotate: false
-  xy: 687, 168
-  size: 170, 212
-  orig: 174, 214
-  offset: 3, 1
-  index: -1
-Color2/TORSO
-  rotate: true
-  xy: 687, 6
-  size: 160, 210
-  orig: 162, 212
+  xy: 720, 158
+  size: 166, 233
+  orig: 168, 235
   offset: 1, 1
   index: -1
-Color3/TORSO
-  rotate: false
-  xy: 859, 174
-  size: 163, 206
-  orig: 167, 208
-  offset: 3, 1
+Color1/UP BACK LEG
+  rotate: true
+  xy: 720, 133
+  size: 23, 91
+  orig: 25, 93
+  offset: 1, 1
   index: -1
-DOWN BACK LEG
+Color1/UP FRONT LEG
   rotate: false
-  xy: 1180, 216
-  size: 29, 164
-  orig: 32, 168
-  offset: 2, 1
+  xy: 769, 40
+  size: 23, 91
+  orig: 25, 93
+  offset: 1, 1
   index: -1
-DOWN FRONT LEG
+Color2/BACK FEET
+  rotate: true
+  xy: 929, 82
+  size: 53, 32
+  orig: 55, 36
+  offset: 1, 1
+  index: -1
+Color2/DOWN BACK LEG
+  rotate: true
+  xy: 953, 137
+  size: 20, 46
+  orig: 22, 48
+  offset: 1, 1
+  index: -1
+Color2/DOWN FRONT LEG
+  rotate: true
+  xy: 984, 61
+  size: 20, 46
+  orig: 22, 48
+  offset: 1, 1
+  index: -1
+Color2/FRONT FEET
   rotate: false
-  xy: 1180, 49
-  size: 28, 165
-  orig: 31, 169
-  offset: 2, 1
+  xy: 929, 48
+  size: 53, 32
+  orig: 55, 36
+  offset: 1, 1
+  index: -1
+Color2/TORSO
+  rotate: false
+  xy: 888, 159
+  size: 166, 232
+  orig: 168, 234
+  offset: 1, 1
+  index: -1
+Color2/UP BACK LEG
+  rotate: true
+  xy: 813, 134
+  size: 22, 90
+  orig: 24, 92
+  offset: 1, 1
+  index: -1
+Color2/UP FRONT LEG
+  rotate: false
+  xy: 794, 41
+  size: 23, 90
+  orig: 25, 92
+  offset: 1, 1
   index: -1
 FRONT ARM
   rotate: true
-  xy: 1024, 248
-  size: 41, 122
-  orig: 43, 124
-  offset: 1, 1
-  index: -1
-FRONT FEET
-  rotate: true
-  xy: 1148, 201
-  size: 88, 25
-  orig: 90, 30
-  offset: 1, 1
+  xy: 847, 2
+  size: 39, 86
+  orig: 41, 174
+  offset: 1, 87
   index: -1
 FRONT FOREARM
   rotate: true
-  xy: 1024, 303
-  size: 34, 120
-  orig: 37, 122
-  offset: 1, 1
+  xy: 702, 2
+  size: 30, 88
+  orig: 32, 108
+  offset: 1, 2
   index: -1
 FRONT HAND
-  rotate: false
-  xy: 1073, 184
-  size: 47, 62
-  orig: 49, 64
+  rotate: true
+  xy: 935, 8
+  size: 38, 49
+  orig: 40, 55
   offset: 1, 1
+  index: -1
+FRONT WING
+  rotate: true
+  xy: 422, 2
+  size: 108, 129
+  orig: 110, 134
+  offset: 1, 1
+  index: -1
+HAIR
+  rotate: true
+  xy: 869, 45
+  size: 87, 58
+  orig: 87, 63
+  offset: 0, 5
   index: -1
 HEAD
   rotate: false
-  xy: 1088, 59
-  size: 90, 55
-  orig: 92, 57
+  xy: 702, 34
+  size: 65, 96
+  orig: 67, 98
+  offset: 1, 1
+  index: -1
+HORSE
+  rotate: true
+  xy: 480, 132
+  size: 259, 238
+  orig: 261, 240
   offset: 1, 1
   index: -1
 NB
-  rotate: true
-  xy: 2, 2
-  size: 378, 683
-  orig: 380, 686
-  offset: 1, 1
+  rotate: false
+  xy: 2, 7
+  size: 418, 384
+  orig: 421, 386
+  offset: 2, 1
   index: -1
 SHADOW NB
-  rotate: false
-  xy: 899, 116
+  rotate: true
+  xy: 422, 112
   size: 279, 56
   orig: 282, 60
   offset: 2, 1
-  index: -1
-UP BACK LEG
-  rotate: true
-  xy: 899, 5
-  size: 42, 187
-  orig: 44, 189
-  offset: 1, 1
-  index: -1
-UP FRONT LEG
-  rotate: true
-  xy: 899, 73
-  size: 41, 187
-  orig: 43, 189
-  offset: 1, 1
   index: -1

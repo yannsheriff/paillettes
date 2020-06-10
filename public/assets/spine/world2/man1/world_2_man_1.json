@@ -1,6 +1,6 @@
 {
 "skeleton": {
-	"hash": "WB50b28q5NU8mFywgcZ4Cul/iCQ",
+	"hash": "UI8sHNxE5sGlxzt14IGBRWaE+io",
 	"spine": "3.8.95",
 	"x": -139,
 	"y": -32,
@@ -333,6 +333,12 @@
 			"HEAD": {
 				"color": [
 					{ "color": "ffffff00" }
+				]
+			},
+			"SHADOW NB": {
+				"color": [
+					{ "time": 0.1667, "color": "ffffffff" },
+					{ "time": 0.2667, "color": "ffffff00" }
 				]
 			},
 			"TORSO": {

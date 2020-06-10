@@ -1,6 +1,6 @@
 {
 "skeleton": {
-	"hash": "CijqdMUQ/VU2cz+U3/19yoIPnlk",
+	"hash": "tpoiAwp6yFqDjBhYhMR0sppSmOM",
 	"spine": "3.8.95",
 	"x": -935,
 	"y": -264,
@@ -296,6 +296,12 @@
 			"POMPOM2": {
 				"color": [
 					{ "color": "ffffff00" }
+				]
+			},
+			"SHADOW NB": {
+				"color": [
+					{ "time": 0.1667, "color": "ffffffff" },
+					{ "time": 0.2667, "color": "ffffff00" }
 				]
 			},
 			"TORSO": {
