@@ -18,7 +18,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
 
   scale: {
     // we do scale the game manually in resize()
-    mode: Phaser.Scale.NONE,
+    mode: Phaser.Scale.NO_ZOOM,
     width: window.innerWidth,
     height: window.innerHeight,
   },
@@ -29,11 +29,11 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: false,
+      debug: true,
     },
   },
-  // scene: [MainScene],
-  scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCrowd, TestSceneBlob],
+  scene: [MainScene],
+  // scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCrowd, TestSceneBlob],
   plugins: {
     scene: [
       { key: "SpinePlugin", plugin: window.SpinePlugin, mapping: "spine" },

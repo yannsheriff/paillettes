@@ -2,20 +2,18 @@ import FreestyleStateManager, {
   FreestyleState,
 } from "../../../states/freestyle";
 
+import Align from "../../../helpers/Align/align";
+
 const assetsWidth = 1920;
 
 class GodMother {
   private scene: Phaser.Scene;
-  private posX: number;
-  private posY: number;
   private scale: number;
   private mother?: Phaser.GameObjects.Sprite;
   private freestyleState: FreestyleState;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, scale: number) {
+  constructor(scene: Phaser.Scene, scale: number) {
     this.scene = scene;
-    this.posX = x;
-    this.posY = y;
     this.scale = scale;
     const freeManager = FreestyleStateManager.getInstance();
     this.freestyleState = freeManager.state;
@@ -28,6 +26,9 @@ class GodMother {
       .sprite(window.innerWidth / 2, window.innerHeight / 2, "god-mother-in")
       .setDepth(12)
       .setScale(scale);
+
+    Align.top(this.mother)
+    Align.centerH(this.mother)
 
     this.mother.play("god-mother-in");
     this.mother.once("animationcomplete", () => {

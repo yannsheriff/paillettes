@@ -107,9 +107,7 @@ export class GameScene extends Phaser.Scene {
     new BackgroundComponent(this);
     new CharactersComponent(this);
     this.ground = new GroundComponent(this);
-    const sheetX = window.innerWidth / 4;
-    const sheetY = (window.innerHeight / 6) * 4;
-    new SheetMusicComponent(this, this.CharacterManager, sheetX, sheetY);
+    new SheetMusicComponent(this, this.CharacterManager);
     this.dragQueen = new DragQueen(
       this,
       "dragqueen",

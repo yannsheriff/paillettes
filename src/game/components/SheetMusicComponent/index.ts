@@ -69,12 +69,7 @@ class SheetMusic {
   constructor(
     scene: Phaser.Scene,
     characterManager: CharacterManager,
-    x: number,
-    y: number
   ) {
-    this.gridObjects = [];
-    this.posX = x;
-    this.posY = y;
     this.scene = scene;
     this.lastCall = 0;
     this.requestCount = 1;
@@ -83,13 +78,27 @@ class SheetMusic {
     this.characterManager = characterManager;
     this.throttleValue = 1000;
     this.isPlaying = false;
+    this.gridObjects = [];
+
+    // SHEET MUSIC SIZE AND POSITION
+    this.posX = window.innerWidth / 2;
+    this.posY = window.innerHeight - (heightBetweenSheetHBar * this.scale);
+    this.sheetWidth = window.innerWidth - this.posX;
+    this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
+
+    // INIT MANAGERS
     this.arrowEmitter = new EventEmitter();
     this.promiseGenerator = new promiseGenerator();
     this.scoreManager = ScoreState.getInstance();
     this.freestyleManager = FreestyleStateManager.getInstance();
     this.freestyleState = FreestyleStateManager.getInstance().state;
     this.mainState = MainStateManager.getInstance().state;
-    this.sheetWidth = window.innerWidth - x;
+    MainStateManager.getInstance().subscribe(this.onStateChange);
+    this.freestyleManager.subscribe(this.onFreeStateChange);
+    this.scoreManager.onFail(this.failedArrow);
+    this.scoreManager.onSuccess(this.successArrow);
+
+    // TIME HELPERS
     this.noteDelay =
       NOTE_DELAY - Math.round((this.sheetWidth / this.arrowSpeed) * 1000);
     this.halfGoodZoneWidth =
@@ -99,14 +108,7 @@ class SheetMusic {
       ((this.halfGoodZoneWidth + this.inputPerfectZoneWidth) /
         this.arrowSpeed) *
       1000;
-    this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
     this.timeToFail = this.calculateTimeToExit();
-
-    MainStateManager.getInstance().subscribe(this.onStateChange);
-    this.freestyleManager.subscribe(this.onFreeStateChange);
-
-    this.scoreManager.onFail(this.failedArrow);
-    this.scoreManager.onSuccess(this.successArrow);
 
     this.create();
   }
@@ -128,7 +130,7 @@ class SheetMusic {
       this.scale
     );
 
-    new GodMother(this.scene, this.posX, this.posY, this.scale);
+    new GodMother(this.scene, this.scale);
 
     new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
 
