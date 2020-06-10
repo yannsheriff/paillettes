@@ -32,11 +32,11 @@ class CharacterManager {
   }
 
   private generateNewCharacter(): void {
-    let arrowMin = 1
-    let arrowMax = 1
+    // let arrowMin = 1
+    // let arrowMax = 1
     // every character will have between arrowMin and arrowMax arrows
-    const num = Math.floor(Math.random() * (arrowMax - 1 + 1) + arrowMin);
-    const character = new Character(num);
+    // const num = Math.floor(Math.random() * (arrowMax - 1 + 1) + arrowMin);
+    const character = new Character(1);
 
     this.actualCharacter = character;
     this.characters.set(character.ID, character);

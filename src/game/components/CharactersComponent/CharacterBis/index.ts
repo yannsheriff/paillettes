@@ -5,7 +5,7 @@ class PhysicCharacter extends SpineContainer {
   public scene: Phaser.Scene
   public planeY: number = 0;
   public id: string;
-  public speed: number = 3700;
+  public speed: number = 3800;
   public tweenX?: Phaser.Tweens.Tween;
   public scale: number = 0.5;
   public positionInCrowd: number = 0;
@@ -87,11 +87,12 @@ class PhysicCharacter extends SpineContainer {
 
   // 
   public runTowardCrowd() {
+    let destinationX = this.crowdPositionX - this.positionInCrowd * this.distanceBetweenCharacters
+    if (destinationX < 0) { destinationX = 0 }
     // join crowd
     this.tweenX = this.scene.tweens.add({
       targets: this,
-      x: this.crowdPositionX - this.positionInCrowd * this.distanceBetweenCharacters,
-      // duration: 100 * this.speed,
+      x: destinationX,
       duration: this.speed,
       ease: 'Linear.None',
       repeat: 0,

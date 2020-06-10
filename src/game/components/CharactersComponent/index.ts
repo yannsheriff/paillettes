@@ -35,9 +35,9 @@ class PhysicCharacterManager {
     const characterManager = CharacterManager.getInstance();
 
     this.colliderZone = this.scene.add.rectangle(
-      200,
-      200,
-      200,
+      0,
+      0,
+      60,
       window.innerHeight
     );
 
@@ -53,6 +53,7 @@ class PhysicCharacterManager {
 
     characterManager.isCharacterUnlocked((id, isUnlocked) => {
       if (isUnlocked) {
+        // console.log('character ' + id + ' isUnlocked')
         this.charactersBW.get(id)?.unlock()
       }
     });
@@ -60,7 +61,7 @@ class PhysicCharacterManager {
 
   public generateNewPhysicCharacter(id: string) {
     let gender = Math.round(Math.random()) === 0 ? 'man' : 'woman'
-    let nb = Math.floor(Math.random() * 2) + 1;;
+    let nb = Math.floor(Math.random() * 2) + 1;
 
     // console.log("world_" + this.world + "_" + gender + "_" + nb)
 
@@ -76,6 +77,9 @@ class PhysicCharacterManager {
     );
 
     this.charactersBW.set(id, charObj);
+
+    // console.log('generate ' + id);
+    // console.log(this.charactersBW)
 
     this.addCollision(charObj)
   }
@@ -98,6 +102,8 @@ class PhysicCharacterManager {
     // correspond to the collision with the current character
     this.scene.physics.world.removeCollider(this.colliders[0]);
     this.colliders.shift();
+
+    // console.log('checkIfUnlocked ' + character.id)
 
     if (character.isUnlock) {
       this.crowd.push(character)
@@ -159,11 +165,11 @@ class PhysicCharacterManager {
 
   private startWorldTransition(world: Worlds) {
     this.world = world;
-    console.log("PhysicCharacterManager", world);
+    // console.log("PhysicCharacterManager", world);
   }
 
   private endWolrdTransition() {
-    console.log("End World Transition");
+    // console.log("End World Transition");
   }
 
   private onMainStateChange = (state: MainState) => {

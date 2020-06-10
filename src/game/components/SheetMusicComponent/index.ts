@@ -52,7 +52,7 @@ class SheetMusic {
   private scale = 0.8;
   private inputZoneWidth = 210 * this.scale;
   private inputPerfectZoneWidth = 70;
-  private arrowSpeed = 350;
+  private arrowSpeed = 400;
   private posX: number;
   private posY: number;
   private halfGoodZoneWidth: number;
