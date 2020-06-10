@@ -48,8 +48,6 @@ class BackgroundManager {
     
     let rand = this.getRandomAsset(planeSpace)
 
-    console.log(this.world)
-
     let planeObj = new Plane(
       this.scene,
       0,

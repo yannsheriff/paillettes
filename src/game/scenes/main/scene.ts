@@ -77,11 +77,14 @@ export class GameScene extends Phaser.Scene {
     this.load.setPath("assets/spritesheets/world3/");
     this.load.multiatlas("world3", "world3_spritesheet.json");
 
+    this.load.setPath("assets/spritesheets/world4/");
+    this.load.multiatlas("world4", "world4_spritesheet.json");
+
     // drag queen
     this.load.setPath("assets/spine/dragqueen/");
     this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
 
-    for (let world = 1; world <= 3; world++) {
+    for (let world = 1; world <= 4; world++) {
       for (let spine = 1; spine <= 2; spine++) {
         this.load.setPath("assets/spine/world" + world + "/man" + spine + "/");
         this.load.spine(
