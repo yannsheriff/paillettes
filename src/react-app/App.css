@@ -24,7 +24,6 @@ body, .App  {
 
 #brille-cherie-logo {
   text-align: center;
-  
 }
 
 #brille-cherie-footer {
@@ -35,12 +34,24 @@ body, .App  {
   height: 15vh;
   max-height: 400px;
   text-align: center;
-  padding-top: 10px;
   background-image: url('../assets/introduction/overlay.png');
   background-size: cover;
   background-position: center center;
-  border: 2px solid blue;
   font-size: 25px;
   letter-spacing: 1px;
   color: #121212;
+  vertical-align: middle;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+#brille-cherie-footer p {
+  padding-top: 15px;
+}
+
+#brille-cherie-footer img {
+  width: 40px;
+  vertical-align: middle;
+  margin: 0 14px;
 }
