@@ -39,7 +39,8 @@ export default class MainStateManager extends State {
   private constructor() {
     super();
     this.state = initialState;
-    this.remainingWorlds = [Worlds.nineteenCentury, Worlds.today];
+
+    this.remainingWorlds = [Worlds.nineteenCentury, Worlds.today, Worlds.prehistory];
   }
 
   /**

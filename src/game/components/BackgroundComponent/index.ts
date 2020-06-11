@@ -13,11 +13,7 @@ class BackgroundManager {
   private canvasWidth: number = 0;
   private world: Worlds;
   private currentAsset: Array<number> = []
-  private numberAssets: Map<Worlds, number[]> = new Map([
-    [Worlds.middleAges, [ 6, 6, 6 ]], // 24 assets in World 1
-    [Worlds.today, [ 6, 6, 6 ]], // 24 assets in World 1
-    [Worlds.nineteenCentury, [ 6, 6, 6 ]] // 24 assets in World 1
-  ]);
+  private numberAssets: number = 6;
 
   // numberAssets.get(Worlds.middleAges)
   constructor(scene: Phaser.Scene) {
@@ -108,13 +104,11 @@ class BackgroundManager {
   public getRandomAsset(arrayNb: number) {
     let rand;
 
-    const worldAssets = this.numberAssets.get(this.world)![arrayNb]
-
     do {
-      rand = Math.floor(Math.random() * (worldAssets - 1) + 1);
+      rand = Math.floor(Math.random() * (this.numberAssets - 1) + 1);
 
       // handle bug and prevent for infite loop
-      if (worldAssets <= 1) {
+      if (this.numberAssets <= 1) {
         return rand;
       }
     } while (rand === this.currentAsset[arrayNb] || 0);

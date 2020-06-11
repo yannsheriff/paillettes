@@ -5,7 +5,7 @@ import BackgroundComponent from "../../../components/BackgroundComponent";
 import MainStateManager from "../../../states/main";
 
 import {
-  sol
+  ground
 } from "../../../assets";
 
 export class TestSceneBackground extends Phaser.Scene {
@@ -19,7 +19,7 @@ export class TestSceneBackground extends Phaser.Scene {
   }
 
   public preload(): void {
-    this.load.image("sol", sol);
+    this.load.image("ground", ground);
 
     this.load.setPath("assets/spritesheets/world1/");
     this.load.multiatlas('world1', 'world1_spritesheet.json');
@@ -29,6 +29,9 @@ export class TestSceneBackground extends Phaser.Scene {
     
     this.load.setPath("assets/spritesheets/world3/");
     this.load.multiatlas('world3', 'world3_spritesheet.json');
+
+    this.load.setPath("assets/spritesheets/world4/");
+    this.load.multiatlas('world4', 'world4_spritesheet.json');
   }
 
   public create() {
