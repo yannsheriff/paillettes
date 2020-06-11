@@ -67,10 +67,7 @@ class SheetMusic {
   private arrowUntilLetter: number;
   private freeInterval?: NodeJS.Timeout;
 
-  constructor(
-    scene: Phaser.Scene,
-    characterManager: CharacterManager,
-  ) {
+  constructor(scene: Phaser.Scene, characterManager: CharacterManager) {
     this.scene = scene;
     this.lastCall = 0;
     this.requestCount = 1;
@@ -83,7 +80,7 @@ class SheetMusic {
 
     // SHEET MUSIC SIZE AND POSITION
     this.posX = window.innerWidth / 2;
-    this.posY = window.innerHeight - (heightBetweenSheetHBar * this.scale);
+    this.posY = window.innerHeight - heightBetweenSheetHBar * this.scale;
     this.sheetWidth = window.innerWidth - this.posX;
     this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
 
@@ -163,8 +160,7 @@ class SheetMusic {
      */
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
-        console.log('launch game')
-        this.mainManager.launchGame()
+        this.mainManager.launchGame();
       }
       // this.throttleArrow({
       //   name: "E4",
@@ -180,9 +176,22 @@ class SheetMusic {
   };
 
   private initSheetMusic() {
-        this.isPlaying = true;
-        this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
-        this.player.start();
+    this.isPlaying = true;
+    this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
+    this.player.start();
+  }
+
+  private generateNbOfArrow() {
+    if (this.mainState.difficulty > DifficultyModes.easy) {
+      const chance = [false, false, false, false, false, true];
+      return chance[Math.floor(Math.random() * chance.length)] ? 2 : 1;
+    }
+    if (this.mainState.difficulty > DifficultyModes.medium) {
+      const chance = [false, true];
+      return chance[Math.floor(Math.random() * chance.length)] ? 2 : 1;
+    }
+
+    return 1;
   }
 
   /**
@@ -190,9 +199,8 @@ class SheetMusic {
    *
    * Cette fonction crée une flèche et l'ajoute a la scène.
    */
-  createArrow = (calls: number, note: NoteWithTrack) => {
-    let nbOfArrow =
-      this.mainState.difficulty !== DifficultyModes.easy ? calls : 1;
+  private createArrow = (calls: number, note: NoteWithTrack) => {
+    let nbOfArrow = this.generateNbOfArrow();
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
 
     directions.forEach((direction) => {
@@ -397,25 +405,24 @@ class SheetMusic {
     this.delayArrow(this.requestCount, note);
   };
 
-
   private onStateChange = (state: MainState) => {
     if (state.isGameLaunch !== this.mainState.isGameLaunch) {
-      this.initSheetMusic()
+      this.initSheetMusic();
     }
 
     if (state.difficulty !== this.mainState.difficulty) {
       switch (state.difficulty) {
         case DifficultyModes.easy:
-          this.throttleValue = 1000;
+          this.throttleValue = 1300;
           break;
         case DifficultyModes.medium:
-          this.throttleValue = 700;
+          this.throttleValue = 900;
           break;
         case DifficultyModes.hard:
-          this.throttleValue = 500;
+          this.throttleValue = 700;
           break;
         case DifficultyModes.hardcore:
-          this.throttleValue = 200;
+          this.throttleValue = 500;
           break;
       }
     }
