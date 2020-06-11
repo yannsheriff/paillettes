@@ -62,7 +62,7 @@ export default class AssetsManager {
     });
     this.spineCharacters.forEach((spine) => {
       this.scene.load.setPath(spine.path);
-      this.scene.load.multiatlas(spine.key, spine.key + ".json", spine.key + ".atlas");
+      this.scene.load.spine(spine.key, spine.key + ".json", spine.key + ".atlas");
     });
     this.spines.forEach((spine) => {
       this.scene.load.setPath(spine.path);
