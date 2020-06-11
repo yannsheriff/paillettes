@@ -1,2 +1,1 @@
-import Introduction from "./intro";
-export default Introduction;
+export { default } from "./intro";
