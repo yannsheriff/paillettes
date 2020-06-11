@@ -1,4 +1,5 @@
 import config from "./config";
+import { ConfettiManager } from "./confettiManager";
 
 export default class TestSceneBlob extends Phaser.Scene {
   constructor() {
@@ -15,5 +16,9 @@ export default class TestSceneBlob extends Phaser.Scene {
     ctx!.stroke();
     this.textures.addCanvas("circle", circle);
     const circleImage = this.add.image(200, 200, "circle");
+  }
+
+  update() {
+    // ConfettiManager.
   }
 }
