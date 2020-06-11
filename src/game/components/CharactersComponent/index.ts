@@ -3,6 +3,7 @@ import CharacterManager from "../../managers/CharacterManager";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
 import ScoreStateManager, { ScoreState } from "../../states/score";
 import Align from "../../helpers/Align/align"
+import GridObject from "../SheetMusicComponent/GridObject";
 
 const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
@@ -13,7 +14,6 @@ class PhysicCharacterManager {
   private scoreManager: ScoreStateManager;
   private colliderZone: Phaser.GameObjects.Rectangle;
   private colliders: Array<Phaser.Physics.Arcade.Collider> = [];
-  private overlapTrigger: boolean = false;
 
   public crowd: Array<PhysicCharacter>;
   public world: Worlds;
@@ -28,7 +28,7 @@ class PhysicCharacterManager {
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.subscribe(this.onMainStateChange);
     this.scoreManager = ScoreStateManager.getInstance()
-    this.scoreManager.subscribe(this.onScoreStateChange)
+    this.scoreManager.onSuccess(this.playAllDanseThenRun)
     this.mainState = this.mainManager.state;
     this.world = this.mainManager.state.world;
 
@@ -127,7 +127,14 @@ class PhysicCharacterManager {
     });
   }
 
-  public playAllDanseThenRun() {
+  // a reutiliser pour la Drag Queen
+  // this.scoreManager.onSuccess(this.test)
+  public test = (callback: GridObject) => {
+    console.log(callback.direction)
+    this.playAllDanseThenRun()
+  }
+
+  public playAllDanseThenRun = () => {
     let delay = 0.08;
     this.crowd.slice().reverse().forEach((character) => {
       character.playDanceThenRunAnimation(delay);
@@ -183,14 +190,6 @@ class PhysicCharacterManager {
       this.endWolrdTransition();
     }
     this.mainState = state;
-  };
-
-  // if score is updated then arrow is correct so play dance animation
-  private onScoreStateChange = (state: ScoreState) => {
-    if (state.score !== this.oldScore) {
-      this.oldScore = state.score
-      this.playAllDanseThenRun()
-    }
   };
 }
 
