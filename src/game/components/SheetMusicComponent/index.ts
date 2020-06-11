@@ -41,6 +41,7 @@ class SheetMusic {
   private scoreManager: ScoreState;
   private freestyleManager: FreestyleStateManager;
   private mainState: MainState;
+  private mainManager: MainStateManager;
   private freestyleState: FreestyleState;
   public isPlaying: boolean;
   private player: MusicPlayer | undefined;
@@ -93,7 +94,8 @@ class SheetMusic {
     this.freestyleManager = FreestyleStateManager.getInstance();
     this.freestyleState = FreestyleStateManager.getInstance().state;
     this.mainState = MainStateManager.getInstance().state;
-    MainStateManager.getInstance().subscribe(this.onStateChange);
+    this.mainManager = MainStateManager.getInstance();
+    this.mainManager.subscribe(this.onStateChange);
     this.freestyleManager.subscribe(this.onFreeStateChange);
     this.scoreManager.onFail(this.failedArrow);
     this.scoreManager.onSuccess(this.successArrow);
@@ -161,9 +163,8 @@ class SheetMusic {
      */
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
-        this.isPlaying = true;
-        this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
-        this.player.start();
+        console.log('launch game')
+        this.mainManager.launchGame()
       }
       // this.throttleArrow({
       //   name: "E4",
@@ -178,40 +179,11 @@ class SheetMusic {
     });
   };
 
-  private onStateChange = (state: MainState) => {
-    this.mainState = state;
-    switch (state.difficulty) {
-      case DifficultyModes.easy:
-        this.throttleValue = 1000;
-        break;
-      case DifficultyModes.medium:
-        this.throttleValue = 700;
-        break;
-      case DifficultyModes.hard:
-        this.throttleValue = 500;
-        break;
-      case DifficultyModes.hardcore:
-        this.throttleValue = 200;
-        break;
-    }
-  };
-
-  private onFreeStateChange = (state: FreestyleState) => {
-    if (
-      this.freestyleState.isFreestyleActivated !== state.isFreestyleActivated
-    ) {
-      if (state.isFreestyleActivated) {
-        this.freeInterval = setInterval(() => {
-          this.createFreeArrowColumn();
-        }, 500);
-
-        setTimeout(() => {
-          clearInterval(this.freeInterval!);
-        }, state.freestyleDuration - Math.round((this.sheetWidth / this.arrowSpeed) * 1000));
-      }
-    }
-    this.freestyleState = state;
-  };
+  private initSheetMusic() {
+        this.isPlaying = true;
+        this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
+        this.player.start();
+  }
 
   /**
    * Create an arrow
@@ -423,6 +395,48 @@ class SheetMusic {
     this.called = true;
 
     this.delayArrow(this.requestCount, note);
+  };
+
+
+  private onStateChange = (state: MainState) => {
+    if (state.isGameLaunch !== this.mainState.isGameLaunch) {
+      this.initSheetMusic()
+    }
+
+    if (state.difficulty !== this.mainState.difficulty) {
+      switch (state.difficulty) {
+        case DifficultyModes.easy:
+          this.throttleValue = 1000;
+          break;
+        case DifficultyModes.medium:
+          this.throttleValue = 700;
+          break;
+        case DifficultyModes.hard:
+          this.throttleValue = 500;
+          break;
+        case DifficultyModes.hardcore:
+          this.throttleValue = 200;
+          break;
+      }
+    }
+    this.mainState = state;
+  };
+
+  private onFreeStateChange = (state: FreestyleState) => {
+    if (
+      this.freestyleState.isFreestyleActivated !== state.isFreestyleActivated
+    ) {
+      if (state.isFreestyleActivated) {
+        this.freeInterval = setInterval(() => {
+          this.createFreeArrowColumn();
+        }, 500);
+
+        setTimeout(() => {
+          clearInterval(this.freeInterval!);
+        }, state.freestyleDuration - Math.round((this.sheetWidth / this.arrowSpeed) * 1000));
+      }
+    }
+    this.freestyleState = state;
   };
 }
 

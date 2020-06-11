@@ -10,7 +10,7 @@ import AnimationManager from "../../helpers/Animations";
 import AssetsManager from "../../helpers/Assets";
 import { mainAnimations } from "../../assets/animations";
 import { mainImages, mainSpritesheets, mainSpines } from "../../assets/assets";
-import DragQueen from "../../components/DragQueenComponent";
+import DragQueenComponent from "../../components/DragQueenComponent";
 import MainGameManager from "../../managers/MainGameManager";
 
 export class GameScene extends Phaser.Scene {
@@ -20,7 +20,6 @@ export class GameScene extends Phaser.Scene {
   private ground?: GroundComponent;
   private animationManager: AnimationManager;
   private assetsManager: AssetsManager;
-  private dragQueen?: DragQueen;
   public isDebug?: boolean = false;
 
   constructor() {
@@ -43,12 +42,7 @@ export class GameScene extends Phaser.Scene {
     new CharactersComponent(this);
     this.ground = new GroundComponent(this);
     new SheetMusicComponent(this, this.CharacterManager);
-    this.dragQueen = new DragQueen(
-      this,
-      "dragqueen",
-      "Run",
-      true
-    );
+    new DragQueenComponent(this);
 
     // @ts-ignore
     this.isDebug = this.game.config.physics.arcade.debug;

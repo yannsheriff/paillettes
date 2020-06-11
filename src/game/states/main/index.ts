@@ -18,6 +18,8 @@ export interface MainState {
   world: Worlds;
   isInTransition: boolean;
   didChangeWorld: boolean;
+  isGameLaunch: boolean;
+  isGameOver: boolean;
 }
 
 const initialState = {
@@ -25,6 +27,8 @@ const initialState = {
   world: Worlds.middleAges,
   didChangeWorld: false,
   isInTransition: false,
+  isGameLaunch: false,
+  isGameOver: false
 };
 
 export default class MainStateManager extends State {
@@ -60,6 +64,12 @@ export default class MainStateManager extends State {
    * Finally, any singleton should define some business logic, which can be
    * executed on its instance.
    */
+  public launchGame() {
+    this.setState({
+      isGameLaunch: true
+    })
+  }
+
   public incrementDifficulty() {
     const { difficulty } = this.state;
     this.setState({ difficulty: difficulty > 2 ? 3 : difficulty + 1 });

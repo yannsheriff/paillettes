@@ -1,7 +1,7 @@
 import config from "./config";
 import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
 import { button } from "../../../assets";
-import DragQueen from "../../../components/DragQueenComponent";
+import DragQueen from "../../../components/DragQueenComponent/DragQueen";
 
 export class TestSceneSpine extends Phaser.Scene {
   private dragQueen: Array<DragQueen> = [];

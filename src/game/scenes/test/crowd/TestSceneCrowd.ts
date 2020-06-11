@@ -1,6 +1,6 @@
 import config from "./config";
 import CharactersComponent from "../../../components/CharactersComponent";
-import DragQueen from "../../../components/DragQueenComponent";
+import DragQueen from "../../../components/DragQueenComponent/DragQueen";
 
 export class TestSceneCrowd extends Phaser.Scene {
   public PhysicCharacterManager?: CharactersComponent;

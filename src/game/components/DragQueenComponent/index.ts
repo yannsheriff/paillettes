@@ -1,34 +1,36 @@
-import SpineContainer from "../../helpers/SpineContainer/SpineContainer";
-import Align from "../../helpers/Align/align";
+import DragQueen from "./DragQueen";
+import ScoreStateManager from "../../states/score";
+import GridObject from "../SheetMusicComponent/GridObject";
 
-class DragQueen extends SpineContainer {
-  // public SpineContainer: ISpineContainer;
+class DragQueenManager {
+    private scene: Phaser.Scene;
+    private dragQueen?: DragQueen;
+    private scoreManager: ScoreStateManager;
 
-  constructor(
-    scene: Phaser.Scene,
-    key: string,
-    anim: string,
-    loop?: boolean
-  ) {
-    super(scene, 0, 0, key, anim, loop);
+    constructor(scene: Phaser.Scene) {
+      this.scene = scene;
+      this.scoreManager = ScoreStateManager.getInstance()
+      this.scoreManager.onSuccess(this.danseDragQueen)
 
-    Align.dragPosition(this, this.spine, this.scale);
-    Align.charactersOnGround(this, this.spine, this.scale)
-    scene.add.existing(this)
+      this.create();
+    }
+  
+    private create() {
+      this.dragQueen = new DragQueen(
+        this.scene,
+        "dragqueen",
+        "Run",
+        true
+      );
+    }
 
-    this.setScale(0.8); // asset size
-    this.drawDebug(true)
-    // this.allowCollideWorldBounds(true)
+    public danseDragQueen = (callback: GridObject) => {
+      // switch callback.direction
+    }
 
-    this.setDepth(15);
-    this.drawDebug(false);
-
-    // this.runVelocity(50)
+  
+  
   }
-
-  // public launch() {
-  //   this.SpineContainer.spineBody.setVelocityX(50)
-  // }
-}
-
-export default DragQueen;
+  
+  export default DragQueenManager;
+  

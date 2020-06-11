@@ -1,7 +1,7 @@
 import PhysicCharacter from "./CharacterBis";
 import CharacterManager from "../../managers/CharacterManager";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
-import ScoreStateManager, { ScoreState } from "../../states/score";
+import ScoreStateManager from "../../states/score";
 import Align from "../../helpers/Align/align"
 import GridObject from "../SheetMusicComponent/GridObject";
 
@@ -125,13 +125,6 @@ class PhysicCharacterManager {
     this.crowd.forEach((character) => {
       character.playDanceAnimation();
     });
-  }
-
-  // a reutiliser pour la Drag Queen
-  // this.scoreManager.onSuccess(this.test)
-  public test = (callback: GridObject) => {
-    console.log(callback.direction)
-    this.playAllDanseThenRun()
   }
 
   public playAllDanseThenRun = () => {
