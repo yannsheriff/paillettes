@@ -1,7 +1,12 @@
 import config from "./config";
-import { ConfettiManager } from "./confettiManager";
+import { ConfettiGenerator } from "./confettiManager";
 
 export default class TestSceneBlob extends Phaser.Scene {
+  confettiManager?: ConfettiGenerator;
+  canvas?: HTMLCanvasElement;
+  context?: CanvasRenderingContext2D;
+  texture?: Phaser.Textures.CanvasTexture;
+
   constructor() {
     super(config);
   }
@@ -9,16 +14,26 @@ export default class TestSceneBlob extends Phaser.Scene {
   public preload(): void {}
 
   public create() {
-    const circle = document.createElement("canvas");
-    const ctx = circle.getContext("2d");
-    ctx!.beginPath();
-    ctx!.arc(100, 75, 50, 0, 2 * Math.PI);
-    ctx!.stroke();
-    this.textures.addCanvas("circle", circle);
-    const circleImage = this.add.image(200, 200, "circle");
+    this.texture = this.textures.createCanvas(
+      "canvas",
+      window.innerWidth,
+      window.innerHeight
+    );
+    this.canvas = this.texture.getCanvas();
+    this.context = this.texture.getContext();
+    this.confettiManager = new ConfettiGenerator(this.canvas, this.context);
+    this.confettiManager.startConfetti();
+    this.textures.addCanvas("canvas", this.canvas);
+
+    const circleImage = this.add.image(
+      window.innerWidth / 2,
+      window.innerHeight / 2,
+      "canvas"
+    );
   }
 
   update() {
-    // ConfettiManager.
+    this.confettiManager!.runAnimation();
+    this.texture!.refresh();
   }
 }

@@ -1,6 +1,6 @@
-export class ConfettiManager {
+export class ConfettiGenerator {
   // supportsAnimationFrame: number;
-  context?: CanvasRenderingContext2D;
+  context: CanvasRenderingContext2D;
   canvas: HTMLCanvasElement;
   particles: Particle[];
   alpha: number;
@@ -15,8 +15,9 @@ export class ConfettiManager {
   gradient: boolean; //whether to use gradients for the confetti particles
   pause: boolean; //call to freeze confetti animation
 
-  constructor() {
-    this.canvas = document.createElement("canvas");
+  constructor(canvas?: HTMLCanvasElement, context?: CanvasRenderingContext2D) {
+    this.canvas = canvas ? canvas : document.createElement("canvas");
+    this.context = context ? context : this.canvas.getContext("2d")!;
     this.particles = [];
     this.waveAngle = 0;
     this.animationTimer = null;
@@ -79,13 +80,12 @@ export class ConfettiManager {
     this.canvas.height = height;
     window.addEventListener(
       "resize",
-      function () {
+      () => {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
       },
       true
     );
-    this.context = this.canvas.getContext("2d")!;
     var count = this.maxCount;
 
     if (min) {
