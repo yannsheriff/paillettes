@@ -67,10 +67,7 @@ class SheetMusic {
   private arrowUntilLetter: number;
   private freeInterval?: NodeJS.Timeout;
 
-  constructor(
-    scene: Phaser.Scene,
-    characterManager: CharacterManager,
-  ) {
+  constructor(scene: Phaser.Scene, characterManager: CharacterManager) {
     this.scene = scene;
     this.lastCall = 0;
     this.requestCount = 1;
@@ -83,7 +80,7 @@ class SheetMusic {
 
     // SHEET MUSIC SIZE AND POSITION
     this.posX = window.innerWidth / 2;
-    this.posY = window.innerHeight - (heightBetweenSheetHBar * this.scale);
+    this.posY = window.innerHeight - heightBetweenSheetHBar * this.scale;
     this.sheetWidth = window.innerWidth - this.posX;
     this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
 
@@ -122,23 +119,23 @@ class SheetMusic {
    * scene, elle initialise également l'event listener des notes.
    */
   create = () => {
-    new Grid(this.scene, this.posX, this.posY, this.scale);
+    // new Grid(this.scene, this.posX, this.posY, this.scale);
 
-    new FreeLights(
-      this.scene,
-      this.posX - 210,
-      this.posY + 30,
-      this.inputZoneWidth,
-      this.scale
-    );
+    // new FreeLights(
+    //   this.scene,
+    //   this.posX - 210,
+    //   this.posY + 30,
+    //   this.inputZoneWidth,
+    //   this.scale
+    // );
 
-    new GodMother(this.scene, this.scale);
+    // new GodMother(this.scene, this.scale);
 
-    new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
+    // new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
 
-    new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
+    // new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
 
-    new Subtitle(this.scene);
+    // new Subtitle(this.scene);
 
     const collider = new InputZone(
       this.scene,
@@ -163,26 +160,26 @@ class SheetMusic {
      */
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
-        console.log('launch game')
-        this.mainManager.launchGame()
+        console.log("launch game");
+        // this.mainManager.launchGame();
       }
-      // this.throttleArrow({
-      //   name: "E4",
-      //   duration: 3,
-      //   durationTicks: 3,
-      //   track: 1,
-      //   velocity: 1,
-      //   ticks: 1,
-      //   time: 1,
-      //   midi: 1,
-      // });
+      this.createArrow(2, {
+        name: "E4",
+        duration: 3,
+        durationTicks: 3,
+        track: 1,
+        velocity: 1,
+        ticks: 1,
+        time: 1,
+        midi: 1,
+      });
     });
   };
 
   private initSheetMusic() {
-        this.isPlaying = true;
-        this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
-        this.player.start();
+    this.isPlaying = true;
+    this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
+    this.player.start();
   }
 
   /**
@@ -193,7 +190,9 @@ class SheetMusic {
   createArrow = (calls: number, note: NoteWithTrack) => {
     let nbOfArrow =
       this.mainState.difficulty !== DifficultyModes.easy ? calls : 1;
+
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
+    this.characterManager.generateNewCharacter(nbOfArrow);
 
     directions.forEach((direction) => {
       const gridObject = this.generateGridObject(direction);
@@ -306,6 +305,7 @@ class SheetMusic {
     }
 
     const { ID } = this.characterManager.getArrowID();
+
     if (
       this.arrowUntilLetter < 1 &&
       directionMatchRemaingLetters(
@@ -367,7 +367,7 @@ class SheetMusic {
       return [directionTable[direction], directionTable[randomNoteDirection]];
     }
 
-    return ["right"];
+    return quantity === 1 ? ["right"] : ["right", "left"];
   };
 
   /**
@@ -397,10 +397,9 @@ class SheetMusic {
     this.delayArrow(this.requestCount, note);
   };
 
-
   private onStateChange = (state: MainState) => {
     if (state.isGameLaunch !== this.mainState.isGameLaunch) {
-      this.initSheetMusic()
+      this.initSheetMusic();
     }
 
     if (state.difficulty !== this.mainState.difficulty) {
