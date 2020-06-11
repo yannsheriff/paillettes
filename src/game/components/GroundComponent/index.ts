@@ -34,7 +34,7 @@ class Ground {
         .image(
           this.circleCenter.x + this.circleRadius * Math.cos(radiants),
           this.circleCenter.y + this.circleRadius * Math.sin(radiants),
-          "sol"
+          "ground"
         )
         .setDepth(10)
         .setAngle(groundAngle + 90);

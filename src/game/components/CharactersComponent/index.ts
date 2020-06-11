@@ -1,20 +1,16 @@
 import PhysicCharacter from "./CharacterBis";
 import CharacterManager from "../../managers/CharacterManager";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
+import ScoreStateManager, { ScoreState } from "../../states/score";
 import Align from "../../helpers/Align/align"
 
-const characters = [
-  "world__man_1", // world_1_man_1
-  "world__man_2",
-  "world__woman_1",
-  "world__woman_2"
-];
 const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
 class PhysicCharacterManager {
   private scene: Phaser.Scene;
   private mainState: MainState;
   private mainManager: MainStateManager;
+  private scoreManager: ScoreStateManager;
   private colliderZone: Phaser.GameObjects.Rectangle;
   private colliders: Array<Phaser.Physics.Arcade.Collider> = [];
   private overlapTrigger: boolean = false;
@@ -24,12 +20,15 @@ class PhysicCharacterManager {
   private charactersBW: Map<string, PhysicCharacter> = new Map();
   public testX: number = 0;
   public nextUnlocked: string = ''
+  public oldScore: number = 0;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.crowd = [];
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.subscribe(this.onMainStateChange);
+    this.scoreManager = ScoreStateManager.getInstance()
+    this.scoreManager.subscribe(this.onScoreStateChange)
     this.mainState = this.mainManager.state;
     this.world = this.mainManager.state.world;
 
@@ -122,7 +121,7 @@ class PhysicCharacterManager {
     });
   }
 
-  public playDanseThenRun() {
+  public playAllDanseThenRun() {
     let delay = 0.08;
     this.crowd.slice().reverse().forEach((character) => {
       character.playDanceThenRunAnimation(delay);
@@ -171,15 +170,21 @@ class PhysicCharacterManager {
     if (state.world !== this.mainState.world) {
       this.startWorldTransition(state.world);
     }
-
     if (
       state.isInTransition !== this.mainState.isInTransition &&
       !state.isInTransition
     ) {
       this.endWolrdTransition();
     }
-
     this.mainState = state;
+  };
+
+  // if score is updated then arrow is correct so play dance animation
+  private onScoreStateChange = (state: ScoreState) => {
+    if (state.score !== this.oldScore) {
+      this.oldScore = state.score
+      this.playAllDanseThenRun()
+    }
   };
 }
 

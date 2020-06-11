@@ -77,7 +77,7 @@ export class TestSceneCrowd extends Phaser.Scene {
       .text(50, 170, "Les faire danser puis défiler", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
-        this.PhysicCharacterManager?.playDanseThenRun();
+        this.PhysicCharacterManager?.playAllDanseThenRun();
       });
   }
   public update() {}

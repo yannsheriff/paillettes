@@ -1,111 +1,139 @@
 
 world_4_woman_2.png
-size: 1677,265
+size: 911,539
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 BACK ARM
   rotate: true
-  xy: 1396, 57
-  size: 40, 128
-  orig: 42, 137
-  offset: 1, 8
+  xy: 422, 394
+  size: 50, 101
+  orig: 52, 103
+  offset: 1, 1
   index: -1
 BACK FEET
   rotate: false
-  xy: 1174, 22
-  size: 109, 241
-  orig: 111, 243
+  xy: 583, 193
+  size: 93, 103
+  orig: 95, 105
   offset: 1, 1
   index: -1
 BACK FOREARM
-  rotate: false
-  xy: 1637, 112
-  size: 35, 93
-  orig: 37, 95
+  rotate: true
+  xy: 702, 68
+  size: 91, 83
+  orig: 93, 85
   offset: 1, 1
   index: -1
 BACK HAND
-  rotate: true
-  xy: 1526, 3
-  size: 48, 80
-  orig: 51, 82
-  offset: 2, 1
-  index: -1
-BACK UP LEG
   rotate: false
-  xy: 1502, 100
-  size: 48, 105
-  orig: 50, 109
+  xy: 422, 343
+  size: 43, 49
+  orig: 45, 51
   offset: 1, 1
+  index: -1
+Color1/BALLON 1
+  rotate: true
+  xy: 371, 61
+  size: 116, 329
+  orig: 116, 329
+  offset: 0, 0
+  index: -1
+Color1/BALLON 2
+  rotate: true
+  xy: 215, 179
+  size: 116, 366
+  orig: 116, 367
+  offset: 0, 1
   index: -1
 Color1/TORSO
   rotate: false
-  xy: 591, 12
-  size: 291, 251
-  orig: 294, 253
-  offset: 2, 1
+  xy: 583, 298
+  size: 204, 239
+  orig: 206, 254
+  offset: 1, 1
+  index: -1
+Color2/BALLON 1
+  rotate: false
+  xy: 790, 217
+  size: 119, 320
+  orig: 119, 320
+  offset: 0, 0
+  index: -1
+Color2/BALLON 2
+  rotate: true
+  xy: 2, 27
+  size: 119, 367
+  orig: 119, 367
+  offset: 0, 0
   index: -1
 Color2/TORSO
   rotate: false
-  xy: 884, 14
-  size: 288, 249
-  orig: 291, 251
-  offset: 2, 1
+  xy: 215, 297
+  size: 205, 240
+  orig: 207, 256
+  offset: 1, 1
   index: -1
 FRONT ARM
-  rotate: true
-  xy: 1396, 15
-  size: 40, 128
-  orig: 42, 137
-  offset: 1, 8
+  rotate: false
+  xy: 525, 329
+  size: 49, 101
+  orig: 51, 103
+  offset: 1, 1
   index: -1
 FRONT FEET
-  rotate: false
-  xy: 1285, 22
-  size: 109, 241
-  orig: 111, 244
-  offset: 1, 2
+  rotate: true
+  xy: 422, 446
+  size: 91, 103
+  orig: 93, 105
+  offset: 1, 1
   index: -1
 FRONT FOREARM
   rotate: false
-  xy: 1637, 17
-  size: 35, 93
-  orig: 37, 95
-  offset: 1, 1
+  xy: 527, 432
+  size: 50, 105
+  orig: 53, 107
+  offset: 2, 1
   index: -1
 FRONT HAND
   rotate: true
-  xy: 1552, 157
-  size: 48, 80
-  orig: 51, 83
-  offset: 1, 1
-  index: -1
-FRONT UP LEG
-  rotate: true
-  xy: 1526, 53
-  size: 45, 109
-  orig: 47, 111
+  xy: 790, 4
+  size: 69, 92
+  orig: 71, 94
   offset: 1, 1
   index: -1
 HEAD
   rotate: true
-  xy: 1396, 99
-  size: 106, 104
-  orig: 108, 107
+  xy: 790, 75
+  size: 140, 103
+  orig: 142, 105
   offset: 1, 1
   index: -1
 NB
-  rotate: true
-  xy: 2, 2
-  size: 261, 587
-  orig: 263, 589
+  rotate: false
+  xy: 2, 148
+  size: 211, 389
+  orig: 213, 391
   offset: 1, 1
   index: -1
 SHADOW NB
   rotate: false
-  xy: 1396, 207
+  xy: 371, 3
   size: 279, 56
   orig: 282, 60
   offset: 2, 1
+  index: -1
+UP BACK LEG
+  rotate: true
+  xy: 652, 2
+  size: 57, 136
+  orig: 60, 138
+  offset: 1, 1
+  index: -1
+UP FRONT LEG
+  rotate: false
+  xy: 702, 161
+  size: 57, 135
+  orig: 60, 138
+  offset: 1, 2
   index: -1

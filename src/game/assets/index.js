@@ -11,7 +11,6 @@ export { default as chrono } from "./UI/chrono.svg";
 export { default as GodMotherIn } from "./animations/god_mother_in.png";
 export { default as GodMotherLoop } from "./animations/god_mother_loop.png";
 
-// Arrow
 // ARROW
 export { default as arrowL } from "./arrows/left.png";
 export { default as arrowR } from "./arrows/right.png";
@@ -34,7 +33,7 @@ export { default as left } from "./Interaction/left.png";
 export { default as right } from "./Interaction/right.png";
 
 // LANDSCAPE
-export { default as sol } from "./ground/sol.png";
+export { default as ground } from "./ground/sol.png";
 
 // INDICATIONS
 export { default as good } from "./indications/GOOD.png";

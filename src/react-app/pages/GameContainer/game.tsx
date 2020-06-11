@@ -28,7 +28,7 @@ export default class Game extends React.Component<any> {
     stepEventEmitter.on(
       StepEventType.stepup,
       (...directions: Array<string>) => {
-        console.log("realased : ", ...directions);
+        // console.log("realased : ", ...directions);
       }
     );
   }
