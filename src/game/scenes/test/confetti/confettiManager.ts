@@ -14,8 +14,13 @@ export class ConfettiGenerator {
   frameInterval: number; //the confetti animation frame interval in milliseconds
   gradient: boolean; //whether to use gradients for the confetti particles
   pause: boolean; //call to freeze confetti animation
+  autoAnimate: boolean;
 
-  constructor(canvas?: HTMLCanvasElement, context?: CanvasRenderingContext2D) {
+  constructor(
+    canvas?: HTMLCanvasElement,
+    context?: CanvasRenderingContext2D,
+    autoAnimate: boolean = true // if false you need to call runAnimation manualy
+  ) {
     this.canvas = canvas ? canvas : document.createElement("canvas");
     this.context = context ? context : this.canvas.getContext("2d")!;
     this.particles = [];
@@ -29,6 +34,7 @@ export class ConfettiGenerator {
     this.alpha = 1.0; //the alpha opacity of the confetti (between 0 and 1; where 1 is opaque and 0 is invisible)
     this.gradient = false; //whether to use gradients for the confetti particles
     this.pause = false; //call to freeze confetti animation
+    this.autoAnimate = autoAnimate;
   }
 
   toggleConfettiPause() {
@@ -62,7 +68,9 @@ export class ConfettiGenerator {
       this.updateParticles();
       this.drawParticles(this.context);
       this.lastFrameTime = now - (delta % this.frameInterval);
-      // this.animationTimer = requestAnimationFrame(this.runAnimation);
+      if (this.autoAnimate) {
+        this.animationTimer = requestAnimationFrame(this.runAnimation);
+      }
     }
   };
 
@@ -70,12 +78,6 @@ export class ConfettiGenerator {
     var width = window.innerWidth;
     var height = window.innerHeight;
 
-    this.canvas.setAttribute("id", "confetti-canvas");
-    this.canvas.setAttribute(
-      "style",
-      "display:block;z-index:999999;pointer-events:none;position:fixed;top:0"
-    );
-    // document.body.prepend(this.canvas);
     this.canvas.width = width;
     this.canvas.height = height;
     window.addEventListener(
@@ -182,18 +184,20 @@ export class ConfettiGenerator {
 
 class Particle {
   colors = [
-    "rgba(30,144,255,",
-    "rgba(107,142,35,",
-    "rgba(255,215,0,",
-    "rgba(255,192,203,",
-    "rgba(106,90,205,",
-    "rgba(173,216,230,",
-    "rgba(238,130,238,",
-    "rgba(152,251,152,",
-    "rgba(70,130,180,",
-    "rgba(244,164,96,",
-    "rgba(210,105,30,",
-    "rgba(220,20,60,",
+    // "rgba(30,144,255,",
+    // "rgba(107,142,35,",
+    // "rgba(255,215,0,",
+    // "rgba(255,192,203,",
+    // "rgba(106,90,205,",
+    // "rgba(173,216,230,",
+    // "rgba(238,130,238,",
+    // "rgba(152,251,152,",
+    // "rgba(70,130,180,",
+    // "rgba(244,164,96,",
+    // "rgba(210,105,30,",
+    // "rgba(220,20,60,",
+    "rgba(93, 37, 218,",
+    "rgba(255, 0, 125,",
   ];
 
   color: string;

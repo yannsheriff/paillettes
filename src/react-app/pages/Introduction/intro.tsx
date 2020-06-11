@@ -4,6 +4,7 @@ import stepEventEmitter from "../../../game/helpers/StepEventEmitter";
 import { StepEventType } from "../../../game/helpers/StepEventEmitter/gamepadListener";
 import { arrowL, arrowR } from "../../../game/assets/";
 import MainStateManager from "../../../game/states/main";
+import { ConfettiGenerator } from "../../../game/scenes/test/confetti/confettiManager";
 
 interface state {
   isLeftPressed: boolean;
@@ -59,9 +60,13 @@ export default class Game extends Component<{}, state> {
       });
     });
 
-    // setTimeout(() => {
-    //   const canvas = document.getElementById("paillettes");
-    // }, 500);
+    setTimeout(() => {
+      const canvas = document.getElementById("paillettes");
+      if (canvas && canvas instanceof HTMLCanvasElement) {
+        const confetti = new ConfettiGenerator(canvas);
+        confetti.startConfetti(undefined, undefined, 40);
+      }
+    }, 500);
   }
 
   triggerTimeout() {
