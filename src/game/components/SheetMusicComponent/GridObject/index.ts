@@ -19,9 +19,9 @@ class GridObject extends Phaser.Physics.Arcade.Sprite {
   ) {
     const row = {
       up: y,
-      down: y + (height / 3) * 1,
-      left: y + (height / 3) * 2,
-      right: y + (height / 3) * 3,
+      left: y + (height / 3) * 1,
+      right: y + (height / 3) * 2,
+      down: y + (height / 3) * 3,
     };
     y = row[direction];
 

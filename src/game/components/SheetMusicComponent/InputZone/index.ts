@@ -39,19 +39,10 @@ class InputZone {
     this.inputs = new Map([
       ["up", { name: "up", y: y, sprite: undefined, state: false }],
       [
-        "down",
-        {
-          name: "down",
-          y: y + (height / 3) * 1,
-          sprite: undefined,
-          state: false,
-        },
-      ],
-      [
         "left",
         {
           name: "left",
-          y: y + (height / 3) * 2,
+          y: y + (height / 3) * 1,
           sprite: undefined,
           state: false,
         },
@@ -60,6 +51,15 @@ class InputZone {
         "right",
         {
           name: "right",
+          y: y + (height / 3) * 2,
+          sprite: undefined,
+          state: false,
+        },
+      ],
+      [
+        "down",
+        {
+          name: "down",
           y: y + (height / 3) * 3,
           sprite: undefined,
           state: false,
