@@ -55,7 +55,7 @@ export default class FreestyleStateManager extends State {
   };
 
   public failLetter = () => {
-    this.setState({ remainingLetters: initialState.remainingLetters });
+    // this.setState({ remainingLetters: initialState.remainingLetters });
   };
 
   public activateFreeMode = () => {
