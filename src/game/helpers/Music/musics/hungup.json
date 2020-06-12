@@ -2602,7 +2602,8 @@
         "timeSignature": [4, 4],
         "measures": 0
       }
-    ]
+    ],
+    "bc-delay-sync": 5250
   },
   "tracks": [
     {

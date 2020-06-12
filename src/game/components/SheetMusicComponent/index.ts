@@ -9,7 +9,7 @@ import Score from "./Score";
 import MainStateManager, { MainState } from "../../states/main";
 import { DifficultyModes } from "../../states/main";
 import Subtitle from "./Subtitle";
-import { Musics } from "../../helpers/Music/musics";
+import muscisFile, { Musics } from "../../helpers/Music/musics";
 import { Direction } from "./GridObject";
 import Letter, { directionMatchRemaingLetters } from "./Letter";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
@@ -121,21 +121,21 @@ class SheetMusic {
   create = () => {
     new Grid(this.scene, this.posX, this.posY, this.scale);
 
-    new FreeLights(
-      this.scene,
-      this.posX - 210,
-      this.posY + 30,
-      this.inputZoneWidth,
-      this.scale
-    );
+    // new FreeLights(
+    //   this.scene,
+    //   this.posX - 210,
+    //   this.posY + 30,
+    //   this.inputZoneWidth,
+    //   this.scale
+    // );
 
-    new GodMother(this.scene, this.scale);
+    // new GodMother(this.scene, this.scale);
 
-    new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
+    // new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
 
-    new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
+    // new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
 
-    new Subtitle(this.scene);
+    // new Subtitle(this.scene);
 
     const collider = new InputZone(
       this.scene,
@@ -176,9 +176,15 @@ class SheetMusic {
   };
 
   private initSheetMusic() {
+    const music = Musics.hungup;
     this.isPlaying = true;
-    this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
+    this.player = new MusicPlayer(music, this.arrowEmitter);
     this.player.start();
+    const time = muscisFile.get(music)["header"]["bc-delay-sync"];
+    console.log("SheetMusic -> initSheetMusic -> time", time);
+    setTimeout(() => {
+      this.scene.sound.play("hungup");
+    }, time);
   }
 
   private generateNbOfArrow() {
