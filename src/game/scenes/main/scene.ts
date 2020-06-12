@@ -9,7 +9,12 @@ import ScoreState from "../../states/score";
 import AnimationManager from "../../helpers/Animations";
 import AssetsManager from "../../helpers/Assets";
 import { mainAnimations } from "../../assets/animations";
-import { mainImages, mainSpritesheets, mainSpines } from "../../assets/assets";
+import {
+  mainImages,
+  mainSpritesheets,
+  mainSpines,
+  mainMusic,
+} from "../../assets/assets";
 import DragQueenComponent from "../../components/DragQueenComponent";
 import MainGameManager from "../../managers/MainGameManager";
 
@@ -31,7 +36,8 @@ export class GameScene extends Phaser.Scene {
       this,
       mainImages,
       mainSpritesheets,
-      mainSpines
+      mainSpines,
+      mainMusic
     );
     MainGameManager.getInstance();
   }

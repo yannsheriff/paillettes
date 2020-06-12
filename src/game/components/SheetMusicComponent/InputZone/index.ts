@@ -11,6 +11,8 @@ interface input {
   state: boolean;
 }
 
+export const inputZoneAssetWidth = 200;
+
 class InputZone {
   public collider: Phaser.GameObjects.Rectangle;
   private inputs: Map<Direction, input>;
@@ -76,7 +78,11 @@ class InputZone {
   create() {
     this.inputs.forEach((input: input) => {
       input.sprite = this.scene.add
-        .sprite(this.posX, input.y, input.name + "-off")
+        .sprite(
+          this.posX - inputZoneAssetWidth / 2,
+          input.y,
+          input.name + "-off"
+        )
         .setDepth(12)
         .setScale(this.scale);
     });

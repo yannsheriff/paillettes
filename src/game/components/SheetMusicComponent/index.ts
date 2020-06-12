@@ -9,7 +9,7 @@ import Score from "./Score";
 import MainStateManager, { MainState } from "../../states/main";
 import { DifficultyModes } from "../../states/main";
 import Subtitle from "./Subtitle";
-import { Musics } from "../../helpers/Music/musics";
+import muscisFile, { Musics } from "../../helpers/Music/musics";
 import { Direction } from "./GridObject";
 import Letter, { directionMatchRemaingLetters } from "./Letter";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
@@ -79,7 +79,7 @@ class SheetMusic {
     this.gridObjects = [];
 
     // SHEET MUSIC SIZE AND POSITION
-    this.posX = window.innerWidth / 2;
+    this.posX = window.innerWidth / 2 + 150;
     this.posY = window.innerHeight - heightBetweenSheetHBar * this.scale;
     this.sheetWidth = window.innerWidth - this.posX;
     this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
@@ -123,7 +123,7 @@ class SheetMusic {
 
     new FreeLights(
       this.scene,
-      this.posX - 210,
+      this.posX - 310,
       this.posY + 30,
       this.inputZoneWidth,
       this.scale
@@ -131,9 +131,9 @@ class SheetMusic {
 
     new GodMother(this.scene, this.scale);
 
-    new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
+    new Chrono(this.scene, this.posX - 80, this.posY + 80, this.scale);
 
-    new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
+    new Score(this.scene, this.posX - 300, this.posY - 70, this.scale);
 
     new Subtitle(this.scene);
 
@@ -176,9 +176,14 @@ class SheetMusic {
   };
 
   private initSheetMusic() {
+    const music = Musics.hungup;
     this.isPlaying = true;
-    this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
+    this.player = new MusicPlayer(music, this.arrowEmitter);
     this.player.start();
+    const time = muscisFile.get(music)["header"]["bc-delay-sync"];
+    setTimeout(() => {
+      this.scene.sound.play("hungup");
+    }, time);
   }
 
   private generateNbOfArrow() {
@@ -415,10 +420,10 @@ class SheetMusic {
     if (state.difficulty !== this.mainState.difficulty) {
       switch (state.difficulty) {
         case DifficultyModes.easy:
-          this.throttleValue = 1300;
+          this.throttleValue = 1000;
           break;
         case DifficultyModes.medium:
-          this.throttleValue = 900;
+          this.throttleValue = 800;
           break;
         case DifficultyModes.hard:
           this.throttleValue = 700;
