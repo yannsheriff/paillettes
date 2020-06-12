@@ -1,5 +1,6 @@
 import Align from "../../../helpers/Align/align";
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
+import { closeSync } from "fs";
 
 class PhysicCharacter extends SpineContainer {
   public scene: Phaser.Scene
@@ -88,6 +89,7 @@ class PhysicCharacter extends SpineContainer {
   // 
   public runTowardCrowd() {
     let destinationX = this.crowdPositionX - this.positionInCrowd * this.distanceBetweenCharacters
+    if (destinationX < 0) { destinationX = 0 }
 
     let destination = (window.innerWidth - destinationX) + this.displayWidth / 2 * this.scale
     
@@ -95,7 +97,6 @@ class PhysicCharacter extends SpineContainer {
 
     let latency = 400;
 
-    if (destinationX < 0) { destinationX = 0 }
     // join crowd
     this.tweenX = this.scene.tweens.add({
       targets: this,
