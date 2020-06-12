@@ -79,7 +79,7 @@ class SheetMusic {
     this.gridObjects = [];
 
     // SHEET MUSIC SIZE AND POSITION
-    this.posX = window.innerWidth / 2;
+    this.posX = window.innerWidth / 2 + 150;
     this.posY = window.innerHeight - heightBetweenSheetHBar * this.scale;
     this.sheetWidth = window.innerWidth - this.posX;
     this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
