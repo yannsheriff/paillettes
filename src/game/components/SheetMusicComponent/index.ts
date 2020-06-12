@@ -160,8 +160,7 @@ class SheetMusic {
      */
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
-        console.log("launch game");
-        // this.mainManager.launchGame();
+        this.mainManager.launchGame();
       }
       this.createArrow(2, {
         name: "E4",
@@ -182,15 +181,26 @@ class SheetMusic {
     this.player.start();
   }
 
+  private generateNbOfArrow() {
+    if (this.mainState.difficulty > DifficultyModes.easy) {
+      const chance = [false, false, false, false, false, true];
+      return chance[Math.floor(Math.random() * chance.length)] ? 2 : 1;
+    }
+    if (this.mainState.difficulty > DifficultyModes.medium) {
+      const chance = [false, true];
+      return chance[Math.floor(Math.random() * chance.length)] ? 2 : 1;
+    }
+
+    return 1;
+  }
+
   /**
    * Create an arrow
    *
    * Cette fonction crée une flèche et l'ajoute a la scène.
    */
-  createArrow = (calls: number, note: NoteWithTrack) => {
-    let nbOfArrow =
-      this.mainState.difficulty !== DifficultyModes.easy ? calls : 1;
-
+  private createArrow = (calls: number, note: NoteWithTrack) => {
+    let nbOfArrow = this.generateNbOfArrow();
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
     this.characterManager.generateNewCharacter(nbOfArrow);
 
@@ -405,16 +415,16 @@ class SheetMusic {
     if (state.difficulty !== this.mainState.difficulty) {
       switch (state.difficulty) {
         case DifficultyModes.easy:
-          this.throttleValue = 1000;
+          this.throttleValue = 1300;
           break;
         case DifficultyModes.medium:
-          this.throttleValue = 700;
+          this.throttleValue = 900;
           break;
         case DifficultyModes.hard:
-          this.throttleValue = 500;
+          this.throttleValue = 700;
           break;
         case DifficultyModes.hardcore:
-          this.throttleValue = 200;
+          this.throttleValue = 500;
           break;
       }
     }

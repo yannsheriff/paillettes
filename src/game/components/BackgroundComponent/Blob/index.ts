@@ -11,6 +11,7 @@ class Blob extends Phaser.GameObjects.Graphics {
     private freestyleManager: FreestyleStateManager;
     
     private drawColor: number;
+    private canDraw: boolean = false;
     private pink: number = 0xff00ab;
     private blue: number = 0x2b3aff;
     private purple: number = 0x6a23ff;
@@ -21,7 +22,6 @@ class Blob extends Phaser.GameObjects.Graphics {
         [Worlds.nineteenCentury, this.purple], // blue
         [Worlds.prehistory, this.red], // blue
     ]);
-    private blob?: Phaser.GameObjects.Graphics;
     private speed: number = 2;
     private blobPosition: any = {
         x: 0,
@@ -46,11 +46,13 @@ class Blob extends Phaser.GameObjects.Graphics {
         this.freestyleManager.subscribe(this.onFreestyleStateChange);
 
         this.drawColor = this.worldColors.get(this.mainManager.state.world)!;
-        this.drawBlob()
+        // this.drawBlob()
     }
 
     preUpdate(time: any, delta: any) {
-        this.drawBlob()
+        if (this.canDraw) {
+            this.drawBlob()
+        }
     }
 
     public drawBlob() {
@@ -108,6 +110,10 @@ class Blob extends Phaser.GameObjects.Graphics {
     private onMainStateChange = (state: MainState) => {
         if (state.world !== this.mainState.world) {
             this.changeColor(state.world);
+        }
+
+        if (state.isGameLaunch !== this.mainState.isGameLaunch) {
+            this.canDraw = true;
         }
 
         // if (
