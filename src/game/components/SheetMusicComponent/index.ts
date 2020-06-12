@@ -119,23 +119,23 @@ class SheetMusic {
    * scene, elle initialise également l'event listener des notes.
    */
   create = () => {
-    // new Grid(this.scene, this.posX, this.posY, this.scale);
+    new Grid(this.scene, this.posX, this.posY, this.scale);
 
-    // new FreeLights(
-    //   this.scene,
-    //   this.posX - 210,
-    //   this.posY + 30,
-    //   this.inputZoneWidth,
-    //   this.scale
-    // );
+    new FreeLights(
+      this.scene,
+      this.posX - 210,
+      this.posY + 30,
+      this.inputZoneWidth,
+      this.scale
+    );
 
-    // new GodMother(this.scene, this.scale);
+    new GodMother(this.scene, this.scale);
 
-    // new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
+    new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
 
-    // new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
+    new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
 
-    // new Subtitle(this.scene);
+    new Subtitle(this.scene);
 
     const collider = new InputZone(
       this.scene,
