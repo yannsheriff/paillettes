@@ -119,23 +119,23 @@ class SheetMusic {
    * scene, elle initialise également l'event listener des notes.
    */
   create = () => {
-    new Grid(this.scene, this.posX, this.posY, this.scale);
+    // new Grid(this.scene, this.posX, this.posY, this.scale);
 
-    new FreeLights(
-      this.scene,
-      this.posX - 210,
-      this.posY + 30,
-      this.inputZoneWidth,
-      this.scale
-    );
+    // new FreeLights(
+    //   this.scene,
+    //   this.posX - 210,
+    //   this.posY + 30,
+    //   this.inputZoneWidth,
+    //   this.scale
+    // );
 
-    new GodMother(this.scene, this.scale);
+    // new GodMother(this.scene, this.scale);
 
-    new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
+    // new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
 
-    new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
+    // new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
 
-    new Subtitle(this.scene);
+    // new Subtitle(this.scene);
 
     const collider = new InputZone(
       this.scene,
@@ -162,16 +162,16 @@ class SheetMusic {
       if (!this.isPlaying) {
         this.mainManager.launchGame();
       }
-      // this.throttleArrow({
-      //   name: "E4",
-      //   duration: 3,
-      //   durationTicks: 3,
-      //   track: 1,
-      //   velocity: 1,
-      //   ticks: 1,
-      //   time: 1,
-      //   midi: 1,
-      // });
+      this.createArrow(2, {
+        name: "E4",
+        duration: 3,
+        durationTicks: 3,
+        track: 1,
+        velocity: 1,
+        ticks: 1,
+        time: 1,
+        midi: 1,
+      });
     });
   };
 
@@ -202,6 +202,7 @@ class SheetMusic {
   private createArrow = (calls: number, note: NoteWithTrack) => {
     let nbOfArrow = this.generateNbOfArrow();
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
+    this.characterManager.generateNewCharacter(nbOfArrow);
 
     directions.forEach((direction) => {
       const gridObject = this.generateGridObject(direction);
@@ -314,6 +315,7 @@ class SheetMusic {
     }
 
     const { ID } = this.characterManager.getArrowID();
+
     if (
       this.arrowUntilLetter < 1 &&
       directionMatchRemaingLetters(
@@ -375,7 +377,7 @@ class SheetMusic {
       return [directionTable[direction], directionTable[randomNoteDirection]];
     }
 
-    return ["right"];
+    return quantity === 1 ? ["right"] : ["right", "left"];
   };
 
   /**

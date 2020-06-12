@@ -45,6 +45,8 @@ class PhysicCharacterManager {
     Align.centerH(this.colliderZone)
     Align.scaleToGameH(this.colliderZone, 1)
 
+    this.colliderZone.x = window.innerWidth / 2 - 60
+
     this.scene.physics.add.existing(this.colliderZone);
 
     characterManager.onNewCharacter((id) => {

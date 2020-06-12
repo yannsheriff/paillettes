@@ -27,7 +27,12 @@ export class GameScene extends Phaser.Scene {
     this.CharacterManager = CharacterManager.getInstance();
     this.scoreManager = ScoreState.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
-    this.assetsManager = new AssetsManager(this, mainImages, mainSpritesheets, mainSpines);
+    this.assetsManager = new AssetsManager(
+      this,
+      mainImages,
+      mainSpritesheets,
+      mainSpines
+    );
     MainGameManager.getInstance();
   }
 
@@ -38,11 +43,11 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.animationManager.register();
-    new BackgroundComponent(this);
+    // new BackgroundComponent(this);
     new CharactersComponent(this);
-    this.ground = new GroundComponent(this);
+    // this.ground = new GroundComponent(this);
     new SheetMusicComponent(this, this.CharacterManager);
-    new DragQueenComponent(this);
+    // new DragQueenComponent(this);
 
     // @ts-ignore
     this.isDebug = this.game.config.physics.arcade.debug;
