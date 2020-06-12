@@ -162,16 +162,16 @@ class SheetMusic {
       if (!this.isPlaying) {
         this.mainManager.launchGame();
       }
-      // this.throttleArrow({
-      //   name: "E4",
-      //   duration: 3,
-      //   durationTicks: 3,
-      //   track: 1,
-      //   velocity: 1,
-      //   ticks: 1,
-      //   time: 1,
-      //   midi: 1,
-      // });
+      this.createArrow(2, {
+        name: "E4",
+        duration: 3,
+        durationTicks: 3,
+        track: 1,
+        velocity: 1,
+        ticks: 1,
+        time: 1,
+        midi: 1,
+      });
     });
   };
 
@@ -207,6 +207,7 @@ class SheetMusic {
   private createArrow = (calls: number, note: NoteWithTrack) => {
     let nbOfArrow = this.generateNbOfArrow();
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
+    this.characterManager.generateNewCharacter(nbOfArrow);
 
     directions.forEach((direction) => {
       const gridObject = this.generateGridObject(direction);
@@ -319,6 +320,7 @@ class SheetMusic {
     }
 
     const { ID } = this.characterManager.getArrowID();
+
     if (
       this.arrowUntilLetter < 1 &&
       directionMatchRemaingLetters(
@@ -380,7 +382,7 @@ class SheetMusic {
       return [directionTable[direction], directionTable[randomNoteDirection]];
     }
 
-    return ["right"];
+    return quantity === 1 ? ["right"] : ["right", "left"];
   };
 
   /**
