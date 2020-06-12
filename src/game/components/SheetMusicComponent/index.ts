@@ -9,7 +9,7 @@ import Score from "./Score";
 import MainStateManager, { MainState } from "../../states/main";
 import { DifficultyModes } from "../../states/main";
 import Subtitle from "./Subtitle";
-import { Musics } from "../../helpers/Music/musics";
+import muscisFile, { Musics } from "../../helpers/Music/musics";
 import { Direction } from "./GridObject";
 import Letter, { directionMatchRemaingLetters } from "./Letter";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
@@ -67,10 +67,7 @@ class SheetMusic {
   private arrowUntilLetter: number;
   private freeInterval?: NodeJS.Timeout;
 
-  constructor(
-    scene: Phaser.Scene,
-    characterManager: CharacterManager,
-  ) {
+  constructor(scene: Phaser.Scene, characterManager: CharacterManager) {
     this.scene = scene;
     this.lastCall = 0;
     this.requestCount = 1;
@@ -82,8 +79,8 @@ class SheetMusic {
     this.gridObjects = [];
 
     // SHEET MUSIC SIZE AND POSITION
-    this.posX = window.innerWidth / 2;
-    this.posY = window.innerHeight - (heightBetweenSheetHBar * this.scale);
+    this.posX = window.innerWidth / 2 + 150;
+    this.posY = window.innerHeight - heightBetweenSheetHBar * this.scale;
     this.sheetWidth = window.innerWidth - this.posX;
     this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
 
@@ -126,7 +123,7 @@ class SheetMusic {
 
     new FreeLights(
       this.scene,
-      this.posX - 210,
+      this.posX - 310,
       this.posY + 30,
       this.inputZoneWidth,
       this.scale
@@ -134,9 +131,9 @@ class SheetMusic {
 
     new GodMother(this.scene, this.scale);
 
-    new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
+    new Chrono(this.scene, this.posX - 80, this.posY + 80, this.scale);
 
-    new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
+    new Score(this.scene, this.posX - 300, this.posY - 70, this.scale);
 
     new Subtitle(this.scene);
 
@@ -163,26 +160,43 @@ class SheetMusic {
      */
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
-        console.log('launch game')
-        this.mainManager.launchGame()
+        this.mainManager.launchGame();
       }
-      // this.throttleArrow({
-      //   name: "E4",
-      //   duration: 3,
-      //   durationTicks: 3,
-      //   track: 1,
-      //   velocity: 1,
-      //   ticks: 1,
-      //   time: 1,
-      //   midi: 1,
-      // });
+      this.createArrow(2, {
+        name: "E4",
+        duration: 3,
+        durationTicks: 3,
+        track: 1,
+        velocity: 1,
+        ticks: 1,
+        time: 1,
+        midi: 1,
+      });
     });
   };
 
   private initSheetMusic() {
-        this.isPlaying = true;
-        this.player = new MusicPlayer(Musics.badRomance, this.arrowEmitter);
-        this.player.start();
+    const music = Musics.hungup;
+    this.isPlaying = true;
+    this.player = new MusicPlayer(music, this.arrowEmitter);
+    this.player.start();
+    const time = muscisFile.get(music)["header"]["bc-delay-sync"];
+    setTimeout(() => {
+      this.scene.sound.play("hungup");
+    }, time);
+  }
+
+  private generateNbOfArrow() {
+    if (this.mainState.difficulty > DifficultyModes.easy) {
+      const chance = [false, false, false, false, false, true];
+      return chance[Math.floor(Math.random() * chance.length)] ? 2 : 1;
+    }
+    if (this.mainState.difficulty > DifficultyModes.medium) {
+      const chance = [false, true];
+      return chance[Math.floor(Math.random() * chance.length)] ? 2 : 1;
+    }
+
+    return 1;
   }
 
   /**
@@ -190,10 +204,10 @@ class SheetMusic {
    *
    * Cette fonction crée une flèche et l'ajoute a la scène.
    */
-  createArrow = (calls: number, note: NoteWithTrack) => {
-    let nbOfArrow =
-      this.mainState.difficulty !== DifficultyModes.easy ? calls : 1;
+  private createArrow = (calls: number, note: NoteWithTrack) => {
+    let nbOfArrow = this.generateNbOfArrow();
     const directions = this.generateDirectionFromNotes(note.name, nbOfArrow);
+    this.characterManager.generateNewCharacter(nbOfArrow);
 
     directions.forEach((direction) => {
       const gridObject = this.generateGridObject(direction);
@@ -306,6 +320,7 @@ class SheetMusic {
     }
 
     const { ID } = this.characterManager.getArrowID();
+
     if (
       this.arrowUntilLetter < 1 &&
       directionMatchRemaingLetters(
@@ -367,7 +382,7 @@ class SheetMusic {
       return [directionTable[direction], directionTable[randomNoteDirection]];
     }
 
-    return ["right"];
+    return quantity === 1 ? ["right"] : ["right", "left"];
   };
 
   /**
@@ -397,10 +412,9 @@ class SheetMusic {
     this.delayArrow(this.requestCount, note);
   };
 
-
   private onStateChange = (state: MainState) => {
     if (state.isGameLaunch !== this.mainState.isGameLaunch) {
-      this.initSheetMusic()
+      this.initSheetMusic();
     }
 
     if (state.difficulty !== this.mainState.difficulty) {
@@ -409,13 +423,13 @@ class SheetMusic {
           this.throttleValue = 1000;
           break;
         case DifficultyModes.medium:
-          this.throttleValue = 700;
+          this.throttleValue = 800;
           break;
         case DifficultyModes.hard:
-          this.throttleValue = 500;
+          this.throttleValue = 700;
           break;
         case DifficultyModes.hardcore:
-          this.throttleValue = 200;
+          this.throttleValue = 500;
           break;
       }
     }

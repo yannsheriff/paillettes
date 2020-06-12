@@ -4,6 +4,9 @@ import MainStateManager, { MainState, Worlds } from "../../states/main";
 import ScoreStateManager from "../../states/score";
 import Align from "../../helpers/Align/align"
 import GridObject from "../SheetMusicComponent/GridObject";
+import FreestyleStateManager, {
+  FreestyleState,
+} from "../../states/freestyle";
 
 const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
@@ -12,6 +15,8 @@ class PhysicCharacterManager {
   private mainState: MainState;
   private mainManager: MainStateManager;
   private scoreManager: ScoreStateManager;
+  private freestyleState: FreestyleState;
+  private freestyleManager: FreestyleStateManager;
   private colliderZone: Phaser.GameObjects.Rectangle;
   private colliders: Array<Phaser.Physics.Arcade.Collider> = [];
 
@@ -29,6 +34,9 @@ class PhysicCharacterManager {
     this.mainManager.subscribe(this.onMainStateChange);
     this.scoreManager = ScoreStateManager.getInstance()
     this.scoreManager.onSuccess(this.playAllDanseThenRun)
+    this.freestyleManager = FreestyleStateManager.getInstance();
+    this.freestyleState = this.freestyleManager.state;
+    this.freestyleManager.subscribe(this.onFreestyleStateChange);
     this.mainState = this.mainManager.state;
     this.world = this.mainManager.state.world;
 
@@ -44,6 +52,8 @@ class PhysicCharacterManager {
     Align.centerV(this.colliderZone)
     Align.centerH(this.colliderZone)
     Align.scaleToGameH(this.colliderZone, 1)
+
+    this.colliderZone.x = window.innerWidth / 2 - 60
 
     this.scene.physics.add.existing(this.colliderZone);
 
@@ -121,9 +131,9 @@ class PhysicCharacterManager {
     });
   }
 
-  public playAllDance() {
+  public playAllDance(isFreestyle: boolean) {
     this.crowd.forEach((character) => {
-      character.playDanceAnimation();
+      character.playDanceAnimation(isFreestyle);
     });
   }
 
@@ -184,6 +194,21 @@ class PhysicCharacterManager {
     }
     this.mainState = state;
   };
+
+
+  private onFreestyleStateChange = (state: FreestyleState) => {
+    if (
+        this.freestyleState.isFreestyleActivated !== state.isFreestyleActivated
+    ) {
+        if (state.isFreestyleActivated) {
+            this.playAllDance(true)
+        } else {
+            this.playAllDanseThenRun()
+        }
+    }
+
+    this.freestyleState = state;
+};
 }
 
 export default PhysicCharacterManager;

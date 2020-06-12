@@ -142,12 +142,12 @@ export default class MusicPlayer {
 
   private playNote = (time: number, event: NoteWithTrack) => {
     try {
-      this.synths[event.track].triggerAttackRelease(
-        event.name,
-        event.duration,
-        time,
-        event.velocity
-      );
+      // this.synths[event.track].triggerAttackRelease(
+      //   event.name,
+      //   event.duration,
+      //   time,
+      //   event.velocity
+      // );
     } catch (error) {}
   };
 

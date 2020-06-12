@@ -141,11 +141,11 @@ export default class ScoreStateManager extends State {
     const { difficulty } = this.mainState;
     const { combo } = this.state;
 
-    if (difficulty === DifficultyModes.easy && combo > 10) {
+    if (difficulty === DifficultyModes.easy && combo > 15) {
       this.setState({ combo: 0 });
       this.mainStateManager.incrementDifficulty();
     }
-    if (difficulty === DifficultyModes.medium && combo > 40) {
+    if (difficulty === DifficultyModes.medium && combo > 20) {
       this.setState({ combo: 0 });
       this.mainStateManager.incrementDifficulty();
     }
