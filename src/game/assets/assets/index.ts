@@ -24,6 +24,7 @@ import {
   starRight,
   chrono,
   hungup,
+  sisi,
 } from "../index";
 
 export const mainImages: ImageData[] = [
@@ -73,4 +74,7 @@ export const mainSpines: SpineData[] = [
   { key: "dragqueen", path: "assets/spine/dragqueen/" },
 ];
 
-export const mainMusic: MusicData[] = [{ key: "hungup", asset: hungup }];
+export const mainMusic: MusicData[] = [
+  { key: "hungup", asset: hungup },
+  { key: "sisi", asset: sisi },
+];

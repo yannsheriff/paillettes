@@ -121,21 +121,21 @@ class SheetMusic {
   create = () => {
     new Grid(this.scene, this.posX, this.posY, this.scale);
 
-    // new FreeLights(
-    //   this.scene,
-    //   this.posX - 210,
-    //   this.posY + 30,
-    //   this.inputZoneWidth,
-    //   this.scale
-    // );
+    new FreeLights(
+      this.scene,
+      this.posX - 310,
+      this.posY + 30,
+      this.inputZoneWidth,
+      this.scale
+    );
 
-    // new GodMother(this.scene, this.scale);
+    new GodMother(this.scene, this.scale);
 
-    // new Chrono(this.scene, this.posX - 180, this.posY + 80, this.scale);
+    new Chrono(this.scene, this.posX - 80, this.posY + 80, this.scale);
 
-    // new Score(this.scene, this.posX - 200, this.posY - 70, this.scale);
+    new Score(this.scene, this.posX - 300, this.posY - 70, this.scale);
 
-    // new Subtitle(this.scene);
+    new Subtitle(this.scene);
 
     const collider = new InputZone(
       this.scene,
@@ -181,7 +181,6 @@ class SheetMusic {
     this.player = new MusicPlayer(music, this.arrowEmitter);
     this.player.start();
     const time = muscisFile.get(music)["header"]["bc-delay-sync"];
-    console.log("SheetMusic -> initSheetMusic -> time", time);
     setTimeout(() => {
       this.scene.sound.play("hungup");
     }, time);
@@ -419,10 +418,10 @@ class SheetMusic {
     if (state.difficulty !== this.mainState.difficulty) {
       switch (state.difficulty) {
         case DifficultyModes.easy:
-          this.throttleValue = 1300;
+          this.throttleValue = 1000;
           break;
         case DifficultyModes.medium:
-          this.throttleValue = 900;
+          this.throttleValue = 800;
           break;
         case DifficultyModes.hard:
           this.throttleValue = 700;

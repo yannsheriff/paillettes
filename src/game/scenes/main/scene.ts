@@ -49,11 +49,11 @@ export class GameScene extends Phaser.Scene {
 
   public create() {
     this.animationManager.register();
-    // new BackgroundComponent(this);
-    // new CharactersComponent(this);
+    new BackgroundComponent(this);
+    new CharactersComponent(this);
     this.ground = new GroundComponent(this);
     new SheetMusicComponent(this, this.CharacterManager);
-    // new DragQueenComponent(this);
+    new DragQueenComponent(this);
 
     // @ts-ignore
     this.isDebug = this.game.config.physics.arcade.debug;
