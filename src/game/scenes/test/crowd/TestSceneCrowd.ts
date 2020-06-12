@@ -42,7 +42,7 @@ export class TestSceneCrowd extends Phaser.Scene {
       "dragqueen",
       "Run",
       true
-    ); 
+    );
     this.PhysicCharacterManager = new CharactersComponent(this);
 
     this.add
@@ -63,7 +63,7 @@ export class TestSceneCrowd extends Phaser.Scene {
       .text(50, 110, "Les faire tous danser", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
-        this.PhysicCharacterManager?.playAllDance();
+        this.PhysicCharacterManager?.playAllDance(false);
       });
 
     this.add

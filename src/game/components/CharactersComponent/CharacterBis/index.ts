@@ -128,8 +128,8 @@ class PhysicCharacter extends SpineContainer {
     this.playAnimation("Run", true);
   }
 
-  public playDanceAnimation() {
-    this.playAnimation("Dance", false);
+  public playDanceAnimation(isFreestyle: boolean) {
+    this.playAnimation("Dance", isFreestyle);
   }
 
   public playDanceThenRunAnimation(delay: number) {
