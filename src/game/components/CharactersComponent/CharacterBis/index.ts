@@ -10,7 +10,7 @@ class PhysicCharacter extends SpineContainer {
   public tweenX?: Phaser.Tweens.Tween;
   public scale: number = 0.5;
   public positionInCrowd: number = 0;
-  public crowdPositionX: number = window.innerWidth * 0.20;
+  public crowdPositionX: number = window.innerWidth / 2 - 300;
   public isUnlock: boolean = false;
   public distanceBetweenCharacters: number = 40;
   
