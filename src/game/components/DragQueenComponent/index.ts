@@ -31,10 +31,16 @@ class DragQueenManager {
 
       this.dragQueen = new DragQueen(
         this.scene,
-        "dragqueen"
+        "dragqueen",
+        "Start",
+        false
       );
 
-      this.dragQueen?.playOnceThenLoopNextAnimation("Start", "Run", 0)
+      setTimeout(() => {
+        this.dragQueen?.playAnimation("Run", true)
+      }, 2000);
+
+      // this.dragQueen?.playOnceThenLoopNextAnimation("Start", "Run", 0)
     }
 
     private onMainStateChange = (state: MainState) => {
