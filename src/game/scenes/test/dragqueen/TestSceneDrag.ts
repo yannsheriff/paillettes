@@ -38,10 +38,9 @@ export class TestSceneDrag extends Phaser.Scene {
   public preload(): void {
     this.load.image("btn", button);
     this.assetsManager.preload();
-
   }
 
-  public create() {    
+  public create() {
     this.add
       .text(50, 50, "< Retour", { fill: "red" })
       .setInteractive()
@@ -74,11 +73,13 @@ export class TestSceneDrag extends Phaser.Scene {
   }
 
   public addDragQueen() {
+    this.destroyAllCharacters()
     this.dragQueen = new DragQueen(this, "dragqueen", "Run", true);
     this.addDebug(this.dragQueen)
   }
 
   public addGodMother() {
+    this.destroyAllCharacters()
     this.godMother = new GodMother(this, "godmother", "Run", true);
     this.addDebug(this.godMother)
   }
@@ -101,8 +102,8 @@ export class TestSceneDrag extends Phaser.Scene {
   }
 
   public destroyAllCharacters() {
-    console.log('delete')
     this.dragQueen?.deleteDragQueen();
+    this.godMother?.deleteGodMother();
 
     this.configList.forEach((config) => {
       config.destroy();

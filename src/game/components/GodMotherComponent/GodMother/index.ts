@@ -12,17 +12,25 @@ class GodMother extends SpineContainer {
   ) {
     super(scene, 0, 0, key, anim, loop);
 
-    this.x = window.innerWidth / 2;
-    // Align.dragPosition(this, this.spine, this.scale);
-    Align.top(this)
+    // full screen asset
+    let scale = window.innerWidth / this.spineBody.width
+    this.setScale(scale); // asset size
+
+    // placer son x en fonction de la moitié de la largeur
+    // placer son y en fonction du bas
+    // this.spineBody.width = valeur reelle
+    
+    this.x = window.innerWidth / 2 // ok
+    this.y = this.spineBody.height * scale + 300
+
+    // Align.centerV(this)
+    // Align.centerH(this)
     scene.add.existing(this)
 
-    this.setScale(1); // asset size
-    this.drawDebug(true)
+    this.drawDebug(false)
     // this.allowCollideWorldBounds(true)
 
     this.setDepth(15);
-    this.drawDebug(false);
 
     // this.runVelocity(50)
   }
