@@ -76,6 +76,19 @@ export class TestSceneBackground extends Phaser.Scene {
         this.mainManager.changeWorld()
       });
 
+    this.add
+      .text(150, 200, "Play", { fill: "red" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.mainManager.launchGame();
+    });
+
+    this.add
+      .text(150, 250, "Pause", { fill: "red" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.scene.pause()
+    });
   }
 
   public update() {}

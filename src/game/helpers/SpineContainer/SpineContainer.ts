@@ -58,6 +58,7 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
 
         this.SpineBody = this.body as Phaser.Physics.Arcade.Body;
 
+        
         const bounds = this.SpineGameObject.getBounds()
         const width = bounds.size.x
         const height = bounds.size.y
