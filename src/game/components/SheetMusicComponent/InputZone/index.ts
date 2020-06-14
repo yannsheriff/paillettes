@@ -9,6 +9,7 @@ interface input {
   y: number;
   sprite?: Phaser.GameObjects.Sprite;
   state: boolean;
+  playSuccess: boolean;
 }
 
 export const inputZoneAssetWidth = 200;
@@ -39,7 +40,16 @@ class InputZone {
     scene.physics.add.existing(this.collider);
 
     this.inputs = new Map([
-      ["up", { name: "up", y: y, sprite: undefined, state: false }],
+      [
+        "up",
+        {
+          name: "up",
+          y: y,
+          sprite: undefined,
+          state: false,
+          playSuccess: false,
+        },
+      ],
       [
         "left",
         {
@@ -47,6 +57,7 @@ class InputZone {
           y: y + (height / 3) * 1,
           sprite: undefined,
           state: false,
+          playSuccess: false,
         },
       ],
       [
@@ -56,6 +67,7 @@ class InputZone {
           y: y + (height / 3) * 2,
           sprite: undefined,
           state: false,
+          playSuccess: false,
         },
       ],
       [
@@ -65,6 +77,7 @@ class InputZone {
           y: y + (height / 3) * 3,
           sprite: undefined,
           state: false,
+          playSuccess: false,
         },
       ],
     ]);
@@ -91,7 +104,7 @@ class InputZone {
   handleStepDown = (directions: Direction[]) => {
     directions.forEach((direction) => {
       const input = this.inputs.get(direction);
-      if (!input?.state) {
+      if (!input?.state && !input?.playSuccess) {
         input?.sprite?.play(direction + "-on");
         this.inputs.set(direction, { ...input!, state: true });
       }
@@ -111,7 +124,16 @@ class InputZone {
   handleStepSuccess = (gridObject: GridObject) => {
     const input = this.inputs.get(gridObject.direction);
     if (input?.state) {
-      input?.sprite?.play(gridObject.direction + "-success");
+      input.playSuccess = true;
+      input?.sprite
+        ?.play(gridObject.direction + "-success")
+        .on("animationcomplete", () => {
+          console.log("inut");
+          this.inputs.set(gridObject.direction, {
+            ...input!,
+            playSuccess: false,
+          });
+        });
       this.inputs.set(gridObject.direction, { ...input!, state: false });
     }
   };

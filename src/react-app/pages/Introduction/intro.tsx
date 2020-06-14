@@ -64,7 +64,7 @@ export default class Game extends Component<{}, state> {
       const canvas = document.getElementById("paillettes");
       if (canvas && canvas instanceof HTMLCanvasElement) {
         const confetti = new ConfettiGenerator(canvas);
-        confetti.startConfetti(undefined, undefined, 40);
+        confetti.startConfetti(undefined, undefined, 70);
       }
     }, 500);
   }

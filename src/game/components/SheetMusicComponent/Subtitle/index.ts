@@ -48,15 +48,13 @@ class Subtitle {
 
   private checkFreestyle = (state: FreestyleState) => {
     if (state.isFreestyleActivated) {
-      setTimeout(() => {
-        this.animation!.anims.play("freestyle-enter").once(
-          "animationcomplete",
-          () => {
-            this.animation!.anims.play("freestyle-loop");
-          }
-        );
-      }, 2500);
-    } else {
+      this.animation!.anims.play("freestyle-enter").once(
+        "animationcomplete",
+        () => {
+          this.animation!.anims.play("freestyle-loop");
+        }
+      );
+    } else if (state.remainingLetters.length === 4) {
       this.animation!.anims.play("freestyle-exit");
     }
 

@@ -131,7 +131,7 @@ class SheetMusic {
 
     new GodMother(this.scene, this.scale);
 
-    new Chrono(this.scene, this.posX - 80, this.posY + 80, this.scale);
+    new Chrono(this.scene, this.posX - 280, this.posY + 80, this.scale);
 
     new Score(this.scene, this.posX - 300, this.posY - 70, this.scale);
 
