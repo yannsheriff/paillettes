@@ -1,17 +1,18 @@
 import MainStateManager, { MainState } from "../../states/main";
+import { ConfettiGenerator } from "../../helpers/Confetti";
 
 class GlitterComponent {
   private scene: Phaser.Scene;
+  confettiManager?: ConfettiGenerator;
+  canvas?: HTMLCanvasElement;
+  context?: CanvasRenderingContext2D;
+  texture?: Phaser.Textures.CanvasTexture;
 
-  private grounds: Phaser.GameObjects.Image[];
-  private groundsAngles: number[];
   private mainState: MainState;
   private mainManager: MainStateManager;
 
   constructor(scene: Phaser.Scene) {
-    this.groundsAngles = [];
     this.scene = scene;
-    this.grounds = [];
 
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.subscribe(this.onMainStateChange);
@@ -20,18 +21,27 @@ class GlitterComponent {
     this.create();
   }
 
-  private create() {
-    const baseAngle = 264;
-    const separationAngle = 2.6;
+  public create() {
+    this.texture = this.scene.textures.createCanvas(
+      "xcvcb",
+      window.innerWidth,
+      window.innerHeight
+    );
 
-    // const ground = this.scene.add
-    //   .image(
-    //     this.circleCenter.x + this.circleRadius * Math.cos(radiants),
-    //     this.circleCenter.y + this.circleRadius * Math.sin(radiants),
-    //     "ground"
-    //   )
-    //   .setDepth(10)
-    //   .setAngle(groundAngle + 90);
+    this.canvas = this.texture.getCanvas();
+    this.context = this.texture.getContext();
+    this.confettiManager = new ConfettiGenerator(this.canvas, this.context);
+    this.confettiManager.startConfetti();
+    this.scene.textures.addCanvas("xcvcb", this.canvas);
+
+    this.scene.add
+      .image(window.innerWidth / 2, window.innerHeight / 2, "xcvcb")
+      .setDepth(20);
+  }
+
+  update() {
+    this.confettiManager!.runAnimation();
+    this.texture!.refresh();
   }
 
   private onMainStateChange = (state: MainState) => {

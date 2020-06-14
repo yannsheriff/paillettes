@@ -1,5 +1,5 @@
 import config from "./config";
-import { ConfettiGenerator } from "./confettiManager";
+import { ConfettiGenerator } from "../../../helpers/Confetti";
 
 export default class TestSceneBlob extends Phaser.Scene {
   confettiManager?: ConfettiGenerator;
