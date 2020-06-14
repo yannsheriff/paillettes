@@ -15,7 +15,6 @@ class BackgroundManager {
   private currentAsset: Array<number> = []
   private numberAssets: number = 6;
 
-  // numberAssets.get(Worlds.middleAges)
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.canvasWidth = scene.sys.game.canvas.width;
@@ -25,7 +24,9 @@ class BackgroundManager {
     this.world = this.mainManager.state.world;
 
     this.blob = new Blob(this.scene)
+  }
 
+  public initBackground() {
     for (let planenb = 0; planenb < 3; planenb++) {
       this.generatePlanes(planenb, true);
     }
@@ -169,6 +170,10 @@ class BackgroundManager {
   }
 
   private onMainStateChange = (state: MainState) => {
+    if (state.isGameLaunch !== this.mainState.isGameLaunch) {
+      this.initBackground()
+    }
+
     if (state.world !== this.mainState.world) {
       this.startWorldTransition(state.world);
     }

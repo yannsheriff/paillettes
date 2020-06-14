@@ -1,3 +1,5 @@
+import MainStateManager, { MainState } from "../../states/main";
+
 class Ground {
   public ground?: Phaser.GameObjects.Image;
   public rotationSpeed: number;
@@ -9,6 +11,9 @@ class Ground {
   };
   private grounds: Phaser.GameObjects.Image[];
   private groundsAngles: number[];
+  private canRotate: boolean = false;
+  private mainState: MainState;
+  private mainManager: MainStateManager;
 
   constructor(scene: Phaser.Scene) {
     this.groundsAngles = [];
@@ -20,6 +25,11 @@ class Ground {
     };
     this.rotationSpeed = 0.04;
     this.grounds = [];
+
+    this.mainManager = MainStateManager.getInstance();
+    this.mainManager.subscribe(this.onMainStateChange);
+    this.mainState = this.mainManager.state;
+
     this.create();
   }
 
@@ -45,20 +55,22 @@ class Ground {
   }
 
   public update() {
-    this.grounds.forEach((ground, index) => {
-      const angle = (this.groundsAngles[index] -= this.rotationSpeed);
-      if (angle < 262) {
-        this.moveGroundBack(index);
-        return;
-      }
-      const radians = angle * (Math.PI / 180);
-      ground
-        .setPosition(
-          this.circleCenter.x + this.circleRadius * Math.cos(radians),
-          this.circleCenter.y + this.circleRadius * Math.sin(radians)
-        )
-        .setAngle(angle + 90);
-    });
+    if (this.canRotate) {
+      this.grounds.forEach((ground, index) => {
+        const angle = (this.groundsAngles[index] -= this.rotationSpeed);
+        if (angle < 262) {
+          this.moveGroundBack(index);
+          return;
+        }
+        const radians = angle * (Math.PI / 180);
+        ground
+          .setPosition(
+            this.circleCenter.x + this.circleRadius * Math.cos(radians),
+            this.circleCenter.y + this.circleRadius * Math.sin(radians)
+          )
+          .setAngle(angle + 90);
+      });
+    }
   }
 
   private moveGroundBack(index: number) {
@@ -67,8 +79,14 @@ class Ground {
     const newAngle = this.groundsAngles[this.groundsAngles.length - 1] + 2.6;
     this.groundsAngles.push(newAngle);
     this.groundsAngles.shift();
-    // console.log(newAngle);
   }
+
+  private onMainStateChange = (state: MainState) => {
+    if (state.isGameLaunch !== this.mainState.isGameLaunch) {
+      this.canRotate = true;
+    }
+    this.mainState = state;
+  };
 }
 
 export default Ground;

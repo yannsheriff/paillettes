@@ -2,15 +2,16 @@ import SimplexNoise from "simplex-noise";
 import MainStateManager, { MainState, Worlds } from "../../../states/main";
 import FreestyleStateManager, {
     FreestyleState,
-  } from "../../../states/freestyle";
-  
+} from "../../../states/freestyle";
+
 class Blob extends Phaser.GameObjects.Graphics {
     private mainState: MainState;
     private mainManager: MainStateManager;
     private freestyleState: FreestyleState;
     private freestyleManager: FreestyleStateManager;
-    
+
     private drawColor: number;
+    private canDraw: boolean = false;
     private pink: number = 0xff00ab;
     private blue: number = 0x2b3aff;
     private purple: number = 0x6a23ff;
@@ -21,7 +22,6 @@ class Blob extends Phaser.GameObjects.Graphics {
         [Worlds.nineteenCentury, this.purple], // blue
         [Worlds.prehistory, this.red], // blue
     ]);
-    private blob?: Phaser.GameObjects.Graphics;
     private speed: number = 2;
     private blobPosition: any = {
         x: 0,
@@ -46,18 +46,20 @@ class Blob extends Phaser.GameObjects.Graphics {
         this.freestyleManager.subscribe(this.onFreestyleStateChange);
 
         this.drawColor = this.worldColors.get(this.mainManager.state.world)!;
-        this.drawBlob()
+        // this.drawBlob()
     }
 
     preUpdate(time: any, delta: any) {
-        this.drawBlob()
+        if (this.canDraw) {
+            this.drawBlob()
+        }
     }
 
     public drawBlob() {
         this.speed += 0.005; // maybe refacto
 
         this.clear()
-        
+
         this.lineStyle(2, this.drawColor, 1);
         this.fillStyle(this.drawColor, 1);
         this.moveTo(this.blobPosition.x, this.blobPosition.y); // center
@@ -88,7 +90,7 @@ class Blob extends Phaser.GameObjects.Graphics {
             yoyo: false,
         });
     }
-    
+
     public changeColor(world: Worlds) {
         let colorBlend = { step: 0 };
         let oldColor = Phaser.Display.Color.ValueToColor(this.drawColor);
@@ -110,6 +112,10 @@ class Blob extends Phaser.GameObjects.Graphics {
             this.changeColor(state.world);
         }
 
+        if (state.isGameLaunch !== this.mainState.isGameLaunch) {
+            this.canDraw = true;
+        }
+
         // if (
         //   state.isInTransition !== this.mainState.isInTransition &&
         //   !state.isInTransition
@@ -122,16 +128,16 @@ class Blob extends Phaser.GameObjects.Graphics {
 
     private onFreestyleStateChange = (state: FreestyleState) => {
         if (
-          this.freestyleState.isFreestyleActivated !== state.isFreestyleActivated
+            this.freestyleState.isFreestyleActivated !== state.isFreestyleActivated
         ) {
-          if (state.isFreestyleActivated) {
-            this.freestyle(true)
-          } else {
-            this.freestyle(false)
-          }
+            if (state.isFreestyleActivated) {
+                this.freestyle(true)
+            } else {
+                this.freestyle(false)
+            }
         }
-    
+
         this.freestyleState = state;
-      };
+    };
 }
 export default Blob;

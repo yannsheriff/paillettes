@@ -1,13 +1,139 @@
 
 dragqueen.png
-size: 247,469
+size: 1252,1030
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-MESSIE
+BACK ARM
   rotate: false
+  xy: 1199, 398
+  size: 40, 113
+  orig: 42, 115
+  offset: 1, 1
+  index: -1
+BACK FOREARM
+  rotate: true
+  xy: 1074, 42
+  size: 35, 99
+  orig: 37, 101
+  offset: 1, 1
+  index: -1
+BACK HAND
+  rotate: true
+  xy: 1003, 41
+  size: 36, 69
+  orig: 39, 71
+  offset: 2, 1
+  index: -1
+BODY
+  rotate: false
+  xy: 960, 137
+  size: 159, 374
+  orig: 162, 377
+  offset: 1, 1
+  index: -1
+Couronne
+  rotate: true
+  xy: 1199, 151
+  size: 29, 51
+  orig: 31, 62
+  offset: 1, 1
+  index: -1
+DOWN BACK LEG
+  rotate: true
+  xy: 309, 16
+  size: 92, 305
+  orig: 95, 400
+  offset: 2, 3
+  index: -1
+DOWN FRONT LEG
+  rotate: true
   xy: 2, 2
-  size: 243, 465
-  orig: 250, 468
-  offset: 6, 1
+  size: 106, 305
+  orig: 110, 400
+  offset: 2, 3
+  index: -1
+Etoile 1
+  rotate: true
+  xy: 1121, 137
+  size: 8, 13
+  orig: 10, 15
+  offset: 1, 1
+  index: -1
+Etoile 2
+  rotate: true
+  xy: 1136, 137
+  size: 8, 12
+  orig: 10, 15
+  offset: 1, 1
+  index: -1
+Etoile 3
+  rotate: true
+  xy: 1199, 138
+  size: 11, 25
+  orig: 13, 28
+  offset: 1, 2
+  index: -1
+FRONT ARM
+  rotate: false
+  xy: 1199, 283
+  size: 40, 113
+  orig: 42, 115
+  offset: 1, 1
+  index: -1
+FRONT FOREARM
+  rotate: false
+  xy: 1199, 182
+  size: 36, 99
+  orig: 38, 101
+  offset: 1, 1
+  index: -1
+FRONT HAND
+  rotate: false
+  xy: 1175, 8
+  size: 35, 69
+  orig: 38, 71
+  offset: 1, 1
+  index: -1
+HAIR
+  rotate: false
+  xy: 960, 513
+  size: 259, 515
+  orig: 259, 515
+  offset: 0, 0
+  index: -1
+HEAD
+  rotate: false
+  xy: 937, 18
+  size: 64, 59
+  orig: 66, 61
+  offset: 1, 1
+  index: -1
+SHADOW NB
+  rotate: false
+  xy: 960, 79
+  size: 279, 56
+  orig: 282, 60
+  offset: 2, 1
+  index: -1
+UP BACK LEG
+  rotate: false
+  xy: 1121, 147
+  size: 76, 364
+  orig: 98, 368
+  offset: 21, 2
+  index: -1
+UP FRONT LEG
+  rotate: true
+  xy: 616, 32
+  size: 76, 319
+  orig: 99, 322
+  offset: 22, 1
+  index: -1
+light
+  rotate: true
+  xy: 2, 110
+  size: 918, 956
+  orig: 1028, 1082
+  offset: 51, 55
   index: -1

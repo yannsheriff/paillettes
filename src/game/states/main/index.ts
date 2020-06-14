@@ -10,21 +10,29 @@ export enum Worlds {
   middleAges = 1,
   today = 2,
   nineteenCentury = 3,
-  prehistory = 4
+  prehistory = 4,
 }
 
 export interface MainState {
   difficulty: DifficultyModes;
   world: Worlds;
   isInTransition: boolean;
+  objectSpeed: number;
   didChangeWorld: boolean;
+  isGameLaunch: boolean;
+  isGameOver: boolean;
+  isReady: boolean;
 }
 
 const initialState = {
   difficulty: DifficultyModes.easy,
   world: Worlds.middleAges,
-  didChangeWorld: false,
+  objectSpeed: 400,
   isInTransition: false,
+  didChangeWorld: false,
+  isGameLaunch: false,
+  isGameOver: false,
+  isReady: false,
 };
 
 export default class MainStateManager extends State {
@@ -40,7 +48,11 @@ export default class MainStateManager extends State {
     super();
     this.state = initialState;
 
-    this.remainingWorlds = [Worlds.nineteenCentury, Worlds.today, Worlds.prehistory];
+    this.remainingWorlds = [
+      Worlds.nineteenCentury,
+      Worlds.today,
+      Worlds.prehistory,
+    ];
   }
 
   /**
@@ -60,6 +72,18 @@ export default class MainStateManager extends State {
    * Finally, any singleton should define some business logic, which can be
    * executed on its instance.
    */
+  public launchGame() {
+    this.setState({
+      isGameLaunch: true,
+    });
+  }
+
+  public gameIsReady() {
+    this.setState({
+      isReady: true,
+    });
+  }
+
   public incrementDifficulty() {
     const { difficulty } = this.state;
     this.setState({ difficulty: difficulty > 2 ? 3 : difficulty + 1 });

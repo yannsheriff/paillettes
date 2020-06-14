@@ -40,3 +40,7 @@ export { default as good } from "./indications/GOOD.png";
 export { default as oops } from "./indications/Oops.png";
 export { default as perfect } from "./indications/Perfect.png";
 export { default as freestyle } from "./indications/FREESTYLE.png";
+
+// MUSIC
+export { default as hungup } from "./musics/hungup.mp3";
+export { default as sisi } from "./musics/sisi.mp3";

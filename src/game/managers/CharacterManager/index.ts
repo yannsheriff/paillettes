@@ -3,7 +3,7 @@ import { generateId } from "./Character/utils";
 import ScoreStateManager from "../../states/score";
 
 class CharacterManager {
-  public actualCharacter: Character;
+  public actualCharacter?: Character;
   private lastArrowID: Map<string, string> = new Map();
   private successfullArrows: Map<string, number> = new Map();
   private static instance: CharacterManager;
@@ -12,8 +12,6 @@ class CharacterManager {
   private onEndCallback: Array<(id: string, isUnlocked: boolean) => any>;
 
   private constructor() {
-    this.actualCharacter = new Character(1);
-    this.characters.set(this.actualCharacter.ID, this.actualCharacter);
     this.createCallback = [];
     this.onEndCallback = [];
 
@@ -31,12 +29,12 @@ class CharacterManager {
     return this.instance;
   }
 
-  private generateNewCharacter(): void {
+  public generateNewCharacter(num: number): void {
     // let arrowMin = 1
     // let arrowMax = 1
     // every character will have between arrowMin and arrowMax arrows
     // const num = Math.floor(Math.random() * (arrowMax - 1 + 1) + arrowMin);
-    const character = new Character(1);
+    const character = new Character(num);
 
     this.actualCharacter = character;
     this.characters.set(character.ID, character);
@@ -44,11 +42,10 @@ class CharacterManager {
   }
 
   public getArrowID(): { ID: string } {
-    const { isLastArrow, id } = this.actualCharacter.generateArrowID();
+    const { isLastArrow, id } = this.actualCharacter!.generateArrowID();
     if (isLastArrow) {
       const lastArrowId = generateId();
       this.lastArrowID.set(lastArrowId, id);
-      this.generateNewCharacter();
       return { ID: lastArrowId };
     }
     return { ID: id };
@@ -65,8 +62,10 @@ class CharacterManager {
     }
 
     if (lastArrowcCharacterId !== undefined) {
-      const isSuccessfull = this.isCharacterSuccesfull(lastArrowcCharacterId);
-      this.callOnEnd!(this.actualCharacter.ID, isSuccessfull);
+      setTimeout(() => {
+        const isSuccessfull = this.isCharacterSuccesfull(lastArrowcCharacterId);
+        this.callOnEnd!(lastArrowcCharacterId, isSuccessfull);
+      }, 100);
       return;
     }
   };
@@ -75,7 +74,7 @@ class CharacterManager {
     const lastArrowcCharacterId = this.lastArrowID.get(ID);
     if (lastArrowcCharacterId !== undefined) {
       const isSuccessfull = this.isCharacterSuccesfull(lastArrowcCharacterId);
-      this.callOnEnd!(this.actualCharacter.ID, isSuccessfull);
+      this.callOnEnd!(lastArrowcCharacterId, isSuccessfull);
       return;
     }
   };
