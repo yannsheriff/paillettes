@@ -10,7 +10,7 @@ class DragQueenManager {
     private mainState: MainState;
     private mainManager: MainStateManager;
     private dragQueen?: DragQueen;
-    private godMother?: GodMother;
+    private divinelight?: GodMother;
 
     constructor(scene: Phaser.Scene) {
       this.scene = scene;
@@ -22,7 +22,7 @@ class DragQueenManager {
     }
   
     private create() {
-      this.godMother = new GodMother(
+      this.divinelight = new GodMother(
         this.scene,
         "godmother",
         "faisceau-start",
@@ -38,6 +38,7 @@ class DragQueenManager {
 
       setTimeout(() => {
         this.dragQueen?.playAnimation("Run", true)
+        this.divinelight?.deleteGodMother()
       }, 2000);
 
       // this.dragQueen?.playOnceThenLoopNextAnimation("Start", "Run", 0)
