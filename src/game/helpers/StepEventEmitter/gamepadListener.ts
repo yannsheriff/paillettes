@@ -65,7 +65,7 @@ class GamepadListener {
   private dispatchEvent = (type: StepEventType, buttons: Array<number>) => {
     if (this.stepEventEmitter !== undefined) {
       const btn = formatButtonArray(buttons);
-      this.stepEventEmitter.emit(type, ...btn);
+      this.stepEventEmitter.emit(type, btn);
     } else {
       throw new Error("No stepEventEmitter connected");
     }
@@ -79,7 +79,7 @@ class GamepadListener {
   private update = () => {
     const gamepadButtons = navigator.getGamepads()[0]?.buttons;
     const pressed: Array<number> = [];
-    this.buttonsStatus = [];
+    // this.buttonsStatus = [];
     this.buttonsCache = [];
 
     // set cache

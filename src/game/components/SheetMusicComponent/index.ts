@@ -162,16 +162,16 @@ class SheetMusic {
       if (!this.isPlaying) {
         this.mainManager.launchGame();
       }
-      this.createArrow(2, {
-        name: "E4",
-        duration: 3,
-        durationTicks: 3,
-        track: 1,
-        velocity: 1,
-        ticks: 1,
-        time: 1,
-        midi: 1,
-      });
+      // this.createArrow(2, {
+      //   name: "E4",
+      //   duration: 3,
+      //   durationTicks: 3,
+      //   track: 1,
+      //   velocity: 1,
+      //   ticks: 1,
+      //   time: 1,
+      //   midi: 1,
+      // });
     });
   };
 
