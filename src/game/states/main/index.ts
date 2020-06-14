@@ -17,6 +17,7 @@ export interface MainState {
   difficulty: DifficultyModes;
   world: Worlds;
   isInTransition: boolean;
+  objectSpeed: number;
   didChangeWorld: boolean;
   isGameLaunch: boolean;
   isGameOver: boolean;
@@ -26,8 +27,9 @@ export interface MainState {
 const initialState = {
   difficulty: DifficultyModes.easy,
   world: Worlds.middleAges,
-  didChangeWorld: false,
+  objectSpeed: 400,
   isInTransition: false,
+  didChangeWorld: false,
   isGameLaunch: false,
   isGameOver: false,
   isReady: false,

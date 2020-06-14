@@ -53,7 +53,7 @@ class SheetMusic {
   private scale = 0.8;
   private inputZoneWidth = 210 * this.scale;
   private inputPerfectZoneWidth = 70;
-  private arrowSpeed = 400;
+  private arrowSpeed: number;
   private posX: number;
   private posY: number;
   private halfGoodZoneWidth: number;
@@ -98,6 +98,7 @@ class SheetMusic {
     this.scoreManager.onSuccess(this.successArrow);
 
     // TIME HELPERS
+    this.arrowSpeed = this.mainState.objectSpeed;
     this.noteDelay =
       NOTE_DELAY - Math.round((this.sheetWidth / this.arrowSpeed) * 1000);
     this.halfGoodZoneWidth =
