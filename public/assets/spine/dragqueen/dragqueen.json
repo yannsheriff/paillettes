@@ -130,7 +130,7 @@
 	}
 ],
 "animations": {
-	"Dance-Down": {
+	"Dance-down": {
 		"slots": {
 			"Etoile 1": {
 				"color": [
@@ -315,7 +315,7 @@
 			}
 		}
 	},
-	"Dance-Left": {
+	"Dance-left": {
 		"slots": {
 			"Etoile 1": {
 				"color": [
@@ -505,7 +505,7 @@
 			}
 		}
 	},
-	"Dance-Right": {
+	"Dance-right": {
 		"slots": {
 			"Etoile 1": {
 				"color": [
@@ -695,7 +695,7 @@
 			}
 		}
 	},
-	"Dance-Up": {
+	"Dance-up": {
 		"slots": {
 			"Etoile 1": {
 				"color": [

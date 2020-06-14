@@ -112,7 +112,7 @@
 	}
 ],
 "animations": {
-	"Faisceau-Start": {
+	"faisceau-start": {
 		"slots": {
 			"1_00016": {
 				"color": [
@@ -247,7 +247,7 @@
 			}
 		}
 	},
-	"Freestyle-Boucle": {
+	"freestyle-loop": {
 		"slots": {
 			"1_00016": {
 				"color": [
@@ -469,7 +469,7 @@
 			}
 		}
 	},
-	"Freestyle-Debut": {
+	"freestyle-begin": {
 		"slots": {
 			"1_00016": {
 				"color": [
@@ -631,7 +631,7 @@
 			}
 		}
 	},
-	"Freestyle-Fin": {
+	"freestyle-end": {
 		"slots": {
 			"1_00016": {
 				"color": [

@@ -5,6 +5,7 @@ import GroundComponent from "../../components/GroundComponent";
 import SheetMusicComponent from "../../components/SheetMusicComponent";
 import CharactersComponent from "../../components/CharactersComponent";
 import BackgroundComponent from "../../components/BackgroundComponent";
+import GodMotherComponent from "../../components/GodMotherComponent";
 import ScoreState from "../../states/score";
 import AnimationManager from "../../helpers/Animations";
 import AssetsManager from "../../helpers/Assets";
@@ -83,6 +84,7 @@ export class GameScene extends Phaser.Scene {
       this.ground = new GroundComponent(this);
       new SheetMusicComponent(this, this.CharacterManager);
       new DragQueenComponent(this);
+      new GodMotherComponent(this);
 
       // @ts-ignore
       this.isDebug = this.game.config.physics.arcade.debug;
