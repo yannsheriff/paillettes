@@ -7,7 +7,7 @@ export class TestSceneSpine extends Phaser.Scene {
   private dragQueen: Array<DragQueen> = [];
   private characterList: Array<CharacterBis> = [];
   private configList: Array<Phaser.GameObjects.Text> = [];
-  private characterAssets: Array<string> = []
+  private characterAssets: Array<string> = [];
 
   constructor() {
     super(config);
@@ -25,16 +25,18 @@ export class TestSceneSpine extends Phaser.Scene {
           "world_" + world + "_man_" + spine + ".atlas"
         );
 
-        this.load.setPath("assets/spine/world" + world + "/woman" + spine + "/");
+        this.load.setPath(
+          "assets/spine/world" + world + "/woman" + spine + "/"
+        );
         this.load.spine(
           "world_" + world + "_woman_" + spine,
           "world_" + world + "_woman_" + spine + ".json",
           "world_" + world + "_woman_" + spine + ".atlas"
         );
 
-        this.characterAssets.push("world_" + world + "_woman_" + spine)
-        this.characterAssets.push("world_" + world + "_man_" + spine)
-      }      
+        this.characterAssets.push("world_" + world + "_woman_" + spine);
+        this.characterAssets.push("world_" + world + "_man_" + spine);
+      }
     }
     // drag queen
     this.load.setPath("assets/spine/dragqueen/");
@@ -55,7 +57,7 @@ export class TestSceneSpine extends Phaser.Scene {
       .text(400, 50, "Ajouter la Drag Queen", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
-        this.addDragQueen()
+        this.addDragQueen();
       });
 
     this.characterAssets.forEach((character) => {
@@ -89,13 +91,8 @@ export class TestSceneSpine extends Phaser.Scene {
   }
 
   public addDragQueen() {
-    let dragQueen = new DragQueen(
-      this,
-      "dragqueen",
-      "Run",
-      true
-    );  
-    this.dragQueen.push(dragQueen)
+    let dragQueen = new DragQueen(this, "dragqueen", "Run", true);
+    this.dragQueen.push(dragQueen);
   }
 
   public addCharacter(assetName: string) {
@@ -106,6 +103,7 @@ export class TestSceneSpine extends Phaser.Scene {
       assetName,
       "NBidle",
       "",
+      400,
       false,
       false,
       true

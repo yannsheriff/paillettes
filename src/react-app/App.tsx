@@ -5,6 +5,7 @@ import "./App.css";
 import MainStateManager, { MainState } from "../game/states/main";
 interface state {
   showStart: boolean;
+  gameIsReady: boolean;
 }
 export default class App extends Component<{}, state> {
   mainState: MainState;
@@ -13,6 +14,7 @@ export default class App extends Component<{}, state> {
 
     this.state = {
       showStart: true,
+      gameIsReady: false,
     };
 
     MainStateManager.getInstance().subscribe(this.onStateChange);
@@ -27,14 +29,19 @@ export default class App extends Component<{}, state> {
       this.mainState = state;
       this.setState({ showStart: !state.isGameLaunch });
     }
+
+    if (state.isReady && state.isReady !== this.mainState.isReady) {
+      this.mainState = state;
+      this.setState({ gameIsReady: state.isReady });
+    }
   };
 
   render() {
-    const { showStart } = this.state;
+    const { showStart, gameIsReady } = this.state;
     return (
       <div className="App">
         <Game />
-        {showStart && <Intro />}
+        {showStart && gameIsReady && <Intro />}
       </div>
     );
   }

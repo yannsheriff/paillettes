@@ -45,6 +45,7 @@ class Score {
       fixedWidth: 300,
       depth: 11,
     });
+
     this.subtitle.setText("SCORE");
     this.subtitle.setDepth(11);
     this.score.setText("0");

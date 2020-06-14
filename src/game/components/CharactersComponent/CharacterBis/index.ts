@@ -3,33 +3,35 @@ import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 import { closeSync } from "fs";
 
 class PhysicCharacter extends SpineContainer {
-  public scene: Phaser.Scene
+  public scene: Phaser.Scene;
   public planeY: number = 0;
   public id: string;
-  public speed: number = 400;
+  public speed: number;
   public tweenX?: Phaser.Tweens.Tween;
   public scale: number = 0.5;
   public positionInCrowd: number = 0;
   public crowdPositionX: number = window.innerWidth / 2 - 300;
   public isUnlock: boolean = false;
   public distanceBetweenCharacters: number = 40;
-  
+
   constructor(
     scene: Phaser.Scene,
     key: string,
     anim: string,
     id: string,
+    speed: number,
     loop: boolean = false,
     runAnimation: boolean = false,
     isDebug: boolean = false,
-    positionInCrowd: number = 0,
+    positionInCrowd: number = 0
   ) {
     super(scene, 0, 0, key, anim, loop);
     this.id = id;
     this.scene = scene;
-    
+    this.speed = speed;
+
     scene.add.existing(this);
-    
+
     // apply default skin to character
     this.applyDefaultSkin(false);
 
@@ -46,16 +48,16 @@ class PhysicCharacter extends SpineContainer {
 
     if (!isDebug) {
       Align.outsideRightSpine(this, this.spine, this.scale);
-      Align.charactersOnGround(this, this.spine, this.scale)
+      Align.charactersOnGround(this, this.spine, this.scale);
     } else {
       Align.crowdPosition(this, this.spine, this.scale);
-      Align.charactersOnGround(this, this.spine, this.scale)
+      Align.charactersOnGround(this, this.spine, this.scale);
     }
 
     this.drawDebug(false);
 
     if (runAnimation) {
-      this.runTowardCrowd()
+      this.runTowardCrowd();
     }
 
     // this.initDestroy()
@@ -74,7 +76,7 @@ class PhysicCharacter extends SpineContainer {
   }
 
   public failAndDestroy() {
-    this.stop()
+    this.stop();
     this.playAnimation("Fail", false);
 
     setTimeout(() => {
@@ -86,13 +88,18 @@ class PhysicCharacter extends SpineContainer {
     this.isUnlock = true;
   }
 
-  // 
+  //
   public runTowardCrowd() {
-    let destinationX = this.crowdPositionX - this.positionInCrowd * this.distanceBetweenCharacters
-    if (destinationX < 0) { destinationX = 0 }
+    let destinationX =
+      this.crowdPositionX -
+      this.positionInCrowd * this.distanceBetweenCharacters;
+    if (destinationX < 0) {
+      destinationX = 0;
+    }
 
-    let destination = (window.innerWidth - destinationX) + this.displayWidth / 2 * this.scale
-    
+    let destination =
+      window.innerWidth - destinationX + (this.displayWidth / 2) * this.scale;
+
     let duration = (destination / this.speed) * 1000;
 
     let latency = 400;
@@ -105,7 +112,7 @@ class PhysicCharacter extends SpineContainer {
       repeat: 0,
       yoyo: false,
       onComplete: () => {
-        this.playRunAnimation()
+        this.playRunAnimation();
       },
     });
   }
@@ -117,7 +124,7 @@ class PhysicCharacter extends SpineContainer {
   }
 
   public stop() {
-    this.runVelocity(0)
+    this.runVelocity(0);
   }
 
   public playTransformationAnimation() {
@@ -140,7 +147,9 @@ class PhysicCharacter extends SpineContainer {
    * destroy physic character + remove its tween
    */
   public deleteCharacter() {
-    if (this.tweenX) { this.tweenX.remove(); }
+    if (this.tweenX) {
+      this.tweenX.remove();
+    }
     this.destroy();
   }
 }

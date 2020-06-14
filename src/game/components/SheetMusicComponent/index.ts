@@ -53,7 +53,7 @@ class SheetMusic {
   private scale = 0.8;
   private inputZoneWidth = 210 * this.scale;
   private inputPerfectZoneWidth = 70;
-  private arrowSpeed = 400;
+  private arrowSpeed: number;
   private posX: number;
   private posY: number;
   private halfGoodZoneWidth: number;
@@ -98,6 +98,7 @@ class SheetMusic {
     this.scoreManager.onSuccess(this.successArrow);
 
     // TIME HELPERS
+    this.arrowSpeed = this.mainState.objectSpeed;
     this.noteDelay =
       NOTE_DELAY - Math.round((this.sheetWidth / this.arrowSpeed) * 1000);
     this.halfGoodZoneWidth =
@@ -131,7 +132,7 @@ class SheetMusic {
 
     new GodMother(this.scene, this.scale);
 
-    new Chrono(this.scene, this.posX - 80, this.posY + 80, this.scale);
+    new Chrono(this.scene, this.posX - 280, this.posY + 80, this.scale);
 
     new Score(this.scene, this.posX - 300, this.posY - 70, this.scale);
 
@@ -162,16 +163,16 @@ class SheetMusic {
       if (!this.isPlaying) {
         this.mainManager.launchGame();
       }
-      this.createArrow(2, {
-        name: "E4",
-        duration: 3,
-        durationTicks: 3,
-        track: 1,
-        velocity: 1,
-        ticks: 1,
-        time: 1,
-        midi: 1,
-      });
+      // this.createArrow(2, {
+      //   name: "E4",
+      //   duration: 3,
+      //   durationTicks: 3,
+      //   track: 1,
+      //   velocity: 1,
+      //   ticks: 1,
+      //   time: 1,
+      //   midi: 1,
+      // });
     });
   };
 
