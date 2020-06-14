@@ -128,7 +128,6 @@ class InputZone {
       input?.sprite
         ?.play(gridObject.direction + "-success")
         .on("animationcomplete", () => {
-          console.log("inut");
           this.inputs.set(gridObject.direction, {
             ...input!,
             playSuccess: false,

@@ -37,11 +37,35 @@ export class ConfettiGenerator {
     this.gradient = false; //whether to use gradients for the confetti particles
     this.pause = false; //call to freeze confetti animation
     this.autoAnimate = autoAnimate;
+
+    if (!context) {
+      var width = window.innerWidth;
+      var height = window.innerHeight;
+
+      this.canvas.width = width;
+      this.canvas.height = height;
+      window.addEventListener(
+        "resize",
+        () => {
+          this.canvas.width = window.innerWidth;
+          this.canvas.height = window.innerHeight;
+        },
+        true
+      );
+    }
   }
 
   toggleConfettiPause() {
     if (this.pause) this.resumeConfetti();
     else this.pauseConfetti();
+  }
+
+  grow() {
+    this.canvas.width = window.innerWidth;
+  }
+
+  shrink() {
+    this.canvas.width = window.innerWidth / 2;
   }
 
   isConfettiPaused() {
@@ -82,19 +106,6 @@ export class ConfettiGenerator {
     max?: number,
     customColors?: string[]
   ) {
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-
-    this.canvas.width = width;
-    this.canvas.height = height;
-    window.addEventListener(
-      "resize",
-      () => {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-      },
-      true
-    );
     var count = this.maxCount;
 
     if (min) {
@@ -113,7 +124,12 @@ export class ConfettiGenerator {
     } else if (max) count = this.particles.length + max;
     while (this.particles.length < count)
       this.particles.push(
-        new Particle(this.alpha, width, height, customColors || colors)
+        new Particle(
+          this.alpha,
+          this.canvas.width,
+          this.canvas.height,
+          customColors || colors
+        )
       );
     this.streamingConfetti = true;
     this.pause = false;
@@ -192,22 +208,7 @@ export class ConfettiGenerator {
 }
 
 class Particle {
-  colors = [
-    // "rgba(30,144,255,",
-    // "rgba(107,142,35,",
-    // "rgba(255,215,0,",
-    // "rgba(255,192,203,",
-    // "rgba(106,90,205,",
-    // "rgba(173,216,230,",
-    // "rgba(238,130,238,",
-    // "rgba(152,251,152,",
-    // "rgba(70,130,180,",
-    // "rgba(244,164,96,",
-    // "rgba(210,105,30,",
-    // "rgba(220,20,60,",
-    "rgba(93, 37, 218,",
-    "rgba(255, 0, 125,",
-  ];
+  colors = ["rgba(93, 37, 218,", "rgba(255, 0, 125,"];
 
   color: string;
   color2: string;
@@ -219,7 +220,7 @@ class Particle {
   tiltAngleIncrement: number;
   tiltAngle: number;
 
-  constructor(alpha: number, width: number, height: number, colors: String[]) {
+  constructor(alpha: number, width: number, height: number, colors: string[]) {
     this.alpha = alpha;
     this.color =
       colors[(Math.random() * colors.length) | 0] + (this.alpha + ")");
@@ -231,6 +232,7 @@ class Particle {
     this.tilt = Math.random() * 10 - 10;
     this.tiltAngleIncrement = Math.random() * 0.07 + 0.05;
     this.tiltAngle = Math.random() * Math.PI;
+    this.colors = colors;
   }
 
   reset = (width: number, height: number) => {

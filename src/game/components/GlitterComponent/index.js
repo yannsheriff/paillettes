@@ -1,18 +1,9 @@
 import { ConfettiGenerator } from "../../helpers/Confetti";
 import ScoreStateManager from "../../states/score";
-import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
+import FreestyleStateManager from "../../states/freestyle";
 import Canvas from "phaser3-rex-plugins/plugins/canvas.js";
 
 class GlitterComponent {
-  // private scene: Phaser.Scene;
-  // private confettiManager?: ConfettiGenerator;
-  // private canvas?: Phaser.GameObjects.GameObject;
-  // private context?: CanvasRenderingContext2D;
-  // private texture?: Phaser.Textures.CanvasTexture;
-  // private freeState: FreestyleState;
-  // private freestyleStateManager: FreestyleStateManager;
-
-  // constructor(scene: Phaser.Scene) {
   constructor(scene) {
     this.scene = scene;
 
@@ -28,9 +19,9 @@ class GlitterComponent {
   create() {
     this.canvas = new Canvas(
       this.scene,
-      window.innerWidth / 2,
+      window.innerWidth / 4,
       window.innerHeight / 2,
-      window.innerWidth,
+      window.innerWidth / 2,
       window.innerHeight
     ).setDepth(20);
 
@@ -41,11 +32,12 @@ class GlitterComponent {
       this.canvas.getContext(),
       false
     );
-    this.confettiManager.startConfetti(500, undefined, 150);
   }
 
   throwConfetti = () => {
-    this.confettiManager.startConfetti(500, undefined, 150);
+    if (!this.freeState.isFreestyleActivated) {
+      this.confettiManager.startConfetti(500, undefined, 150);
+    }
   };
 
   update() {
@@ -54,8 +46,10 @@ class GlitterComponent {
   }
 
   onFreeStateChange = (state) => {
-    if (state.isFreestyleActivated !== this.freeState.isFreestyleActivated) {
-      // this.canRotate = true;
+    if (
+      state.isFreestyleActivated !== this.freeState.isFreestyleActivated &&
+      state.isFreestyleActivated
+    ) {
       const colors = [
         "rgba(93, 37, 218,",
         "rgba(255, 0, 125,",
@@ -64,12 +58,19 @@ class GlitterComponent {
         "rgba(240, 219, 75,",
         "rgba(115, 251, 245,",
       ];
+
+      this.confettiManager.grow();
       this.confettiManager.startConfetti(
         state.freestyleDuration,
         undefined,
         150,
         colors
       );
+    } else if (
+      state.isFreestyleActivated !== this.freeState.isFreestyleActivated &&
+      !state.isFreestyleActivated
+    ) {
+      this.confettiManager.shrink();
     }
     this.freeState = state;
   };

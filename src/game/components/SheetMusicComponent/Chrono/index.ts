@@ -72,7 +72,6 @@ class Chrono {
     ) {
       if (state.isFreestyleActivated) {
         this.create(state.freestyleDuration);
-        console.log("Create");
       } else {
         this.delete();
       }
