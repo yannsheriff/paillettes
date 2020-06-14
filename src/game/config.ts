@@ -4,6 +4,7 @@ import "phaser/plugins/spine/dist/SpinePlugin";
 import MainScene from "./scenes/main";
 import TestScene from "./scenes/test";
 import TestSceneSpine from "./scenes/test/spine";
+import TestSceneDrag from "./scenes/test/dragqueen";
 import TestSceneBackground from "./scenes/test/background";
 import TestSceneCrowd from "./scenes/test/crowd";
 import TestSceneBlob from "./scenes/test/blob";
@@ -30,11 +31,11 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: false,
+      debug: true,
     },
   },
-  scene: [MainScene],
-  // scene: [TestScene, TestSceneSpine, TestSceneBackground, TestSceneCrowd, TestSceneBlob],
+  // scene: [MainScene],
+  scene: [TestScene, TestSceneSpine, TestSceneDrag, TestSceneBackground, TestSceneCrowd, TestSceneBlob],
   plugins: {
     scene: [
       {

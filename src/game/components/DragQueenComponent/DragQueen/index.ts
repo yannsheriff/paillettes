@@ -12,11 +12,12 @@ class DragQueen extends SpineContainer {
   ) {
     super(scene, 0, 0, key, anim, loop);
 
-    Align.dragPosition(this, this.spine, this.scale);
+    this.x = window.innerWidth / 2;
+    // Align.dragPosition(this, this.spine, this.scale);
     Align.charactersOnGround(this, this.spine, this.scale)
     scene.add.existing(this)
 
-    this.setScale(0.8); // asset size
+    this.setScale(0.5); // asset size
     this.drawDebug(true)
     // this.allowCollideWorldBounds(true)
 
@@ -24,6 +25,10 @@ class DragQueen extends SpineContainer {
     this.drawDebug(false);
 
     // this.runVelocity(50)
+  }
+
+  public deleteDragQueen() {
+    this.destroy();
   }
 
   // public launch() {

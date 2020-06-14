@@ -19,13 +19,13 @@ export interface SpineData {
 }
 
 export default class AssetsManager {
-  private static instance: AssetsManager;
-  private scene: any;
-  private images: ImageData[];
-  private spritesheets: SpritesheetData[];
-  private spines: SpineData[];
-  private musics: MusicData[];
-  private spineCharacters: SpineData[];
+  public static instance: AssetsManager;
+  public scene: any;
+  public images: ImageData[];
+  public spritesheets: SpritesheetData[];
+  public spines: SpineData[];
+  public musics: MusicData[];
+  public spineCharacters: SpineData[];
 
   /**
    * The Singleton's constructor should always be private to prevent direct

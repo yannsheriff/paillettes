@@ -50,7 +50,7 @@ class Align {
   }
   static dragPosition(obj, spine, scale) {
     const placement = window.innerWidth / 2 - 280
-    obj.x = placement + (spine.displayWidth * scale) / 2;
+    obj.x = placement;
   }
   static crowdPosition(obj, spine, scale) {
     obj.x = window.innerWidth / 2 - 220;
