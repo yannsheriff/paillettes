@@ -1,3 +1,5 @@
+const colors = ["rgba(93, 37, 218,", "rgba(255, 0, 125,"];
+
 export class ConfettiGenerator {
   // supportsAnimationFrame: number;
   context: CanvasRenderingContext2D;
@@ -74,7 +76,12 @@ export class ConfettiGenerator {
     }
   };
 
-  startConfetti(timeout?: number, min?: number, max?: number) {
+  startConfetti(
+    timeout?: number,
+    min?: number,
+    max?: number,
+    customColors?: string[]
+  ) {
     var width = window.innerWidth;
     var height = window.innerHeight;
 
@@ -105,18 +112,20 @@ export class ConfettiGenerator {
       } else count = this.particles.length + min;
     } else if (max) count = this.particles.length + max;
     while (this.particles.length < count)
-      this.particles.push(new Particle(this.alpha, width, height));
+      this.particles.push(
+        new Particle(this.alpha, width, height, customColors || colors)
+      );
     this.streamingConfetti = true;
     this.pause = false;
     this.runAnimation();
     if (timeout) {
-      window.setTimeout(this.stopConfetti, timeout);
+      setTimeout(this.stopConfetti, timeout);
     }
   }
 
-  stopConfetti() {
+  stopConfetti = () => {
     this.streamingConfetti = false;
-  }
+  };
 
   removeConfetti() {
     this.pause = false;
@@ -210,14 +219,12 @@ class Particle {
   tiltAngleIncrement: number;
   tiltAngle: number;
 
-  constructor(alpha: number, width: number, height: number) {
+  constructor(alpha: number, width: number, height: number, colors: String[]) {
     this.alpha = alpha;
     this.color =
-      this.colors[(Math.random() * this.colors.length) | 0] +
-      (this.alpha + ")");
+      colors[(Math.random() * colors.length) | 0] + (this.alpha + ")");
     this.color2 =
-      this.colors[(Math.random() * this.colors.length) | 0] +
-      (this.alpha + ")");
+      colors[(Math.random() * colors.length) | 0] + (this.alpha + ")");
     this.x = Math.random() * width;
     this.y = Math.random() * height - height;
     this.diameter = Math.random() * 10 + 5;

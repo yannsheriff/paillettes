@@ -26,6 +26,7 @@ export class GameScene extends Phaser.Scene {
   private CharacterManager: CharacterManager;
   private scoreManager: ScoreState;
   private ground?: GroundComponent;
+  private glitter?: GlitterComponent;
   private animationManager: AnimationManager;
   private assetsManager: AssetsManager;
   public isDebug?: boolean = false;
@@ -49,6 +50,12 @@ export class GameScene extends Phaser.Scene {
     this.load.once("start", this.loadStart);
     this.load.scene.load.on("progress", this.loadProgress);
     this.load.once("complete", this.startGame);
+
+    this.load.plugin(
+      "rexcanvasplugin",
+      "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexcanvasplugin.min.js",
+      true
+    );
 
     this.animationManager.preload();
     this.assetsManager.preload();
@@ -86,7 +93,7 @@ export class GameScene extends Phaser.Scene {
       new SheetMusicComponent(this, this.CharacterManager);
       new DragQueenComponent(this);
       new GodMotherComponent(this);
-      new GlitterComponent(this);
+      this.glitter = new GlitterComponent(this);
 
       // @ts-ignore
       this.isDebug = this.game.config.physics.arcade.debug;
@@ -103,6 +110,7 @@ export class GameScene extends Phaser.Scene {
 
   public update() {
     this.ground?.update();
+    this.glitter?.update();
   }
 }
 
