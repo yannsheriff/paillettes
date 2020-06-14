@@ -1,17 +1,19 @@
 import { ConfettiGenerator } from "../../helpers/Confetti";
 import ScoreStateManager from "../../states/score";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
+import Canvas from "phaser3-rex-plugins/plugins/canvas.js";
 
 class GlitterComponent {
-  private scene: Phaser.Scene;
-  private confettiManager?: ConfettiGenerator;
-  private canvas?: HTMLCanvasElement;
-  private context?: CanvasRenderingContext2D;
-  private texture?: Phaser.Textures.CanvasTexture;
-  private freeState: FreestyleState;
-  private freestyleStateManager: FreestyleStateManager;
+  // private scene: Phaser.Scene;
+  // private confettiManager?: ConfettiGenerator;
+  // private canvas?: Phaser.GameObjects.GameObject;
+  // private context?: CanvasRenderingContext2D;
+  // private texture?: Phaser.Textures.CanvasTexture;
+  // private freeState: FreestyleState;
+  // private freestyleStateManager: FreestyleStateManager;
 
-  constructor(scene: Phaser.Scene) {
+  // constructor(scene: Phaser.Scene) {
+  constructor(scene) {
     this.scene = scene;
 
     this.freestyleStateManager = FreestyleStateManager.getInstance();
@@ -23,36 +25,35 @@ class GlitterComponent {
     this.create();
   }
 
-  private create() {
-    this.texture = this.scene.textures.createCanvas(
-      "glitter",
+  create() {
+    this.canvas = new Canvas(
+      this.scene,
+      window.innerWidth / 2,
+      window.innerHeight / 2,
       window.innerWidth,
       window.innerHeight
-    );
+    ).setDepth(20);
 
-    this.canvas = this.texture.getCanvas();
-    this.context = this.texture.getContext();
+    this.scene.add.existing(this.canvas);
+
     this.confettiManager = new ConfettiGenerator(
-      this.canvas,
-      this.context,
+      this.canvas.getCanvas(),
+      this.canvas.getContext(),
       false
     );
-
-    this.scene.add
-      .image(window.innerWidth / 2, window.innerHeight / 2, "glitter")
-      .setDepth(20);
+    this.confettiManager.startConfetti(500, undefined, 150);
   }
 
-  private throwConfetti = () => {
-    this.confettiManager?.startConfetti(500, undefined, 150);
+  throwConfetti = () => {
+    this.confettiManager.startConfetti(500, undefined, 150);
   };
 
-  public update() {
-    this.confettiManager!.runAnimation();
-    this.texture!.refresh();
+  update() {
+    this.confettiManager.runAnimation();
+    this.canvas.needRedraw();
   }
 
-  private onFreeStateChange = (state: FreestyleState) => {
+  onFreeStateChange = (state) => {
     if (state.isFreestyleActivated !== this.freeState.isFreestyleActivated) {
       // this.canRotate = true;
       const colors = [
@@ -63,7 +64,7 @@ class GlitterComponent {
         "rgba(240, 219, 75,",
         "rgba(115, 251, 245,",
       ];
-      this.confettiManager?.startConfetti(
+      this.confettiManager.startConfetti(
         state.freestyleDuration,
         undefined,
         150,
