@@ -10,7 +10,7 @@ export enum Worlds {
   middleAges = 1,
   today = 2,
   nineteenCentury = 3,
-  prehistory = 4
+  prehistory = 4,
 }
 
 export interface MainState {
@@ -20,6 +20,7 @@ export interface MainState {
   didChangeWorld: boolean;
   isGameLaunch: boolean;
   isGameOver: boolean;
+  isReady: boolean;
 }
 
 const initialState = {
@@ -28,7 +29,8 @@ const initialState = {
   didChangeWorld: false,
   isInTransition: false,
   isGameLaunch: false,
-  isGameOver: false
+  isGameOver: false,
+  isReady: false,
 };
 
 export default class MainStateManager extends State {
@@ -44,7 +46,11 @@ export default class MainStateManager extends State {
     super();
     this.state = initialState;
 
-    this.remainingWorlds = [Worlds.nineteenCentury, Worlds.today, Worlds.prehistory];
+    this.remainingWorlds = [
+      Worlds.nineteenCentury,
+      Worlds.today,
+      Worlds.prehistory,
+    ];
   }
 
   /**
@@ -66,8 +72,14 @@ export default class MainStateManager extends State {
    */
   public launchGame() {
     this.setState({
-      isGameLaunch: true
-    })
+      isGameLaunch: true,
+    });
+  }
+
+  public gameIsReady() {
+    this.setState({
+      isReady: true,
+    });
   }
 
   public incrementDifficulty() {
