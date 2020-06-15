@@ -54,7 +54,7 @@ class Plane extends Phaser.GameObjects.Sprite {
     } else {
       Align.center(this);
     }
-    Align.centerBottom(this)
+    Align.centerPlaneBottom(this)
 
     this.planeBody = this.body as Phaser.Physics.Arcade.Body;
 

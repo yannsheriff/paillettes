@@ -25,10 +25,6 @@ class Align {
   static bottomImg(obj) {
     obj.y = window.innerHeight;
   }
-  static centerBottom(obj) {
-    // ground position - ground height - centerbottom
-    obj.y = window.innerHeight - window.innerHeight / 5 - 200 - obj.displayHeight / 2;
-  }
   static center(obj) {
     obj.x = window.innerWidth / 2;
     obj.y = window.innerHeight / 2;
@@ -53,14 +49,17 @@ class Align {
     obj.x = window.innerWidth + (spine.displayWidth * scale) / 2;
   }
   static dragPosition(obj, spine, scale) {
-    const placement = window.innerWidth / 2 - 280
-    obj.x = placement;
+    obj.x = window.innerWidth / 2 - 90;
   }
   static crowdPosition(obj, spine, scale) {
     obj.x = window.innerWidth / 2 - 220;
   }
   static charactersOnGround(obj, spine, scale) {
-    obj.y = window.innerHeight * 0.7;
+    obj.y = window.innerHeight - window.innerHeight / 5 - 150;
+  }
+  static centerPlaneBottom(obj) {
+    // ground position - ground height - centerbottom
+    obj.y = window.innerHeight - window.innerHeight / 5 - 160 - obj.displayHeight / 2;
   }
 }
 
