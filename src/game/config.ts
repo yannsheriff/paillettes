@@ -11,6 +11,7 @@ import TestSceneBlob from "./scenes/test/blob";
 import TestSceneCurtainBefore from "./scenes/test/curtain/before";
 import TestSceneCurtainAfter from "./scenes/test/curtain/after";
 import confetti from "./scenes/test/confetti";
+import Score from "./scenes/test/Score";
 
 export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;
@@ -36,17 +37,8 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: false,
     },
   },
-  scene: [MainScene],
-  // scene: [
-  //   TestScene,
-  //   TestSceneSpine,
-  //   TestSceneDrag,
-  //   TestSceneBackground,
-  //   TestSceneCrowd,
-  //   TestSceneBlob,
-  //   TestSceneCurtainBefore,
-  //   TestSceneCurtainAfter
-  // ],
+  scene: [Score],
+  // scene: [TestScene, TestSceneSpine, TestSceneDrag, TestSceneBackground, TestSceneCrowd, TestSceneBlob],
   plugins: {
     scene: [
       {

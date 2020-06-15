@@ -181,7 +181,12 @@ class SheetMusic {
     this.player?.start();
     const time = muscisFile.get(this.music)["header"]["bc-delay-sync"];
     setTimeout(() => {
-      this.scene.sound.play("hungup");
+      const music = this.scene.sound.add("zelda");
+      music.play();
+
+      music.once("complete", () => {
+        this.mainManager.stopGame();
+      });
     }, time);
   }
 

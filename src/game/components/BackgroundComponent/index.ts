@@ -1,6 +1,10 @@
 import Blob from "./Blob";
 import Plane, { PlaneSpace } from "./Plane";
-import MainStateManager, { MainState, Worlds, GameStatus } from "../../states/main";
+import MainStateManager, {
+  MainState,
+  Worlds,
+  GameStatus,
+} from "../../states/main";
 
 class BackgroundManager {
   private mainState: MainState;
@@ -10,7 +14,7 @@ class BackgroundManager {
   private scene: Phaser.Scene;
   private canvasWidth: number = 0;
   private world: Worlds;
-  private currentAsset: Array<number> = []
+  private currentAsset: Array<number> = [];
   private numberAssets: number = 6;
   private blob?: Blob;
 
@@ -26,7 +30,8 @@ class BackgroundManager {
     this.mainState = this.mainManager.state;
     this.world = this.mainManager.state.world;
 
-    this.generateFirstPlanes()
+    this.generateFirstPlanes();
+    this.blob = new Blob(this.scene);
   }
 
   public runBackground() {
@@ -34,10 +39,10 @@ class BackgroundManager {
     for (let planenb = 0; planenb < 3; planenb++) {
       this.generatePlanes(planenb, true);
     }
-    this.currentPlanes.forEach(plane => {
-      plane.movePlane()
-      this.initDestroy(plane, plane.planeSpace)
-      this.blob = new Blob(this.scene)
+    this.currentPlanes.forEach((plane) => {
+      plane.movePlane();
+      this.initDestroy(plane, plane.planeSpace);
+      this.blob = new Blob(this.scene);
     });
   }
 
@@ -45,25 +50,25 @@ class BackgroundManager {
    * Generate a new plane and set its destroy time
    * and the time it will generate the next one
    */
-  public generatePlanes(planeNumber: PlaneSpace, isInit: boolean) {
+  public generatePlanes = (planeNumber: PlaneSpace, isInit: boolean) => {
     let planeSpace;
 
     if (planeNumber === 0) {
-      planeSpace = PlaneSpace.first
+      planeSpace = PlaneSpace.first;
     } else if (planeNumber === 1) {
-      planeSpace = PlaneSpace.second
+      planeSpace = PlaneSpace.second;
     } else {
-      planeSpace = PlaneSpace.third
+      planeSpace = PlaneSpace.third;
     }
-    
-    let rand = this.getRandomAsset(planeSpace)
+
+    let rand = this.getRandomAsset(planeSpace);
 
     let planeObj = new Plane(
       this.scene,
       0,
       0,
-      'world' + this.world, // 'world' + this.world + 1
-      'w' + this.world + '_p' + (planeNumber + 1) + '_' + rand,
+      "world" + this.world, // 'world' + this.world + 1
+      "w" + this.world + "_p" + (planeNumber + 1) + "_" + rand,
       planeSpace,
       this.globalSpeed
     );
@@ -74,7 +79,7 @@ class BackgroundManager {
 
     this.initDestroy(planeObj, planeNumber);
     this.initNextPlane(planeObj, planeSpace);
-  }
+  };
 
   public initDestroy(planeinstance: Plane, planeSpace: PlaneSpace) {
     const timeToExitCanvas = this.calculateTime(
@@ -102,7 +107,9 @@ class BackgroundManager {
     );
 
     setTimeout(() => {
-      this.generatePlanes(planeSpace, false);
+      if (!this.mainState.isGameOver) {
+        this.generatePlanes(planeSpace, false);
+      }
     }, timeBeforeGenerateNextPlane);
   }
 
@@ -119,7 +126,7 @@ class BackgroundManager {
         return rand;
       }
     } while (rand === this.currentAsset[arrayNb] || 0);
-    
+
     return rand;
   }
 
@@ -128,62 +135,89 @@ class BackgroundManager {
     let prevPlane;
 
     for (let planeone = 0; planeone < 2; planeone++) {
-      let rand = this.getRandomAsset(PlaneSpace.first)
+      let rand = this.getRandomAsset(PlaneSpace.first);
       currentPlane = new Plane(
-        this.scene, 0, 0, 'world' + this.world, // 'world' + this.world + 1
-        'w' + this.world + '_p' + 1 + '_' + rand,
+        this.scene,
+        0,
+        0,
+        "world" + this.world, // 'world' + this.world + 1
+        "w" + this.world + "_p" + 1 + "_" + rand,
         PlaneSpace.first,
         this.globalSpeed,
         true
-      )
+      );
       if (planeone === 0) {
-        currentPlane.x = window.innerWidth - currentPlane.displayWidth / 2 - this.distanceBtwAssetsFirstPlane
+        currentPlane.x =
+          window.innerWidth -
+          currentPlane.displayWidth / 2 -
+          this.distanceBtwAssetsFirstPlane;
       } else if (prevPlane) {
-        currentPlane.x = prevPlane.x - currentPlane.displayWidth - this.distanceBtwAssetsFirstPlane
+        currentPlane.x =
+          prevPlane.x -
+          currentPlane.displayWidth -
+          this.distanceBtwAssetsFirstPlane;
       }
-      this.currentPlanes.push(currentPlane)
+      this.currentPlanes.push(currentPlane);
       // this.initDestroy(currentPlane, PlaneSpace.first);
       prevPlane = currentPlane;
     }
 
     for (let planetwo = 0; planetwo < 3; planetwo++) {
-      let rand = this.getRandomAsset(PlaneSpace.second)
+      let rand = this.getRandomAsset(PlaneSpace.second);
       currentPlane = new Plane(
-        this.scene, 0, 0, 'world' + this.world, // 'world' + this.world + 1
-        'w' + this.world + '_p' + 2 + '_' + rand,
+        this.scene,
+        0,
+        0,
+        "world" + this.world, // 'world' + this.world + 1
+        "w" + this.world + "_p" + 2 + "_" + rand,
         PlaneSpace.second,
         this.globalSpeed,
         true
-      )
+      );
       if (planetwo === 0) {
-        currentPlane.x = window.innerWidth - currentPlane.displayWidth / 2 - this.distanceBtwAssetsSecondPlane
+        currentPlane.x =
+          window.innerWidth -
+          currentPlane.displayWidth / 2 -
+          this.distanceBtwAssetsSecondPlane;
       } else if (prevPlane) {
-        currentPlane.x = prevPlane.x - currentPlane.displayWidth - this.distanceBtwAssetsSecondPlane
+        currentPlane.x =
+          prevPlane.x -
+          currentPlane.displayWidth -
+          this.distanceBtwAssetsSecondPlane;
       }
-      this.currentPlanes.push(currentPlane)
+      this.currentPlanes.push(currentPlane);
       // this.initDestroy(currentPlane, PlaneSpace.second);
       prevPlane = currentPlane;
     }
     for (let planethree = 0; planethree < 2; planethree++) {
-      let rand = this.getRandomAsset(PlaneSpace.third)
+      let rand = this.getRandomAsset(PlaneSpace.third);
       currentPlane = new Plane(
-        this.scene, 0, 0, 'world' + this.world, // 'world' + this.world + 1
-        'w' + this.world + '_p' + 3 + '_' + rand,
+        this.scene,
+        0,
+        0,
+        "world" + this.world, // 'world' + this.world + 1
+        "w" + this.world + "_p" + 3 + "_" + rand,
         PlaneSpace.third,
         this.globalSpeed,
         true
-      )
+      );
       if (planethree === 0) {
-        currentPlane.x = window.innerWidth - currentPlane.displayWidth / 2 - this.distanceBtwAssetsThirdPlane
+        currentPlane.x =
+          window.innerWidth -
+          currentPlane.displayWidth / 2 -
+          this.distanceBtwAssetsThirdPlane;
       } else if (prevPlane) {
-        currentPlane.x = prevPlane.x - currentPlane.displayWidth - this.distanceBtwAssetsThirdPlane
+        currentPlane.x =
+          prevPlane.x -
+          currentPlane.displayWidth -
+          this.distanceBtwAssetsThirdPlane;
       }
-      this.currentPlanes.push(currentPlane)
+      this.currentPlanes.push(currentPlane);
       // this.initDestroy(currentPlane, PlaneSpace.third);
       prevPlane = currentPlane;
     }
 
-    console.log(this.currentPlanes)
+    console.log(this.currentPlanes);
   }
 
   /**
@@ -202,13 +236,13 @@ class BackgroundManager {
     isExit: boolean
   ): number {
     let latency = 0; // this value set the distance between 2 assets
-    
+
     if (planeSpace === PlaneSpace.first) {
-      latency = this.distanceBtwAssetsFirstPlane
+      latency = this.distanceBtwAssetsFirstPlane;
     } else if (planeSpace === PlaneSpace.second) {
-      latency = this.distanceBtwAssetsSecondPlane
+      latency = this.distanceBtwAssetsSecondPlane;
     } else {
-      latency = this.distanceBtwAssetsThirdPlane
+      latency = this.distanceBtwAssetsThirdPlane;
     }
 
     const v = planeSpeed;
@@ -229,9 +263,11 @@ class BackgroundManager {
   }
 
   private onMainStateChange = (state: MainState) => {
-    if (state.gameStatus !== this.mainState.gameStatus 
-      && state.gameStatus === GameStatus.isRunning) {
-      this.runBackground()
+    if (
+      state.gameStatus !== this.mainState.gameStatus &&
+      state.gameStatus === GameStatus.isRunning
+    ) {
+      this.runBackground();
     }
 
     if (state.world !== this.mainState.world) {

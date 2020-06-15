@@ -18,15 +18,18 @@ import {
 } from "../../assets/assets";
 import DragQueenComponent from "../../components/DragQueenComponent";
 import MainGameManager from "../../managers/MainGameManager";
-import MainStateManager from "../../states/main";
+import MainStateManager, { MainState } from "../../states/main";
 import GlitterComponent from "../../components/GlitterComponent";
 import CurtainsComponent from "../../components/CurtainsComponent";
 import LogoComponent from "../../components/LogoComponent";
+import ConfettiScene from "../test/confetti/conffeti";
+import ConfettiConfig from "../test/confetti/config";
 
 export class GameScene extends Phaser.Scene {
   private text?: Phaser.GameObjects.Text;
   private CharacterManager: CharacterManager;
   private scoreManager: ScoreState;
+  private mainStateManager: MainStateManager;
   private ground?: GroundComponent;
   private glitter?: GlitterComponent;
   private animationManager: AnimationManager;
@@ -36,6 +39,7 @@ export class GameScene extends Phaser.Scene {
   constructor() {
     super(config);
     this.CharacterManager = CharacterManager.getInstance();
+    this.mainStateManager = MainStateManager.getInstance();
     this.scoreManager = ScoreState.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
     this.assetsManager = new AssetsManager(
@@ -46,6 +50,8 @@ export class GameScene extends Phaser.Scene {
       mainMusic
     );
     MainGameManager.getInstance();
+
+    this.mainStateManager.subscribe(this.onMainStateChange);
   }
 
   public preload(): void {
@@ -59,11 +65,10 @@ export class GameScene extends Phaser.Scene {
       true
     );
 
+    // this.scene.add("Confetti", ConfettiScene, true);
     this.animationManager.preload();
     this.assetsManager.preload();
   }
-
-  public create() {}
 
   loadStart = () => {
     this.text = this.add
@@ -84,7 +89,7 @@ export class GameScene extends Phaser.Scene {
   };
 
   startGame = () => {
-    MainStateManager.getInstance().gameIsReady();
+    this.mainStateManager.gameIsReady();
     this.text!.destroy();
 
     setTimeout(() => {
@@ -116,6 +121,12 @@ export class GameScene extends Phaser.Scene {
     this.ground?.update();
     this.glitter?.update();
   }
+
+  private onMainStateChange = (state: MainState) => {
+    if (state.isGameOver) {
+      this.scene.start("Confetti");
+    }
+  };
 }
 
 export default GameScene;
