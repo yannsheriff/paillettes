@@ -23,6 +23,18 @@ class DragQueen extends SpineContainer {
     this.drawDebug(false);
 
     this.mixAnimation("Start", "Run")
+    this.mixAnimation("Dance-left", "Dance-right")
+    this.mixAnimation("Dance-left", "Dance-up")
+    this.mixAnimation("Dance-left", "Dance-down")
+    this.mixAnimation("Dance-right", "Dance-left")
+    this.mixAnimation("Dance-right", "Dance-down")
+    this.mixAnimation("Dance-right", "Dance-down")
+    this.mixAnimation("Dance-down", "Dance-up")
+    this.mixAnimation("Dance-down", "Dance-right")
+    this.mixAnimation("Dance-down", "Dance-left")
+    this.mixAnimation("Dance-up", "Dance-down")
+    this.mixAnimation("Dance-up", "Dance-left")
+    this.mixAnimation("Dance-up", "Dance-right")
   }
 
   public deleteDragQueen() {
