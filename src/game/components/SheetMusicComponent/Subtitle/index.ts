@@ -2,6 +2,7 @@ import ScoreStateManager from "../../../states/score";
 import FreestyleStateManager, {
   FreestyleState,
 } from "../../../states/freestyle";
+import Align from "../../../helpers/Align/align";
 
 class Subtitle {
   private scene: Phaser.Scene;
@@ -22,12 +23,16 @@ class Subtitle {
 
   private create() {
     this.animation = this.scene.physics.add.sprite(
-      window.innerWidth / 2,
-      window.innerHeight / 2 - 200,
+      0,
+      0,
       "perfect"
     );
-    this.animation.setScale(0.5);
-    this.animation.setDepth(11);
+    
+    this.animation.setScale(0.8);
+    this.animation.setDepth(9);
+    
+    Align.centerH(this.animation)
+    Align.topSubtitle(this.animation)
   }
 
   public perfect = () => {

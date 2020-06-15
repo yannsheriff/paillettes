@@ -8,9 +8,6 @@ export { default as R_SPRITE } from "./UI/R_SPRITE.png";
 export { default as F_SPRITE } from "./UI/F_SPRITE.png";
 export { default as chrono } from "./UI/chrono.svg";
 
-export { default as GodMotherIn } from "./animations/god_mother_in.png";
-export { default as GodMotherLoop } from "./animations/god_mother_loop.png";
-
 // ARROW
 export { default as arrowL } from "./arrows/left.png";
 export { default as arrowR } from "./arrows/right.png";
@@ -20,7 +17,7 @@ export { default as F } from "./arrows/F.png";
 export { default as E1 } from "./arrows/E1.png";
 export { default as E2 } from "./arrows/E2.png";
 export { default as R } from "./arrows/R.png";
-export { default as FREEStar } from "./arrows/FREEStar.png";
+
 export { default as starRight } from "./arrows/StarRight.svg";
 export { default as starLeft } from "./arrows/StarLeft.svg";
 export { default as starDown } from "./arrows/StarDown.svg";
@@ -37,8 +34,8 @@ export { default as ground } from "./ground/sol.png";
 
 // INDICATIONS
 export { default as good } from "./indications/GOOD.png";
-export { default as oops } from "./indications/Oops.png";
-export { default as perfect } from "./indications/Perfect.png";
+export { default as oops } from "./indications/OOPS.png";
+export { default as perfect } from "./indications/PERFECT.png";
 export { default as freestyle } from "./indications/FREESTYLE.png";
 
 // MUSIC

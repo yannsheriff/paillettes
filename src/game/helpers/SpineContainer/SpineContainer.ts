@@ -133,7 +133,7 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
     }
 
     public mixAnimation(from: string, to: string) {
-        this.SpineGameObject.setMix(from, to, 0.2)
+        this.SpineGameObject.setMix(from, to, 0.1)
     }
 
     public setPhysicsSize(width: number, height: number) {
