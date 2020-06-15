@@ -61,6 +61,7 @@ class DragQueenManager {
 
 
     handleStepDown = (directions: Direction[]) => {
+      // TO DO METTRE UNE CONDITION SUR LE TYPE DE LA DIRECTION
       directions.forEach((direction) => {
         let animation = "Dance-" + direction;
         if (this.isGameStarted) {
