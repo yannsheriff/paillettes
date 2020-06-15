@@ -174,13 +174,18 @@ class SheetMusic {
   };
 
   private initSheetMusic() {
-    const music = Musics.hungup;
+    const music = Musics.zelda;
     this.isPlaying = true;
     this.player = new MusicPlayer(music, this.arrowEmitter);
     this.player.start();
     const time = muscisFile.get(music)["header"]["bc-delay-sync"];
     setTimeout(() => {
-      this.scene.sound.play("hungup");
+      const music = this.scene.sound.add("zelda");
+      music.play();
+
+      music.once("complete", () => {
+        this.mainManager.stopGame();
+      });
     }, time);
   }
 

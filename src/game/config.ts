@@ -9,6 +9,7 @@ import TestSceneBackground from "./scenes/test/background";
 import TestSceneCrowd from "./scenes/test/crowd";
 import TestSceneBlob from "./scenes/test/blob";
 import confetti from "./scenes/test/confetti";
+import Score from "./scenes/test/Score";
 
 export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;
@@ -34,7 +35,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: false,
     },
   },
-  scene: [MainScene],
+  scene: [Score],
   // scene: [TestScene, TestSceneSpine, TestSceneDrag, TestSceneBackground, TestSceneCrowd, TestSceneBlob],
   plugins: {
     scene: [

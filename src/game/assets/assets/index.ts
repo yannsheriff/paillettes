@@ -20,6 +20,7 @@ import {
   chrono,
   hungup,
   sisi,
+  zelda,
 } from "../index";
 
 export const mainImages: ImageData[] = [
@@ -70,4 +71,5 @@ export const mainSpines: SpineData[] = [
 export const mainMusic: MusicData[] = [
   { key: "hungup", asset: hungup },
   { key: "sisi", asset: sisi },
+  { key: "zelda", asset: zelda },
 ];

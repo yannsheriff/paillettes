@@ -94,6 +94,10 @@ export default class MainStateManager extends State {
     this.setState({ difficulty: difficulty < 1 ? 0 : difficulty - 1 });
   }
 
+  public stopGame() {
+    this.setState({ isGameOver: true });
+  }
+
   public changeWorld() {
     const world: Worlds = this.remainingWorlds[
       Math.floor(Math.random() * this.remainingWorlds.length)

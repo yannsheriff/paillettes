@@ -355,7 +355,7 @@ export const mainAnimations: AnimationData[] = [
     frameWidth: 66,
     frameHeight: 66,
     startFrame: 0,
-    endFrame: 21,
+    endFrame: 50,
     frameRate: 25,
     repeat: -1,
   },

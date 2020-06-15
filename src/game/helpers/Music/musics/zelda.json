@@ -5,7 +5,8 @@
     "name": "",
     "ppq": 128,
     "tempos": [],
-    "timeSignatures": []
+    "timeSignatures": [],
+    "bc-delay-sync": 0
   },
   "tracks": [
     {
