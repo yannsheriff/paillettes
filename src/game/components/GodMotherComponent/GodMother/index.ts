@@ -21,7 +21,8 @@ class GodMother extends SpineContainer {
     // this.spineBody.width = valeur reelle
     
     this.x = window.innerWidth / 2 // ok
-    this.y = this.spineBody.height * scale + 300
+    this.y = 0;
+    // this.y = this.spineBody.height * scale + 300
 
     // Align.centerV(this)
     // Align.centerH(this)
