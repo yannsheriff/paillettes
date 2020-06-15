@@ -1,5 +1,5 @@
 import config from "./config";
-import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
+import PhysicCharacter from "../../../components/CharactersComponent/Character";
 import { button } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent/DragQueen";
 import AssetsManager from "../../../helpers/Assets";
@@ -12,7 +12,7 @@ import {
 
 export class TestSceneSpine extends Phaser.Scene {
   private dragQueen: Array<DragQueen> = [];
-  private characterList: Array<CharacterBis> = [];
+  private characterList: Array<PhysicCharacter> = [];
   private configList: Array<Phaser.GameObjects.Text> = [];
   private characterAssets: Array<string> = [];
   private assetsManager: AssetsManager;
@@ -95,7 +95,7 @@ export class TestSceneSpine extends Phaser.Scene {
   public addCharacter(assetName: string) {
     this.destroyAllCharacters();
 
-    let character = new CharacterBis(
+    let character = new PhysicCharacter(
       this,
       assetName,
       "NBidle",
@@ -110,7 +110,7 @@ export class TestSceneSpine extends Phaser.Scene {
     this.addDebug(character);
   }
 
-  public addDebug(character: CharacterBis) {
+  public addDebug(character: PhysicCharacter) {
     let y = 150;
 
     character.skinsList.forEach((skin) => {

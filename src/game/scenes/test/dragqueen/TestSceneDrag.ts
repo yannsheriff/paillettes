@@ -1,5 +1,5 @@
 import config from "./config";
-import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
+import Character from "../../../components/CharactersComponent/Character";
 import { button } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent/DragQueen";
 import GodMother from "../../../components/GodMotherComponent/GodMother";

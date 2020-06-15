@@ -1,4 +1,4 @@
-import PhysicCharacter from "./CharacterBis";
+import PhysicCharacter from "./Character";
 import CharacterManager from "../../managers/CharacterManager";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
 import ScoreStateManager from "../../states/score";
