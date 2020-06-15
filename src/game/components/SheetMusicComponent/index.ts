@@ -18,7 +18,7 @@ import FreeArrow from "./FreeArrow";
 import Chrono from "./Chrono";
 import InputZone from "./InputZone";
 
-const heightBetweenSheetHBar = 206;
+const heightBetweenSheetHBar = 239;
 const directionTable: {
   0: Direction;
   1: Direction;

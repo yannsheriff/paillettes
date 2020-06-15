@@ -50,10 +50,11 @@ class InputZone {
           playSuccess: false,
         },
       ],
+
       [
-        "left",
+        "right",
         {
-          name: "left",
+          name: "right",
           y: y + (height / 3) * 1,
           sprite: undefined,
           state: false,
@@ -61,9 +62,9 @@ class InputZone {
         },
       ],
       [
-        "right",
+        "left",
         {
-          name: "right",
+          name: "left",
           y: y + (height / 3) * 2,
           sprite: undefined,
           state: false,
@@ -127,10 +128,11 @@ class InputZone {
       input.playSuccess = true;
       input?.sprite
         ?.play(gridObject.direction + "-success")
-        .on("animationcomplete", () => {
+        .once("animationcomplete", () => {
           this.inputs.set(gridObject.direction, {
             ...input!,
             playSuccess: false,
+            state: false,
           });
         });
       this.inputs.set(gridObject.direction, { ...input!, state: false });
