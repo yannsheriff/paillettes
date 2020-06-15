@@ -87,13 +87,11 @@ export class TestSceneDrag extends Phaser.Scene {
   public addDebug(spine: SpineContainer) {
     let y = 200;
     
-    console.log(spine.animationsList)
     spine.animationsList.forEach((animation) => {
       let animconfig = this.add
         .text(50, y, animation, { fill: "black" })
         .setInteractive()
         .on("pointerdown", () => {
-          console.log(animation)
           spine.playAnimation(animation, true);
         });
       this.configList.push(animconfig);
