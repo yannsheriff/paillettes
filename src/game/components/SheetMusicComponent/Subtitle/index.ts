@@ -29,7 +29,7 @@ class Subtitle {
     );
     
     this.animation.setScale(0.8);
-    this.animation.setDepth(11);
+    this.animation.setDepth(9);
     
     Align.centerH(this.animation)
     Align.topSubtitle(this.animation)
