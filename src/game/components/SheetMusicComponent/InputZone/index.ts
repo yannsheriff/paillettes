@@ -12,7 +12,7 @@ interface input {
   playSuccess: boolean;
 }
 
-export const inputZoneAssetWidth = 200;
+export const inputZoneAssetWidth = 82;
 
 class InputZone {
   public collider: Phaser.GameObjects.Rectangle;
@@ -31,7 +31,7 @@ class InputZone {
   ) {
     this.scene = scene;
     this.collider = scene.add
-      .rectangle(x + 40, y + height / 2, 2, height)
+      .rectangle(x + 60, y + height / 2, 2, height)
       .setDepth(12);
 
     this.posX = x;
@@ -93,7 +93,7 @@ class InputZone {
     this.inputs.forEach((input: input) => {
       input.sprite = this.scene.add
         .sprite(
-          this.posX - inputZoneAssetWidth / 2,
+          this.posX - (inputZoneAssetWidth * this.scale) / 2,
           input.y,
           input.name + "-off"
         )

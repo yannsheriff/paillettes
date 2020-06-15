@@ -16,7 +16,7 @@ import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 import FreeLights from "./FreeLights";
 import FreeArrow from "./FreeArrow";
 import Chrono from "./Chrono";
-import InputZone from "./InputZone";
+import InputZone, { inputZoneAssetWidth } from "./InputZone";
 
 const heightBetweenSheetHBar = 239;
 const directionTable: {
@@ -50,8 +50,8 @@ class SheetMusic {
   private noteDelay: number;
   private timeToFail: number;
   private scale = 0.8;
-  private inputZoneWidth = 210 * this.scale;
-  private inputPerfectZoneWidth = 70;
+  private inputZoneWidth = inputZoneAssetWidth * this.scale + 60 * 2;
+  private inputPerfectZoneWidth = 82;
   private arrowSpeed: number;
   private posX: number;
   private posY: number;
