@@ -10,6 +10,9 @@ class Align {
   static centerH(obj) {
 	  obj.x = window.innerWidth / 2;
   }
+  static topSubtitle(obj) {
+    obj.y = window.innerHeight / 3;
+  }
   static centerV(obj) {
     obj.y = window.innerHeight / 2;
   }
@@ -23,7 +26,8 @@ class Align {
     obj.y = window.innerHeight;
   }
   static centerBottom(obj) {
-    obj.y = window.innerHeight / 2 - obj.displayHeight / 2;
+    // ground position - ground height - centerbottom
+    obj.y = window.innerHeight - window.innerHeight / 5 - 200 - obj.displayHeight / 2;
   }
   static center(obj) {
     obj.x = window.innerWidth / 2;

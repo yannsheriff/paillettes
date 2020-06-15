@@ -54,20 +54,13 @@ class Plane extends Phaser.GameObjects.Sprite {
     } else {
       Align.center(this);
     }
-
-    this.centerBottom();
+    Align.centerBottom(this)
 
     this.planeBody = this.body as Phaser.Physics.Arcade.Body;
 
     this.movePlane();
   }
-
-  private centerBottom() {
-    // don't know if we will use this : - this.planeNb * 30
-    this.y = 500 - this.displayHeight / 2;
-    // this.y = window.innerHeight / 2 - this.displayHeight / 2;
-  }
-
+  
   public movePlane() {
     this.planeBody.setVelocityX(-this.speed);
   }
