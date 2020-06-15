@@ -44,7 +44,7 @@ export default class Game extends Component<{}, state> {
     });
 
     stepEventEmitter.on(StepEventType.stepup, (directions: Array<string>) => {
-      console.log("realased : ", directions);
+      // console.log("realased : ", directions);
       let left, right;
       if (directions.find((d) => d === "left")) {
         left = true;
@@ -72,7 +72,7 @@ export default class Game extends Component<{}, state> {
   triggerTimeout() {
     const { isLeftPressed, isRightPressed, chronoIsLaunched } = this.state;
     if (isLeftPressed && isRightPressed && !chronoIsLaunched) {
-      console.log("stat");
+      // console.log("stat");
       this.setState({ chronoIsLaunched: true }, () => {
         this.lauchChrono(new Date().getTime() + 3000);
       });
