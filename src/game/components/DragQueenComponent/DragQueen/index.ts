@@ -7,33 +7,39 @@ class DragQueen extends SpineContainer {
   constructor(
     scene: Phaser.Scene,
     key: string,
-    anim: string,
+    anim?: string,
     loop?: boolean
   ) {
-    super(scene, 0, 0, key, anim, loop);
-
-    this.x = window.innerWidth / 2;
-    // Align.dragPosition(this, this.spine, this.scale);
-    Align.charactersOnGround(this, this.spine, this.scale)
-    scene.add.existing(this)
+    super(scene, 0, 0, key, anim, loop); // anim, loop
 
     this.setScale(0.5); // asset size
-    this.drawDebug(true)
-    // this.allowCollideWorldBounds(true)
+  
+    Align.dragPosition(this, this.spine, this.scale);
+    Align.charactersOnGround(this, this.spine, this.scale)
+    
+    scene.add.existing(this)
 
     this.setDepth(15);
     this.drawDebug(false);
 
-    // this.runVelocity(50)
+    this.mixAnimation("Start", "Run")
+    this.mixAnimation("Dance-left", "Dance-right")
+    this.mixAnimation("Dance-left", "Dance-up")
+    this.mixAnimation("Dance-left", "Dance-down")
+    this.mixAnimation("Dance-right", "Dance-left")
+    this.mixAnimation("Dance-right", "Dance-down")
+    this.mixAnimation("Dance-right", "Dance-down")
+    this.mixAnimation("Dance-down", "Dance-up")
+    this.mixAnimation("Dance-down", "Dance-right")
+    this.mixAnimation("Dance-down", "Dance-left")
+    this.mixAnimation("Dance-up", "Dance-down")
+    this.mixAnimation("Dance-up", "Dance-left")
+    this.mixAnimation("Dance-up", "Dance-right")
   }
 
   public deleteDragQueen() {
     this.destroy();
   }
-
-  // public launch() {
-  //   this.SpineContainer.spineBody.setVelocityX(50)
-  // }
 }
 
 export default DragQueen;

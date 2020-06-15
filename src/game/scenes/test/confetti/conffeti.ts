@@ -1,5 +1,5 @@
 import config from "./config";
-import { ConfettiGenerator } from "./confettiManager";
+import { ConfettiGenerator } from "../../../helpers/Confetti";
 
 export default class TestSceneBlob extends Phaser.Scene {
   confettiManager?: ConfettiGenerator;
@@ -21,7 +21,11 @@ export default class TestSceneBlob extends Phaser.Scene {
     );
     this.canvas = this.texture.getCanvas();
     this.context = this.texture.getContext();
-    this.confettiManager = new ConfettiGenerator(this.canvas, this.context);
+    this.confettiManager = new ConfettiGenerator(
+      this.canvas,
+      this.context,
+      false
+    );
     this.confettiManager.startConfetti();
     this.textures.addCanvas("canvas", this.canvas);
 

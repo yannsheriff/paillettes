@@ -14,6 +14,8 @@ class Ground {
   private canRotate: boolean = false;
   private mainState: MainState;
   private mainManager: MainStateManager;
+  // base ground height = 220px
+  private positionGroundY = window.innerHeight - window.innerHeight / 5;
 
   constructor(scene: Phaser.Scene) {
     this.groundsAngles = [];
@@ -21,7 +23,7 @@ class Ground {
     this.circleRadius = 8044;
     this.circleCenter = {
       x: window.innerWidth / 2,
-      y: this.circleRadius + window.innerHeight - window.innerHeight / 6,
+      y: this.circleRadius + this.positionGroundY,
     };
     this.rotationSpeed = 0.04;
     this.grounds = [];

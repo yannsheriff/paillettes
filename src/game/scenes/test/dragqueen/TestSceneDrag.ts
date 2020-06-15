@@ -1,5 +1,5 @@
 import config from "./config";
-import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
+import Character from "../../../components/CharactersComponent/Character";
 import { button } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent/DragQueen";
 import GodMother from "../../../components/GodMotherComponent/GodMother";
@@ -107,7 +107,6 @@ export class TestSceneDrag extends Phaser.Scene {
         .text(50, y, animation, { fill: "black" })
         .setInteractive()
         .on("pointerdown", () => {
-          console.log(animation)
           spine.playAnimation(animation, true);
         });
       this.configList.push(animconfig);

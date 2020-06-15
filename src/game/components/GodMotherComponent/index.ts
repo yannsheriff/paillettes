@@ -1,23 +1,59 @@
+import FreestyleStateManager, {
+  FreestyleState,
+} from "../../states/freestyle";
+
 import GodMother from "./GodMother"
+import Align from "../../helpers/Align/align";
 
-class GodMotherManager {
-    private scene: Phaser.Scene;
-    private godMother?: GodMother;
+const animations = [
+  "faisceau-start",
+  "freestyle-loop",
+  "freestyle-begin",
+  "freestyle-end",
 
-    constructor(scene: Phaser.Scene) {
-      this.scene = scene;
-      this.create();
-    }
-  
-    private create() {
-      this.godMother = new GodMother(
-        this.scene,
-        "dragqueen",
-        "Run",
-        true
-      );
-    }
+];
+
+class GodMotherComponent {
+  private scene: Phaser.Scene;
+  private freestyleState: FreestyleState;
+  // private godMother: GodMother;
+
+  constructor(scene: Phaser.Scene) {
+    this.scene = scene;
+    const freeManager = FreestyleStateManager.getInstance();
+    this.freestyleState = freeManager.state;
+    freeManager.subscribe(this.stateChange);
+
+    // this.godMother = new GodMother(
+    //   this.scene,
+    //   "godmother",
+    //   "faisceau-start",
+    //   false
+    // )
   }
-  
-  export default GodMotherManager;
-  
+
+  private create() {
+    // this.mother.play("god-mother-in");
+    // this.mother.once("animationcomplete", () => {
+    //   this.mother?.play("god-mother-loop");
+    // });
+  }
+  private delete() {
+  }
+
+  private stateChange = (state: FreestyleState) => {
+    if (
+      this.freestyleState.isFreestyleActivated !== state.isFreestyleActivated
+    ) {
+      if (state.isFreestyleActivated) {
+        this.create();
+      } else {
+        this.delete();
+      }
+    }
+
+    this.freestyleState = state;
+  };
+}
+
+export default GodMotherComponent;

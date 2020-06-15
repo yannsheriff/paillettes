@@ -4,7 +4,7 @@ import stepEventEmitter from "../../../game/helpers/StepEventEmitter";
 import { StepEventType } from "../../../game/helpers/StepEventEmitter/gamepadListener";
 import { arrowL, arrowR } from "../../../game/assets/";
 import MainStateManager from "../../../game/states/main";
-import { ConfettiGenerator } from "../../../game/scenes/test/confetti/confettiManager";
+import { ConfettiGenerator } from "../../../game/helpers/Confetti";
 
 interface state {
   isLeftPressed: boolean;
@@ -44,7 +44,7 @@ export default class Game extends Component<{}, state> {
     });
 
     stepEventEmitter.on(StepEventType.stepup, (directions: Array<string>) => {
-      console.log("realased : ", directions);
+      // console.log("realased : ", directions);
       let left, right;
       if (directions.find((d) => d === "left")) {
         left = true;
@@ -72,7 +72,7 @@ export default class Game extends Component<{}, state> {
   triggerTimeout() {
     const { isLeftPressed, isRightPressed, chronoIsLaunched } = this.state;
     if (isLeftPressed && isRightPressed && !chronoIsLaunched) {
-      console.log("stat");
+      // console.log("stat");
       this.setState({ chronoIsLaunched: true }, () => {
         this.lauchChrono(new Date().getTime() + 3000);
       });
