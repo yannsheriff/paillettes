@@ -1,8 +1,17 @@
 import DragQueen from "./DragQueen";
 import ScoreStateManager from "../../states/score";
 import GridObject from "../SheetMusicComponent/GridObject";
-import MainStateManager, { MainState, Worlds } from "../../states/main";
+import MainStateManager, { MainState } from "../../states/main";
 import GodMother from "../../components/GodMotherComponent/GodMother";
+
+const Animations = [
+  "Dance-left",
+  "Dance-right",
+  "Dance-up",
+  "Dance-down",
+  "Run",
+  "Start"
+]
 
 class DragQueenManager {
     private scene: Phaser.Scene;
@@ -19,6 +28,7 @@ class DragQueenManager {
       this.mainManager = MainStateManager.getInstance();
       this.mainManager.subscribe(this.onMainStateChange);
       this.mainState = this.mainManager.state;
+
     }
   
     private create() {
@@ -44,18 +54,18 @@ class DragQueenManager {
       // this.dragQueen?.playOnceThenLoopNextAnimation("Start", "Run", 0)
     }
 
-    private onMainStateChange = (state: MainState) => {
-      if (state.isGameLaunch !== this.mainState.isGameLaunch) {
-        this.create()
-      }
-    }
-
     public danseDragQueen = (callback: GridObject) => {
       let animation = "Dance-" + callback.direction;
       this.dragQueen?.playOnceThenLoopNextAnimation(animation, "Run", 0)
     }
 
-  
+
+    private onMainStateChange = (state: MainState) => {
+      if (state.isGameLaunch !== this.mainState.isGameLaunch) {
+        this.create()
+      }
+      this.mainState = state;
+    } 
   
   }
   
