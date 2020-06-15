@@ -1,15 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1113" height="209" viewBox="0 0 1113 209">
-  <defs>
-    <linearGradient id="lignehorizontal-a" x1="100%" x2="0%" y1="50%" y2="50%">
-      <stop offset="0%" stop-color="#FFF" stop-opacity="0"/>
-      <stop offset="32.258%" stop-color="#FFF"/>
-      <stop offset="100%" stop-color="#FFF"/>
-    </linearGradient>
-  </defs>
-  <g fill="url(#lignehorizontal-a)" fill-rule="evenodd" opacity=".196">
-    <polygon points="0 206 1112.955 206 1112.955 209 0 209"/>
-    <polygon points="0 137 1112.955 137 1112.955 140 0 140"/>
-    <polygon points="0 70 1112.955 70 1112.955 73 0 73"/>
-    <polygon points="0 0 1112.955 0 1112.955 3 0 3"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="933" height="239" viewBox="0 0 933 239">
+  <g fill="#585071" fill-rule="evenodd">
+    <polygon points="0 0 933.308 0 933.308 3 0 3"/>
+    <polygon points="0 79 933.308 79 933.308 82 0 82"/>
+    <polygon points="0 157 933.308 157 933.308 160 0 160"/>
+    <polygon points="0 236 933.308 236 933.308 239 0 239"/>
   </g>
 </svg>

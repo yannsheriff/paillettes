@@ -1,4 +1,4 @@
-import PhysicCharacter from "./CharacterBis";
+import PhysicCharacter from "./Character";
 import CharacterManager from "../../managers/CharacterManager";
 import MainStateManager, { MainState, Worlds } from "../../states/main";
 import ScoreStateManager from "../../states/score";
@@ -17,6 +17,7 @@ class PhysicCharacterManager {
   private freestyleManager: FreestyleStateManager;
   private colliderZone: Phaser.GameObjects.Rectangle;
   private colliders: Array<Phaser.Physics.Arcade.Collider> = [];
+  private prevAsset: number = 1;
 
   public crowd: Array<PhysicCharacter>;
   public world: Worlds;
@@ -56,7 +57,6 @@ class PhysicCharacterManager {
 
     characterManager.isCharacterUnlocked((id, isUnlocked) => {
       if (isUnlocked) {
-        // console.log('character ' + id + ' isUnlocked')
         this.charactersBW.get(id)?.unlock();
       }
     });
@@ -64,7 +64,8 @@ class PhysicCharacterManager {
 
   public generateNewPhysicCharacter(id: string) {
     let gender = Math.round(Math.random()) === 0 ? "man" : "woman";
-    let nb = Math.floor(Math.random() * 2) + 1;
+    let nb = this.prevAsset;
+    // let nb = Math.floor(Math.random() * 2) + 1;
 
     // console.log("world_" + this.world + "_" + gender + "_" + nb)
 
@@ -74,16 +75,19 @@ class PhysicCharacterManager {
       "NBidle",
       id,
       this.mainState.objectSpeed,
+      this.callbackCharacterDeleted,
       false,
       true,
       false,
-      this.crowd.length
     );
 
-    this.charactersBW.set(id, charObj);
+    if (this.prevAsset === 1) {
+      this.prevAsset = 2
+    } else {
+      this.prevAsset = 1
+    }
 
-    // console.log('generate ' + id);
-    // console.log(this.charactersBW)
+    this.charactersBW.set(id, charObj);
 
     this.addCollision(charObj);
   }
@@ -109,8 +113,6 @@ class PhysicCharacterManager {
     this.scene.physics.world.removeCollider(this.colliders[0]);
     this.colliders.shift();
 
-    // console.log('checkIfUnlocked ' + character.id)
-
     if (character.isUnlock) {
       this.crowd.push(character);
       character.joinCrowd(this.crowd.length + 1);
@@ -121,6 +123,12 @@ class PhysicCharacterManager {
     this.charactersBW.delete(character.id);
   }
 
+  // this callback remove characters from crowd array 
+  // when they are deleted from scene
+  public callbackCharacterDeleted = (id: string) => {
+    this.crowd = this.crowd.filter(character => character.id !== id)
+  }
+
   public playTransformation() {
     this.crowd.forEach((character) => {
       character.playTransformationAnimation();
@@ -129,24 +137,30 @@ class PhysicCharacterManager {
 
   public playAllDance(isFreestyle: boolean) {
     this.crowd.forEach((character) => {
-      character.playDanceAnimation(isFreestyle);
+      if (!character.isDestroyed) {
+        character.playDanceAnimation(isFreestyle);
+      }
     });
   }
 
   public playAllDanseThenRun = () => {
-    let delay = 0.08;
+    let delay = 0.05;
     this.crowd
       .slice()
       .reverse()
       .forEach((character) => {
-        character.playDanceThenRunAnimation(delay);
-        delay += 0.08;
+        if (!character.isDestroyed) {
+          character.playDanceThenRunAnimation(delay);
+          delay += 0.05;
+        }
       });
   };
 
   public playAllRun() {
     this.crowd.forEach((character) => {
-      character.playRunAnimation();
+      if (!character.isDestroyed) {
+        character.playRunAnimation();
+      }
     });
   }
 
@@ -162,6 +176,7 @@ class PhysicCharacterManager {
       "NBidle",
       "",
       this.mainState.objectSpeed,
+      this.callbackCharacterDeleted,
       false,
       false,
       true
