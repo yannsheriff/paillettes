@@ -34,8 +34,8 @@ export { default as ground } from "./ground/sol.png";
 
 // INDICATIONS
 export { default as good } from "./indications/GOOD.png";
-export { default as oops } from "./indications/OOPS.png";
-export { default as perfect } from "./indications/PERFECT.png";
+export { default as oops } from "./indications/Oops.png";
+export { default as perfect } from "./indications/Perfect.png";
 export { default as freestyle } from "./indications/FREESTYLE.png";
 
 // MUSIC
