@@ -128,6 +128,7 @@ export class TestSceneDrag extends Phaser.Scene {
   public destroyAllCharacters() {
     this.dragQueen?.deleteDragQueen();
     this.godMother?.deleteGodMother();
+    this.achievement?.deleteAchievement();
 
     this.configList.forEach((config) => {
       config.destroy();
