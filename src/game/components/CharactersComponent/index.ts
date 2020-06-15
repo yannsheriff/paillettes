@@ -17,6 +17,7 @@ class PhysicCharacterManager {
   private freestyleManager: FreestyleStateManager;
   private colliderZone: Phaser.GameObjects.Rectangle;
   private colliders: Array<Phaser.Physics.Arcade.Collider> = [];
+  private prevAsset: number = 1;
 
   public crowd: Array<PhysicCharacter>;
   public world: Worlds;
@@ -64,8 +65,9 @@ class PhysicCharacterManager {
 
   public generateNewPhysicCharacter(id: string) {
     let gender = Math.round(Math.random()) === 0 ? "man" : "woman";
-    let nb = Math.floor(Math.random() * 2) + 1;
-
+    let nb = this.prevAsset;
+    // let nb = Math.floor(Math.random() * 2) + 1;
+    
     // console.log("world_" + this.world + "_" + gender + "_" + nb)
 
     let charObj = new PhysicCharacter(
@@ -76,14 +78,16 @@ class PhysicCharacterManager {
       this.mainState.objectSpeed,
       false,
       true,
-      false,
-      this.crowd.length
+      false
     );
 
-    this.charactersBW.set(id, charObj);
+    if (this.prevAsset === 1) {
+      this.prevAsset = 2
+    } else {
+      this.prevAsset = 1
+    }
 
-    // console.log('generate ' + id);
-    // console.log(this.charactersBW)
+    this.charactersBW.set(id, charObj);
 
     this.addCollision(charObj);
   }
@@ -134,13 +138,13 @@ class PhysicCharacterManager {
   }
 
   public playAllDanseThenRun = () => {
-    let delay = 0.08;
+    let delay = 0.05;
     this.crowd
       .slice()
       .reverse()
       .forEach((character) => {
         character.playDanceThenRunAnimation(delay);
-        delay += 0.08;
+        delay += 0.05;
       });
   };
 

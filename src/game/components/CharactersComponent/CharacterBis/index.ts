@@ -6,11 +6,13 @@ class PhysicCharacter extends SpineContainer {
   public scene: Phaser.Scene;
   public planeY: number = 0;
   public id: string;
-  public speed: number;
-  public tweenX?: Phaser.Tweens.Tween;
+  public speedIn: number;
+  public speedOut: number = 30;
+  public tweenIn?: Phaser.Tweens.Tween;
+  public tweenOut?: Phaser.Tweens.Tween;
   public scale: number = 0.5;
   public positionInCrowd: number = 0;
-  public crowdPositionX: number = window.innerWidth / 2 - 300;
+  public crowdPositionX: number = window.innerWidth / 2 - 200;
   public isUnlock: boolean = false;
   public distanceBetweenCharacters: number = 40;
 
@@ -28,7 +30,7 @@ class PhysicCharacter extends SpineContainer {
     super(scene, 0, 0, key, anim, loop);
     this.id = id;
     this.scene = scene;
-    this.speed = speed;
+    this.speedIn = speed;
 
     scene.add.existing(this);
 
@@ -54,25 +56,11 @@ class PhysicCharacter extends SpineContainer {
       Align.charactersOnGround(this, this.spine, this.scale);
     }
 
-    this.drawDebug(true);
+    this.drawDebug(false);
 
     if (runAnimation) {
       this.runTowardCrowd();
     }
-
-    // this.initDestroy()
-  }
-
-  public initDestroy() {
-    let latency = 50;
-    let d = this.width * this.scale + window.innerWidth + latency;
-    let v = this.speed;
-    let timeBeforeDestroy = (d / v) * 1000;
-    const timeToExitCanvas = timeBeforeDestroy;
-
-    setTimeout(() => {
-      this.deleteCharacter();
-    }, timeToExitCanvas);
   }
 
   public failAndDestroy() {
@@ -88,11 +76,9 @@ class PhysicCharacter extends SpineContainer {
     this.isUnlock = true;
   }
 
-  //
   public runTowardCrowd() {
-    let destinationX =
-      this.crowdPositionX -
-      this.positionInCrowd * this.distanceBetweenCharacters;
+    let destinationX = this.crowdPositionX
+      // - this.positionInCrowd * this.distanceBetweenCharacters;
     if (destinationX < 0) {
       destinationX = 0;
     }
@@ -100,12 +86,12 @@ class PhysicCharacter extends SpineContainer {
     let destination =
       window.innerWidth - destinationX + (this.displayWidth / 2) * this.scale;
 
-    let duration = (destination / this.speed) * 1000;
+    let duration = (destination / this.speedIn) * 1000;
 
     let latency = 400;
 
     // join crowd
-    this.tweenX = this.scene.tweens.add({
+    this.tweenIn = this.scene.tweens.add({
       targets: this,
       x: destinationX,
       duration: duration + latency,
@@ -113,6 +99,31 @@ class PhysicCharacter extends SpineContainer {
       yoyo: false,
       onComplete: () => {
         this.playRunAnimation();
+        this.runOutsideCrowd();
+      },
+    });
+  }
+
+  public runOutsideCrowd() {
+    let destinationX = 0 - this.spineBody.width
+    // - this.displayWidth * this.scale
+    
+    let destination =
+      window.innerWidth - destinationX + (this.displayWidth / 2) * this.scale;
+
+    let duration = (destination / this.speedOut) * 1000;
+
+    let latency = 400;
+
+    // join crowd
+    this.tweenOut = this.scene.tweens.add({
+      targets: this,
+      x: destinationX,
+      duration: duration + latency,
+      repeat: 0,
+      yoyo: false,
+      onComplete: () => {
+        this.deleteCharacter()
       },
     });
   }
@@ -147,8 +158,11 @@ class PhysicCharacter extends SpineContainer {
    * destroy physic character + remove its tween
    */
   public deleteCharacter() {
-    if (this.tweenX) {
-      this.tweenX.remove();
+    if (this.tweenIn) {
+      this.tweenIn.remove();
+    }
+    if (this.tweenOut) {
+      this.tweenOut.remove();
     }
     this.destroy();
   }
