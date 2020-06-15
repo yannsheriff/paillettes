@@ -101,6 +101,7 @@ export class TestSceneSpine extends Phaser.Scene {
       "NBidle",
       "",
       400,
+      () => {},
       false,
       false,
       true
