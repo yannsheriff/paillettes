@@ -20,7 +20,7 @@ export { default as F } from "./arrows/F.png";
 export { default as E1 } from "./arrows/E1.png";
 export { default as E2 } from "./arrows/E2.png";
 export { default as R } from "./arrows/R.png";
-export { default as FREEStar } from "./arrows/FREEStar.png";
+
 export { default as starRight } from "./arrows/StarRight.svg";
 export { default as starLeft } from "./arrows/StarLeft.svg";
 export { default as starDown } from "./arrows/StarDown.svg";

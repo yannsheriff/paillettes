@@ -3,9 +3,9 @@ import GridObject, { Direction } from "../GridObject";
 
 const letterMap = {
   up: FreeLetter.F,
-  down: FreeLetter.R,
+  down: FreeLetter.E2,
   left: FreeLetter.E1,
-  right: FreeLetter.E2,
+  right: FreeLetter.R,
 };
 
 const imageMap = new Map([
@@ -40,6 +40,7 @@ class Letter extends GridObject {
     const imageName = imageMap.get(letter);
     super(scene, id, speed, height, y, x, direction, scale, imageName!);
     this.letter = letter;
+    this.play(imageName!);
   }
 }
 
