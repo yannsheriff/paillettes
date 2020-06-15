@@ -73,6 +73,8 @@ export const mainSpritesheets: SpritesheetData[] = [
 export const mainSpines: SpineData[] = [
   { key: "dragqueen", path: "assets/spine/dragqueen/" },
   { key: "godmother", path: "assets/spine/godmother/" },
+  { key: "achievement", path: "assets/spine/achievement/" },
+  { key: "score", path: "assets/spine/score/" },
 ];
 
 export const mainMusic: MusicData[] = [

@@ -3,6 +3,7 @@ import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
 import { button } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent/DragQueen";
 import GodMother from "../../../components/GodMotherComponent/GodMother";
+import Achievement from "../../../components/AchievementComponent/Achievement";
 import AssetsManager from "../../../helpers/Assets";
 
 import {
@@ -16,6 +17,7 @@ import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 export class TestSceneDrag extends Phaser.Scene {
   private dragQueen?: DragQueen;
   private godMother?: GodMother;
+  private achievement?: Achievement;
   private configList: Array<Phaser.GameObjects.Text> = [];
   private characterAssets: Array<string> = [];
   private assetsManager: AssetsManager;
@@ -69,6 +71,13 @@ export class TestSceneDrag extends Phaser.Scene {
         this.addGodMother()
       });
 
+    this.add
+      .text(150, 200, "Ajouter un achievement", { fill: "red" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.addAchievement()
+      });
+
     let debug = true;
   }
 
@@ -84,10 +93,15 @@ export class TestSceneDrag extends Phaser.Scene {
     this.addDebug(this.godMother)
   }
 
+  public addAchievement() {
+    this.destroyAllCharacters()
+    this.achievement = new Achievement(this, "achievement", "Run", true);
+    this.addDebug(this.achievement)
+  }
+
   public addDebug(spine: SpineContainer) {
     let y = 200;
     
-    console.log(spine.animationsList)
     spine.animationsList.forEach((animation) => {
       let animconfig = this.add
         .text(50, y, animation, { fill: "black" })
@@ -97,6 +111,17 @@ export class TestSceneDrag extends Phaser.Scene {
           spine.playAnimation(animation, true);
         });
       this.configList.push(animconfig);
+      y += 25;
+    });
+
+    spine.skinsList.forEach((skin) => {
+      let skinconfig = this.add
+        .text(50, y, skin, { fill: "black" })
+        .setInteractive()
+        .on("pointerdown", () => {
+          spine.changeSkin(skin);
+        });
+      this.configList.push(skinconfig);
       y += 25;
     });
   }
