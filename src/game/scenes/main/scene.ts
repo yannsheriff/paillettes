@@ -83,7 +83,6 @@ export class GameScene extends Phaser.Scene {
 
   startGame = () => {
     MainStateManager.getInstance().gameIsReady();
-
     this.text!.destroy();
 
     setTimeout(() => {
