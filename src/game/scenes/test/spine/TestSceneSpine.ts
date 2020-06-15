@@ -2,48 +2,45 @@ import config from "./config";
 import CharacterBis from "../../../components/CharactersComponent/CharacterBis";
 import { button } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent/DragQueen";
+import AssetsManager from "../../../helpers/Assets";
+import {
+  mainImages,
+  mainSpritesheets,
+  mainSpines,
+  mainMusic,
+} from "../../../assets/assets";
 
 export class TestSceneSpine extends Phaser.Scene {
   private dragQueen: Array<DragQueen> = [];
   private characterList: Array<CharacterBis> = [];
   private configList: Array<Phaser.GameObjects.Text> = [];
   private characterAssets: Array<string> = [];
+  private assetsManager: AssetsManager;
 
   constructor() {
     super(config);
+    this.assetsManager = new AssetsManager(
+      this,
+      mainImages,
+      mainSpritesheets,
+      mainSpines,
+      mainMusic
+    );
+
+    this.assetsManager.spineCharacters.forEach(character => {
+      this.characterAssets.push(character.key);
+    });
   }
 
   public preload(): void {
     this.load.image("btn", button);
+    this.assetsManager.preload();
 
-    for (let world = 1; world <= 4; world++) {
-      for (let spine = 1; spine <= 2; spine++) {
-        this.load.setPath("assets/spine/world" + world + "/man" + spine + "/");
-        this.load.spine(
-          "world_" + world + "_man_" + spine,
-          "world_" + world + "_man_" + spine + ".json",
-          "world_" + world + "_man_" + spine + ".atlas"
-        );
-
-        this.load.setPath(
-          "assets/spine/world" + world + "/woman" + spine + "/"
-        );
-        this.load.spine(
-          "world_" + world + "_woman_" + spine,
-          "world_" + world + "_woman_" + spine + ".json",
-          "world_" + world + "_woman_" + spine + ".atlas"
-        );
-
-        this.characterAssets.push("world_" + world + "_woman_" + spine);
-        this.characterAssets.push("world_" + world + "_man_" + spine);
-      }
-    }
-    // drag queen
-    this.load.setPath("assets/spine/dragqueen/");
-    this.load.spine("dragqueen", "dragqueen.json", "dragqueen.atlas");
   }
 
   public create() {
+    this.addDragQueen();
+    
     this.add
       .text(50, 50, "< Retour", { fill: "red" })
       .setInteractive()
@@ -54,11 +51,11 @@ export class TestSceneSpine extends Phaser.Scene {
     let y = 50;
 
     this.add
-      .text(400, 50, "Ajouter la Drag Queen", { fill: "red" })
+      .text(450, 50, "Ajouter la Drag Queen", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {
         this.addDragQueen();
-      });
+      })
 
     this.characterAssets.forEach((character) => {
       this.add
@@ -152,18 +149,6 @@ export class TestSceneSpine extends Phaser.Scene {
       this.configList.push(speedconfig);
       y += 25;
     });
-
-    // this.dragQueen.slotList.forEach(slot => {
-    //   this.add
-    //   .text(300, y, slot, { fill: 'black' })
-    //   .setInteractive()
-    //   .on('pointerdown', () => {
-    //     if (this.dragQueen) {
-    //       this.dragQueen.changeSlotColor(slot, 255, 0, 0)
-    //     }
-    //   })
-    //   y += 25;
-    // });
   }
 
   public destroyAllCharacters() {

@@ -54,7 +54,7 @@ class PhysicCharacter extends SpineContainer {
       Align.charactersOnGround(this, this.spine, this.scale);
     }
 
-    this.drawDebug(false);
+    this.drawDebug(true);
 
     if (runAnimation) {
       this.runTowardCrowd();

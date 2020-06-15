@@ -1,4 +1,3 @@
-declare interface Window
-{
-	SpinePlugin: any
+declare interface Window {
+  SpinePlugin: any;
 }

@@ -49,15 +49,17 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
         return this.SpineGameObject.getSlotList();
     }
 
-    constructor(scene: Phaser.Scene, x: number, y: number, key: string, anim: string, loop = false, id?: string) {
+    constructor(scene: Phaser.Scene, x: number, y: number, key: string, anim?: string, loop = false, id?: string) {
         super(scene, x, y)
 
         this.id = id
         this.SpineGameObject = scene.add.spine(0, 0, key, anim, loop)
+
         scene.physics.add.existing(this)
 
         this.SpineBody = this.body as Phaser.Physics.Arcade.Body;
 
+        
         const bounds = this.SpineGameObject.getBounds()
         const width = bounds.size.x
         const height = bounds.size.y
@@ -75,6 +77,10 @@ export default class SpineContainer extends Phaser.GameObjects.Container impleme
 
     public allowCollideWorldBounds(bool: boolean) {
         this.SpineBody.setCollideWorldBounds(bool)
+    }
+
+    public nextAnimation(animationname: string, loop: boolean) {
+        this.SpineGameObject.addAnimation(0, animationname, loop);
     }
 
     public playAnimation(animationname: string, loop: boolean) {

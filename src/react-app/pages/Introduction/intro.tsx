@@ -4,7 +4,7 @@ import stepEventEmitter from "../../../game/helpers/StepEventEmitter";
 import { StepEventType } from "../../../game/helpers/StepEventEmitter/gamepadListener";
 import { arrowL, arrowR } from "../../../game/assets/";
 import MainStateManager from "../../../game/states/main";
-import { ConfettiGenerator } from "../../../game/scenes/test/confetti/confettiManager";
+import { ConfettiGenerator } from "../../../game/helpers/Confetti";
 
 interface state {
   isLeftPressed: boolean;

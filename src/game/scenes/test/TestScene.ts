@@ -9,7 +9,7 @@ export class TestScene extends Phaser.Scene {
   }
 
   public create() {
-    // this.scene.start('TestSceneBlob');
+    // this.scene.start('TestSceneDrag');
     this.add
       .text(100, 100, 'Tester les personnages', { fill: 'red' })
       .setInteractive()
@@ -33,6 +33,12 @@ export class TestScene extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => {
         this.scene.start('TestSceneBlob');
+      })
+    this.add
+      .text(100, 500, 'Tester la Drag Queen', { fill: 'red' })
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.scene.start('TestSceneDrag');
       })
   }
 

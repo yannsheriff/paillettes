@@ -16,7 +16,6 @@ import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 import FreeLights from "./FreeLights";
 import FreeArrow from "./FreeArrow";
 import Chrono from "./Chrono";
-import GodMother from "./GodMother";
 import InputZone from "./InputZone";
 
 const heightBetweenSheetHBar = 206;
@@ -129,8 +128,6 @@ class SheetMusic {
       this.inputZoneWidth,
       this.scale
     );
-
-    new GodMother(this.scene, this.scale);
 
     new Chrono(this.scene, this.posX - 280, this.posY + 80, this.scale);
 
