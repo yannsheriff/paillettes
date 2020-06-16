@@ -7,38 +7,41 @@ import Align from "../../helpers/Align/align";
 
 const animations = [
   "faisceau-start",
-  "freestyle-loop",
   "freestyle-begin",
+  "freestyle-loop",
   "freestyle-end",
-
 ];
 
 class GodMotherComponent {
   private scene: Phaser.Scene;
   private freestyleState: FreestyleState;
-  // private godMother: GodMother;
+  private godMother?: GodMother;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     const freeManager = FreestyleStateManager.getInstance();
     this.freestyleState = freeManager.state;
     freeManager.subscribe(this.stateChange);
-
-    // this.godMother = new GodMother(
-    //   this.scene,
-    //   "godmother",
-    //   "faisceau-start",
-    //   false
-    // )
   }
 
   private create() {
-    // this.mother.play("god-mother-in");
-    // this.mother.once("animationcomplete", () => {
-    //   this.mother?.play("god-mother-loop");
-    // });
+    this.godMother = new GodMother(
+      this.scene,
+      "godmother",
+      "freestyle-begin",
+      false
+    )
+
+    setTimeout(() => {
+      this.godMother?.playAnimation("freestyle-loop", true)
+    }, 2000);
   }
   private delete() {
+    this.godMother?.playAnimation("freestyle-end", false)
+
+    setTimeout(() => {
+      this.godMother?.deleteGodMother()
+    }, 2000);
   }
 
   private stateChange = (state: FreestyleState) => {
