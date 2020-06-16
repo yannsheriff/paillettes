@@ -1,4 +1,5 @@
 import Align from "../../helpers/Align/align";
+import ScoreStateManager from "../../states/score";
 
 const BarWidth = 1236;
 
@@ -21,6 +22,8 @@ class BarComponent {
   private scale: number;
   private bar?: Phaser.GameObjects.Image;
   private progressBar?: Phaser.GameObjects.Rectangle;
+  private text?: Phaser.GameObjects.Text;
+  private charcterCount: number;
   private progressValue: number;
   private progressIncrement: number;
   private progressTip?: Phaser.GameObjects.Image;
@@ -28,15 +31,18 @@ class BarComponent {
   constructor(scene: Phaser.Scene, scale: number) {
     this.scene = scene;
     this.scale = scale;
-    const moneyAlreadyFounded = 600;
-    const totalMoney = 3000;
+    this.charcterCount = 15;
+    const moneyAlreadyFounded = 15;
+    const totalMoney = 50;
     this.progressValue = (moneyAlreadyFounded / totalMoney) * 100;
 
-    const unlockedCherLength = 124;
-    const unlockedMoney = (unlockedCherLength * 0.5) / 200 + 2.5;
+    const unlockedCherLength = ScoreStateManager.getInstance().state
+      .characterWon.length;
 
-    console.log("BarComponent -> constructor -> unlockedMoney", unlockedMoney);
-    this.progressIncrement = unlockedMoney / unlockedCherLength;
+    const unlockedMoney = (unlockedCherLength * 0.5) / 200 + 4.5;
+
+    const moneyBayCharacter = unlockedMoney / unlockedCherLength;
+    this.progressIncrement = (moneyBayCharacter / totalMoney) * 100;
     this.create();
   }
 
@@ -46,7 +52,6 @@ class BarComponent {
       .setScale(this.scale)
       .setDepth(13);
     Align.centerH(this.bar);
-    // const progress = 20;
 
     const { posX, tipX, width } = getProgressData(
       BarWidth,
@@ -68,10 +73,26 @@ class BarComponent {
       .image(tipX, window.innerHeight * 0.8, "BarLoaderTip")
       .setScale(this.scale)
       .setDepth(13);
+
+    this.text = this.scene.add
+      .text(
+        window.innerWidth / 2 + BarWidth / 2 - 270,
+        window.innerHeight * 0.8 - 50,
+        "0 Personnages",
+        {
+          fontFamily: "LondrinaSolid",
+          fontSize: "20px",
+          fontStyle: "",
+          color: "#fff",
+          align: "center",
+        }
+      )
+      .setDepth(13);
   }
 
   public increment() {
     this.progressValue += this.progressIncrement;
+    this.charcterCount++;
 
     const { tipX, width } = getProgressData(
       BarWidth,
@@ -94,6 +115,8 @@ class BarComponent {
       repeat: 0,
       yoyo: false,
     });
+
+    this.text?.setText(this.charcterCount.toString() + " Personnages");
   }
 }
 
