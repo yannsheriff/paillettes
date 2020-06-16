@@ -77,13 +77,13 @@ export class TestSceneDrag extends Phaser.Scene {
         this.addGodMother()
       });
 
-    // this.add
-    //   .text(150, 200, "Ajouter un achievement", { fill: "red" })
-    //   .setInteractive()
-    //   .setDepth(50)
-    //   .on("pointerdown", () => {
-    //     this.addAchievement()
-    //   });
+    this.add
+      .text(150, 200, "Ajouter un achievement", { fill: "red" })
+      .setInteractive()
+      .setDepth(50)
+      .on("pointerdown", () => {
+        this.addAchievement()
+      });
 
     // this.add
     //   .text(150, 250, "Ajouter le Score", { fill: "red" })
@@ -108,11 +108,11 @@ export class TestSceneDrag extends Phaser.Scene {
     this.addDebug(this.godMother)
   }
 
-  // public addAchievement() {
-  //   this.destroyAllCharacters()
-  //   this.achievement = new Achievement(this, "achievement", "Run", true);
-  //   this.addDebug(this.achievement)
-  // }
+  public addAchievement() {
+    this.destroyAllCharacters()
+    this.achievement = new Achievement(this, "achievement", "Achievement", true);
+    this.addDebug(this.achievement)
+  }
 
   // public addScore() {
   //   this.destroyAllCharacters()
