@@ -9,12 +9,18 @@ export class TestScene extends Phaser.Scene {
   }
 
   public create() {
-    // this.scene.start('TestSceneDrag');
+    // this.scene.start('TestSceneCurtainBefore');
     this.add
       .text(100, 100, 'Tester les personnages', { fill: 'red' })
       .setInteractive()
       .on('pointerdown', () => {
         this.scene.start('TestSceneSpine');
+      })
+    this.add
+      .text(500, 100, 'Tester la transition de scène', { fill: 'blue' })
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.scene.start('TestSceneCurtainBefore');
       })
     this.add
       .text(100, 200, 'Tester le background', { fill: 'red' })
@@ -35,7 +41,7 @@ export class TestScene extends Phaser.Scene {
         this.scene.start('TestSceneBlob');
       })
     this.add
-      .text(100, 500, 'Tester la Drag Queen', { fill: 'red' })
+      .text(100, 500, 'Tester Drag Queen, God Mother, Score, Achievement', { fill: 'red' })
       .setInteractive()
       .on('pointerdown', () => {
         this.scene.start('TestSceneDrag');

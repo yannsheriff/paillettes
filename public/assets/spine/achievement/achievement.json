@@ -1,0 +1,217 @@
+{
+"skeleton": {
+	"hash": "KW4CwvypAKzszOI425+dKe+6Qic",
+	"spine": "3.8.95",
+	"x": -961,
+	"y": -1.68,
+	"width": 1922.72,
+	"height": 1082.68,
+	"images": "./images/",
+	"audio": "/Users/bastienlepecheur/Desktop/Badge"
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "Badge", "parent": "root", "x": -0.09, "y": 546.14 },
+	{ "name": "Copy", "parent": "root", "x": 0.94, "y": 374.09 },
+	{ "name": "Light", "parent": "root", "x": -0.08, "y": 546.18 }
+],
+"slots": [
+	{ "name": "Overlay", "bone": "root", "attachment": "Overlay" },
+	{ "name": "Light", "bone": "Light", "attachment": "Light" },
+	{ "name": "Badge", "bone": "Badge", "attachment": "Badge" },
+	{ "name": "copy", "bone": "Copy", "attachment": "copy" },
+	{ "name": "Mondes Complétés", "bone": "root", "attachment": "Mondes Complétés" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"Light": {
+				"Light": { "x": 0.08, "y": -6.18, "width": 1922, "height": 1082 }
+			},
+			"Overlay": {
+				"Overlay": { "x": 0.72, "y": 539.32, "width": 1922, "height": 1082 }
+			}
+		}
+	},
+	{
+		"name": "Badge1",
+		"attachments": {
+			"Badge": {
+				"Badge": { "name": "Badge1/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
+			},
+			"copy": {
+				"copy": { "name": "Badge1/copy", "x": 1.56, "y": 4.91, "width": 217, "height": 40 }
+			}
+		}
+	},
+	{
+		"name": "Badge2",
+		"attachments": {
+			"Badge": {
+				"Badge": { "name": "Badge2/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
+			},
+			"copy": {
+				"copy": { "name": "Badge2/copy", "x": 1.56, "y": 4.91, "width": 223, "height": 40 }
+			}
+		}
+	},
+	{
+		"name": "Badge3",
+		"attachments": {
+			"Badge": {
+				"Badge": { "name": "Badge3/Badge", "x": 0.09, "y": -6.64, "width": 198, "height": 239 }
+			},
+			"copy": {
+				"copy": { "name": "Badge3/copy", "x": 1.56, "y": 4.91, "width": 223, "height": 40 }
+			}
+		}
+	},
+	{
+		"name": "Badge4",
+		"attachments": {
+			"Badge": {
+				"Badge": { "name": "Badge4/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
+			},
+			"copy": {
+				"copy": { "name": "Badge4/copy", "x": 1.06, "y": 1.41, "width": 440, "height": 49 }
+			}
+		}
+	},
+	{
+		"name": "Badge5",
+		"attachments": {
+			"Badge": {
+				"Badge": { "name": "Badge5/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
+			},
+			"copy": {
+				"copy": { "name": "Badge5/copy", "x": 1.56, "y": 1.91, "width": 395, "height": 50 }
+			}
+		}
+	},
+	{
+		"name": "Badge6",
+		"attachments": {
+			"Badge": {
+				"Badge": { "name": "Badge6/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
+			},
+			"copy": {
+				"copy": { "name": "Badge6/copy", "x": 2.06, "y": 0.91, "width": 352, "height": 52 }
+			}
+		}
+	},
+	{
+		"name": "Badge7",
+		"attachments": {
+			"Badge": {
+				"Badge": { "name": "Badge7/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
+			},
+			"copy": {
+				"copy": { "name": "Badge7/copy", "x": 2.06, "y": 0.91, "width": 358, "height": 52 }
+			}
+		}
+	},
+	{
+		"name": "Badge8",
+		"attachments": {
+			"Badge": {
+				"Badge": { "name": "Badge8/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
+			},
+			"copy": {
+				"copy": { "name": "Badge8/copy", "x": 2.06, "y": 0.91, "width": 358, "height": 52 }
+			}
+		}
+	},
+	{
+		"name": "Badge9",
+		"attachments": {
+			"Badge": {
+				"Badge": { "name": "Badge9/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
+			},
+			"copy": {
+				"copy": { "name": "Badge9/copy", "x": 2.06, "y": 0.91, "width": 356, "height": 52 }
+			}
+		}
+	},
+	{
+		"name": "Badge10",
+		"attachments": {
+			"Badge": {
+				"Badge": { "name": "Badge10/Badge", "x": 0.09, "y": -6.64, "width": 198, "height": 239 }
+			},
+			"Mondes Complétés": {
+				"Mondes Complétés": { "name": "Badge10/Mondes Complétés", "x": 3, "y": 375, "width": 368, "height": 52 }
+			}
+		}
+	}
+],
+"animations": {
+	"Achievement": {
+		"slots": {
+			"Badge": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.1333, "color": "ffffff00", "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.4333, "color": "ffffffff" }
+				]
+			},
+			"Light": {
+				"color": [
+					{ "time": 0.8, "color": "ffffffff" },
+					{ "time": 1.1333, "color": "ffffff8d" },
+					{ "time": 1.4667, "color": "ffffffff" },
+					{ "time": 1.8333, "color": "ffffff8d" }
+				]
+			},
+			"Overlay": {
+				"color": [
+					{ "color": "ffffff00", "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.3333, "color": "ffffff36", "curve": "stepped" },
+					{ "time": 1.6667, "color": "ffffff36", "curve": 0.25, "c3": 0.75 },
+					{ "time": 2, "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"Badge": {
+				"translate": [
+					{ "y": -413.23, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.5 }
+				],
+				"scale": [
+					{ "x": 0.5, "y": 0.5, "curve": 0.27, "c3": 0.618, "c4": 0.41 },
+					{ "time": 0.3, "x": -0.682, "y": 0.664, "curve": 0.343, "c2": 0.37, "c3": 0.757 },
+					{ "time": 0.5667, "x": 1.2, "y": 1.2, "curve": 0.25, "c3": 0.523, "c4": 1.02 },
+					{ "time": 0.6667, "curve": "stepped" },
+					{ "time": 1.8333, "curve": 0.25, "c3": 0.75 },
+					{ "time": 2, "x": 0, "y": 0 }
+				]
+			},
+			"Light": {
+				"rotate": [
+					{},
+					{ "time": 2, "angle": 90 }
+				],
+				"scale": [
+					{ "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 0.5667, "x": 0, "y": 0, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.9333, "x": 0.8, "y": 0.8, "curve": "stepped" },
+					{ "time": 1.8333, "x": 0.8, "y": 0.8 },
+					{ "time": 2, "x": 0, "y": 0 }
+				]
+			},
+			"Copy": {
+				"scale": [
+					{ "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 0.5667, "x": 0, "y": 0, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.8, "x": 1.1, "y": 1.1, "curve": 0.25, "c3": 0.75 },
+					{ "time": 0.9, "curve": "stepped" },
+					{ "time": 1.8333, "curve": 0.25, "c3": 0.75 },
+					{ "time": 2, "x": 0, "y": 0 }
+				]
+			}
+		}
+	}
+}
+}

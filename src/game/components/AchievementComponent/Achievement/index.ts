@@ -1,7 +1,7 @@
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 import Align from "../../../helpers/Align/align";
 
-class GodMother extends SpineContainer {
+class Achievement extends SpineContainer {
   // public SpineContainer: ISpineContainer;
 
   constructor(
@@ -15,30 +15,23 @@ class GodMother extends SpineContainer {
     // full screen asset
     let scale = window.innerWidth / this.spineBody.width
     this.setScale(scale); // asset size
-
-    // placer son x en fonction de la moitié de la largeur
-    // placer son y en fonction du bas
-    // this.spineBody.width = valeur reelle
     
-    this.x = window.innerWidth / 2 // ok
-    this.y = -5;
-    // this.y = this.spineBody.height * scale + 300
-
+    this.y = window.innerHeight / 2 + (this.spineBody.height / 2 * this.scale)
     // Align.centerV(this)
-    // Align.centerH(this)
+    Align.centerH(this)
     scene.add.existing(this)
 
     this.drawDebug(false)
     // this.allowCollideWorldBounds(true)
 
-    this.setDepth(15);
+    this.setDepth(20);
 
     // this.runVelocity(50)
   }
 
-  public deleteGodMother() {
+  public deleteAchievement() {
     this.destroy();
   }
 }
 
-export default GodMother;
+export default Achievement;
