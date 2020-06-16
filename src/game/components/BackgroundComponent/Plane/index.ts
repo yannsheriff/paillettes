@@ -37,10 +37,11 @@ class Plane extends Phaser.GameObjects.Sprite {
     this.speed = globalspeed * this.mappingPlane;
 
     this.setDepth(this.mappingPlane);
-
+    
     scene.add.existing(this);
     scene.physics.add.existing(this);
-
+    this.planeBody = this.body as Phaser.Physics.Arcade.Body;
+    
     if (this.planeSpace === PlaneSpace.second) {
       this.setScale(1.2);
     } else if (this.planeSpace === PlaneSpace.third) {
@@ -51,14 +52,12 @@ class Plane extends Phaser.GameObjects.Sprite {
 
     if (!isAlreadyInScene) {
       Align.outsideRight(this);
+      this.movePlane();
     } else {
       Align.center(this);
     }
+
     Align.centerPlaneBottom(this)
-
-    this.planeBody = this.body as Phaser.Physics.Arcade.Body;
-
-    this.movePlane();
   }
   
   public movePlane() {
