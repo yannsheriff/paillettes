@@ -50,6 +50,8 @@ class BarComponent {
       .setScale(this.scale)
       .setDepth(13);
   }
+
+  public increment() {}
 }
 
 export default BarComponent;
