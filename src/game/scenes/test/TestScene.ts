@@ -35,7 +35,7 @@ export class TestScene extends Phaser.Scene {
         this.scene.start('TestSceneBlob');
       })
     this.add
-      .text(100, 500, 'Tester la Drag Queen', { fill: 'red' })
+      .text(100, 500, 'Tester Drag Queen, God Mother, Score, Achievement', { fill: 'red' })
       .setInteractive()
       .on('pointerdown', () => {
         this.scene.start('TestSceneDrag');
