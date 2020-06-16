@@ -13,7 +13,7 @@ class Score extends SpineContainer {
     super(scene, 0, 0, key, anim, loop);
 
     // full screen asset
-    let scale = window.innerWidth / this.spineBody.width
+    let scale = window.innerHeight / this.spineBody.height
     this.setScale(scale); // asset size
 
     // placer son x en fonction de la moitié de la largeur
