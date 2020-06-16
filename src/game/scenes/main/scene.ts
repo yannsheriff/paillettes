@@ -18,7 +18,7 @@ import {
 } from "../../assets/assets";
 import DragQueenComponent from "../../components/DragQueenComponent";
 import MainGameManager from "../../managers/MainGameManager";
-import MainStateManager, { MainState } from "../../states/main";
+import MainStateManager, { MainState, GameStatus } from "../../states/main";
 import GlitterComponent from "../../components/GlitterComponent";
 import ConfettiScene from "../test/confetti/conffeti";
 import ConfettiConfig from "../test/confetti/config";
@@ -119,7 +119,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private onMainStateChange = (state: MainState) => {
-    if (state.isGameOver) {
+    if (state.gameStatus === GameStatus.isGameOver) {
       this.scene.start("Confetti");
     }
   };
