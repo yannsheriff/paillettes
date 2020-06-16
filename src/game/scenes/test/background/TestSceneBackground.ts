@@ -56,13 +56,6 @@ export class TestSceneBackground extends Phaser.Scene {
       });
 
     this.add
-      .text(150, 50, "Augmenter la vitesse", { fill: "red" })
-      .setInteractive()
-      .on("pointerdown", () => {
-        this.background?.updateSpeed(20)
-      });
-
-    this.add
       .text(150, 100, "Ajouter le sol", { fill: "red" })
       .setInteractive()
       .on("pointerdown", () => {

@@ -6,7 +6,7 @@ import Arrow from "./Arrow";
 import { delay, promiseGenerator } from "../../helpers/StepEventEmitter";
 import ScoreState from "../../states/score";
 import Score from "./Score";
-import MainStateManager, { MainState } from "../../states/main";
+import MainStateManager, { MainState, GameStatus } from "../../states/main";
 import { DifficultyModes } from "../../states/main";
 import Subtitle from "./Subtitle";
 import muscisFile, { Musics } from "../../helpers/Music/musics";
@@ -416,7 +416,8 @@ class SheetMusic {
   };
 
   private onStateChange = (state: MainState) => {
-    if (state.isGameLaunch !== this.mainState.isGameLaunch) {
+    if (state.gameStatus !== this.mainState.gameStatus
+      && state.gameStatus === GameStatus.isLaunch) {
       this.initSheetMusic();
     }
 

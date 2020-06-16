@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Game from "./pages/GameContainer";
 import Intro from "./pages/Introduction";
 import "./App.css";
-import MainStateManager, { MainState } from "../game/states/main";
+import MainStateManager, { MainState, GameStatus } from "../game/states/main";
 interface state {
   showStart: boolean;
   gameIsReady: boolean;
@@ -23,16 +23,17 @@ export default class App extends Component<{}, state> {
 
   private onStateChange = (state: MainState) => {
     if (
-      state.isGameLaunch &&
-      state.isGameLaunch !== this.mainState.isGameLaunch
+      state.gameStatus === GameStatus.isLaunch &&
+      state.gameStatus !== this.mainState.gameStatus
     ) {
       this.mainState = state;
-      this.setState({ showStart: !state.isGameLaunch });
+      this.setState({ showStart: false });
     }
 
-    if (state.isReady && state.isReady !== this.mainState.isReady) {
+    if (state.gameStatus === GameStatus.isReady 
+      && state.gameStatus !== this.mainState.gameStatus) {
       this.mainState = state;
-      this.setState({ gameIsReady: state.isReady });
+      this.setState({ gameIsReady: true });
     }
   };
 
