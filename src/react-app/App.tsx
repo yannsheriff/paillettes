@@ -42,6 +42,7 @@ export default class App extends Component<{}, state> {
     return (
       <div className="App">
         <Game />
+
         {/* {showStart && gameIsReady && <Intro />} */}
       </div>
     );

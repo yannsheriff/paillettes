@@ -1,10 +1,10 @@
 import config from "./config";
-import { ConfettiGenerator } from "../../../helpers/Confetti";
-import GlitterComponent from "../../../components/GlitterComponent";
-import BarComponent from "../../../components/BarComponent";
-import { bar, barLoaderTip, ground } from "../../../assets";
-import Ground from "../../../components/GroundComponent";
-import ScoreCrowdComponent from "../../../components/ScoreCrowdComponent";
+import { ConfettiGenerator } from "../../helpers/Confetti";
+import GlitterComponent from "../../components/GlitterComponent";
+import BarComponent from "../../components/BarComponent";
+import { bar, barLoaderTip, ground } from "../../assets";
+import Ground from "../../components/GroundComponent";
+import ScoreCrowdComponent from "../../components/ScoreCrowdComponent";
 
 export default class ScoreScene extends Phaser.Scene {
   private confettiManager?: ConfettiGenerator;
