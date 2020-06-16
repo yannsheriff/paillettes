@@ -1,7 +1,7 @@
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 import Align from "../../../helpers/Align/align";
 
-class Score extends SpineContainer {
+class Curtains extends SpineContainer {
   // public SpineContainer: ISpineContainer;
 
   constructor(
@@ -14,7 +14,7 @@ class Score extends SpineContainer {
 
     // full screen asset
     let scale = window.innerHeight / this.spineBody.height
-    this.setScale(scale); // asset size
+    this.setScale(1); // asset size
 
     // placer son x en fonction de la moitié de la largeur
     // placer son y en fonction du bas
@@ -41,4 +41,4 @@ class Score extends SpineContainer {
   }
 }
 
-export default Score;
+export default Curtains;

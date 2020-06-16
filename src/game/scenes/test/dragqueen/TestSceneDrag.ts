@@ -4,7 +4,7 @@ import { button } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent/DragQueen";
 import GodMother from "../../../components/GodMotherComponent/GodMother";
 import Achievement from "../../../components/AchievementComponent/Achievement";
-import Score from "../../../components/ScoreComponent/Score";
+import Curtains from "../../../components/CurtainsComponent/Curtains";
 import AssetsManager from "../../../helpers/Assets";
 
 import {
@@ -19,7 +19,7 @@ export class TestSceneDrag extends Phaser.Scene {
   private dragQueen?: DragQueen;
   private godMother?: GodMother;
   private achievement?: Achievement;
-  private score?: Score;
+  private curtains?: Curtains;
   private configList: Array<Phaser.GameObjects.Text> = [];
   private characterAssets: Array<string> = [];
   private assetsManager: AssetsManager;
@@ -116,8 +116,8 @@ export class TestSceneDrag extends Phaser.Scene {
 
   public addScore() {
     this.destroyAllCharacters()
-    this.score = new Score(this, "score", "Run", true);
-    this.addDebug(this.score)
+    this.curtains = new Curtains(this, "curtains", "01_Fermeture", true);
+    this.addDebug(this.curtains)
   }
 
   public addDebug(spine: SpineContainer) {
@@ -152,7 +152,7 @@ export class TestSceneDrag extends Phaser.Scene {
     this.dragQueen?.deleteDragQueen();
     this.godMother?.deleteGodMother();
     this.achievement?.deleteAchievement();
-    this.score?.deleteScoreSpine();
+    this.curtains?.deleteScoreSpine();
 
     this.configList.forEach((config) => {
       config.destroy();

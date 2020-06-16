@@ -58,19 +58,16 @@ class DragQueenManager {
       setTimeout(() => {
         this.divinelight?.deleteGodMother()
       }, 2500);
-
-      // this.dragQueen?.playOnceThenLoopNextAnimation("Start", "Run", 0)
     }
 
-
     handleStepDown = (directions: Direction[]) => {
-      directions.forEach((direction) => {
-        let animation = "Dance-" + direction;
-        if (this.isGameStarted) {
-          this.dragQueen?.playOnceThenLoopNextAnimation(animation, "Run", 0)
-        }
-      });
+      const direction = directions[0]
+      let animation = "Dance-" + direction;
+      if (this.isGameStarted) {
+        this.dragQueen?.playOnceThenLoopNextAnimation(animation, "Run", 0)
+      }
     };
+
 
     private onMainStateChange = (state: MainState) => {
       if (state.gameStatus !== this.mainState.gameStatus
