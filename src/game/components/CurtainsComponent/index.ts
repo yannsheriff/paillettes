@@ -1,16 +1,15 @@
-import Score from "./Score"
-import Align from "../../helpers/Align/align";
+import Curtains from "./Curtains"
 
-class ScoreComponent {
+class CurtainsComponent {
   private scene: Phaser.Scene;
-  private scoreSpine: Score;
+  private curtains: Curtains;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
 
-    this.scoreSpine = new Score(
+    this.curtains = new Curtains(
       this.scene,
-      "score",
+      "curtains",
       "faisceau-start",
       false
     )
@@ -26,4 +25,4 @@ class ScoreComponent {
   }
 }
 
-export default ScoreComponent;
+export default CurtainsComponent;

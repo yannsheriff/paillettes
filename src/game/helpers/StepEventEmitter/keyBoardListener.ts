@@ -34,17 +34,19 @@ class KeyboardListener {
   private emitDown = (e: KeyboardEvent) => {
     const event = keyTable.get(e.keyCode);
 
-    if (this.simultaneousDirectionDown.length !== 0) {
-      this.simultaneousDirectionDown.push(event!);
-    } else {
-      this.simultaneousDirectionDown = [event!];
-      setTimeout(() => {
-        this.stepEventEmitter?.emit(
-          StepEventType.stepdown,
-          this.simultaneousDirectionDown
-        );
-        this.simultaneousDirectionDown = [];
-      }, 50);
+    if (event !== undefined) {
+      if (this.simultaneousDirectionDown.length !== 0) {
+        this.simultaneousDirectionDown.push(event!);
+      } else {
+        this.simultaneousDirectionDown = [event!];
+        setTimeout(() => {
+          this.stepEventEmitter?.emit(
+            StepEventType.stepdown,
+            this.simultaneousDirectionDown
+          );
+          this.simultaneousDirectionDown = [];
+        }, 50);
+      }
     }
   };
 
