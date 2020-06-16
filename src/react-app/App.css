@@ -13,7 +13,7 @@ body,
 
 #brille-cherie-intro {
   position: relative;
-  background-image: url("../assets/introduction/background.jpg");
+  /* background-image: url("../assets/introduction/background.jpg"); */
   background-position: center center;
   background-size: cover;
   width: 100vw;

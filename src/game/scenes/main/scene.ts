@@ -20,6 +20,7 @@ import DragQueenComponent from "../../components/DragQueenComponent";
 import MainGameManager from "../../managers/MainGameManager";
 import MainStateManager from "../../states/main";
 import GlitterComponent from "../../components/GlitterComponent";
+import CurtainsComponent from "../../components/CurtainsComponent";
 
 export class GameScene extends Phaser.Scene {
   private text?: Phaser.GameObjects.Text;
@@ -93,6 +94,7 @@ export class GameScene extends Phaser.Scene {
       new SheetMusicComponent(this, this.CharacterManager);
       new DragQueenComponent(this);
       new GodMotherComponent(this);
+      new CurtainsComponent(this);
       this.glitter = new GlitterComponent(this);
 
       // @ts-ignore
