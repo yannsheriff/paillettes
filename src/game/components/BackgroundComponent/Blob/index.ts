@@ -28,8 +28,9 @@ class Blob extends Phaser.GameObjects.Graphics {
         y: window.innerHeight / 2
     }
     private initialRayon = window.innerWidth / 2;
-    private rayon: number = this.initialRayon; // le blob prend 1/3 de l'écran
-    private variation: number = 80;
+    private rayon: number = 0; // le blob prend 1/3 de l'écran
+    private initialVariation: number = 80;
+    private variation: number = 0;
     private noise: SimplexNoise = new SimplexNoise(Math.random);
 
     constructor(
@@ -46,7 +47,6 @@ class Blob extends Phaser.GameObjects.Graphics {
         this.freestyleManager.subscribe(this.onFreestyleStateChange);
 
         this.drawColor = this.worldColors.get(this.mainManager.state.world)!;
-        // this.drawBlob()
     }
 
     preUpdate(time: any, delta: any) {
@@ -80,11 +80,23 @@ class Blob extends Phaser.GameObjects.Graphics {
         this.setDepth(7).setBlendMode('SCREEN')
     }
 
+    public firstDrawBlob() {
+        this.scene.tweens.add({
+            targets: this,
+            rayon: this.initialRayon,
+            variation: this.initialVariation,
+            duration: 600,
+            ease: 'back.out',
+            repeat: 0,
+            yoyo: false,
+        });
+    }
+
     public freestyle(isFreestyle: boolean) {
         this.scene.tweens.add({
             targets: this,
             rayon: isFreestyle ? window.innerWidth + 500 : this.initialRayon,
-            duration: 700,
+            duration: 1200,
             ease: isFreestyle ? 'back.in' : 'back.out',
             repeat: 0,
             yoyo: false,
@@ -114,6 +126,7 @@ class Blob extends Phaser.GameObjects.Graphics {
 
         if (state.isGameLaunch !== this.mainState.isGameLaunch) {
             this.canDraw = true;
+            this.firstDrawBlob()
         }
 
         // if (
