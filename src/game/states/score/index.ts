@@ -5,6 +5,7 @@ import { GridObject } from "../../components/SheetMusicComponent";
 export interface ScoreState {
   score: number;
   combo: number;
+  characterWon: string[];
 }
 enum ComboType {
   good,
@@ -31,6 +32,7 @@ export default class ScoreStateManager extends State {
     this.state = {
       score: 0,
       combo: 0,
+      characterWon: [],
     };
     this.failCallbacks = [];
     this.goodCallbacks = [];
@@ -39,6 +41,9 @@ export default class ScoreStateManager extends State {
     this.mainStateManager = MainStateManager.getInstance();
     this.mainState = this.mainStateManager.state;
     this.mainStateManager.subscribe((state) => (this.mainState = state));
+    for (let index = 0; index < 120; index++) {
+      this.state.characterWon.push("a");
+    }
   }
 
   /**

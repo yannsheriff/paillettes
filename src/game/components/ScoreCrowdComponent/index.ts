@@ -1,3 +1,7 @@
+import ScoreStateManager from "../../states/score";
+
+const duration = 10000;
+
 class ScoreCrowdComponent {
   private scene: Phaser.Scene;
   private scale: number;
@@ -19,12 +23,16 @@ class ScoreCrowdComponent {
   }
 
   create() {
-    const interval = setInterval(this.characterPassCallback, 1000);
+    const unlockedCherLength = ScoreStateManager.getInstance().state
+      .characterWon.length;
+
+    const intervalDuration = duration / unlockedCherLength;
+    const interval = setInterval(this.characterPassCallback, intervalDuration);
 
     setTimeout(() => {
       clearInterval(interval);
       this.onEndCallBack();
-    }, 3000);
+    }, duration);
   }
 }
 
