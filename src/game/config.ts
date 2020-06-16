@@ -8,6 +8,8 @@ import TestSceneDrag from "./scenes/test/dragqueen";
 import TestSceneBackground from "./scenes/test/background";
 import TestSceneCrowd from "./scenes/test/crowd";
 import TestSceneBlob from "./scenes/test/blob";
+import TestSceneCurtainBefore from "./scenes/test/curtain/before";
+import TestSceneCurtainAfter from "./scenes/test/curtain/after";
 import confetti from "./scenes/test/confetti";
 
 export const DEFAULT_WIDTH = 1280;
@@ -34,8 +36,17 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: false,
     },
   },
-  scene: [MainScene],
-  // scene: [TestScene, TestSceneSpine, TestSceneDrag, TestSceneBackground, TestSceneCrowd, TestSceneBlob],
+  // scene: [MainScene],
+  scene: [
+    TestScene,
+    TestSceneSpine,
+    TestSceneDrag,
+    TestSceneBackground,
+    TestSceneCrowd,
+    TestSceneBlob,
+    TestSceneCurtainBefore,
+    TestSceneCurtainAfter
+  ],
   plugins: {
     scene: [
       {
