@@ -1,8 +1,8 @@
 import config from "./config";
-import Score from "../../../../components/ScoreComponent/Score";
+import Curtains from "../../../../components/CurtainsComponent/Curtains";
 
 export class TestSceneCurtainBefore extends Phaser.Scene {
-  private score?: Score;
+  private curtains?: Curtains;
 
   constructor() {
     super(config);
@@ -13,7 +13,7 @@ export class TestSceneCurtainBefore extends Phaser.Scene {
 
   public create() {
     alert('scene 2')
-    this.score = new Score(this, "score", "02_Ouverture", false);
+    this.curtains = new Curtains(this, "curtains", "02_Ouverture", false);
   }
 
   public update() {}

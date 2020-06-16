@@ -1,7 +1,7 @@
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 import Align from "../../../helpers/Align/align";
 
-class Score extends SpineContainer {
+class Curtains extends SpineContainer {
   // public SpineContainer: ISpineContainer;
 
   constructor(
@@ -41,4 +41,4 @@ class Score extends SpineContainer {
   }
 }
 
-export default Score;
+export default Curtains;

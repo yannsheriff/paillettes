@@ -1,5 +1,5 @@
 import config from "./config";
-import Score from "../../../../components/ScoreComponent/Score";
+import Curtains from "../../../../components/CurtainsComponent/Curtains";
 import AssetsManager from "../../../../helpers/Assets";
 
 import {
@@ -11,7 +11,7 @@ import {
 import SpineContainer from "../../../../helpers/SpineContainer/SpineContainer";
 
 export class TestSceneCurtainBefore extends Phaser.Scene {
-  private score?: Score;
+  private curtains?: Curtains;
   private configList: Array<Phaser.GameObjects.Text> = [];
   private characterAssets: Array<string> = [];
   private assetsManager: AssetsManager;
@@ -65,7 +65,7 @@ export class TestSceneCurtainBefore extends Phaser.Scene {
 
   public addCurtain() {
     this.destroyAllCharacters()
-    this.score = new Score(this, "score", "01_Fermeture", false);
+    this.curtains = new Curtains(this, "curtains", "01_Fermeture", false);
 
 
     this.add
@@ -106,7 +106,7 @@ export class TestSceneCurtainBefore extends Phaser.Scene {
   }
 
   public destroyAllCharacters() {
-    this.score?.deleteScoreSpine();
+    this.curtains?.deleteScoreSpine();
     this.configList.forEach((config) => {
       config.destroy();
     });
