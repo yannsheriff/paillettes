@@ -95,7 +95,7 @@ export default class MainStateManager extends State {
   }
 
   public stopGame() {
-    this.setState({ isGameOver: true });
+    this.setState({ isGameOver: true, isGameLaunch: false });
   }
 
   public changeWorld() {
