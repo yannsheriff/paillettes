@@ -22,15 +22,16 @@ export default class ScoreScene extends Phaser.Scene {
   }
 
   public create() {
-    // confettti component
+    // === Confettti component
     // this.glitter = new GlitterComponent(this);
     // this.glitter.confettiManager?.grow();
     // this.glitter.confettiManager?.startConfetti();
 
-    // Crowd component
+    // === Crowd component
+    // TODO Graudren
     new ScoreCrowdComponent(this, 0.8, this.onCharacterPass, this.onEnd);
 
-    // Bar component
+    // === Bar component
     this.barComponent = new BarComponent(this, 0.8);
 
     // Ground componenet
@@ -38,7 +39,8 @@ export default class ScoreScene extends Phaser.Scene {
 
     // Success component
 
-    // Curtains omponent
+    // Curtains component
+    // TODO Graudren
   }
 
   onCharacterPass = () => {
