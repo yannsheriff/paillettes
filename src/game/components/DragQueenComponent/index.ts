@@ -51,10 +51,13 @@ class DragQueenManager {
 
       setTimeout(() => {
         this.dragQueen?.playAnimation("Run", true)
-        this.divinelight?.deleteGodMother()
         this.isGameStarted = true
         this.mainManager.runGame()
-      }, 1000);
+      }, 1500);
+
+      setTimeout(() => {
+        this.divinelight?.deleteGodMother()
+      }, 2500);
 
       // this.dragQueen?.playOnceThenLoopNextAnimation("Start", "Run", 0)
     }
