@@ -1,6 +1,6 @@
 import Blob from "./Blob";
 import Plane, { PlaneSpace } from "./Plane";
-import MainStateManager, { MainState, Worlds } from "../../states/main";
+import MainStateManager, { MainState, Worlds, GameStatus } from "../../states/main";
 
 class BackgroundManager {
   private mainState: MainState;
@@ -29,18 +29,16 @@ class BackgroundManager {
     this.generateFirstPlanes()
   }
 
-  public initBackground() {
+  public runBackground() {
     // apres que la DQ descende du ciel et qu'on play
-    setTimeout(() => {
-      for (let planenb = 0; planenb < 3; planenb++) {
-        this.generatePlanes(planenb, true);
-      }
-      this.currentPlanes.forEach(plane => {
-        plane.movePlane()
-        this.initDestroy(plane, plane.planeSpace)
-        this.blob = new Blob(this.scene)
-      });
-    }, 5000);
+    for (let planenb = 0; planenb < 3; planenb++) {
+      this.generatePlanes(planenb, true);
+    }
+    this.currentPlanes.forEach(plane => {
+      plane.movePlane()
+      this.initDestroy(plane, plane.planeSpace)
+      this.blob = new Blob(this.scene)
+    });
   }
 
   /**
@@ -231,8 +229,9 @@ class BackgroundManager {
   }
 
   private onMainStateChange = (state: MainState) => {
-    if (state.isGameLaunch !== this.mainState.isGameLaunch) {
-      this.initBackground()
+    if (state.gameStatus !== this.mainState.gameStatus 
+      && state.gameStatus === GameStatus.isRunning) {
+      this.runBackground()
     }
 
     if (state.world !== this.mainState.world) {

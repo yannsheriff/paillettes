@@ -1,5 +1,5 @@
 import SimplexNoise from "simplex-noise";
-import MainStateManager, { MainState, Worlds } from "../../../states/main";
+import MainStateManager, { MainState, Worlds, GameStatus } from "../../../states/main";
 import FreestyleStateManager, {
     FreestyleState,
 } from "../../../states/freestyle";
@@ -124,7 +124,8 @@ class Blob extends Phaser.GameObjects.Graphics {
             this.changeColor(state.world);
         }
 
-        if (state.isGameLaunch !== this.mainState.isGameLaunch) {
+        if (state.gameStatus !== this.mainState.gameStatus 
+            && state.gameStatus === GameStatus.isRunning) {
             this.canDraw = true;
             this.firstDrawBlob()
         }

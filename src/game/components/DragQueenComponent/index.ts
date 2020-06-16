@@ -1,6 +1,6 @@
 import DragQueen from "./DragQueen";
 import ScoreStateManager from "../../states/score";
-import MainStateManager, { MainState } from "../../states/main";
+import MainStateManager, { MainState, GameStatus } from "../../states/main";
 import GodMother from "../../components/GodMotherComponent/GodMother";
 import stepEventEmitter from "../../helpers/StepEventEmitter";
 import { StepEventType } from "../../helpers/StepEventEmitter/gamepadListener";
@@ -27,7 +27,6 @@ class DragQueenManager {
     constructor(scene: Phaser.Scene) {
       this.scene = scene;
       this.scoreManager = ScoreStateManager.getInstance()
-      // this.scoreManager.onSuccess(this.danseDragQueen)
       this.mainManager = MainStateManager.getInstance();
       this.mainManager.subscribe(this.onMainStateChange);
       this.mainState = this.mainManager.state;
@@ -54,14 +53,14 @@ class DragQueenManager {
         this.dragQueen?.playAnimation("Run", true)
         this.divinelight?.deleteGodMother()
         this.isGameStarted = true
-      }, 2000);
+        this.mainManager.runGame()
+      }, 1000);
 
       // this.dragQueen?.playOnceThenLoopNextAnimation("Start", "Run", 0)
     }
 
 
     handleStepDown = (directions: Direction[]) => {
-      // TO DO METTRE UNE CONDITION SUR LE TYPE DE LA DIRECTION
       directions.forEach((direction) => {
         let animation = "Dance-" + direction;
         if (this.isGameStarted) {
@@ -70,17 +69,13 @@ class DragQueenManager {
       });
     };
 
-    // public danseDragQueen = (callback: GridObject) => {
-    // }
-
-
     private onMainStateChange = (state: MainState) => {
-      if (state.isGameLaunch !== this.mainState.isGameLaunch) {
+      if (state.gameStatus !== this.mainState.gameStatus
+        && state.gameStatus === GameStatus.isLaunch) {
         this.create()
       }
       this.mainState = state;
-    } 
-  
+    }
   }
   
   export default DragQueenManager;

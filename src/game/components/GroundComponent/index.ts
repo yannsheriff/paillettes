@@ -1,4 +1,4 @@
-import MainStateManager, { MainState } from "../../states/main";
+import MainStateManager, { MainState, GameStatus } from "../../states/main";
 
 class Ground {
   public ground?: Phaser.GameObjects.Image;
@@ -84,7 +84,8 @@ class Ground {
   }
 
   private onMainStateChange = (state: MainState) => {
-    if (state.isGameLaunch !== this.mainState.isGameLaunch) {
+    if (state.gameStatus !== this.mainState.gameStatus 
+      && state.gameStatus === GameStatus.isRunning) {
       this.canRotate = true;
     }
     this.mainState = state;
