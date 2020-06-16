@@ -51,6 +51,8 @@ class PhysicCharacter extends SpineContainer {
     this.setScale(0.45); // container and hitbox size
     this.setDepth(10);
 
+    this.name = key; // stock string assetname to name
+
     if (!isDebug) {
       Align.outsideRightSpine(this, this.spine, this.scale);
       Align.charactersOnGround(this, this.spine, this.scale);

@@ -115,6 +115,7 @@ class PhysicCharacterManager {
 
     if (character.isUnlock) {
       this.crowd.push(character);
+      this.scoreManager.registrerUnlockedCharacter(character.name)
       character.joinCrowd(this.crowd.length + 1);
     } else {
       character.failAndDestroy();

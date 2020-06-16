@@ -20,8 +20,6 @@ import DragQueenComponent from "../../components/DragQueenComponent";
 import MainGameManager from "../../managers/MainGameManager";
 import MainStateManager, { MainState, GameStatus } from "../../states/main";
 import GlitterComponent from "../../components/GlitterComponent";
-import ConfettiScene from "../test/confetti/conffeti";
-import ConfettiConfig from "../test/confetti/config";
 
 export class GameScene extends Phaser.Scene {
   private text?: Phaser.GameObjects.Text;

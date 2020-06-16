@@ -4,7 +4,6 @@ const duration = 10000;
 
 class ScoreCrowdComponent {
   private scene: Phaser.Scene;
-  private scale: number;
   private characterPassCallback: () => unknown;
   private onEndCallBack: () => unknown;
 
@@ -15,7 +14,6 @@ class ScoreCrowdComponent {
     onEndCallBack: () => unknown
   ) {
     this.scene = scene;
-    this.scale = scale;
     this.characterPassCallback = characterPassCallback;
     this.onEndCallBack = onEndCallBack;
 
@@ -23,10 +21,10 @@ class ScoreCrowdComponent {
   }
 
   create() {
-    const unlockedCherLength = ScoreStateManager.getInstance().state
-      .characterWon.length;
+    const unlockedCharLength = ScoreStateManager.getInstance().state
+      .charactersUnlocked.length;
 
-    const intervalDuration = duration / unlockedCherLength;
+    const intervalDuration = duration / unlockedCharLength;
     const interval = setInterval(this.characterPassCallback, intervalDuration);
 
     setTimeout(() => {

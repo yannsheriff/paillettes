@@ -51,8 +51,8 @@ class DragQueenManager {
 
       setTimeout(() => {
         this.dragQueen?.playAnimation("Run", true)
-        this.isGameStarted = true
         this.mainManager.runGame()
+        this.isGameStarted = true
       }, 1500);
 
       setTimeout(() => {
