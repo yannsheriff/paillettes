@@ -58,8 +58,6 @@ class DragQueenManager {
       setTimeout(() => {
         this.divinelight?.deleteGodMother()
       }, 2500);
-
-      // this.dragQueen?.playOnceThenLoopNextAnimation("Start", "Run", 0)
     }
 
     handleStepDown = (directions: Direction[]) => {
@@ -69,6 +67,7 @@ class DragQueenManager {
         this.dragQueen?.playOnceThenLoopNextAnimation(animation, "Run", 0)
       }
     };
+
 
     private onMainStateChange = (state: MainState) => {
       if (state.gameStatus !== this.mainState.gameStatus
