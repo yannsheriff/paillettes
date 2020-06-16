@@ -1,4 +1,5 @@
 import State from "../state";
+import { randomEnumValue } from "../../../types/globals";
 
 export enum DifficultyModes {
   easy,
@@ -48,11 +49,16 @@ export default class MainStateManager extends State {
     super();
     this.state = initialState;
 
+    const world = randomEnumValue(Worlds);
+
+    this.setState({ world: world });
+
     this.remainingWorlds = [
       Worlds.nineteenCentury,
       Worlds.today,
       Worlds.prehistory,
-    ];
+      Worlds.middleAges,
+    ].filter((w) => w !== world);
   }
 
   /**
