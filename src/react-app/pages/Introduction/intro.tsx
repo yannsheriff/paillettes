@@ -103,10 +103,6 @@ export default class Game extends Component<{}, state> {
     return (
       <div id="brille-cherie-intro">
         <canvas id="paillettes" />
-        <div id="brille-cherie-logo">
-          ici il y aura le logo <br />
-          mais on a pas encore le logo
-        </div>
         <div>{isLeftPressed && isRightPressed && seconds}</div>
 
         <div id="brille-cherie-footer">

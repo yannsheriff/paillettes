@@ -38,17 +38,6 @@ class CurtainsComponent {
       this.curtains.playAnimation("08_Transition", false);
     }
 
-    // if (state.world !== this.mainState.world) {
-    //   this.startWorldTransition(state.world);
-    // }
-
-    // if (
-    //   state.isInTransition !== this.mainState.isInTransition &&
-    //   !state.isInTransition
-    // ) {
-    //   this.endWorldTransition();
-    // }
-
     this.mainState = state;
   };
 }
