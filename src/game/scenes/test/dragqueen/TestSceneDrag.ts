@@ -85,13 +85,13 @@ export class TestSceneDrag extends Phaser.Scene {
         this.addAchievement()
       });
 
-    // this.add
-    //   .text(150, 250, "Ajouter le Score", { fill: "red" })
-    //   .setInteractive()
-    //   .setDepth(50)
-    //   .on("pointerdown", () => {
-    //     this.addScore()
-    //   });
+    this.add
+      .text(150, 250, "Ajouter le Score", { fill: "red" })
+      .setInteractive()
+      .setDepth(50)
+      .on("pointerdown", () => {
+        this.addScore()
+      });
 
     let debug = true;
   }
@@ -114,11 +114,11 @@ export class TestSceneDrag extends Phaser.Scene {
     this.addDebug(this.achievement)
   }
 
-  // public addScore() {
-  //   this.destroyAllCharacters()
-  //   this.score = new Score(this, "score", "Run", true);
-  //   this.addDebug(this.score)
-  // }
+  public addScore() {
+    this.destroyAllCharacters()
+    this.score = new Score(this, "score", "Run", true);
+    this.addDebug(this.score)
+  }
 
   public addDebug(spine: SpineContainer) {
     let y = 200;
