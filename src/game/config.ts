@@ -9,7 +9,7 @@ import TestSceneBackground from "./scenes/test/background";
 import TestSceneCrowd from "./scenes/test/crowd";
 import TestSceneBlob from "./scenes/test/blob";
 import confetti from "./scenes/test/confetti";
-import Score from "./scenes/test/Score";
+import Score from "./scenes/Score";
 
 export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;
