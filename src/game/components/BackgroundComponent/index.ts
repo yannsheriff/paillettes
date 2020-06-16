@@ -102,7 +102,7 @@ class BackgroundManager {
     );
 
     setTimeout(() => {
-      if (!this.mainState.isGameOver) {
+      if (this.mainState.gameStatus !== GameStatus.isGameOver) {
         this.generatePlanes(planeSpace, false);
       }
     }, timeBeforeGenerateNextPlane);
