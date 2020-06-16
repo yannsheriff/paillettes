@@ -37,7 +37,7 @@ class BarComponent {
     this.progressValue = (moneyAlreadyFounded / totalMoney) * 100;
 
     const unlockedCherLength = ScoreStateManager.getInstance().state
-      .characterWon.length;
+      .charactersUnlocked.length;
 
     const unlockedMoney = (unlockedCherLength * 0.5) / 200 + 4.5;
 
