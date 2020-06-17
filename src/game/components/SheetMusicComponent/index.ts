@@ -162,6 +162,7 @@ class SheetMusic {
     document.addEventListener("click", (e) => {
       if (!this.isPlaying) {
         this.mainManager.launchGame();
+        this.initSheetMusic();
       }
       // this.createArrow(2, {
       //   name: "E4",
@@ -181,7 +182,7 @@ class SheetMusic {
     this.player?.start();
     const time = muscisFile.get(this.music)["header"]["bc-delay-sync"];
     setTimeout(() => {
-      const music = this.scene.sound.add("zelda");
+      const music = this.scene.sound.add("hungup");
       music.play();
 
       music.once("complete", () => {
