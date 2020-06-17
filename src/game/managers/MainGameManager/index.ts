@@ -10,6 +10,7 @@ export default class MainGameManager {
   private mainManager: MainStateManager;
   private freeState: FreestyleState;
   private freeManager: FreestyleStateManager;
+  private nextWorldChange: number;
   /**
    * The Singleton's constructor should always be private to prevent direct
    * construction calls with the `new` operator.
@@ -18,6 +19,7 @@ export default class MainGameManager {
     this.scoreManager = ScoreStateManager.getInstance();
     this.scoreState = this.scoreManager.state;
     this.scoreManager.subscribe(this.scoreChange);
+    this.nextWorldChange = 800;
 
     this.mainManager = MainStateManager.getInstance();
     this.mainState = this.mainManager.state;
@@ -42,7 +44,13 @@ export default class MainGameManager {
   }
 
   private scoreChange = (scoreState: ScoreState) => {
-    if (scoreState.score > 100 && !this.mainState.didChangeWorld) {
+    if (scoreState.score > this.nextWorldChange) {
+      this.nextWorldChange += 800;
+
+      if (this.nextWorldChange > 3199) {
+        this.nextWorldChange = 30000;
+      }
+
       this.mainManager.changeWorld();
     }
     this.scoreState = scoreState;
