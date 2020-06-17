@@ -79,8 +79,9 @@ class CurtainsComponent {
         }, 2000);
         break;
       case "code-closed":
-        // this.curtains!.playAnimation("transition", false);
+        // this.mainManager.restart();
         break;
+
       default:
         break;
     }

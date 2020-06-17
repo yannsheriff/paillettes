@@ -98,6 +98,13 @@ class LogoComponent {
       this.animation!.anims.play("logo-out");
     }
 
+    if (
+      state.gameStatus !== this.mainState.gameStatus &&
+      state.gameStatus === GameStatus.isReady
+    ) {
+      this.animation!.anims.play("logo-in");
+    }
+
     this.mainState = state;
   };
 }

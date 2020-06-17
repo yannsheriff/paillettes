@@ -61,6 +61,10 @@ export class GameScene extends Phaser.Scene {
     this.load.scene.load.on("progress", this.loadProgress);
     this.load.once("complete", this.startGame);
 
+    if (this.mainState.gameStatus === GameStatus.isReady) {
+      this.startGame();
+    }
+
     this.load.plugin(
       "rexcanvasplugin",
       "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexcanvasplugin.min.js",
