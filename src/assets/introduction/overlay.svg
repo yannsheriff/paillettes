@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="589" height="128" viewBox="0 0 589 128">
+    <g fill="none" fill-rule="evenodd">
+        <rect width="589" height="118" y="10" fill="#9F2154" rx="59"/>
+        <rect width="589" height="118" fill="#FFF" rx="59"/>
+        <rect width="556" height="87" x="16.5" y="15.5" stroke="#E20061" opacity=".114" rx="43.5"/>
+        <circle cx="69" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="57" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="95" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="82" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="109" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="122" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="136" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="149" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="163" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="176" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="190" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="203" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="217" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="230" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="244" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="257" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="271" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="284" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="298" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="311" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="325" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="338" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="365" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="365" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="392" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="392" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="419" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="419" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="446" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="446" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="473" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="473" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="500" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="500" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="527" cy="110" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="527" cy="8" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="555" cy="103" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="575" cy="84" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="581" cy="58" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="574" cy="33" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="555" cy="14" r="4" fill="#FCE2ED" opacity=".501"/>
+        <circle cx="34" cy="15" r="4" fill="#FCE2ED" opacity=".501" transform="rotate(-180 34 15)"/>
+        <circle cx="16" cy="34" r="4" fill="#FCE2ED" opacity=".501" transform="rotate(-180 16 34)"/>
+        <circle cx="8" cy="59" r="4" fill="#FCE2ED" opacity=".501" transform="rotate(-180 8 59)"/>
+        <circle cx="15" cy="84" r="4" fill="#FCE2ED" opacity=".501" transform="rotate(-180 15 84)"/>
+        <circle cx="32" cy="102" r="4" fill="#FCE2ED" opacity=".501" transform="rotate(-180 32 102)"/>
+        <circle cx="56" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="70" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="95" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="82" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="109" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="122" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="136" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="149" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="163" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="176" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="190" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="203" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="217" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="230" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="244" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="257" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="271" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="284" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="298" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="311" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="325" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="338" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="352" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="352" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="379" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="379" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="406" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="406" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="433" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="433" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="460" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="460" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="487" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="487" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="514" cy="110" r="4" fill="#FCE2ED"/>
+        <circle cx="514" cy="8" r="4" fill="#FCE2ED"/>
+        <circle cx="541" cy="109" r="4" fill="#FCE2ED"/>
+        <circle cx="566" cy="95" r="4" fill="#FCE2ED"/>
+        <circle cx="579" cy="72" r="4" fill="#FCE2ED"/>
+        <circle cx="579" cy="45" r="4" fill="#FCE2ED"/>
+        <circle cx="565" cy="22" r="4" fill="#FCE2ED"/>
+        <circle cx="542" cy="9" r="4" fill="#FCE2ED"/>
+        <circle cx="45" cy="10" r="4" fill="#FCE2ED" transform="rotate(-180 45 10)"/>
+        <circle cx="24" cy="23" r="4" fill="#FCE2ED" transform="rotate(-180 24 23)"/>
+        <circle cx="10" cy="46" r="4" fill="#FCE2ED" transform="rotate(-180 10 46)"/>
+        <circle cx="10" cy="72" r="4" fill="#FCE2ED" transform="rotate(-180 10 72)"/>
+        <circle cx="22" cy="94" r="4" fill="#FCE2ED" transform="rotate(-180 22 94)"/>
+        <circle cx="44" cy="108" r="4" fill="#FCE2ED" transform="rotate(-180 44 108)"/>
+    </g>
+</svg>

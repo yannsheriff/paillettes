@@ -15,6 +15,7 @@ export enum Worlds {
 export enum GameStatus {
   isLoading,
   isReady,
+  willLaunch,
   isLaunch,
   isRunning,
   isGameOver,
@@ -88,8 +89,10 @@ export default class MainStateManager extends State {
 
   public launchGame() {
     this.setState({
-      gameStatus: GameStatus.isLaunch,
+      gameStatus: GameStatus.willLaunch,
     });
+
+    setTimeout(this.launch, 1000);
   }
 
   public runGame() {
@@ -103,6 +106,12 @@ export default class MainStateManager extends State {
       gameStatus: GameStatus.isGameOver,
     });
   }
+
+  private launch = () => {
+    this.setState({
+      gameStatus: GameStatus.isLaunch,
+    });
+  };
 
   public incrementDifficulty() {
     const { difficulty } = this.state;

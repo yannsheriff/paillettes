@@ -7,6 +7,10 @@ export { default as E1_SPRITE } from "./UI/E1_SPRITE.png";
 export { default as R_SPRITE } from "./UI/R_SPRITE.png";
 export { default as F_SPRITE } from "./UI/F_SPRITE.png";
 export { default as chrono } from "./UI/chrono.svg";
+export { default as leftOff } from "./UI/leftOFF.svg";
+export { default as leftOn } from "./UI/leftON.svg";
+export { default as rightOFF } from "./UI/rightOFF.svg";
+export { default as rightON } from "./UI/rightON.svg";
 
 // ARROW
 export { default as arrowL } from "./arrows/left.png";
@@ -41,6 +45,9 @@ export { default as freestyle } from "./indications/FREESTYLE.png";
 // MUSIC
 export { default as hungup } from "./musics/hungup.mp3";
 export { default as sisi } from "./musics/sisi.mp3";
+
+// ANIM
+export { default as logo } from "./animations/logo.png";
 export { default as zelda } from "./musics/zelda.mp3";
 
 // SCORE

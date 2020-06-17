@@ -30,8 +30,10 @@ export default class App extends Component<{}, state> {
       this.setState({ showStart: false });
     }
 
-    if (state.gameStatus === GameStatus.isReady 
-      && state.gameStatus !== this.mainState.gameStatus) {
+    if (
+      state.gameStatus === GameStatus.isReady &&
+      state.gameStatus !== this.mainState.gameStatus
+    ) {
       this.mainState = state;
       this.setState({ gameIsReady: true });
     }
@@ -43,7 +45,7 @@ export default class App extends Component<{}, state> {
       <div className="App">
         <Game />
 
-        {/* {showStart && gameIsReady && <Intro />} */}
+        {showStart && gameIsReady && <Intro />}
       </div>
     );
   }

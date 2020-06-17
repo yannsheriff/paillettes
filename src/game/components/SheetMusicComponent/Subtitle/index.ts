@@ -22,17 +22,13 @@ class Subtitle {
   }
 
   private create() {
-    this.animation = this.scene.physics.add.sprite(
-      0,
-      0,
-      "perfect"
-    );
-    
+    this.animation = this.scene.physics.add.sprite(0, 0, "perfect");
+
     this.animation.setScale(0.8);
     this.animation.setDepth(9);
-    
-    Align.centerH(this.animation)
-    Align.topSubtitle(this.animation)
+
+    Align.centerH(this.animation);
+    Align.topSubtitle(this.animation);
   }
 
   public perfect = () => {

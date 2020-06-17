@@ -16,6 +16,7 @@ import {
   E2,
   F,
   R,
+  logo,
 } from "../index";
 
 export const mainAnimations: AnimationData[] = [
@@ -358,5 +359,45 @@ export const mainAnimations: AnimationData[] = [
     endFrame: 50,
     frameRate: 25,
     repeat: -1,
+  },
+  {
+    key: "logo-in",
+    asset: logo,
+    frameWidth: 670,
+    frameHeight: 910,
+    startFrame: 0,
+    endFrame: 26,
+    frameRate: 21,
+    repeat: 0,
+  },
+  {
+    key: "logo-out",
+    asset: logo,
+    frameWidth: 670,
+    frameHeight: 910,
+    startFrame: 26,
+    endFrame: 0,
+    frameRate: 21,
+    repeat: 0,
+  },
+  {
+    key: "logo-static",
+    asset: logo,
+    frameWidth: 670,
+    frameHeight: 910,
+    startFrame: 26,
+    endFrame: 26,
+    frameRate: 21,
+    repeat: 0,
+  },
+  {
+    key: "logo-load",
+    asset: logo,
+    frameWidth: 670,
+    frameHeight: 910,
+    startFrame: 26,
+    endFrame: 86,
+    frameRate: 21,
+    repeat: 0,
   },
 ];
