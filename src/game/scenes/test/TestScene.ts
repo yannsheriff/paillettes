@@ -27,7 +27,7 @@ export class TestScene extends Phaser.Scene {
   }
 
   public create() {
-    this.scene.start('Score');
+    this.scene.start('ScoreScene');
     this.add
       .text(100, 100, 'Tester les personnages', { fill: 'red' })
       .setInteractive()
