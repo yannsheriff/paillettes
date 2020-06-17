@@ -2,7 +2,7 @@ import config from "./config";
 import { ConfettiGenerator } from "../../helpers/Confetti";
 import GlitterComponent from "../../components/GlitterComponent";
 import BarComponent from "../../components/BarComponent";
-import { bar, barLoaderTip, ground } from "../../assets";
+import { bar, barLoaderTip } from "../../assets";
 import Ground from "../../components/GroundComponent";
 import ScoreCrowdComponent from "../../components/ScoreCrowdComponent";
 import CurtainsComponent from "../../components/CurtainsComponent";
@@ -19,8 +19,6 @@ export default class ScoreScene extends Phaser.Scene {
   }
 
   public preload(): void {
-    this.load.image("Bar", bar);
-    this.load.image("BarLoaderTip", barLoaderTip);
   }
 
   public create() {

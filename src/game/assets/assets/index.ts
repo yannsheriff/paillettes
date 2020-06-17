@@ -21,6 +21,8 @@ import {
   hungup,
   sisi,
   zelda,
+  bar,
+  barLoaderTip
 } from "../index";
 
 export const mainImages: ImageData[] = [
@@ -36,6 +38,8 @@ export const mainImages: ImageData[] = [
   { key: "zoneInput", asset: zoneInput },
   { key: "chrono", asset: chrono },
   { key: "ground", asset: ground },
+  { key: "Bar", asset: bar },
+  { key: "BarLoaderTip", asset: barLoaderTip },
 ];
 
 export const mainSpritesheets: SpritesheetData[] = [
