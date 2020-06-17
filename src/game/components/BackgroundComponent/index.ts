@@ -216,8 +216,6 @@ class BackgroundManager {
       // this.initDestroy(currentPlane, PlaneSpace.third);
       prevPlane = currentPlane;
     }
-
-    console.log(this.currentPlanes);
   }
 
   /**
