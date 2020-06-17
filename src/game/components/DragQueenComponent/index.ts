@@ -65,8 +65,6 @@ class DragQueenManager {
 
     private onAnimationComplete(spine: SpineGameObject) {
       let animation = spine.getCurrentAnimation(0)
-
-      console.log('onComplete' + animation.name)
       if (animation.name === "Start") {
           this.dragQueen?.playAnimation("Run", true)
           this.mainManager.runGame()
