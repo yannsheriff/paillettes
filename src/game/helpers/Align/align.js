@@ -48,6 +48,9 @@ class Align {
   static outsideRightSpine(obj, spine, scale) {
     obj.x = window.innerWidth + (spine.displayWidth * scale) / 2;
   }
+  static outsideLeftSpine(obj, spine, scale) {
+    obj.x = 0 - (spine.displayWidth * scale) / 2;
+  }
   static dragPosition(obj, spine, scale) {
     obj.x = window.innerWidth / 2 - 90;
   }

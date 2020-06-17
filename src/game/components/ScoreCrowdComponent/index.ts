@@ -2,7 +2,7 @@ import ScoreStateManager from "../../states/score";
 import PhysicCharacter, { CharacterType } from "../CharactersComponent/Character";
 import MainStateManager, { MainState } from "../../states/main";
 
-const duration = 10000;
+const duration = 3000;
 
 class ScoreCrowdComponent {
   private scene: Phaser.Scene;
@@ -10,7 +10,7 @@ class ScoreCrowdComponent {
   private physicCharacters: Array<PhysicCharacter> = [];
   private mainState: MainState;
   private mainManager: MainStateManager;
-  private characterPassCallback: () => unknown;
+  private characterPassCallback: (id: string) => void
   private onEndCallBack: () => unknown;
 
   constructor(
@@ -29,34 +29,40 @@ class ScoreCrowdComponent {
     this.onEndCallBack = onEndCallBack;
 
     this.create();
-    this.createPhysicCharacters()
-  }
-
-  createPhysicCharacters() {
-    console.log(this.finalCrowd)
-    // this.finalCrowd.forEach(character => {
-      new PhysicCharacter(
-        this.scene,
-        "world_1_man_2",
-        "Run",
-        '',
-        this.mainState.objectSpeed,
-        () => {},
-        CharacterType.score
-      );
-    // });
   }
 
   create() {
     const unlockedCharLength = this.finalCrowd.length;
     const intervalDuration = duration / unlockedCharLength;
-    const interval = setInterval(this.characterPassCallback, intervalDuration);
+    let delay = 0;
 
-    setTimeout(() => {
-      clearInterval(interval);
-      this.onEndCallBack();
-    }, duration);
+    this.finalCrowd.forEach(assetname => {
+      setTimeout(() => {
+        this.createPhysicCharacter(assetname)
+      }, delay);
+      delay += intervalDuration;
+    });
+
+    // const interval = setInterval(this.characterPassCallback, intervalDuration);
+
+    // setTimeout(() => {
+    //   clearInterval(interval);
+    //   this.onEndCallBack();
+    // }, duration);
   }
+
+  createPhysicCharacter(assetname: string) {
+    new PhysicCharacter(
+      this.scene,
+      assetname,
+      "Run",
+      '',
+      this.mainState.objectSpeed,
+      this.characterPassCallback,
+      CharacterType.score,
+      true
+    );
+}
 }
 
 export default ScoreCrowdComponent;
