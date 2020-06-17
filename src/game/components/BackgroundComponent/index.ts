@@ -32,10 +32,7 @@ class BackgroundManager {
     
     this.blob = new Blob(this.scene)
 
-    this.blob = new Blob(this.scene);
-
     this.generateFirstPlanes();
-    this.blob = new Blob(this.scene);
   }
 
   public runBackground() {
