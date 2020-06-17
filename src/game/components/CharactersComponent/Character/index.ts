@@ -9,20 +9,20 @@ export enum CharacterType {
 
 class PhysicCharacter extends SpineContainer {
   public scene: Phaser.Scene;
-  public planeY: number = 0;
   public id: string;
   public speedIn: number;
-  public speedOut: number = 30;
   public tweenIn?: Phaser.Tweens.Tween;
   public tweenOut?: Phaser.Tweens.Tween;
-  public scale: number = 0.5;
   public positionInCrowd: number = 0;
-  public crowdPositionX: number = window.innerWidth / 2 - 200;
   public isUnlock: boolean = false;
   public characterType: CharacterType;
-  public distanceBetweenCharacters: number = 40;
-  public isDestroyed: boolean = false; // to do 
+  public isDestroyed: boolean = false; // to do
   private onEndCallback: (id: string) => void
+  // private updateCrowdCallback: () => void
+
+  public speedOut: number = 150;
+  public distanceBetweenCharacters: number = 50;
+  public crowdPositionX: number = window.innerWidth / 2 - 150;
 
   constructor(
     scene: Phaser.Scene,
@@ -105,7 +105,10 @@ class PhysicCharacter extends SpineContainer {
       repeat: 0,
       yoyo: false,
       onComplete: () => {
-        this.reachDragQueen()
+        if (this.isUnlock) {
+          this.reachDragQueen()
+          this.playRunAnimation();
+        }
       },
     });
   }
@@ -115,12 +118,36 @@ class PhysicCharacter extends SpineContainer {
   }
 
   public reachDragQueen() {
-    if (this.isUnlock) {
-      this.playRunAnimation();
-      this.runOutsideCrowd();
+    let destinationX = this.crowdPositionX - this.distanceBetweenCharacters * this.positionInCrowd
+
+    if (destinationX < 0) {
+      destinationX = 0;
+    }
+
+    let destination = window.innerWidth - destinationX + (this.displayWidth / 2) * this.scale;
+    let duration = (destination / this.speedIn) * 1000;
+    let latency = 0;
+
+    // join crowd
+    this.tweenIn = this.scene.tweens.add({
+      targets: this,
+      x: destinationX,
+      duration: duration,
+      repeat: 0,
+      yoyo: false,
+    });
+  }
+
+  public shiftCharacter() {
+    this.positionInCrowd -= 1
+    if (this.positionInCrowd === 0) {
+      this.runOutsideCrowd()
+    } else {
+      this.reachDragQueen()
     }
   }
 
+  // OUT GAME SCENE
   public runOutsideCrowd() {
     let destinationX = 0 - this.spineBody.width
     
@@ -144,13 +171,12 @@ class PhysicCharacter extends SpineContainer {
     });
   }
 
-
+  // SCORE SCENE
   public runOutsideScreen() {
     let destination = window.innerWidth + this.spineBody.width * this.scale;
     let duration = (destination / this.speedIn) * 1000;
     let latency = 400;
 
-    // join crowd
     this.tweenIn = this.scene.tweens.add({
       targets: this,
       x: destination,

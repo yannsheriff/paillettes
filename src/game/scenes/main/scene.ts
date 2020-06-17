@@ -100,14 +100,14 @@ export class GameScene extends Phaser.Scene {
 
     setTimeout(() => {
       this.animationManager.register();
+      new CurtainsComponent(this);
+      new LogoComponent(this);
       new BackgroundComponent(this);
       new CharactersComponent(this);
       this.ground = new GroundComponent(this);
       new SheetMusicComponent(this, this.CharacterManager);
       new DragQueenComponent(this);
       new GodMotherComponent(this);
-      new CurtainsComponent(this);
-      new LogoComponent(this);
       this.glitter = new GlitterComponent(this);
 
       // @ts-ignore

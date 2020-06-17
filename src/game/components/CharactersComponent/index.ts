@@ -118,9 +118,10 @@ class PhysicCharacterManager {
     this.colliders.shift();
 
     if (character.isUnlock) {
+      this.scoreManager.registrerUnlockedCharacter(character.name)
       this.crowd.push(character);
-      this.scoreManager.registrerUnlockedCharacter(character.name);
-      character.joinCrowd(this.crowd.length + 1);
+      character.joinCrowd(this.crowd.length);
+      this.shiftCrowd();
     } else {
       character.failAndDestroy();
     }
@@ -128,7 +129,16 @@ class PhysicCharacterManager {
     this.charactersBW.delete(character.id);
   }
 
-  // this callback remove characters from crowd array
+  public shiftCrowd() {
+    if (this.crowd.length > 15) {
+      this.crowd.forEach(character => {
+        character.shiftCharacter()  // make character run outside screen
+      });
+      this.crowd.shift(); // remove first character of array
+    }
+  }
+
+  // this callback remove characters from crowd array 
   // when they are deleted from scene
   public callbackCharacterDeleted = (id: string) => {
     this.crowd = this.crowd.filter((character) => character.id !== id);
