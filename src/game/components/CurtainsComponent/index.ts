@@ -15,12 +15,12 @@ class CurtainsComponent {
     this.mainState = this.mainManager.state;
 
     if (scene.scene.key === "Game") {
-      this.createIntro()
+      this.createIntro();
     } else if (scene.scene.key === "ScoreScene") {
-      this.createScore()
+      this.createScore();
     }
   }
-  
+
   private createIntro() {
     this.curtains = new Curtains(
       this.scene,
@@ -48,36 +48,38 @@ class CurtainsComponent {
     ).setDepth(50);
 
     this.curtains.spine.state.addListener({
-      start: () => { },
-      complete: () => { this.onAnimationComplete(this.curtains!.spine) },
-      event: () => { },
-      interrupt: () => { },
-      end: () => { },
-      dispose: () => { },
+      start: () => {},
+      complete: () => {
+        this.onAnimationComplete(this.curtains!.spine);
+      },
+      event: () => {},
+      interrupt: () => {},
+      end: () => {},
+      dispose: () => {},
     });
   }
 
   private delete() {}
 
   public initCodeAnimations() {
-    this.curtains!.playAnimation("code-open", false)
+    this.curtains!.playAnimation("code-open", false);
   }
 
   private onAnimationComplete(spine: SpineGameObject) {
-    let animation = spine.getCurrentAnimation(0)
+    let animation = spine.getCurrentAnimation(0);
 
     switch (animation.name) {
       case "open":
-        this.curtains!.playAnimation("loop-score", true)
+        this.curtains!.playAnimation("loop-score", true);
         break;
       case "code-open":
-        this.curtains!.playAnimation("loop-code", true)
+        this.curtains!.playAnimation("loop-code", true);
         setTimeout(() => {
-          this.curtains!.playAnimation("code-closed", false)
+          this.curtains!.playAnimation("code-closed", false);
         }, 2000);
         break;
       case "code-closed":
-        this.curtains!.playAnimation("transition", false)
+        this.curtains!.playAnimation("transition", false);
         break;
       default:
         break;
@@ -85,13 +87,21 @@ class CurtainsComponent {
   }
 
   private onMainStateChange = (state: MainState) => {
-    console.log('on main state')
     if (
       state.gameStatus !== this.mainState.gameStatus &&
       state.gameStatus === GameStatus.willLaunch
     ) {
-      console.log('will launch')
+      console.log("will launch");
       this.curtains!.playAnimation("transition", false);
+    }
+
+    if (
+      state.gameStatus !== this.mainState.gameStatus &&
+      state.gameStatus === GameStatus.isGameOver
+    ) {
+      setTimeout(() => {
+        this.curtains!.playAnimation("close", false);
+      }, 2500);
     }
 
     this.mainState = state;
