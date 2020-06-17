@@ -157,8 +157,12 @@ class PhysicCharacter extends SpineContainer {
       duration: duration + latency,
       repeat: 0,
       yoyo: false,
+      onStart: () => {
+        setTimeout(() => {
+          this.onEndCallback(this.id)
+        }, duration / 2);
+      },
       onComplete: () => {
-        this.onEndCallback(this.id)
         this.deleteCharacter()
       },
     });
