@@ -30,6 +30,7 @@ export class GameScene extends Phaser.Scene {
   private CharacterManager: CharacterManager;
   private scoreManager: ScoreState;
   private mainStateManager: MainStateManager;
+  private mainState: MainState;
   private ground?: GroundComponent;
   private glitter?: GlitterComponent;
   private animationManager: AnimationManager;
@@ -40,6 +41,7 @@ export class GameScene extends Phaser.Scene {
     super(config);
     this.CharacterManager = CharacterManager.getInstance();
     this.mainStateManager = MainStateManager.getInstance();
+    this.mainState = MainStateManager.getInstance().state;
     this.scoreManager = ScoreState.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
     this.assetsManager = new AssetsManager(
@@ -123,8 +125,15 @@ export class GameScene extends Phaser.Scene {
   }
 
   private onMainStateChange = (state: MainState) => {
-    if (state.gameStatus === GameStatus.isGameOver) {
-      this.scene.start("Confetti");
+    console.log("THE END", state.gameStatus);
+    if (
+      state.gameStatus !== this.mainState.gameStatus &&
+      state.gameStatus === GameStatus.isGameOver
+    ) {
+      setTimeout(() => {
+        this.scene.start("ScoreScene");
+        console.log("EEEEND");
+      }, 5000);
     }
   };
 }

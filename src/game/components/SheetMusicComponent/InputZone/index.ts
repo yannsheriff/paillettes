@@ -3,6 +3,7 @@ import stepEventEmitter from "../../../helpers/StepEventEmitter";
 import { StepEventType } from "../../../helpers/StepEventEmitter/gamepadListener";
 import ScoreStateManager from "../../../states/score";
 import { GridObject } from "..";
+import MainStateManager, { GameStatus, MainState } from "../../../states/main";
 
 interface input {
   name: string;
@@ -21,6 +22,8 @@ class InputZone {
   private posX: number;
   private posY: number;
   private scale: number;
+  private mainState: MainState;
+  private mainManager: MainStateManager;
 
   constructor(
     scene: Phaser.Scene,
@@ -38,6 +41,9 @@ class InputZone {
     this.posY = y;
     this.scale = scale;
     scene.physics.add.existing(this.collider);
+    this.mainState = MainStateManager.getInstance().state;
+    this.mainManager = MainStateManager.getInstance();
+    this.mainManager.subscribe(this.onStateChange);
 
     this.inputs = new Map([
       [
@@ -137,6 +143,21 @@ class InputZone {
         });
       this.inputs.set(gridObject.direction, { ...input!, state: false });
     }
+  };
+
+  private onStateChange = (state: MainState) => {
+    if (
+      state.gameStatus !== this.mainState.gameStatus &&
+      state.gameStatus === GameStatus.isLaunch
+    ) {
+      stepEventEmitter.removeListener(
+        StepEventType.stepdown,
+        this.handleStepDown
+      );
+      stepEventEmitter.removeListener(StepEventType.stepup, this.handleStepUp);
+    }
+
+    this.mainState = state;
   };
 }
 

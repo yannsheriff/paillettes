@@ -146,6 +146,9 @@ export default class MusicPlayer {
     } catch (error) {}
   };
 
+  public stop() {
+    Tone.Transport.stop();
+  }
   public start() {
     Tone.Transport.start();
   }
