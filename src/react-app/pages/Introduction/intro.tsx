@@ -22,43 +22,58 @@ export default class Game extends Component<{}, state> {
   }
 
   componentDidMount() {
-    stepEventEmitter.on(StepEventType.stepdown, (directions: Array<string>) => {
-      let left, right;
-      if (directions.find((d) => d === "left")) {
-        left = true;
-      }
-      if (directions.find((d) => d === "right")) {
-        right = true;
-      }
-      this.setState({
-        isLeftPressed: left || this.state.isLeftPressed,
-        isRightPressed: right || this.state.isRightPressed,
-      });
-    });
+    stepEventEmitter.on(StepEventType.stepdown, this.stepDownListener);
+    stepEventEmitter.on(StepEventType.stepup, this.stepUpListener);
 
-    stepEventEmitter.on(StepEventType.stepup, (directions: Array<string>) => {
-      // console.log("realased : ", directions);
-      let left, right;
-      if (directions.find((d) => d === "left")) {
-        left = true;
-      }
-      if (directions.find((d) => d === "right")) {
-        right = true;
-      }
-      this.setState({
-        isLeftPressed: left ? false : this.state.isLeftPressed,
-        isRightPressed: right ? false : this.state.isRightPressed,
-        chronoIsLaunched: false,
-      });
-    });
+    const launchPaillettes = () => {
+      setTimeout(() => {
+        const canvas = document.getElementById("paillettes");
+        if (canvas && canvas instanceof HTMLCanvasElement) {
+          const confetti = new ConfettiGenerator(canvas);
+          confetti.startConfetti(undefined, undefined, 70);
+        }
+        document.removeEventListener("keydown", launchPaillettes);
+      }, 500);
+    };
 
-    setTimeout(() => {
-      const canvas = document.getElementById("paillettes");
-      if (canvas && canvas instanceof HTMLCanvasElement) {
-        const confetti = new ConfettiGenerator(canvas);
-        confetti.startConfetti(undefined, undefined, 70);
-      }
-    }, 500);
+    document.addEventListener("keydown", launchPaillettes);
+  }
+
+  stepDownListener = (directions: string[]) => {
+    let left, right;
+    if (directions.find((d) => d === "left")) {
+      left = true;
+    }
+    if (directions.find((d) => d === "right")) {
+      right = true;
+    }
+    this.setState({
+      isLeftPressed: left || this.state.isLeftPressed,
+      isRightPressed: right || this.state.isRightPressed,
+    });
+  };
+
+  stepUpListener = (directions: string[]) => {
+    let left, right;
+    if (directions.find((d) => d === "left")) {
+      left = true;
+    }
+    if (directions.find((d) => d === "right")) {
+      right = true;
+    }
+    this.setState({
+      isLeftPressed: left ? false : this.state.isLeftPressed,
+      isRightPressed: right ? false : this.state.isRightPressed,
+      chronoIsLaunched: false,
+    });
+  };
+
+  componentWillUnmount() {
+    stepEventEmitter.removeListener(
+      StepEventType.stepdown,
+      this.stepDownListener
+    );
+    stepEventEmitter.removeListener(StepEventType.stepup, this.stepUpListener);
   }
 
   render() {

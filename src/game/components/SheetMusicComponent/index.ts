@@ -38,7 +38,7 @@ class SheetMusic {
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
   private scoreManager: ScoreState;
-  private music: Musics;
+  private music?: Musics;
   private freestyleManager: FreestyleStateManager;
   private mainState: MainState;
   private mainManager: MainStateManager;
@@ -109,9 +109,6 @@ class SheetMusic {
         this.arrowSpeed) *
       1000;
     this.timeToFail = this.calculateTimeToExit();
-    this.music = Musics.hungup;
-    this.player = new MusicPlayer(this.music, this.arrowEmitter);
-
     this.create();
   }
 
@@ -159,27 +156,32 @@ class SheetMusic {
     /*
      * Start Music temporairement un event on click
      */
-    document.addEventListener("click", (e) => {
-      if (!this.isPlaying) {
-        this.mainManager.launchGame();
+
+    const initMusic = () => {
+      if (!this.player) {
+        this.music = Musics.hungup;
+        this.player = new MusicPlayer(this.music, this.arrowEmitter);
+        document.removeEventListener("keydown", initMusic);
       }
-      // this.createArrow(2, {
-      //   name: "E4",
-      //   duration: 3,
-      //   durationTicks: 3,
-      //   track: 1,
-      //   velocity: 1,
-      //   ticks: 1,
-      //   time: 1,
-      //   midi: 1,
-      // });
-    });
+    };
+    document.addEventListener("keydown", initMusic);
+
+    // this.createArrow(2, {
+    //   name: "E4",
+    //   duration: 3,
+    //   durationTicks: 3,
+    //   track: 1,
+    //   velocity: 1,
+    //   ticks: 1,
+    //   time: 1,
+    //   midi: 1,
+    // });
   };
 
   private initSheetMusic() {
     this.isPlaying = true;
     this.player?.start();
-    const time = muscisFile.get(this.music)["header"]["bc-delay-sync"];
+    const time = muscisFile.get(this.music!)["header"]["bc-delay-sync"];
     setTimeout(() => {
       const music = this.scene.sound.add("hungup");
       music.play();
