@@ -90,7 +90,7 @@ export default class Game extends Component<{}, state> {
 
         if (sub <= 0) {
           clearInterval(chrono);
-          MainStateManager.getInstance().launchGame();
+          // MainStateManager.getInstance().launchGame();
         }
       } else {
         clearInterval(chrono);

@@ -9,12 +9,14 @@ class LogoComponent {
   private isLeftPressed: boolean;
   private isRightPressed: boolean;
   private mainManager: MainStateManager;
+  private animIsPlaying: boolean;
   private mainState: MainState;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
-    this.isLeftPressed = true;
+    this.isLeftPressed = false;
     this.isRightPressed = false;
+    this.animIsPlaying = false;
 
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.subscribe(this.onMainStateChange);
@@ -25,11 +27,14 @@ class LogoComponent {
         this.isLeftPressed = true;
       }
       if (directions.find((d) => d === "right")) {
-        this.isLeftPressed = true;
+        this.isRightPressed = true;
       }
 
+      console.log("Right", this.isRightPressed);
+      console.log("Left", this.isLeftPressed);
+
       if (this.isLeftPressed && this.isRightPressed) {
-        this.lauchChrono(new Date().getTime() + 3000);
+        this.launchAnim();
       }
     });
 
@@ -38,7 +43,11 @@ class LogoComponent {
         this.isLeftPressed = false;
       }
       if (directions.find((d) => d === "right")) {
-        this.isLeftPressed = false;
+        this.isRightPressed = false;
+      }
+
+      if (!this.isLeftPressed || !this.isRightPressed) {
+        this.killAnim();
       }
     });
 
@@ -58,21 +67,20 @@ class LogoComponent {
     }, 1000);
   }
 
-  lauchChrono = (endTime: number) => {
-    const chrono = setInterval(() => {
-      if (this.isLeftPressed && this.isRightPressed) {
-        const now = new Date().getTime();
-        const sub = endTime - now;
-        const seconds = formatToPercent(sub);
+  launchAnim = () => {
+    if (!this.animIsPlaying) {
+      this.animIsPlaying = true;
+      this.animation!.anims.play("logo-load").once("animationcomplete", () => {
+        MainStateManager.getInstance().launchGame();
+      });
+    }
+  };
 
-        if (sub <= 0) {
-          clearInterval(chrono);
-          MainStateManager.getInstance().launchGame();
-        }
-      } else {
-        clearInterval(chrono);
-      }
-    }, 50);
+  killAnim = () => {
+    if (this.animIsPlaying) {
+      this.animIsPlaying = false;
+      this.animation!.anims.play("logo-static");
+    }
   };
 
   private onMainStateChange = (state: MainState) => {
