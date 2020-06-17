@@ -22,34 +22,13 @@ class LogoComponent {
     this.mainManager.subscribe(this.onMainStateChange);
     this.mainState = this.mainManager.state;
 
-    stepEventEmitter.on(StepEventType.stepdown, (directions: Array<string>) => {
-      if (directions.find((d) => d === "left")) {
-        this.isLeftPressed = true;
-      }
-      if (directions.find((d) => d === "right")) {
-        this.isRightPressed = true;
-      }
+    stepEventEmitter.on(StepEventType.stepdown, (directions: Array<string>) =>
+      this.onPress(StepEventType.stepdown, directions)
+    );
 
-      console.log("Right", this.isRightPressed);
-      console.log("Left", this.isLeftPressed);
-
-      if (this.isLeftPressed && this.isRightPressed) {
-        this.launchAnim();
-      }
-    });
-
-    stepEventEmitter.on(StepEventType.stepup, (directions: Array<string>) => {
-      if (directions.find((d) => d === "left")) {
-        this.isLeftPressed = false;
-      }
-      if (directions.find((d) => d === "right")) {
-        this.isRightPressed = false;
-      }
-
-      if (!this.isLeftPressed || !this.isRightPressed) {
-        this.killAnim();
-      }
-    });
+    stepEventEmitter.on(StepEventType.stepup, (directions: Array<string>) =>
+      this.onPress(StepEventType.stepup, directions)
+    );
 
     this.create();
   }
@@ -71,7 +50,7 @@ class LogoComponent {
     if (!this.animIsPlaying) {
       this.animIsPlaying = true;
       this.animation!.anims.play("logo-load").once("animationcomplete", () => {
-        MainStateManager.getInstance().launchGame();
+        if (this.animIsPlaying) MainStateManager.getInstance().launchGame();
       });
     }
   };
@@ -80,6 +59,34 @@ class LogoComponent {
     if (this.animIsPlaying) {
       this.animIsPlaying = false;
       this.animation!.anims.play("logo-static");
+    }
+  };
+
+  private onPress = (stepType: StepEventType, directions: Array<string>) => {
+    if (this.mainState.gameStatus === GameStatus.isReady) {
+      if (stepType === StepEventType.stepdown) {
+        if (directions.find((d) => d === "left")) {
+          this.isLeftPressed = true;
+        }
+        if (directions.find((d) => d === "right")) {
+          this.isRightPressed = true;
+        }
+
+        if (this.isLeftPressed && this.isRightPressed) {
+          this.launchAnim();
+        }
+      } else {
+        if (directions.find((d) => d === "left")) {
+          this.isLeftPressed = false;
+        }
+        if (directions.find((d) => d === "right")) {
+          this.isRightPressed = false;
+        }
+
+        if (!this.isLeftPressed || !this.isRightPressed) {
+          this.killAnim();
+        }
+      }
     }
   };
 
@@ -96,8 +103,3 @@ class LogoComponent {
 }
 
 export default LogoComponent;
-
-function formatToPercent(ms: number): string {
-  const sec = Math.round(ms / 1000).toString();
-  return sec.length > 1 ? sec : "0" + sec;
-}
