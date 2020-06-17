@@ -30,6 +30,8 @@ class BackgroundManager {
     this.mainState = this.mainManager.state;
     this.world = this.mainManager.state.world;
 
+    this.blob = new Blob(this.scene);
+
     this.generateFirstPlanes();
     this.blob = new Blob(this.scene);
   }
