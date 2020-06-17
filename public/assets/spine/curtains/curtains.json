@@ -112,7 +112,7 @@
 	}
 ],
 "animations": {
-	"01_Fermeture": {
+	"close": {
 		"slots": {
 			"C1": {
 				"color": [
@@ -221,7 +221,7 @@
 			}
 		}
 	},
-	"02_Ouverture": {
+	"open": {
 		"slots": {
 			"Camera": {
 				"color": [
@@ -321,7 +321,7 @@
 			}
 		]
 	},
-	"03_BoucleScore": {
+	"loop-score": {
 		"slots": {
 			"C1": {
 				"color": [
@@ -451,7 +451,7 @@
 			}
 		]
 	},
-	"04_Refermeture": {
+	"code-open": {
 		"slots": {
 			"C1": {
 				"color": [
@@ -598,7 +598,7 @@
 			}
 		]
 	},
-	"05_BoucleCode": {
+	"loop-code": {
 		"slots": {
 			"C1": {
 				"color": [
@@ -695,7 +695,7 @@
 			}
 		}
 	},
-	"06_DisparitionCode": {
+	"code-closed": {
 		"slots": {
 			"C1": {
 				"color": [
@@ -787,7 +787,7 @@
 			}
 		}
 	},
-	"07_Logo": {
+	"logo": {
 		"slots": {
 			"C1": {
 				"color": [
@@ -876,7 +876,7 @@
 			}
 		}
 	},
-	"08_Transition": {
+	"transition": {
 		"slots": {
 			"C1": {
 				"color": [

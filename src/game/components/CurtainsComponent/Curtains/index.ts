@@ -1,6 +1,9 @@
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 import Align from "../../../helpers/Align/align";
 
+const animations = [
+  "close", "open", "loop-score", "code-open", "loop-code", "code-closed", "logo", "transition"
+]
 class Curtains extends SpineContainer {
   // public SpineContainer: ISpineContainer;
 
@@ -12,9 +15,15 @@ class Curtains extends SpineContainer {
   ) {
     super(scene, 0, 0, key, anim, loop);
 
+    let scale;
     // full screen asset
-    let scale = window.innerHeight / this.spineBody.height
-    this.setScale(1); // asset size
+    if (window.innerHeight / this.spineBody.height < window.innerWidth / this.spineBody.width) {
+      scale = window.innerWidth / this.spineBody.width
+    } else {
+      scale = window.innerHeight / this.spineBody.height
+    }
+    scale += 0.05;
+    this.setScale(scale); // asset size
 
     // placer son x en fonction de la moitié de la largeur
     // placer son y en fonction du bas
@@ -31,9 +40,13 @@ class Curtains extends SpineContainer {
     this.drawDebug(false)
     // this.allowCollideWorldBounds(true)
 
-    // this.setDepth(15);
+    this.setDepth(15);
 
     // this.runVelocity(50)
+  }
+
+  public play() {
+    this.playAnimation("Transition", false);
   }
 
   public deleteScoreSpine() {

@@ -5,11 +5,13 @@ import BarComponent from "../../components/BarComponent";
 import { bar, barLoaderTip, ground } from "../../assets";
 import Ground from "../../components/GroundComponent";
 import ScoreCrowdComponent from "../../components/ScoreCrowdComponent";
+import CurtainsComponent from "../../components/CurtainsComponent";
 
 export default class ScoreScene extends Phaser.Scene {
   private confettiManager?: ConfettiGenerator;
   private glitter?: GlitterComponent;
   private barComponent?: BarComponent;
+  private curtainsComponent?: CurtainsComponent;
 
   constructor() {
     super(config);
@@ -40,7 +42,7 @@ export default class ScoreScene extends Phaser.Scene {
     // Success component
 
     // Curtains component
-    // TODO Graudren
+    this.curtainsComponent = new CurtainsComponent(this)
   }
 
   onCharacterPass = () => {
@@ -49,6 +51,7 @@ export default class ScoreScene extends Phaser.Scene {
   };
 
   onEnd = () => {
+    
     console.log("End.");
   };
 

@@ -17,16 +17,12 @@ class CurtainsComponent {
     this.curtains = new Curtains(
       this.scene,
       "curtains",
-      "07_Logo",
+      "open",
       false
     ).setDepth(50);
   }
-
+  
   private create() {
-    // this.mother.play("god-mother-in");
-    // this.mother.once("animationcomplete", () => {
-    //   this.mother?.play("god-mother-loop");
-    // });
   }
   private delete() {}
 
