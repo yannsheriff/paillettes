@@ -2,25 +2,23 @@ import config from "./config";
 import { ConfettiGenerator } from "../../helpers/Confetti";
 import GlitterComponent from "../../components/GlitterComponent";
 import BarComponent from "../../components/BarComponent";
-import { bar, barLoaderTip, ground } from "../../assets";
 import Ground from "../../components/GroundComponent";
 import ScoreCrowdComponent from "../../components/ScoreCrowdComponent";
 import CurtainsComponent from "../../components/CurtainsComponent";
+import Align from "../../helpers/Align/align";
 
 export default class ScoreScene extends Phaser.Scene {
   private confettiManager?: ConfettiGenerator;
   private glitter?: GlitterComponent;
   private barComponent?: BarComponent;
   private curtainsComponent?: CurtainsComponent;
+  private scoreCrowd?: ScoreCrowdComponent;
 
   constructor() {
     super(config);
   }
 
   public preload(): void {
-    this.load.image("Bar", bar);
-    this.load.image("BarLoaderTip", barLoaderTip);
-    this.load.image("ground", ground);
   }
 
   public create() {
@@ -29,9 +27,14 @@ export default class ScoreScene extends Phaser.Scene {
     // this.glitter.confettiManager?.grow();
     // this.glitter.confettiManager?.startConfetti();
 
+    let background = this.add.image(0, 0, "scoreBackground")
+    Align.scaleToGameH(background, 1)
+    Align.scaleToGameW(background, 1)
+    Align.centerH(background)
+    Align.centerV(background)
+
     // === Crowd component
-    // TODO Graudren
-    new ScoreCrowdComponent(this, 0.8, this.onCharacterPass, this.onEnd);
+    this.scoreCrowd = new ScoreCrowdComponent(this, 0.8, this.onCharacterPass, this.onEnd);
 
     // === Bar component
     this.barComponent = new BarComponent(this, 0.8);
@@ -46,12 +49,12 @@ export default class ScoreScene extends Phaser.Scene {
   }
 
   onCharacterPass = () => {
-    console.log("oooook");
+    this.scoreCrowd?.increment();
     this.barComponent?.increment();
   };
 
   onEnd = () => {
-    
+    this.curtainsComponent?.initCodeAnimations()
     console.log("End.");
   };
 

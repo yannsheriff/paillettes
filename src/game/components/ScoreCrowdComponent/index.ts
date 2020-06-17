@@ -2,7 +2,8 @@ import ScoreStateManager from "../../states/score";
 import PhysicCharacter, { CharacterType } from "../CharactersComponent/Character";
 import MainStateManager, { MainState } from "../../states/main";
 
-const duration = 3000;
+const charactersCountDuration = 3000;
+const finalScoreDisplayDuration = 10000;
 
 class ScoreCrowdComponent {
   private scene: Phaser.Scene;
@@ -12,6 +13,7 @@ class ScoreCrowdComponent {
   private mainManager: MainStateManager;
   private characterPassCallback: (id: string) => void
   private onEndCallBack: () => unknown;
+  private charactersPassed: number = 0;
 
   constructor(
     scene: Phaser.Scene,
@@ -33,7 +35,7 @@ class ScoreCrowdComponent {
 
   create() {
     const unlockedCharLength = this.finalCrowd.length;
-    const intervalDuration = duration / unlockedCharLength;
+    const intervalDuration = charactersCountDuration / unlockedCharLength;
     let delay = 0;
 
     this.finalCrowd.forEach(assetname => {
@@ -42,13 +44,6 @@ class ScoreCrowdComponent {
       }, delay);
       delay += intervalDuration;
     });
-
-    // const interval = setInterval(this.characterPassCallback, intervalDuration);
-
-    // setTimeout(() => {
-    //   clearInterval(interval);
-    //   this.onEndCallBack();
-    // }, duration);
   }
 
   createPhysicCharacter(assetname: string) {
@@ -62,7 +57,17 @@ class ScoreCrowdComponent {
       CharacterType.score,
       true
     );
-}
+  }
+
+  increment() {
+    this.charactersPassed += 1;
+
+    if (this.charactersPassed === this.finalCrowd.length) {
+      setTimeout(() => {
+          this.onEndCallBack()
+      }, finalScoreDisplayDuration);
+    }
+  }
 }
 
 export default ScoreCrowdComponent;

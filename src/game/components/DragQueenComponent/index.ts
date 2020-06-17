@@ -49,18 +49,30 @@ class DragQueenManager {
         false
       );
 
-      setTimeout(() => {
-        this.dragQueen?.playAnimation("Run", true)
-        this.mainManager.runGame()
-        this.isGameStarted = true
-      }, 1500);
+      this.dragQueen.spine.state.addListener({
+        start: () => { },
+        complete: () => { this.onAnimationComplete(this.dragQueen!.spine) },
+        event: () => { },
+        interrupt: () => { },
+        end: () => { },
+        dispose: () => { },
+      });
 
       setTimeout(() => {
         this.divinelight?.deleteGodMother()
       }, 2500);
     }
 
-    handleStepDown = (directions: Direction[]) => {
+    private onAnimationComplete(spine: SpineGameObject) {
+      let animation = spine.getCurrentAnimation(0)
+      if (animation.name === "Start") {
+          this.dragQueen?.playAnimation("Run", true)
+          this.mainManager.runGame()
+          this.isGameStarted = true
+      }
+    }
+
+    private handleStepDown = (directions: Direction[]) => {
       const direction = directions[0]
       let animation = "Dance-" + direction;
       if (this.isGameStarted) {
