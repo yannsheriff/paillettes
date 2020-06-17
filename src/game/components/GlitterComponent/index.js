@@ -23,7 +23,7 @@ class GlitterComponent {
       window.innerHeight / 2,
       window.innerWidth / 2,
       window.innerHeight
-    ).setDepth(20);
+    ).setDepth(9);
 
     this.scene.add.existing(this.canvas);
 
@@ -60,6 +60,7 @@ class GlitterComponent {
       ];
 
       this.confettiManager.grow();
+      this.canvas.setDepth(11);
       this.confettiManager.startConfetti(
         state.freestyleDuration,
         undefined,
@@ -71,6 +72,7 @@ class GlitterComponent {
       !state.isFreestyleActivated
     ) {
       this.confettiManager.shrink();
+      this.canvas.setDepth(9);
     }
     this.freeState = state;
   };
