@@ -47,14 +47,15 @@ body,
 #brille-cherie-footer {
   position: absolute;
   box-sizing: border-box;
-  bottom: 0;
-  width: 100%;
+  bottom: 34px;
+  width: 550px;
   height: 15vh;
   max-height: 400px;
   text-align: center;
-  background-image: url("../assets/introduction/overlay.png");
-  background-size: cover;
+  background-image: url("../assets/introduction/overlay.svg");
+  background-size: contain;
   background-position: center center;
+  background-repeat: no-repeat;
   font-size: 25px;
   letter-spacing: 1px;
   color: #121212;
@@ -62,10 +63,6 @@ body,
   justify-content: center;
   display: flex;
   align-items: center;
-}
-
-#brille-cherie-footer p {
-  padding-top: 15px;
 }
 
 #brille-cherie-footer img {
