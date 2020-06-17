@@ -25,6 +25,8 @@ class BackgroundManager {
     this.mainManager.subscribe(this.onMainStateChange);
     this.mainState = this.mainManager.state;
     this.world = this.mainManager.state.world;
+    
+    this.blob = new Blob(this.scene)
 
     this.generateFirstPlanes()
   }
@@ -37,7 +39,6 @@ class BackgroundManager {
     this.currentPlanes.forEach(plane => {
       plane.movePlane()
       this.initDestroy(plane, plane.planeSpace)
-      this.blob = new Blob(this.scene)
     });
   }
 
