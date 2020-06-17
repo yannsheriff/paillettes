@@ -6,6 +6,8 @@ import Align from "../../helpers/Align/align";
 import GridObject from "../SheetMusicComponent/GridObject";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 
+import { CharacterType } from "./Character"
+
 const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
 class PhysicCharacterManager {
@@ -76,9 +78,7 @@ class PhysicCharacterManager {
       id,
       this.mainState.objectSpeed,
       this.callbackCharacterDeleted,
-      false,
-      true,
-      false,
+      CharacterType.game
     );
 
     if (this.prevAsset === 1) {
@@ -165,8 +165,7 @@ class PhysicCharacterManager {
     });
   }
 
-  // DEBUG PURPOSE
-
+  // DEBUG PURPOSE FOR CROWD
   public generateTestPhysicCharacter(assets: string[]) {
     // random character
     let rand = Math.floor(Math.floor(Math.random() * assets.length + 1));
@@ -178,9 +177,7 @@ class PhysicCharacterManager {
       "",
       this.mainState.objectSpeed,
       this.callbackCharacterDeleted,
-      false,
-      false,
-      true
+      CharacterType.debug
     );
 
     charObj.x -= this.testX;

@@ -41,8 +41,8 @@ export default class ScoreStateManager extends State {
     this.mainStateManager = MainStateManager.getInstance();
     this.mainState = this.mainStateManager.state;
     this.mainStateManager.subscribe((state) => (this.mainState = state));
-    for (let index = 0; index < 120; index++) {
-      this.state.charactersUnlocked.push("a");
+    for (let index = 0; index < 20; index++) {
+      this.state.charactersUnlocked.push("world_1_man_1");
     }
   }
 

@@ -1,6 +1,12 @@
 import Align from "../../../helpers/Align/align";
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 
+export enum CharacterType {
+  game,
+  debug,
+  score
+}
+
 class PhysicCharacter extends SpineContainer {
   public scene: Phaser.Scene;
   public planeY: number = 0;
@@ -13,6 +19,7 @@ class PhysicCharacter extends SpineContainer {
   public positionInCrowd: number = 0;
   public crowdPositionX: number = window.innerWidth / 2 - 200;
   public isUnlock: boolean = false;
+  public characterType: CharacterType;
   public distanceBetweenCharacters: number = 40;
   public isDestroyed: boolean = false; // to do 
   private destroyCallback: (id: string) => void
@@ -24,15 +31,14 @@ class PhysicCharacter extends SpineContainer {
     id: string,
     speed: number,
     destroyCallback: (id: string) => void,
+    characterType: CharacterType,
     loop: boolean = false,
-    runAnimation: boolean = false,
-    isDebug: boolean = false,
-    positionInCrowd: number = 0,
   ) {
     super(scene, 0, 0, key, anim, loop);
     this.id = id;
     this.scene = scene;
     this.speedIn = speed;
+    this.characterType = characterType;
     this.destroyCallback = destroyCallback;
 
     scene.add.existing(this);
@@ -44,26 +50,32 @@ class PhysicCharacter extends SpineContainer {
     this.mixAnimation("Run", "Dance");
     this.mixAnimation("Dance", "Run");
 
-    if (positionInCrowd) {
-      this.positionInCrowd = positionInCrowd;
-    }
-
     this.setScale(0.45); // container and hitbox size
     this.setDepth(10);
 
     this.name = key; // stock string assetname to name
 
-    if (!isDebug) {
-      Align.outsideRightSpine(this, this.spine, this.scale);
-      Align.charactersOnGround(this, this.spine, this.scale);
-    } else {
-      Align.crowdPosition(this, this.spine, this.scale);
-      Align.charactersOnGround(this, this.spine, this.scale);
+    switch (this.characterType) {
+      case CharacterType.game:
+        Align.outsideRightSpine(this, this.spine, this.scale);
+        Align.charactersOnGround(this, this.spine, this.scale);
+        break;
+      case CharacterType.debug:
+        Align.crowdPosition(this, this.spine, this.scale);
+        Align.charactersOnGround(this, this.spine, this.scale);
+        break;
+      case CharacterType.score:
+        Align.crowdPosition(this, this.spine, this.scale);
+        Align.charactersOnGround(this, this.spine, this.scale);
+        break;
+    
+      default:
+        break;
     }
 
     this.drawDebug(false);
 
-    if (runAnimation) {
+    if (this.characterType === CharacterType.game) {
       this.runTowardCrowd();
     }
   }
@@ -113,7 +125,6 @@ class PhysicCharacter extends SpineContainer {
 
   public runOutsideCrowd() {
     let destinationX = 0 - this.spineBody.width
-    // - this.displayWidth * this.scale
     
     let destination =
       window.innerWidth - destinationX + (this.displayWidth / 2) * this.scale;
@@ -122,7 +133,7 @@ class PhysicCharacter extends SpineContainer {
 
     let latency = 400;
 
-    // join crowd
+    // run outside screen
     this.tweenOut = this.scene.tweens.add({
       targets: this,
       x: destinationX,
