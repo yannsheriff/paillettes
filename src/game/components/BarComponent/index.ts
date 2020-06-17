@@ -23,32 +23,38 @@ class BarComponent {
   private bar?: Phaser.GameObjects.Image;
   private progressBar?: Phaser.GameObjects.Rectangle;
   private text?: Phaser.GameObjects.Text;
+  private moneyText?: Phaser.GameObjects.Text;
+  private moneyAlreadyFounded: number;
+  private moneyByCharacter: number;
   private charcterCount: number;
+  private posY: number;
   private progressValue: number;
   private progressIncrement: number;
-  private progressTip?: Phaser.GameObjects.Image;
+  private progressTip?: Phaser.GameObjects.Sprite;
 
   constructor(scene: Phaser.Scene, scale: number) {
     this.scene = scene;
     this.scale = scale;
     this.charcterCount = 15;
-    const moneyAlreadyFounded = 15;
+    this.moneyAlreadyFounded = 15;
+    this.posY = window.innerHeight * 0.8;
+
     const totalMoney = 50;
-    this.progressValue = (moneyAlreadyFounded / totalMoney) * 100;
+    this.progressValue = (this.moneyAlreadyFounded / totalMoney) * 100;
 
     const unlockedCherLength = ScoreStateManager.getInstance().state
       .charactersUnlocked.length;
 
     const unlockedMoney = (unlockedCherLength * 0.5) / 200 + 4.5;
 
-    const moneyBayCharacter = unlockedMoney / unlockedCherLength;
-    this.progressIncrement = (moneyBayCharacter / totalMoney) * 100;
+    this.moneyByCharacter = unlockedMoney / unlockedCherLength;
+    this.progressIncrement = (this.moneyByCharacter / totalMoney) * 100;
     this.create();
   }
 
   create() {
     this.bar = this.scene.add
-      .image(0, window.innerHeight * 0.8, "Bar")
+      .image(0, this.posY, "Bar")
       .setScale(this.scale)
       .setDepth(13);
     Align.centerH(this.bar);
@@ -62,7 +68,7 @@ class BarComponent {
     this.progressBar = this.scene.add
       .rectangle(
         posX,
-        window.innerHeight * 0.8,
+        this.posY,
         width,
         20,
         Phaser.Display.Color.GetColor(255, 255, 255)
@@ -70,18 +76,53 @@ class BarComponent {
       .setDepth(13);
 
     this.progressTip = this.scene.add
-      .image(tipX, window.innerHeight * 0.8, "BarLoaderTip")
+      .sprite(tipX, this.posY, "barLoaderTip-on")
       .setScale(this.scale)
       .setDepth(13);
+
+    // this.progressTip?.play("logo-in");
 
     this.text = this.scene.add
       .text(
         window.innerWidth / 2 + BarWidth / 2 - 270,
-        window.innerHeight * 0.8 - 50,
+        this.posY - 50,
         "0 Personnages",
         {
-          fontFamily: "LondrinaSolid",
+          fontFamily: "RockhillSansRough",
           fontSize: "20px",
+          fontStyle: "",
+          color: "#fff",
+          align: "center",
+        }
+      )
+      .setDepth(13);
+
+    this.moneyText = this.scene.add
+      .text(
+        window.innerWidth / 2 - 60,
+        this.posY + 40,
+        new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" })
+          .format(this.moneyAlreadyFounded)
+          .toString(),
+        {
+          fontFamily: "RockhillSansRough",
+          fontSize: "31px",
+          fontStyle: "",
+          fixedWidth: 120,
+          color: "#fff",
+          align: "center",
+        }
+      )
+      .setDepth(13);
+
+    this.scene.add
+      .text(
+        window.innerWidth / 2 - BarWidth / 2 + 130,
+        this.posY - 70,
+        "SOMME TOTALE RÉCOLTÉ",
+        {
+          fontFamily: "RockhillSansRough",
+          fontSize: "31px",
           fontStyle: "",
           color: "#fff",
           align: "center",
@@ -92,7 +133,9 @@ class BarComponent {
 
   public increment() {
     this.progressValue += this.progressIncrement;
+    this.moneyAlreadyFounded += this.moneyByCharacter;
     this.charcterCount++;
+    // this.progressTip?.play("barLoaderTip-on");
 
     const { tipX, width } = getProgressData(
       BarWidth,
@@ -117,6 +160,11 @@ class BarComponent {
     });
 
     this.text?.setText(this.charcterCount.toString() + " Personnages");
+    this.moneyText?.setText(
+      new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" })
+        .format(this.moneyAlreadyFounded)
+        .toString()
+    );
   }
 }
 

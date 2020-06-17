@@ -1,12 +1,16 @@
 import PhysicCharacter from "./Character";
 import CharacterManager from "../../managers/CharacterManager";
-import MainStateManager, { MainState, Worlds } from "../../states/main";
+import MainStateManager, {
+  MainState,
+  Worlds,
+  GameStatus,
+} from "../../states/main";
 import ScoreStateManager from "../../states/score";
 import Align from "../../helpers/Align/align";
 import GridObject from "../SheetMusicComponent/GridObject";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 
-import { CharacterType } from "./Character"
+import { CharacterType } from "./Character";
 
 const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
@@ -82,9 +86,9 @@ class PhysicCharacterManager {
     );
 
     if (this.prevAsset === 1) {
-      this.prevAsset = 2
+      this.prevAsset = 2;
     } else {
-      this.prevAsset = 1
+      this.prevAsset = 1;
     }
 
     this.charactersBW.set(id, charObj);
@@ -137,8 +141,8 @@ class PhysicCharacterManager {
   // this callback remove characters from crowd array 
   // when they are deleted from scene
   public callbackCharacterDeleted = (id: string) => {
-    this.crowd = this.crowd.filter(character => character.id !== id)
-  }
+    this.crowd = this.crowd.filter((character) => character.id !== id);
+  };
 
   public playTransformation() {
     this.crowd.forEach((character) => {
@@ -196,6 +200,10 @@ class PhysicCharacterManager {
     this.crowd.push(charObj);
   }
 
+  private flushCharacters = () => {
+    this.crowd = [];
+  };
+
   private startWorldTransition(world: Worlds) {
     this.world = world;
     // console.log("PhysicCharacterManager", world);
@@ -215,6 +223,14 @@ class PhysicCharacterManager {
     ) {
       this.endWolrdTransition();
     }
+
+    if (
+      state.gameStatus !== this.mainState.gameStatus &&
+      state.gameStatus === GameStatus.isGameOver
+    ) {
+      this.flushCharacters();
+    }
+
     this.mainState = state;
   };
 
