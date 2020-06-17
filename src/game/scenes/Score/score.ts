@@ -34,7 +34,7 @@ export default class ScoreScene extends Phaser.Scene {
     // === Bar component
     this.barComponent = new BarComponent(this, 0.8);
 
-    // Ground componenet
+    // Ground component
     new Ground(this);
 
     // Success component
