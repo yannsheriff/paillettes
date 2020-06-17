@@ -104,11 +104,6 @@ export default class MusicPlayer {
           instruments: AvailableInstrument.flute,
         });
 
-      case "piano":
-        return SampleLibrary.load({
-          instruments: AvailableInstrument.piano,
-        });
-
       default:
         const synth = new Tone.Synth();
         synth.oscillator.type = "sine";
