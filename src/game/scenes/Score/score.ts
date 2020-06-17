@@ -12,6 +12,7 @@ export default class ScoreScene extends Phaser.Scene {
   private glitter?: GlitterComponent;
   private barComponent?: BarComponent;
   private curtainsComponent?: CurtainsComponent;
+  private scoreCrowd?: ScoreCrowdComponent;
 
   constructor() {
     super(config);
@@ -20,7 +21,6 @@ export default class ScoreScene extends Phaser.Scene {
   public preload(): void {
     this.load.image("Bar", bar);
     this.load.image("BarLoaderTip", barLoaderTip);
-    this.load.image("ground", ground);
   }
 
   public create() {
@@ -30,8 +30,7 @@ export default class ScoreScene extends Phaser.Scene {
     // this.glitter.confettiManager?.startConfetti();
 
     // === Crowd component
-    // TODO Graudren
-    new ScoreCrowdComponent(this, 0.8, this.onCharacterPass, this.onEnd);
+    this.scoreCrowd = new ScoreCrowdComponent(this, 0.8, this.onCharacterPass, this.onEnd);
 
     // === Bar component
     this.barComponent = new BarComponent(this, 0.8);
@@ -46,12 +45,12 @@ export default class ScoreScene extends Phaser.Scene {
   }
 
   onCharacterPass = () => {
-    console.log("oooook");
+    this.scoreCrowd?.increment();
     this.barComponent?.increment();
   };
 
   onEnd = () => {
-    
+    this.curtainsComponent?.initCodeAnimations()
     console.log("End.");
   };
 

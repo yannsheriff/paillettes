@@ -18,13 +18,47 @@ class CurtainsComponent {
       this.scene,
       "curtains",
       "open",
-      true
+      false
     ).setDepth(50);
+
+    this.curtains.spine.state.addListener({
+      start: () => { },
+      complete: () => { this.onAnimationComplete(this.curtains!.spine) },
+      event: () => { },
+      interrupt: () => { },
+      end: () => { },
+      dispose: () => { },
+    });
   }
   
   private create() {
   }
   private delete() {}
+
+  public initCodeAnimations() {
+    this.curtains.playAnimation("code-open", false)
+  }
+
+  private onAnimationComplete(spine: SpineGameObject) {
+    let animation = spine.getCurrentAnimation(0)
+
+    switch (animation.name) {
+      case "open":
+        this.curtains.playAnimation("loop-score", true)
+        break;
+      case "code-open":
+        this.curtains.playAnimation("loop-code", true)
+        setTimeout(() => {
+          this.curtains.playAnimation("code-closed", false)
+        }, 2000);
+        break;
+      case "code-closed":
+        this.curtains.playAnimation("transition", false)
+        break;
+      default:
+        break;
+    }
+  }
 
   private onMainStateChange = (state: MainState) => {
     if (
