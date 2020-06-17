@@ -26,6 +26,8 @@ class BackgroundManager {
     this.mainState = this.mainManager.state;
     this.world = this.mainManager.state.world;
 
+    this.blob = new Blob(this.scene)
+
     this.generateFirstPlanes()
   }
 
@@ -37,7 +39,6 @@ class BackgroundManager {
     this.currentPlanes.forEach(plane => {
       plane.movePlane()
       this.initDestroy(plane, plane.planeSpace)
-      this.blob = new Blob(this.scene)
     });
   }
 
@@ -231,6 +232,7 @@ class BackgroundManager {
   private onMainStateChange = (state: MainState) => {
     if (state.gameStatus !== this.mainState.gameStatus 
       && state.gameStatus === GameStatus.isRunning) {
+      console.log("GameStatus.isRunning")
       this.runBackground()
     }
 
