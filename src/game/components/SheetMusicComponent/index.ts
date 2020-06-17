@@ -38,6 +38,7 @@ class SheetMusic {
   public arrowEmitter: EventEmitter;
   public promiseGenerator: promiseGenerator;
   private scoreManager: ScoreState;
+  private music: Musics;
   private freestyleManager: FreestyleStateManager;
   private mainState: MainState;
   private mainManager: MainStateManager;
@@ -108,6 +109,8 @@ class SheetMusic {
         this.arrowSpeed) *
       1000;
     this.timeToFail = this.calculateTimeToExit();
+    this.music = Musics.hungup;
+    this.player = new MusicPlayer(this.music, this.arrowEmitter);
 
     this.create();
   }
@@ -174,11 +177,9 @@ class SheetMusic {
   };
 
   private initSheetMusic() {
-    const music = Musics.hungup;
     this.isPlaying = true;
-    this.player = new MusicPlayer(music, this.arrowEmitter);
-    this.player.start();
-    const time = muscisFile.get(music)["header"]["bc-delay-sync"];
+    this.player?.start();
+    const time = muscisFile.get(this.music)["header"]["bc-delay-sync"];
     setTimeout(() => {
       this.scene.sound.play("hungup");
     }, time);
@@ -411,8 +412,10 @@ class SheetMusic {
   };
 
   private onStateChange = (state: MainState) => {
-    if (state.gameStatus !== this.mainState.gameStatus
-      && state.gameStatus === GameStatus.isLaunch) {
+    if (
+      state.gameStatus !== this.mainState.gameStatus &&
+      state.gameStatus === GameStatus.isLaunch
+    ) {
       this.initSheetMusic();
     }
 
