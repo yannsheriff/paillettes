@@ -2,10 +2,10 @@ import config from "./config";
 import { ConfettiGenerator } from "../../helpers/Confetti";
 import GlitterComponent from "../../components/GlitterComponent";
 import BarComponent from "../../components/BarComponent";
-import { bar, barLoaderTip } from "../../assets";
 import Ground from "../../components/GroundComponent";
 import ScoreCrowdComponent from "../../components/ScoreCrowdComponent";
 import CurtainsComponent from "../../components/CurtainsComponent";
+import Align from "../../helpers/Align/align";
 
 export default class ScoreScene extends Phaser.Scene {
   private confettiManager?: ConfettiGenerator;
@@ -26,6 +26,10 @@ export default class ScoreScene extends Phaser.Scene {
     // this.glitter = new GlitterComponent(this);
     // this.glitter.confettiManager?.grow();
     // this.glitter.confettiManager?.startConfetti();
+
+    let background = this.add.image(0, 0, "scoreBackground")
+    Align.centerH(background)
+    Align.centerV(background)
 
     // === Crowd component
     this.scoreCrowd = new ScoreCrowdComponent(this, 0.8, this.onCharacterPass, this.onEnd);

@@ -22,7 +22,8 @@ import {
   sisi,
   zelda,
   bar,
-  barLoaderTip
+  barLoaderTip,
+  scoreBackground
 } from "../index";
 
 export const mainImages: ImageData[] = [
@@ -40,6 +41,7 @@ export const mainImages: ImageData[] = [
   { key: "ground", asset: ground },
   { key: "Bar", asset: bar },
   { key: "BarLoaderTip", asset: barLoaderTip },
+  { key: "scoreBackground", asset: scoreBackground },
 ];
 
 export const mainSpritesheets: SpritesheetData[] = [
