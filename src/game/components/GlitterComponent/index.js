@@ -59,14 +59,17 @@ class GlitterComponent {
         "rgba(115, 251, 245,",
       ];
 
-      this.confettiManager.grow();
-      this.canvas.setDepth(11);
-      this.confettiManager.startConfetti(
-        state.freestyleDuration,
-        undefined,
-        150,
-        colors
-      );
+      setTimeout(() => {
+        this.confettiManager.grow();
+        this.canvas.setDepth(11);
+
+        this.confettiManager.startConfetti(
+          state.freestyleDuration,
+          undefined,
+          150,
+          colors
+        );
+      }, 500);
     } else if (
       state.isFreestyleActivated !== this.freeState.isFreestyleActivated &&
       !state.isFreestyleActivated
