@@ -79,7 +79,7 @@ class CurtainsComponent {
         }, 2000);
         break;
       case "code-closed":
-        this.curtains!.playAnimation("transition", false);
+        // this.curtains!.playAnimation("transition", false);
         break;
       default:
         break;

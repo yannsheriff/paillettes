@@ -1,9 +1,11 @@
 import ScoreStateManager from "../../states/score";
-import PhysicCharacter, { CharacterType } from "../CharactersComponent/Character";
+import PhysicCharacter, {
+  CharacterType,
+} from "../CharactersComponent/Character";
 import MainStateManager, { MainState } from "../../states/main";
 
 const charactersCountDuration = 3000;
-const finalScoreDisplayDuration = 10000;
+const finalScoreDisplayDuration = 6000;
 
 class ScoreCrowdComponent {
   private scene: Phaser.Scene;
@@ -11,7 +13,7 @@ class ScoreCrowdComponent {
   private physicCharacters: Array<PhysicCharacter> = [];
   private mainState: MainState;
   private mainManager: MainStateManager;
-  private characterPassCallback: (id: string) => void
+  private characterPassCallback: (id: string) => void;
   private onEndCallBack: () => unknown;
   private charactersPassed: number = 0;
 
@@ -26,7 +28,7 @@ class ScoreCrowdComponent {
     this.mainManager = MainStateManager.getInstance();
     this.mainState = this.mainManager.state;
 
-    this.finalCrowd = ScoreStateManager.getInstance().state.charactersUnlocked
+    this.finalCrowd = ScoreStateManager.getInstance().state.charactersUnlocked;
     this.characterPassCallback = characterPassCallback;
     this.onEndCallBack = onEndCallBack;
 
@@ -38,9 +40,9 @@ class ScoreCrowdComponent {
     const intervalDuration = charactersCountDuration / unlockedCharLength;
     let delay = 0;
 
-    this.finalCrowd.forEach(assetname => {
+    this.finalCrowd.forEach((assetname) => {
       setTimeout(() => {
-        this.createPhysicCharacter(assetname)
+        this.createPhysicCharacter(assetname);
       }, delay);
       delay += intervalDuration;
     });
@@ -51,7 +53,7 @@ class ScoreCrowdComponent {
       this.scene,
       assetname,
       "Run",
-      '',
+      "",
       this.mainState.objectSpeed,
       this.characterPassCallback,
       CharacterType.score,
@@ -64,7 +66,7 @@ class ScoreCrowdComponent {
 
     if (this.charactersPassed === this.finalCrowd.length) {
       setTimeout(() => {
-          this.onEndCallBack()
+        this.onEndCallBack();
       }, finalScoreDisplayDuration);
     }
   }
