@@ -18,7 +18,7 @@ class CurtainsComponent {
       this.scene,
       "curtains",
       "open",
-      false
+      true
     ).setDepth(50);
   }
   

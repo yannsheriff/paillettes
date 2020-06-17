@@ -28,7 +28,17 @@ class Curtains extends SpineContainer {
     // placer son x en fonction de la moitié de la largeur
     // placer son y en fonction du bas
     // this.spineBody.width = valeur reelle
-    
+
+
+    this.spine.state.addListener({
+      start: () => { },
+      complete: () => { this.onComplete(this.spine) },
+      event: () => { },
+      interrupt: () => { },
+      end: () => { },
+      dispose: () => { },
+    });
+
     this.x = window.innerWidth / 2 // ok
     this.y = 0;
     // this.y = this.spineBody.height * scale + 300
@@ -43,6 +53,11 @@ class Curtains extends SpineContainer {
     this.setDepth(15);
 
     // this.runVelocity(50)
+  }
+
+  public onComplete(spine: SpineGameObject) {
+    let animation = spine.getCurrentAnimation(0)
+    console.log('onComplete' + animation.name)
   }
 
   public play() {
