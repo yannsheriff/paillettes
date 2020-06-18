@@ -1,4 +1,5 @@
 import Curtains from "./Curtains";
+import Score from "./Score";
 import MainStateManager, { GameStatus, MainState } from "../../states/main";
 
 class CurtainsComponent {
@@ -6,6 +7,7 @@ class CurtainsComponent {
   private mainManager: MainStateManager;
   private mainState: MainState;
   private curtains?: Curtains;
+  private score?: Score;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
@@ -47,6 +49,13 @@ class CurtainsComponent {
       false
     ).setDepth(50);
 
+    this.score = new Score(
+      this.scene,
+      "score",
+      "open",
+      false
+    ).setDepth(50);
+
     this.curtains.spine.state.addListener({
       start: () => {},
       complete: () => {
@@ -63,6 +72,7 @@ class CurtainsComponent {
 
   public initCodeAnimations() {
     this.curtains!.playAnimation("code-open", false);
+    this.score!.playAnimation("code-open", false);
   }
 
   private onAnimationComplete(spine: SpineGameObject) {
@@ -71,11 +81,14 @@ class CurtainsComponent {
     switch (animation.name) {
       case "open":
         this.curtains!.playAnimation("loop-score", true);
+        this.score!.playAnimation("loop-score", true);
         break;
       case "code-open":
         this.curtains!.playAnimation("loop-code", true);
+        this.score!.playAnimation("loop-code", true);
         setTimeout(() => {
           this.curtains!.playAnimation("code-closed", false);
+          this.score!.playAnimation("code-closed", false);
         }, 2000);
         break;
       case "code-closed":
