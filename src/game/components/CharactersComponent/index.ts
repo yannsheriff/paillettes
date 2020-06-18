@@ -133,27 +133,24 @@ class PhysicCharacterManager {
     character.joinCrowd(this.crowd.length);
     this.scoreManager.registrerUnlockedCharacter(character.name)
 
-    console.log(this.totalCrowd)
-
     // debug
-    if (this.totalCrowd === 1) {
-      console.log('fire registerUnlockedAchievement')
-      this.scoreManager.registerUnlockedAchievement(AchievementType.characters10)
-    }
-
-    // switch (this.totalCrowd) {
-    //   case 10:
-    //     this.scoreManager.registerUnlockedAchievement(AchievementType.characters10)
-    //     break;
-    //   case 20:
-    //     this.scoreManager.registerUnlockedAchievement(AchievementType.characters20)
-    //     break;
-    //   case 30:
-    //     this.scoreManager.registerUnlockedAchievement(AchievementType.characters30)
-    //     break;
-    //   default:
-    //     break;
+    // if (this.totalCrowd === 1) {
+    //   this.scoreManager.registerUnlockedAchievement(AchievementType.characters10)
     // }
+
+    switch (this.totalCrowd) {
+      case 10:
+        this.scoreManager.registerUnlockedAchievement(AchievementType.characters10)
+        break;
+      case 20:
+        this.scoreManager.registerUnlockedAchievement(AchievementType.characters20)
+        break;
+      case 30:
+        this.scoreManager.registerUnlockedAchievement(AchievementType.characters30)
+        break;
+      default:
+        break;
+    }
 
     if (this.crowd.length > 15) {
       this.crowd.forEach(character => {

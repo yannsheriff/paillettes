@@ -6,6 +6,7 @@ import SheetMusicComponent from "../../components/SheetMusicComponent";
 import CharactersComponent from "../../components/CharactersComponent";
 import BackgroundComponent from "../../components/BackgroundComponent";
 import GodMotherComponent from "../../components/GodMotherComponent";
+import AchievementComponent from "../../components/AchievementComponent";
 import ScoreState from "../../states/score";
 import AnimationManager from "../../helpers/Animations";
 import AssetsManager from "../../helpers/Assets";
@@ -103,6 +104,7 @@ export class GameScene extends Phaser.Scene {
       this.animationManager.register();
       new CurtainsComponent(this);
       new LogoComponent(this);
+      new AchievementComponent(this);
       new BackgroundComponent(this);
       new CharactersComponent(this);
       this.ground = new GroundComponent(this);
