@@ -109,23 +109,27 @@ class InputZone {
   }
 
   handleStepDown = (directions: Direction[]) => {
-    directions.forEach((direction) => {
-      const input = this.inputs.get(direction);
-      if (!input?.state && !input?.playSuccess) {
-        input?.sprite?.play(direction + "-on");
-        this.inputs.set(direction, { ...input!, state: true });
-      }
-    });
+    if (this.mainState.gameStatus !== GameStatus.isReady) { // avoid playing during intro
+      directions.forEach((direction) => {
+        const input = this.inputs.get(direction);
+        if (!input?.state && !input?.playSuccess) {
+          input?.sprite?.play(direction + "-on");
+          this.inputs.set(direction, { ...input!, state: true });
+        }
+      });
+    }
   };
 
   handleStepUp = (directions: Direction[]) => {
-    directions.forEach((direction) => {
-      const input = this.inputs.get(direction);
-      if (input?.state) {
-        input?.sprite?.play(direction + "-off");
-        this.inputs.set(direction, { ...input!, state: false });
-      }
-    });
+    if (this.mainState.gameStatus !== GameStatus.isReady) { // avoid playing during intro
+      directions.forEach((direction) => {
+        const input = this.inputs.get(direction);
+        if (input?.state) {
+          input?.sprite?.play(direction + "-off");
+          this.inputs.set(direction, { ...input!, state: false });
+        }
+      });
+    }
   };
 
   handleStepSuccess = (gridObject: GridObject) => {
@@ -148,7 +152,7 @@ class InputZone {
   private onStateChange = (state: MainState) => {
     if (
       state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isLaunch
+      state.gameStatus === GameStatus.isGameOver
     ) {
       stepEventEmitter.removeListener(
         StepEventType.stepdown,
@@ -156,7 +160,7 @@ class InputZone {
       );
       stepEventEmitter.removeListener(StepEventType.stepup, this.handleStepUp);
     }
-
+    
     this.mainState = state;
   };
 }
