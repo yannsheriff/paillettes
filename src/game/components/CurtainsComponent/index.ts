@@ -92,7 +92,6 @@ class CurtainsComponent {
       state.gameStatus !== this.mainState.gameStatus &&
       state.gameStatus === GameStatus.willLaunch
     ) {
-      console.log("will launch");
       this.curtains!.playAnimation("transition", false);
     }
 

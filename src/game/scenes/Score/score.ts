@@ -55,7 +55,7 @@ export default class ScoreScene extends Phaser.Scene {
 
   onEnd = () => {
     this.curtainsComponent?.initCodeAnimations()
-    console.log("End.");
+    // console.log("End.");
   };
 
   update() {

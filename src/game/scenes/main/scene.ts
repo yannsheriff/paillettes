@@ -129,14 +129,15 @@ export class GameScene extends Phaser.Scene {
   }
 
   private onMainStateChange = (state: MainState) => {
-    console.log("THE END", state.gameStatus);
+    // console.log("THE END", state.gameStatus);
     if (
       state.gameStatus !== this.mainState.gameStatus &&
       state.gameStatus === GameStatus.isGameOver
     ) {
+      // console.log('GameStatus.isGameOver')
       setTimeout(() => {
         this.scene.start("ScoreScene");
-        console.log("EEEEND");
+        // console.log("Scene start ScoreScene");
       }, 5000);
     }
   };
