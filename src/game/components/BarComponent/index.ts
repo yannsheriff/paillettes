@@ -12,7 +12,7 @@ function getProgressData(
   const mainBarWidth = BarWidth * scale;
   const width = (pgrssBarWidth / 100) * progress;
   const posX = window.innerWidth / 2 - mainBarWidth / 2 + 20 + width / 2;
-  const tipX = window.innerWidth / 2 - mainBarWidth / 2 + width + 20;
+  const tipX = window.innerWidth / 2 - mainBarWidth / 2 + width - 30;
 
   return { width, posX, tipX };
 }
@@ -76,7 +76,7 @@ class BarComponent {
       .setDepth(13);
 
     this.progressTip = this.scene.add
-      .sprite(tipX, this.posY, "barLoaderTip-on")
+      .sprite(tipX, this.posY, "loaderTip-on")
       .setScale(this.scale)
       .setDepth(13);
 
@@ -135,7 +135,7 @@ class BarComponent {
     this.progressValue += this.progressIncrement;
     this.moneyAlreadyFounded += this.moneyByCharacter;
     this.charcterCount++;
-    // this.progressTip?.play("barLoaderTip-on");
+    this.progressTip?.play("loaderTip-on");
 
     const { tipX, width } = getProgressData(
       BarWidth,

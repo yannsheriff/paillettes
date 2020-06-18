@@ -53,5 +53,5 @@ export { default as logo } from "./animations/logo.png";
 
 // SCORE
 export { default as bar } from "./score/barre.png";
-export { default as barLoaderTip } from "./score/star.png";
+export { default as barLoaderTipSprite } from "./score/barTip.png";
 export { default as scoreBackground } from "./score/background.png";
