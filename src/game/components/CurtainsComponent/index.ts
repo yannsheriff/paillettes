@@ -27,7 +27,7 @@ class CurtainsComponent {
       "curtains",
       "logo",
       false
-    ).setDepth(50);
+    )
 
     // this.curtains.spine.state.addListener({
     //   start: () => { },

@@ -66,6 +66,7 @@ class SheetMusic {
   private called: boolean;
   private arrowUntilLetter: number;
   private freeInterval?: NodeJS.Timeout;
+  private isMusicComplete: boolean = false;
 
   constructor(scene: Phaser.Scene, characterManager: CharacterManager) {
     this.scene = scene;
@@ -183,13 +184,16 @@ class SheetMusic {
     this.player?.start();
     const time = muscisFile.get(this.music!)["header"]["bc-delay-sync"];
     setTimeout(() => {
-      // const music = this.scene.sound.add("musictest");
-      const music = this.scene.sound.add("hungup");
+      const music = this.scene.sound.add("musictest");
+      // const music = this.scene.sound.add("hungup");
       music.play();
 
       music.once("complete", () => {
-        this.mainManager.endGame();
-        // console.log("music completed so end game");
+        if (!this.isMusicComplete) {
+          console.log("music completed so end game");
+          this.mainManager.endGame();
+          this.isMusicComplete = true
+        }
       });
     }, time);
   }

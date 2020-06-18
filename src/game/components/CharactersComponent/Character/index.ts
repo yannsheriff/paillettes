@@ -50,8 +50,8 @@ class PhysicCharacter extends SpineContainer {
     this.mixAnimation("Run", "Dance");
     this.mixAnimation("Dance", "Run");
 
-    this.setScale(0.45); // container and hitbox size
     this.setDepth(10);
+    this.setScale(0.45); // container and hitbox size
 
     this.name = key; // stock string assetname to name
 
@@ -175,18 +175,18 @@ class PhysicCharacter extends SpineContainer {
   public runOutsideScreen() {
     let destination = window.innerWidth + this.spineBody.width * this.scale;
     let duration = (destination / this.speedIn) * 1000;
-    let latency = 400;
+    // let latency = 400;
 
     this.tweenIn = this.scene.tweens.add({
       targets: this,
       x: destination,
-      duration: duration + latency,
+      duration: duration,
       repeat: 0,
       yoyo: false,
       onStart: () => {
         setTimeout(() => {
           this.onEndCallback(this.id)
-        }, duration / 2);
+        }, duration / 2);        
       },
       onComplete: () => {
         this.deleteCharacter()

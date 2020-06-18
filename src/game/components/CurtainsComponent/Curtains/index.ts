@@ -5,8 +5,6 @@ const animations = [
   "close", "open", "loop-score", "code-open", "loop-code", "code-closed", "logo", "transition"
 ]
 class Curtains extends SpineContainer {
-  // public SpineContainer: ISpineContainer;
-
   constructor(
     scene: Phaser.Scene,
     key: string,
@@ -17,13 +15,15 @@ class Curtains extends SpineContainer {
 
     let scale;
     // full screen asset
-    if (window.innerHeight / this.spineBody.height < window.innerWidth / this.spineBody.width) {
+    if (window.innerHeight < window.innerWidth) {
       scale = window.innerWidth / this.spineBody.width
     } else {
       scale = window.innerHeight / this.spineBody.height
     }
-    scale += 0.1;
+    scale += 0.05;
+
     this.setScale(scale); // asset size
+    this.setDepth(15);
 
     // placer son x en fonction de la moitié de la largeur
     // placer son y en fonction du bas
@@ -39,8 +39,6 @@ class Curtains extends SpineContainer {
 
     this.drawDebug(false)
     // this.allowCollideWorldBounds(true)
-
-    this.setDepth(15);
 
     // this.runVelocity(50)
   }

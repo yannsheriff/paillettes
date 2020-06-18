@@ -40,12 +40,14 @@ class ScoreCrowdComponent {
     const intervalDuration = charactersCountDuration / unlockedCharLength;
     let delay = 0;
 
-    this.finalCrowd.forEach((assetname) => {
-      setTimeout(() => {
-        this.createPhysicCharacter(assetname);
-      }, delay);
-      delay += intervalDuration;
-    });
+    if (unlockedCharLength > 0) {
+      this.finalCrowd.forEach((assetname) => {
+        setTimeout(() => {
+          this.createPhysicCharacter(assetname);
+        }, delay);
+        delay += intervalDuration;
+      });
+    }
   }
 
   createPhysicCharacter(assetname: string) {
