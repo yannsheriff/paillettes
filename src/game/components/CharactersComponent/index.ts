@@ -1,10 +1,15 @@
 import PhysicCharacter from "./Character";
 import CharacterManager from "../../managers/CharacterManager";
-import MainStateManager, { MainState, Worlds } from "../../states/main";
+import MainStateManager, {
+  MainState,
+  Worlds,
+  GameStatus,
+} from "../../states/main";
 import ScoreStateManager from "../../states/score";
 import Align from "../../helpers/Align/align";
-import GridObject from "../SheetMusicComponent/GridObject";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
+
+import { CharacterType } from "./Character";
 
 const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
@@ -76,15 +81,13 @@ class PhysicCharacterManager {
       id,
       this.mainState.objectSpeed,
       this.callbackCharacterDeleted,
-      false,
-      true,
-      false,
+      CharacterType.game
     );
 
     if (this.prevAsset === 1) {
-      this.prevAsset = 2
+      this.prevAsset = 2;
     } else {
-      this.prevAsset = 1
+      this.prevAsset = 1;
     }
 
     this.charactersBW.set(id, charObj);
@@ -114,8 +117,10 @@ class PhysicCharacterManager {
     this.colliders.shift();
 
     if (character.isUnlock) {
+      this.scoreManager.registrerUnlockedCharacter(character.name)
       this.crowd.push(character);
-      character.joinCrowd(this.crowd.length + 1);
+      character.joinCrowd(this.crowd.length);
+      this.shiftCrowd();
     } else {
       character.failAndDestroy();
     }
@@ -123,11 +128,20 @@ class PhysicCharacterManager {
     this.charactersBW.delete(character.id);
   }
 
+  public shiftCrowd() {
+    if (this.crowd.length > 15) {
+      this.crowd.forEach(character => {
+        character.shiftCharacter()  // make character run outside screen
+      });
+      this.crowd.shift(); // remove first character of array
+    }
+  }
+
   // this callback remove characters from crowd array 
   // when they are deleted from scene
   public callbackCharacterDeleted = (id: string) => {
-    this.crowd = this.crowd.filter(character => character.id !== id)
-  }
+    this.crowd = this.crowd.filter((character) => character.id !== id);
+  };
 
   public playTransformation() {
     this.crowd.forEach((character) => {
@@ -164,8 +178,7 @@ class PhysicCharacterManager {
     });
   }
 
-  // DEBUG PURPOSE
-
+  // DEBUG PURPOSE FOR CROWD
   public generateTestPhysicCharacter(assets: string[]) {
     // random character
     let rand = Math.floor(Math.floor(Math.random() * assets.length + 1));
@@ -177,9 +190,7 @@ class PhysicCharacterManager {
       "",
       this.mainState.objectSpeed,
       this.callbackCharacterDeleted,
-      false,
-      false,
-      true
+      CharacterType.debug
     );
 
     charObj.x -= this.testX;
@@ -187,6 +198,10 @@ class PhysicCharacterManager {
 
     this.crowd.push(charObj);
   }
+
+  private flushCharacters = () => {
+    this.crowd = [];
+  };
 
   private startWorldTransition(world: Worlds) {
     this.world = world;
@@ -207,6 +222,14 @@ class PhysicCharacterManager {
     ) {
       this.endWolrdTransition();
     }
+
+    if (
+      state.gameStatus !== this.mainState.gameStatus &&
+      state.gameStatus === GameStatus.isGameOver
+    ) {
+      this.flushCharacters();
+    }
+
     this.mainState = state;
   };
 

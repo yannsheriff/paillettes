@@ -19,7 +19,12 @@ import {
   starRight,
   chrono,
   hungup,
-  sisi,
+  musictest,
+  // sisi,
+  // zelda,
+  bar,
+  barLoaderTip,
+  scoreBackground
 } from "../index";
 
 export const mainImages: ImageData[] = [
@@ -35,6 +40,9 @@ export const mainImages: ImageData[] = [
   { key: "zoneInput", asset: zoneInput },
   { key: "chrono", asset: chrono },
   { key: "ground", asset: ground },
+  { key: "Bar", asset: bar },
+  { key: "BarLoaderTip", asset: barLoaderTip },
+  { key: "scoreBackground", asset: scoreBackground },
 ];
 
 export const mainSpritesheets: SpritesheetData[] = [
@@ -69,5 +77,7 @@ export const mainSpines: SpineData[] = [
 
 export const mainMusic: MusicData[] = [
   { key: "hungup", asset: hungup },
-  { key: "sisi", asset: sisi },
+  { key: "musictest", asset: musictest },
+  // { key: "sisi", asset: sisi },
+  // { key: "zelda", asset: zelda },
 ];

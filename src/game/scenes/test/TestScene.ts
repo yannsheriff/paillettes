@@ -1,15 +1,33 @@
 import config from "./config";
+import AssetsManager from "../../helpers/Assets";
+
+import {
+  mainImages,
+  mainSpritesheets,
+  mainSpines,
+  mainMusic,
+} from "../../assets/assets";
 
 export class TestScene extends Phaser.Scene {
+  private assetsManager: AssetsManager;
+
   constructor() {
     super(config);
+    this.assetsManager = new AssetsManager(
+      this,
+      mainImages,
+      mainSpritesheets,
+      mainSpines,
+      mainMusic
+    );
   }
 
   public preload(): void {
+    this.assetsManager.preload();
   }
 
   public create() {
-    // this.scene.start('TestSceneCurtainBefore');
+    this.scene.start('ScoreScene');
     this.add
       .text(100, 100, 'Tester les personnages', { fill: 'red' })
       .setInteractive()
@@ -45,6 +63,12 @@ export class TestScene extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => {
         this.scene.start('TestSceneDrag');
+      })
+    this.add
+      .text(100, 600, 'Tester les confettis', { fill: 'red' })
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.scene.start('Confetti');
       })
   }
 

@@ -5,6 +5,7 @@ import { GridObject } from "../../components/SheetMusicComponent";
 export interface ScoreState {
   score: number;
   combo: number;
+  charactersUnlocked: string[];
 }
 enum ComboType {
   good,
@@ -31,6 +32,7 @@ export default class ScoreStateManager extends State {
     this.state = {
       score: 0,
       combo: 0,
+      charactersUnlocked: [],
     };
     this.failCallbacks = [];
     this.goodCallbacks = [];
@@ -39,6 +41,9 @@ export default class ScoreStateManager extends State {
     this.mainStateManager = MainStateManager.getInstance();
     this.mainState = this.mainStateManager.state;
     this.mainStateManager.subscribe((state) => (this.mainState = state));
+    for (let index = 0; index < 20; index++) {
+      this.state.charactersUnlocked.push("world_1_man_1");
+    }
   }
 
   /**
@@ -91,6 +96,9 @@ export default class ScoreStateManager extends State {
   }
   public onSuccess(callback: (arrow: GridObject) => any) {
     this.successCallbacks.push(callback);
+  }
+  public registrerUnlockedCharacter(assetName: string) {
+    this.state.charactersUnlocked.push(assetName)
   }
 
   private dispatchGood(arrow: GridObject) {

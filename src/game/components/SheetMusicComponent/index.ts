@@ -183,7 +183,14 @@ class SheetMusic {
     this.player?.start();
     const time = muscisFile.get(this.music!)["header"]["bc-delay-sync"];
     setTimeout(() => {
-      this.scene.sound.play("hungup");
+      // const music = this.scene.sound.add("musictest");
+      const music = this.scene.sound.add("hungup");
+      music.play();
+
+      music.once("complete", () => {
+        this.mainManager.endGame();
+        // console.log("music completed so end game");
+      });
     }, time);
   }
 
@@ -413,12 +420,24 @@ class SheetMusic {
     this.delayArrow(this.requestCount, note);
   };
 
+  private destroySheetMusic() {
+    this.arrowEmitter.removeListener("note", this.throttleArrow);
+    this.player?.stop();
+  }
+
   private onStateChange = (state: MainState) => {
     if (
       state.gameStatus !== this.mainState.gameStatus &&
       state.gameStatus === GameStatus.isLaunch
     ) {
       this.initSheetMusic();
+    }
+
+    if (
+      state.gameStatus !== this.mainState.gameStatus &&
+      state.gameStatus === GameStatus.isGameOver
+    ) {
+      this.destroySheetMusic();
     }
 
     if (state.difficulty !== this.mainState.difficulty) {

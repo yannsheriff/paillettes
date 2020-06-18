@@ -107,6 +107,26 @@ export default class MainStateManager extends State {
     });
   }
 
+  public restart() {
+    const world = randomEnumValue(Worlds);
+
+    this.setState({
+      difficulty: DifficultyModes.easy,
+      world,
+      objectSpeed: 400,
+      isInTransition: false,
+      didChangeWorld: false,
+      gameStatus: GameStatus.isReady,
+    });
+
+    this.remainingWorlds = [
+      Worlds.nineteenCentury,
+      Worlds.today,
+      Worlds.prehistory,
+      Worlds.middleAges,
+    ].filter((w) => w !== world);
+  }
+
   private launch = () => {
     this.setState({
       gameStatus: GameStatus.isLaunch,
