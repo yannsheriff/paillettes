@@ -21,7 +21,7 @@ class PhysicCharacter extends SpineContainer {
   // private updateCrowdCallback: () => void
 
   public speedOut: number = 150;
-  public distanceBetweenCharacters: number = 50;
+  public distanceBetweenCharacters: number = 80;
   public crowdPositionX: number = window.innerWidth / 2 - 150;
 
   constructor(
@@ -184,6 +184,9 @@ class PhysicCharacter extends SpineContainer {
       repeat: 0,
       yoyo: false,
       onStart: () => {
+        setTimeout(() => {
+          this.playOnceThenLoopNextAnimation("Dance", "Run", 0)
+        }, duration / 3);
         setTimeout(() => {
           this.onEndCallback(this.id)
         }, duration / 2);        

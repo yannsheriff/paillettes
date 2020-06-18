@@ -85,7 +85,7 @@ class Blob extends Phaser.GameObjects.Graphics {
             targets: this,
             rayon: this.initialRayon,
             variation: this.initialVariation,
-            duration: 600,
+            duration: 2000,
             ease: 'back.out',
             repeat: 0,
             yoyo: false,
