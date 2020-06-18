@@ -5,7 +5,7 @@ import MainStateManager, {
   Worlds,
   GameStatus,
 } from "../../states/main";
-import ScoreStateManager from "../../states/score";
+import ScoreStateManager, { AchievementType } from "../../states/score";
 import Align from "../../helpers/Align/align";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 
@@ -24,7 +24,8 @@ class PhysicCharacterManager {
   private colliders: Array<Phaser.Physics.Arcade.Collider> = [];
   private prevAsset: number = 1;
 
-  public crowd: Array<PhysicCharacter>;
+  public crowd: Array<PhysicCharacter>; // physic characters in crowd
+  public totalCrowd: number = 0; // number of unlocked characters
   public world: Worlds;
   private charactersBW: Map<string, PhysicCharacter> = new Map();
   public testX: number = 0;
@@ -117,10 +118,7 @@ class PhysicCharacterManager {
     this.colliders.shift();
 
     if (character.isUnlock) {
-      this.scoreManager.registrerUnlockedCharacter(character.name)
-      this.crowd.push(character);
-      character.joinCrowd(this.crowd.length);
-      this.shiftCrowd();
+      this.updateCrowd(character)
     } else {
       character.failAndDestroy();
     }
@@ -128,7 +126,35 @@ class PhysicCharacterManager {
     this.charactersBW.delete(character.id);
   }
 
-  public shiftCrowd() {
+  public updateCrowd(character: PhysicCharacter) {
+    this.totalCrowd += 1;
+
+    this.crowd.push(character);
+    character.joinCrowd(this.crowd.length);
+    this.scoreManager.registrerUnlockedCharacter(character.name)
+
+    console.log(this.totalCrowd)
+
+    // debug
+    if (this.totalCrowd === 1) {
+      console.log('fire registerUnlockedAchievement')
+      this.scoreManager.registerUnlockedAchievement(AchievementType.characters10)
+    }
+
+    // switch (this.totalCrowd) {
+    //   case 10:
+    //     this.scoreManager.registerUnlockedAchievement(AchievementType.characters10)
+    //     break;
+    //   case 20:
+    //     this.scoreManager.registerUnlockedAchievement(AchievementType.characters20)
+    //     break;
+    //   case 30:
+    //     this.scoreManager.registerUnlockedAchievement(AchievementType.characters30)
+    //     break;
+    //   default:
+    //     break;
+    // }
+
     if (this.crowd.length > 15) {
       this.crowd.forEach(character => {
         character.shiftCharacter()  // make character run outside screen

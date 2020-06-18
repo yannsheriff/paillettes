@@ -35,7 +35,7 @@
 		}
 	},
 	{
-		"name": "Badge1",
+		"name": "characters10",
 		"attachments": {
 			"Badge": {
 				"Badge": { "name": "Badge1/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
@@ -46,7 +46,7 @@
 		}
 	},
 	{
-		"name": "Badge2",
+		"name": "characters20",
 		"attachments": {
 			"Badge": {
 				"Badge": { "name": "Badge2/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
@@ -57,7 +57,7 @@
 		}
 	},
 	{
-		"name": "Badge3",
+		"name": "characters30",
 		"attachments": {
 			"Badge": {
 				"Badge": { "name": "Badge3/Badge", "x": 0.09, "y": -6.64, "width": 198, "height": 239 }
@@ -68,7 +68,7 @@
 		}
 	},
 	{
-		"name": "Badge4",
+		"name": "freestyle1",
 		"attachments": {
 			"Badge": {
 				"Badge": { "name": "Badge4/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
@@ -79,7 +79,7 @@
 		}
 	},
 	{
-		"name": "Badge5",
+		"name": "freestyle2",
 		"attachments": {
 			"Badge": {
 				"Badge": { "name": "Badge5/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
@@ -90,7 +90,7 @@
 		}
 	},
 	{
-		"name": "Badge6",
+		"name": "world1",
 		"attachments": {
 			"Badge": {
 				"Badge": { "name": "Badge6/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
@@ -101,7 +101,7 @@
 		}
 	},
 	{
-		"name": "Badge7",
+		"name": "world2",
 		"attachments": {
 			"Badge": {
 				"Badge": { "name": "Badge7/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
@@ -112,7 +112,7 @@
 		}
 	},
 	{
-		"name": "Badge8",
+		"name": "world3",
 		"attachments": {
 			"Badge": {
 				"Badge": { "name": "Badge8/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
@@ -123,7 +123,7 @@
 		}
 	},
 	{
-		"name": "Badge9",
+		"name": "world4",
 		"attachments": {
 			"Badge": {
 				"Badge": { "name": "Badge9/Badge", "x": -0.41, "y": -6.64, "width": 197, "height": 239 }
@@ -134,7 +134,7 @@
 		}
 	},
 	{
-		"name": "Badge10",
+		"name": "worldall",
 		"attachments": {
 			"Badge": {
 				"Badge": { "name": "Badge10/Badge", "x": 0.09, "y": -6.64, "width": 198, "height": 239 }
@@ -146,7 +146,7 @@
 	}
 ],
 "animations": {
-	"Achievement": {
+	"play": {
 		"slots": {
 			"Badge": {
 				"color": [

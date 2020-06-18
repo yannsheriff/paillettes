@@ -6,7 +6,22 @@ export interface ScoreState {
   score: number;
   combo: number;
   charactersUnlocked: string[];
+  achievementsUnlocked: AchievementType[];
 }
+
+export enum AchievementType {
+  characters10 = "characters10", // badge1
+  characters20 = "characters20", // badge2
+  characters30 = "characters30", // badge3
+  freestyle1 = "freestyle1",     // badge4
+  freestyle2 = "freestyle2",     // badge5
+  world1 = "world1",             // badge6
+  world2 = "world2",             // badge7
+  world3 = "world3",             // badge8
+  world4 = "world4",             // badge9
+  worldall = "worldall"          // badge10
+}
+
 enum ComboType {
   good,
   perfect,
@@ -22,6 +37,8 @@ export default class ScoreStateManager extends State {
   private perfectCallbacks: Array<(gridObject: GridObject) => any>;
   private successCallbacks: Array<(gridObject: GridObject) => any>;
   public state: ScoreState;
+  private charactersUnlocked: Array<string> = []
+  private achievementsUnlocked: Array<AchievementType> = []
 
   /**
    * The Singleton's constructor should always be private to prevent direct
@@ -33,6 +50,7 @@ export default class ScoreStateManager extends State {
       score: 0,
       combo: 0,
       charactersUnlocked: [],
+      achievementsUnlocked: [],
     };
     this.failCallbacks = [];
     this.goodCallbacks = [];
@@ -77,11 +95,9 @@ export default class ScoreStateManager extends State {
     this.dispatchFail(arrow);
     this.handleCombo(ComboType.fail);
   }
-
   public registerCharactere() {
     this.setState({ score: this.state.score + 10 });
   }
-
   public onPerfect(callback: (arrow: GridObject) => any) {
     this.perfectCallbacks.push(callback);
   }
@@ -95,9 +111,17 @@ export default class ScoreStateManager extends State {
     this.successCallbacks.push(callback);
   }
   public registrerUnlockedCharacter(assetName: string) {
-    this.state.charactersUnlocked.push(assetName)
+    this.charactersUnlocked.push(assetName)
+    this.setState({ 
+        charactersUnlocked: this.charactersUnlocked
+    })
   }
-
+  public registerUnlockedAchievement(achievement: AchievementType) {
+    this.achievementsUnlocked.push(achievement)
+    this.setState({
+      achievementsUnlocked: this.achievementsUnlocked
+    });
+  }
   private dispatchGood(arrow: GridObject) {
     this.goodCallbacks.forEach((callback) => callback(arrow));
     this.successCallbacks.forEach((callback) => callback(arrow));
