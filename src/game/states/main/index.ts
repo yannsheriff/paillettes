@@ -95,6 +95,12 @@ export default class MainStateManager extends State {
     setTimeout(this.launch, 1000);
   }
 
+  private launch = () => {
+    this.setState({
+      gameStatus: GameStatus.isLaunch,
+    });
+  };
+
   public runGame() {
     this.setState({
       gameStatus: GameStatus.isRunning,
@@ -127,11 +133,6 @@ export default class MainStateManager extends State {
     ].filter((w) => w !== world);
   }
 
-  private launch = () => {
-    this.setState({
-      gameStatus: GameStatus.isLaunch,
-    });
-  };
 
   public incrementDifficulty() {
     const { difficulty } = this.state;

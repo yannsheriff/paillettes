@@ -23,7 +23,7 @@ class Curtains extends SpineContainer {
     scale += 0.05;
 
     this.setScale(scale); // asset size
-    this.setDepth(15);
+    this.setDepth(20);
 
     // placer son x en fonction de la moitié de la largeur
     // placer son y en fonction du bas

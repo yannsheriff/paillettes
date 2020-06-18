@@ -21,7 +21,6 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   title: "Brille Chérie",
   parent: "phaser-game",
   type: Phaser.WEBGL,
-
   scale: {
     // we do scale the game manually in resize()
     mode: Phaser.Scale.NO_ZOOM,
