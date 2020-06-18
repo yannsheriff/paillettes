@@ -47,14 +47,14 @@ class CurtainsComponent {
       "curtains",
       "open",
       false
-    ).setDepth(50);
+    )
 
     this.score = new Score(
       this.scene,
       "score",
       "open",
       false
-    ).setDepth(50);
+    )
 
     this.curtains.spine.state.addListener({
       start: () => {},
