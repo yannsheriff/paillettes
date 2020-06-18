@@ -19,8 +19,8 @@ import {
   starRight,
   chrono,
   hungup,
-  sisi,
-  zelda,
+  // sisi,
+  // zelda,
   bar,
   barLoaderTip,
   scoreBackground
@@ -76,6 +76,6 @@ export const mainSpines: SpineData[] = [
 
 export const mainMusic: MusicData[] = [
   { key: "hungup", asset: hungup },
-  { key: "sisi", asset: sisi },
-  { key: "zelda", asset: zelda },
+  // { key: "sisi", asset: sisi },
+  // { key: "zelda", asset: zelda },
 ];
