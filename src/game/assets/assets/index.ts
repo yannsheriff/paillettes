@@ -19,8 +19,8 @@ import {
   starRight,
   chrono,
   hungup,
-  sisi,
-  zelda,
+  // sisi,
+  // zelda,
   bar,
   barLoaderTip,
   scoreBackground
