@@ -46,10 +46,10 @@ export { default as freestyle } from "./indications/FREESTYLE.png";
 export { default as hungup } from "./musics/hungup.mp3";
 export { default as sisi } from "./musics/sisi.mp3";
 export { default as zelda } from "./musics/zelda.mp3";
+export { default as musictest } from "./musics/test.mp3";
 
 // ANIM
 export { default as logo } from "./animations/logo.png";
-export { default as zelda } from "./musics/test.mp3";
 
 // SCORE
 export { default as bar } from "./score/barre.png";
