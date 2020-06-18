@@ -7,7 +7,6 @@ import MainStateManager, {
 } from "../../states/main";
 import ScoreStateManager from "../../states/score";
 import Align from "../../helpers/Align/align";
-import GridObject from "../SheetMusicComponent/GridObject";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 
 import { CharacterType } from "./Character";
