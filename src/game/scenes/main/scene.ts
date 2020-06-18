@@ -36,6 +36,7 @@ export class GameScene extends Phaser.Scene {
   private animationManager: AnimationManager;
   private assetsManager: AssetsManager;
   public isDebug?: boolean = false;
+  private isGoingScore: boolean = false;
 
   constructor() {
     super(config);
@@ -112,6 +113,18 @@ export class GameScene extends Phaser.Scene {
 
       // @ts-ignore
       this.isDebug = this.game.config.physics.arcade.debug;
+
+      this.add
+        .text(20, 20, 'Score', { fill: 'red' })
+        .setInteractive()
+        .setDepth(99)
+        .on('pointerdown', () => {
+          if (!this.isGoingScore) {
+            alert('going score')
+            this.mainStateManager.endGame();
+            this.isGoingScore = true
+          }
+        })
 
       // test number of items displayed in scene
       if (this.isDebug) {
