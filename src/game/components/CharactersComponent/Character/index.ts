@@ -20,7 +20,7 @@ class PhysicCharacter extends SpineContainer {
   private onEndCallback: (id: string) => void
   // private updateCrowdCallback: () => void
 
-  public speedOut: number = 150;
+  public speedOut: number = 250;
   public distanceBetweenCharacters: number = 80;
   public crowdPositionX: number = window.innerWidth / 2 - 150;
 

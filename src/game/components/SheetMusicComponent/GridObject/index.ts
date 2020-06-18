@@ -37,6 +37,15 @@ class GridObject extends Phaser.Physics.Arcade.Sprite {
     this.launch();
   }
 
+  fadeOut() {
+    this.scene.tweens.add({
+      targets: this,
+      alpha: 0,
+      duration: 500,
+      ease: 'Power2'
+    });
+  }
+
   launch() {
     this.setVelocityX(-this.speed);
   }

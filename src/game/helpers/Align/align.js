@@ -11,7 +11,7 @@ class Align {
 	  obj.x = window.innerWidth / 2;
   }
   static topSubtitle(obj) {
-    obj.y = window.innerHeight / 3;
+    obj.y = window.innerHeight / 3.5;
   }
   static centerV(obj) {
     obj.y = window.innerHeight / 2;
@@ -52,7 +52,7 @@ class Align {
     obj.x = 0 - (spine.displayWidth * scale) / 2;
   }
   static dragPosition(obj, spine, scale) {
-    obj.x = window.innerWidth / 2 - 90;
+    obj.x = window.innerWidth / 2 - 200;
   }
   static crowdPosition(obj, spine, scale) {
     obj.x = window.innerWidth / 2 - 220;
