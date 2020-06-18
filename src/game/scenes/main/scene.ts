@@ -96,7 +96,7 @@ export class GameScene extends Phaser.Scene {
   };
 
   startGame = () => {
-    this.mainStateManager.gameIsReady();
+    this.mainStateManager.needMusicLoading();
     this.text!.destroy();
 
     setTimeout(() => {
