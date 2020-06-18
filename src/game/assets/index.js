@@ -48,7 +48,7 @@ export { default as sisi } from "./musics/sisi.mp3";
 
 // ANIM
 export { default as logo } from "./animations/logo.png";
-export { default as zelda } from "./musics/zelda.mp3";
+export { default as zelda } from "./musics/test.mp3";
 
 // SCORE
 export { default as bar } from "./score/barre.png";
