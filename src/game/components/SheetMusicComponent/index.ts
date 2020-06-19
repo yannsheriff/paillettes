@@ -163,6 +163,7 @@ class SheetMusic {
         this.music = Musics.hungup;
         this.player = new MusicPlayer(this.music, this.arrowEmitter);
         document.removeEventListener("keydown", initMusic);
+        this.mainManager.gameIsReady();
       }
     };
     document.addEventListener("keydown", initMusic);

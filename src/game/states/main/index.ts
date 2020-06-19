@@ -14,6 +14,7 @@ export enum Worlds {
 }
 export enum GameStatus {
   isLoading,
+  waitMusicLoading,
   isReady,
   willLaunch,
   isLaunch,
@@ -84,6 +85,12 @@ export default class MainStateManager extends State {
   public gameIsReady() {
     this.setState({
       gameStatus: GameStatus.isReady,
+    });
+  }
+
+  public needMusicLoading() {
+    this.setState({
+      gameStatus: GameStatus.waitMusicLoading,
     });
   }
 

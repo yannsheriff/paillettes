@@ -25,18 +25,18 @@ export default class Game extends Component<{}, state> {
     stepEventEmitter.on(StepEventType.stepdown, this.stepDownListener);
     stepEventEmitter.on(StepEventType.stepup, this.stepUpListener);
 
-    const launchPaillettes = () => {
-      setTimeout(() => {
-        const canvas = document.getElementById("paillettes");
-        if (canvas && canvas instanceof HTMLCanvasElement) {
-          const confetti = new ConfettiGenerator(canvas);
-          confetti.startConfetti(undefined, undefined, 70);
-        }
-        document.removeEventListener("keydown", launchPaillettes);
-      }, 500);
-    };
+    // const launchPaillettes = () => {
+    //   setTimeout(() => {
+    const canvas = document.getElementById("paillettes");
+    if (canvas && canvas instanceof HTMLCanvasElement) {
+      const confetti = new ConfettiGenerator(canvas);
+      confetti.startConfetti(undefined, undefined, 70);
+    }
+    //     document.removeEventListener("keydown", launchPaillettes);
+    //   }, 500);
+    // };
 
-    document.addEventListener("keydown", launchPaillettes);
+    // document.addEventListener("keydown", launchPaillettes);
   }
 
   stepDownListener = (directions: string[]) => {
