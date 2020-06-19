@@ -37,6 +37,7 @@ class PhysicCharacterManager {
     this.crowd = [];
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.subscribe(this.onMainStateChange);
+    this.mainManager.onGameStatusChange(this.gameStatusChange);
     this.scoreManager = ScoreStateManager.getInstance();
     this.scoreManager.onSuccess(this.playAllDanseThenRun);
     this.freestyleManager = FreestyleStateManager.getInstance();
@@ -118,7 +119,7 @@ class PhysicCharacterManager {
     this.colliders.shift();
 
     if (character.isUnlock) {
-      this.scoreManager.registrerUnlockedCharacter(character.name)
+      this.scoreManager.registrerUnlockedCharacter(character.name);
       this.crowd.push(character);
       character.joinCrowd(this.crowd.length);
       this.shiftCrowd();
@@ -131,14 +132,14 @@ class PhysicCharacterManager {
 
   public shiftCrowd() {
     if (this.crowd.length > this.maxCrowdLenght) {
-      this.crowd.forEach(character => {
-        character.shiftCharacter()  // make character run outside screen
+      this.crowd.forEach((character) => {
+        character.shiftCharacter(); // make character run outside screen
       });
       this.crowd.shift(); // remove first character of array
     }
   }
 
-  // this callback remove characters from crowd array 
+  // this callback remove characters from crowd array
   // when they are deleted from scene
   public callbackCharacterDeleted = (id: string) => {
     this.crowd = this.crowd.filter((character) => character.id !== id);
@@ -224,14 +225,18 @@ class PhysicCharacterManager {
       this.endWolrdTransition();
     }
 
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isGameOver
-    ) {
-      this.flushCharacters();
-    }
-
     this.mainState = state;
+  };
+
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.isGameOver:
+        this.flushCharacters();
+        break;
+
+      default:
+        break;
+    }
   };
 
   private onFreestyleStateChange = (state: FreestyleState) => {

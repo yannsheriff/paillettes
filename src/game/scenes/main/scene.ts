@@ -53,7 +53,7 @@ export class GameScene extends Phaser.Scene {
     );
     MainGameManager.getInstance();
 
-    this.mainStateManager.subscribe(this.onMainStateChange);
+    this.mainStateManager.onGameStatusChange(this.gameStatusChange);
   }
 
   public preload(): void {
@@ -134,17 +134,17 @@ export class GameScene extends Phaser.Scene {
     this.glitter?.update();
   }
 
-  private onMainStateChange = (state: MainState) => {
-    // console.log("THE END", state.gameStatus);
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isGameOver
-    ) {
-      // console.log('GameStatus.isGameOver')
-      setTimeout(() => {
-        this.scene.start("ScoreScene");
-        // console.log("Scene start ScoreScene");
-      }, 5000);
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.isGameOver:
+        setTimeout(() => {
+          this.scene.start("ScoreScene");
+          // console.log("Scene start ScoreScene");
+        }, 5000);
+        break;
+
+      default:
+        break;
     }
   };
 }

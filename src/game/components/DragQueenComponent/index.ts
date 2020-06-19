@@ -18,7 +18,6 @@ const Animations = [
 class DragQueenManager {
   private scene: Phaser.Scene;
   private scoreManager: ScoreStateManager;
-  private mainState: MainState;
   private mainManager: MainStateManager;
   private dragQueen?: DragQueen;
   private divinelight?: GodMother;
@@ -28,8 +27,7 @@ class DragQueenManager {
     this.scene = scene;
     this.scoreManager = ScoreStateManager.getInstance();
     this.mainManager = MainStateManager.getInstance();
-    this.mainManager.subscribe(this.onMainStateChange);
-    this.mainState = this.mainManager.state;
+    this.mainManager.onGameStatusChange(this.gameStatusChange);
 
     stepEventEmitter.on(StepEventType.stepdown, this.handleStepDown);
   }
@@ -77,24 +75,21 @@ class DragQueenManager {
     }
   };
 
-  private onMainStateChange = (state: MainState) => {
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isLaunch
-    ) {
-      this.create();
-    }
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isGameOver
-    ) {
-      stepEventEmitter.removeListener(
-        StepEventType.stepdown,
-        this.handleStepDown
-      );
-    }
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.isLaunch:
+        this.create();
+        break;
+      case GameStatus.isGameOver:
+        stepEventEmitter.removeListener(
+          StepEventType.stepdown,
+          this.handleStepDown
+        );
+        break;
 
-    this.mainState = state;
+      default:
+        break;
+    }
   };
 }
 

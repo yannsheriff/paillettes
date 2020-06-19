@@ -4,17 +4,12 @@ import MainStateManager, { GameStatus, MainState } from "../../states/main";
 
 class CurtainsComponent {
   private scene: Phaser.Scene;
-  private mainManager: MainStateManager;
-  private mainState: MainState;
   private curtains?: Curtains;
   private score?: Score;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
-
-    this.mainManager = MainStateManager.getInstance();
-    this.mainManager.subscribe(this.onMainStateChange);
-    this.mainState = this.mainManager.state;
+    MainStateManager.getInstance().onGameStatusChange(this.gameStatusChange);
 
     if (scene.scene.key === "Game") {
       this.createIntro();
@@ -24,12 +19,7 @@ class CurtainsComponent {
   }
 
   private createIntro() {
-    this.curtains = new Curtains(
-      this.scene,
-      "curtains",
-      "logo",
-      false
-    )
+    this.curtains = new Curtains(this.scene, "curtains", "logo", false);
 
     // this.curtains.spine.state.addListener({
     //   start: () => { },
@@ -42,19 +32,9 @@ class CurtainsComponent {
   }
 
   private createScore() {
-    this.curtains = new Curtains(
-      this.scene,
-      "curtains",
-      "open",
-      false
-    )
+    this.curtains = new Curtains(this.scene, "curtains", "open", false);
 
-    this.score = new Score(
-      this.scene,
-      "score",
-      "open",
-      false
-    )
+    this.score = new Score(this.scene, "score", "open", false);
 
     this.curtains.spine.state.addListener({
       start: () => {},
@@ -100,24 +80,21 @@ class CurtainsComponent {
     }
   }
 
-  private onMainStateChange = (state: MainState) => {
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.willLaunch
-    ) {
-      this.curtains!.playAnimation("transition", false);
-    }
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.willLaunch:
+        this.curtains!.playAnimation("transition", false);
+        break;
+      case GameStatus.isGameOver:
+        setTimeout(() => {
+          this.curtains!.playAnimation("close", false);
+        }, 2500);
 
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isGameOver
-    ) {
-      setTimeout(() => {
-        this.curtains!.playAnimation("close", false);
-      }, 2500);
-    }
+        break;
 
-    this.mainState = state;
+      default:
+        break;
+    }
   };
 }
 

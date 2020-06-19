@@ -27,6 +27,7 @@ class BackgroundManager {
     this.canvasWidth = scene.sys.game.canvas.width;
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.subscribe(this.onMainStateChange);
+    this.mainManager.onGameStatusChange(this.gameStatusChange);
     this.mainState = this.mainManager.state;
     this.world = this.mainManager.state.world;
 
@@ -261,13 +262,6 @@ class BackgroundManager {
   }
 
   private onMainStateChange = (state: MainState) => {
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isRunning
-    ) {
-      this.runBackground();
-    }
-
     if (state.world !== this.mainState.world) {
       this.startWorldTransition(state.world);
     }
@@ -280,6 +274,17 @@ class BackgroundManager {
     }
 
     this.mainState = state;
+  };
+
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.isRunning:
+        this.runBackground();
+        break;
+
+      default:
+        break;
+    }
   };
 }
 
