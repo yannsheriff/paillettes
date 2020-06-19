@@ -35,11 +35,17 @@ class LogoComponent {
   }
 
   private create() {
-    this.animation = this.scene.physics.add.sprite(0, 400 * 0.8, "logo-in");
+    let frameWidth = 670;
+    let frameHeight = 910;
 
-    this.animation.setScale(0.8);
+    this.animation = this.scene.physics.add.sprite(0, 400 * 0.8, "logo-in");
+    
+    let scale = window.innerHeight * 0.8 / frameHeight // logo height = 80vh
+
+    this.animation.setScale(scale);
     this.animation.setDepth(51);
 
+    Align.top(this.animation);
     Align.centerH(this.animation);
 
     setTimeout(() => {

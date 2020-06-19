@@ -86,11 +86,11 @@ export default class Game extends Component<{}, state> {
         <div id="brille-cherie-footer">
           <div></div>
           <p>
-            longpress
+            Maintenir
             <img src={isLeftPressed ? leftOn : leftOff} alt="arrow-left" />
-            and
+            et
             <img src={isRightPressed ? rightON : rightOFF} alt="arrow-right" />
-            to start
+            pour débuter
           </p>
         </div>
       </div>
