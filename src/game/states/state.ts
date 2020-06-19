@@ -1,6 +1,7 @@
 export default class State {
   public state: any;
   protected callbacks: Array<(state: any) => any>;
+  protected immuteCallbacks: Array<(state: any) => any>;
 
   /**
    * The Singleton's constructor should always be private to prevent direct
@@ -8,11 +9,16 @@ export default class State {
    */
   constructor() {
     this.callbacks = [];
+    this.immuteCallbacks = [];
     this.state = {};
   }
 
-  public subscribe(callback: (state: any) => any) {
-    this.callbacks.push(callback);
+  public subscribe(callback: (state: any) => any, immutable?: boolean) {
+    if (immutable) {
+      this.immuteCallbacks.push(callback);
+    } else {
+      this.callbacks.push(callback);
+    }
   }
   public reset() {
     this.callbacks = [];
@@ -33,5 +39,6 @@ export default class State {
 
   private dispatch() {
     this.callbacks.forEach((callback) => callback(this.state));
+    this.immuteCallbacks.forEach((callback) => callback(this.state));
   }
 }

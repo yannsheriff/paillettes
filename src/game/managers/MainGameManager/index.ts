@@ -26,12 +26,11 @@ export default class MainGameManager {
     this.mainManager = MainStateManager.getInstance();
     this.mainState = this.mainManager.state;
     this.mainManager.subscribe((main) => (this.mainState = main));
-    this.mainManager.subscribe((main) => (this.mainState = main));
     this.mainManager.onGameStatusChange(this.gameStatusChange, true);
 
     this.freeManager = FreestyleStateManager.getInstance();
     this.freeState = this.freeManager.state;
-    this.freeManager.subscribe(this.freeChange);
+    this.freeManager.subscribe(this.freeChange, true);
 
     this.characterManager = CharacterManager.getInstance();
   }
