@@ -37,8 +37,6 @@ export default class ScoreStateManager extends State {
   private perfectCallbacks: Array<(gridObject: GridObject) => any>;
   private successCallbacks: Array<(gridObject: GridObject) => any>;
   public state: ScoreState;
-  private charactersUnlocked: Array<string> = []
-  private achievementsUnlocked: Array<AchievementType> = []
 
   /**
    * The Singleton's constructor should always be private to prevent direct
@@ -111,15 +109,15 @@ export default class ScoreStateManager extends State {
     this.successCallbacks.push(callback);
   }
   public registrerUnlockedCharacter(assetName: string) {
-    this.charactersUnlocked.push(assetName)
-    this.setState({ 
-        charactersUnlocked: this.charactersUnlocked
+    this.setState({
+        charactersUnlocked: [...this.state.charactersUnlocked, assetName]
     })
   }
   public registerUnlockedAchievement(achievement: AchievementType) {
-    this.achievementsUnlocked.push(achievement)
+    // this.achievementsUnlocked.push(achievement) // non immuable 
+
     this.setState({
-      achievementsUnlocked: this.achievementsUnlocked
+      achievementsUnlocked: [ ...this.state.achievementsUnlocked, achievement] // immuable 
     });
   }
   private dispatchGood(arrow: GridObject) {
