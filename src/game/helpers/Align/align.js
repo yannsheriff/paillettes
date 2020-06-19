@@ -52,13 +52,13 @@ class Align {
     obj.x = 0 - (spine.displayWidth * scale) / 2;
   }
   static dragPosition(obj, spine, scale) {
-    obj.x = window.innerWidth / 2 - 200;
+    obj.x = window.innerWidth / 2 - 150;
   }
   static crowdPosition(obj, spine, scale) {
-    obj.x = window.innerWidth / 2 - 220;
+    obj.x = window.innerWidth / 2 - 300;
   }
   static charactersOnGround(obj, spine, scale) {
-    obj.y = window.innerHeight - window.innerHeight / 5 - 150;
+    obj.y = window.innerHeight - window.innerHeight / 5 - 170;
   }
   static centerPlaneBottom(obj) {
     // ground position - ground height - centerbottom
