@@ -19,7 +19,8 @@ class LogoComponent {
     this.animIsPlaying = false;
 
     this.mainManager = MainStateManager.getInstance();
-    this.mainManager.subscribe(this.onMainStateChange);
+    this.mainManager.onGameStatusChange(this.gameStatusChange);
+    this.mainManager.subscribe((s) => (this.mainState = s));
     this.mainState = this.mainManager.state;
 
     stepEventEmitter.on(StepEventType.stepdown, (directions: Array<string>) =>
@@ -90,22 +91,18 @@ class LogoComponent {
     }
   };
 
-  private onMainStateChange = (state: MainState) => {
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.willLaunch
-    ) {
-      this.animation!.anims.play("logo-out");
-    }
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.willLaunch:
+        this.animation!.anims.play("logo-out");
+        break;
+      case GameStatus.waitMusicLoading:
+        this.animation!.anims.play("logo-in");
+        break;
 
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.waitMusicLoading
-    ) {
-      this.animation!.anims.play("logo-in");
+      default:
+        break;
     }
-
-    this.mainState = state;
   };
 }
 

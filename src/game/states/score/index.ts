@@ -1,4 +1,8 @@
-import MainStateManager, { MainState, DifficultyModes } from "../main";
+import MainStateManager, {
+  MainState,
+  DifficultyModes,
+  GameStatus,
+} from "../main";
 import State from "../state";
 import { GridObject } from "../../components/SheetMusicComponent";
 
@@ -17,10 +21,10 @@ export default class ScoreStateManager extends State {
   private static instance: ScoreStateManager;
   private mainState: MainState;
   private mainStateManager: MainStateManager;
-  private failCallbacks: Array<(gridObject: GridObject) => any>;
-  private goodCallbacks: Array<(gridObject: GridObject) => any>;
-  private perfectCallbacks: Array<(gridObject: GridObject) => any>;
-  private successCallbacks: Array<(gridObject: GridObject) => any>;
+  private failCallbacks: Array<(gridObject: GridObject) => unknown>;
+  private goodCallbacks: Array<(gridObject: GridObject) => unknown>;
+  private perfectCallbacks: Array<(gridObject: GridObject) => unknown>;
+  private successCallbacks: Array<(gridObject: GridObject) => unknown>;
   public state: ScoreState;
 
   /**
@@ -95,7 +99,7 @@ export default class ScoreStateManager extends State {
     this.successCallbacks.push(callback);
   }
   public registrerUnlockedCharacter(assetName: string) {
-    this.state.charactersUnlocked.push(assetName)
+    this.state.charactersUnlocked.push(assetName);
   }
 
   private dispatchGood(arrow: GridObject) {

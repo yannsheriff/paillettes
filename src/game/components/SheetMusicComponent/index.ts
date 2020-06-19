@@ -97,6 +97,7 @@ class SheetMusic {
     this.freestyleManager.subscribe(this.onFreeStateChange);
     this.scoreManager.onFail(this.failedArrow);
     this.scoreManager.onSuccess(this.successArrow);
+    this.mainManager.onGameStatusChange(this.gameStatusChange);
 
     // TIME HELPERS
     this.arrowSpeed = this.mainState.objectSpeed;
@@ -430,21 +431,21 @@ class SheetMusic {
     this.player?.stop();
   }
 
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.isLaunch:
+        this.initSheetMusic();
+        break;
+      case GameStatus.isGameOver:
+        this.destroySheetMusic();
+        break;
+
+      default:
+        break;
+    }
+  };
+
   private onStateChange = (state: MainState) => {
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isLaunch
-    ) {
-      this.initSheetMusic();
-    }
-
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isGameOver
-    ) {
-      this.destroySheetMusic();
-    }
-
     if (state.difficulty !== this.mainState.difficulty) {
       switch (state.difficulty) {
         case DifficultyModes.easy:

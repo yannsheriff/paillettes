@@ -44,6 +44,7 @@ export default class MainStateManager extends State {
   private static instance: MainStateManager;
   public state: MainState;
   private remainingWorlds: Worlds[];
+  private gameStatusCallback: Array<(gridObject: GameStatus) => unknown>;
 
   /**
    * The Singleton's constructor should always be private to prevent direct
@@ -52,6 +53,7 @@ export default class MainStateManager extends State {
   private constructor() {
     super();
     this.state = initialState;
+    this.gameStatusCallback = [];
 
     const world = randomEnumValue(Worlds);
 
@@ -86,19 +88,21 @@ export default class MainStateManager extends State {
     this.setState({
       gameStatus: GameStatus.isReady,
     });
+    this.gameStatusChange();
   }
 
   public needMusicLoading() {
     this.setState({
       gameStatus: GameStatus.waitMusicLoading,
     });
+    this.gameStatusChange();
   }
 
   public launchGame() {
     this.setState({
       gameStatus: GameStatus.willLaunch,
     });
-
+    this.gameStatusChange();
     setTimeout(this.launch, 1000);
   }
 
@@ -106,18 +110,28 @@ export default class MainStateManager extends State {
     this.setState({
       gameStatus: GameStatus.isLaunch,
     });
+
+    this.gameStatusChange();
   };
 
   public runGame() {
     this.setState({
       gameStatus: GameStatus.isRunning,
     });
+    this.gameStatusChange();
   }
 
   public endGame() {
     this.setState({
       gameStatus: GameStatus.isGameOver,
     });
+    this.gameStatusChange();
+  }
+
+  private gameStatusChange() {
+    this.gameStatusCallback.forEach((callback) =>
+      callback(this.state.gameStatus)
+    );
   }
 
   public restart() {
@@ -140,15 +154,22 @@ export default class MainStateManager extends State {
     ].filter((w) => w !== world);
   }
 
-
   public incrementDifficulty() {
     const { difficulty } = this.state;
-    this.setState({ difficulty: difficulty > 2 ? 3 : difficulty + 1 });
+    this.setState({
+      difficulty: difficulty > 2 ? 3 : difficulty + 1,
+    });
   }
 
   public decrementDifficulty() {
     const { difficulty } = this.state;
-    this.setState({ difficulty: difficulty < 1 ? 0 : difficulty - 1 });
+    this.setState({
+      difficulty: difficulty < 1 ? 0 : difficulty - 1,
+    });
+  }
+
+  public onGameStatusChange(callback: (status: GameStatus) => unknown) {
+    this.gameStatusCallback.push(callback);
   }
 
   public changeWorld() {

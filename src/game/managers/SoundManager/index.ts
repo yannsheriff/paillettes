@@ -1,5 +1,6 @@
 import ScoreStateManager from "../../states/score";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
+import MainStateManager, { GameStatus } from "../../states/main";
 
 const soundConfig = {
   mute: false,
@@ -17,10 +18,8 @@ export default class SoundManager {
   freestyle: Phaser.Sound.BaseSound;
   perfect: Phaser.Sound.BaseSound;
   good: Phaser.Sound.BaseSound;
-  /**
-   * The Singleton's constructor should always be private to prevent direct
-   * construction calls with the `new` operator.
-   */
+  home: Phaser.Sound.BaseSound;
+
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.fail = this.scene.sound.add("failSound", soundConfig);
@@ -30,18 +29,26 @@ export default class SoundManager {
     });
     this.perfect = this.scene.sound.add("perfectSound", soundConfig);
     this.good = this.scene.sound.add("goodSound", soundConfig);
-
-    // this.perfect.play();
+    this.home = this.scene.sound.add("home", {
+      ...soundConfig,
+      volume: 0.3,
+    });
 
     const scoreManager = ScoreStateManager.getInstance();
     scoreManager.onFail(this.playFail);
     scoreManager.onGood(this.playGood);
     scoreManager.onPerfect(this.playPerfect);
     FreestyleStateManager.getInstance().subscribe(this.checkFreestyle);
+
+    const mainStateManager = MainStateManager.getInstance();
+    mainStateManager.onGameStatusChange(this.gameStatusChange);
   }
 
   public playFail = () => {
     this.fail.play();
+  };
+  public playHome = () => {
+    this.home.play();
   };
   public playGood = () => {
     this.good.play();
@@ -58,6 +65,27 @@ export default class SoundManager {
       this.playFreestyle();
     }
   };
+
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.isReady:
+        this.home.play();
+        break;
+      case GameStatus.willLaunch:
+        this.scene.tweens.add({
+          targets: this.home,
+          volume: 0,
+          duration: 1000,
+          onComplete: () => this.home.stop(),
+        });
+
+        break;
+
+      default:
+        break;
+    }
+  };
+
   /**
    * The static method that controls the access to the singleton instance.
    *
