@@ -285,7 +285,7 @@ class SheetMusic {
     if (gridObject instanceof Letter) {
       this.freestyleManager.failLetter();
     }
-    gridObject.delete();
+    gridObject.fadeOut();
   };
 
   /**

@@ -41,8 +41,11 @@ class GridObject extends Phaser.Physics.Arcade.Sprite {
     this.scene.tweens.add({
       targets: this,
       alpha: 0,
-      duration: 500,
-      ease: 'Power2'
+      duration: 200,
+      ease: 'Power2',
+      onComplete: () => {
+        this.delete()
+      },
     });
   }
 
