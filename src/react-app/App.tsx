@@ -13,7 +13,7 @@ export default class App extends Component<{}, state> {
     super(props);
 
     this.state = {
-      showStart: true,
+      showStart: false,
       gameIsReady: false,
     };
 
@@ -22,6 +22,7 @@ export default class App extends Component<{}, state> {
   }
 
   private onStateChange = (state: MainState) => {
+    console.log("GameStatus : ", state.gameStatus);
     if (
       state.gameStatus === GameStatus.isLaunch &&
       state.gameStatus !== this.mainState.gameStatus
@@ -35,7 +36,7 @@ export default class App extends Component<{}, state> {
       state.gameStatus !== this.mainState.gameStatus
     ) {
       this.mainState = state;
-      this.setState({ gameIsReady: true });
+      this.setState({ gameIsReady: true, showStart: true });
     }
   };
 

@@ -100,7 +100,7 @@ class LogoComponent {
 
     if (
       state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isReady
+      state.gameStatus === GameStatus.waitMusicLoading
     ) {
       this.animation!.anims.play("logo-in");
     }

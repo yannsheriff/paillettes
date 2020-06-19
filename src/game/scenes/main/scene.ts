@@ -22,8 +22,7 @@ import MainStateManager, { MainState, GameStatus } from "../../states/main";
 import GlitterComponent from "../../components/GlitterComponent";
 import CurtainsComponent from "../../components/CurtainsComponent";
 import LogoComponent from "../../components/LogoComponent";
-import ConfettiScene from "../test/confetti/conffeti";
-import ConfettiConfig from "../test/confetti/config";
+import SoundManager from "../../managers/SoundManager";
 
 export class GameScene extends Phaser.Scene {
   private text?: Phaser.GameObjects.Text;
@@ -66,13 +65,6 @@ export class GameScene extends Phaser.Scene {
       this.startGame();
     }
 
-    this.load.plugin(
-      "rexcanvasplugin",
-      "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexcanvasplugin.min.js",
-      true
-    );
-
-    // this.scene.add("Confetti", ConfettiScene, true);
     this.animationManager.preload();
     this.assetsManager.preload();
   }
@@ -96,7 +88,7 @@ export class GameScene extends Phaser.Scene {
   };
 
   startGame = () => {
-    this.mainStateManager.gameIsReady();
+    this.mainStateManager.needMusicLoading();
     this.text!.destroy();
 
     setTimeout(() => {
@@ -109,22 +101,23 @@ export class GameScene extends Phaser.Scene {
       new SheetMusicComponent(this, this.CharacterManager);
       new DragQueenComponent(this);
       new GodMotherComponent(this);
+      new SoundManager(this);
       this.glitter = new GlitterComponent(this);
 
       // @ts-ignore
       this.isDebug = this.game.config.physics.arcade.debug;
 
       this.add
-        .text(20, 20, 'Score', { fill: 'red' })
+        .text(20, 20, "Score", { fill: "red" })
         .setInteractive()
         .setDepth(99)
-        .on('pointerdown', () => {
+        .on("pointerdown", () => {
           if (!this.isGoingScore) {
-            alert('going score')
+            alert("going score");
             this.mainStateManager.endGame();
-            this.isGoingScore = true
+            this.isGoingScore = true;
           }
-        })
+        });
 
       // test number of items displayed in scene
       if (this.isDebug) {

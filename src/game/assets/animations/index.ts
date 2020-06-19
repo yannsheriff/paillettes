@@ -17,6 +17,7 @@ import {
   F,
   R,
   logo,
+  barLoaderTipSprite,
 } from "../index";
 
 export const mainAnimations: AnimationData[] = [
@@ -398,6 +399,16 @@ export const mainAnimations: AnimationData[] = [
     startFrame: 26,
     endFrame: 86,
     frameRate: 21,
+    repeat: 0,
+  },
+  {
+    key: "loaderTip-on",
+    asset: barLoaderTipSprite,
+    frameWidth: 209,
+    frameHeight: 83,
+    startFrame: 0,
+    endFrame: 4,
+    frameRate: 25,
     repeat: 0,
   },
 ];

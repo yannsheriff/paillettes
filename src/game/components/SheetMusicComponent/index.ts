@@ -66,6 +66,7 @@ class SheetMusic {
   private called: boolean;
   private arrowUntilLetter: number;
   private freeInterval?: NodeJS.Timeout;
+  private isMusicComplete: boolean = false;
 
   constructor(scene: Phaser.Scene, characterManager: CharacterManager) {
     this.scene = scene;
@@ -79,8 +80,8 @@ class SheetMusic {
     this.gridObjects = [];
 
     // SHEET MUSIC SIZE AND POSITION
-    this.posX = window.innerWidth / 2;
-    this.posY = window.innerHeight - heightBetweenSheetHBar * this.scale;
+    this.posX = window.innerWidth / 2 + this.inputZoneWidth / 2 - 60;
+    this.posY = window.innerHeight + 20 - heightBetweenSheetHBar * this.scale;
     this.sheetWidth = window.innerWidth - this.posX;
     this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
 
@@ -123,7 +124,7 @@ class SheetMusic {
 
     new FreeLights(
       this.scene,
-      this.posX - 310,
+      this.posX - 260,
       this.posY + 30,
       this.inputZoneWidth,
       this.scale
@@ -131,7 +132,7 @@ class SheetMusic {
 
     new Chrono(this.scene, this.posX - 280, this.posY + 80, this.scale);
 
-    new Score(this.scene, this.posX - 300, this.posY - 70, this.scale);
+    new Score(this.scene, this.posX - 250, this.posY - 70, this.scale);
 
     new Subtitle(this.scene);
 
@@ -162,6 +163,7 @@ class SheetMusic {
         this.music = Musics.hungup;
         this.player = new MusicPlayer(this.music, this.arrowEmitter);
         document.removeEventListener("keydown", initMusic);
+        this.mainManager.gameIsReady();
       }
     };
     document.addEventListener("keydown", initMusic);
@@ -188,8 +190,11 @@ class SheetMusic {
       music.play();
 
       music.once("complete", () => {
-        this.mainManager.endGame();
-        // console.log("music completed so end game");
+        if (!this.isMusicComplete) {
+          console.log("music completed so end game");
+          this.mainManager.endGame();
+          this.isMusicComplete = true;
+        }
       });
     }, time);
   }
@@ -281,7 +286,7 @@ class SheetMusic {
     if (gridObject instanceof Letter) {
       this.freestyleManager.failLetter();
     }
-    gridObject.delete();
+    gridObject.fadeOut();
   };
 
   /**

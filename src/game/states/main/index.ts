@@ -14,6 +14,7 @@ export enum Worlds {
 }
 export enum GameStatus {
   isLoading,
+  waitMusicLoading,
   isReady,
   willLaunch,
   isLaunch,
@@ -87,6 +88,12 @@ export default class MainStateManager extends State {
     });
   }
 
+  public needMusicLoading() {
+    this.setState({
+      gameStatus: GameStatus.waitMusicLoading,
+    });
+  }
+
   public launchGame() {
     this.setState({
       gameStatus: GameStatus.willLaunch,
@@ -94,6 +101,12 @@ export default class MainStateManager extends State {
 
     setTimeout(this.launch, 1000);
   }
+
+  private launch = () => {
+    this.setState({
+      gameStatus: GameStatus.isLaunch,
+    });
+  };
 
   public runGame() {
     this.setState({
@@ -127,11 +140,6 @@ export default class MainStateManager extends State {
     ].filter((w) => w !== world);
   }
 
-  private launch = () => {
-    this.setState({
-      gameStatus: GameStatus.isLaunch,
-    });
-  };
 
   public incrementDifficulty() {
     const { difficulty } = this.state;

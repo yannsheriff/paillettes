@@ -4,7 +4,7 @@ import Align from "../../../helpers/Align/align";
 const animations = [
   "close", "open", "loop-score", "code-open", "loop-code", "code-closed", "logo", "transition"
 ]
-class Curtains extends SpineContainer {
+class Score extends SpineContainer {
   constructor(
     scene: Phaser.Scene,
     key: string,
@@ -16,31 +16,21 @@ class Curtains extends SpineContainer {
     let scale;
     // full screen asset
     if (window.innerHeight < window.innerWidth) {
-      scale = window.innerWidth / this.spineBody.width
+      scale = window.innerWidth / 2 / this.spineBody.width
     } else {
       scale = window.innerHeight / this.spineBody.height
     }
     scale += 0.05;
 
     this.setScale(scale); // asset size
-    this.setDepth(20);
-
-    // placer son x en fonction de la moitié de la largeur
-    // placer son y en fonction du bas
-    // this.spineBody.width = valeur reelle
+    this.setDepth(9);
 
     this.x = window.innerWidth / 2 // ok
     this.y = 0;
-    // this.y = this.spineBody.height * scale + 300
 
-    // Align.centerV(this)
-    // Align.centerH(this)
     scene.add.existing(this)
 
     this.drawDebug(false)
-    // this.allowCollideWorldBounds(true)
-
-    // this.runVelocity(50)
   }
 
   public play() {
@@ -52,4 +42,4 @@ class Curtains extends SpineContainer {
   }
 }
 
-export default Curtains;
+export default Score;

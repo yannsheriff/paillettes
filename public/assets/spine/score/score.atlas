@@ -1,0 +1,76 @@
+
+score.png
+size: 1894,355
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+C1
+  rotate: false
+  xy: 1231, 21
+  size: 176, 332
+  orig: 179, 334
+  offset: 2, 1
+  index: -1
+C2
+  rotate: false
+  xy: 1409, 21
+  size: 176, 332
+  orig: 179, 334
+  offset: 2, 1
+  index: -1
+E1
+  rotate: true
+  xy: 823, 200
+  size: 153, 406
+  orig: 156, 408
+  offset: 2, 1
+  index: -1
+E2
+  rotate: true
+  xy: 823, 45
+  size: 153, 406
+  orig: 161, 408
+  offset: 7, 1
+  index: -1
+O1
+  rotate: false
+  xy: 2, 11
+  size: 207, 342
+  orig: 209, 344
+  offset: 1, 1
+  index: -1
+O2
+  rotate: false
+  xy: 211, 11
+  size: 207, 342
+  orig: 209, 344
+  offset: 1, 1
+  index: -1
+R1
+  rotate: false
+  xy: 1743, 11
+  size: 149, 342
+  orig: 151, 344
+  offset: 1, 1
+  index: -1
+R2
+  rotate: false
+  xy: 1587, 2
+  size: 154, 351
+  orig: 156, 353
+  offset: 1, 1
+  index: -1
+S1
+  rotate: true
+  xy: 420, 180
+  size: 173, 401
+  orig: 175, 404
+  offset: 1, 2
+  index: -1
+S2
+  rotate: true
+  xy: 420, 5
+  size: 173, 401
+  orig: 175, 404
+  offset: 1, 2
+  index: -1
