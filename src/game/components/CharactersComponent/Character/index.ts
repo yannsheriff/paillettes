@@ -21,8 +21,8 @@ class PhysicCharacter extends SpineContainer {
   // private updateCrowdCallback: () => void
 
   public speedOut: number = 250;
-  public distanceBetweenCharacters: number = 80;
-  public crowdPositionX: number = window.innerWidth / 2 - 240;
+  public distanceBetweenCharacters: number = 60;
+  public crowdPositionX: number = window.innerWidth / 2 - 210;
 
   constructor(
     scene: Phaser.Scene,
