@@ -185,15 +185,15 @@ class SheetMusic {
     this.player?.start();
     const time = muscisFile.get(this.music!)["header"]["bc-delay-sync"];
     setTimeout(() => {
-      const music = this.scene.sound.add("musictest");
-      // const music = this.scene.sound.add("hungup");
+      // const music = this.scene.sound.add("musictest");
+      const music = this.scene.sound.add("hungup");
       music.play();
 
       music.once("complete", () => {
         if (!this.isMusicComplete) {
           console.log("music completed so end game");
           this.mainManager.endGame();
-          this.isMusicComplete = true
+          this.isMusicComplete = true;
         }
       });
     }, time);
