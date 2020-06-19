@@ -52,6 +52,8 @@ export { default as failSound } from "./sound/fail.mp3";
 export { default as freestyleSound } from "./sound/freestyle.mp3";
 export { default as goodSound } from "./sound/good.mp3";
 export { default as perfectSound } from "./sound/perfect.mp3";
+export { default as scoreSound } from "./sound/score.mp3";
+export { default as applauseSound } from "./sound/applause.mp3";
 
 // ANIM
 export { default as logo } from "./animations/logo.png";

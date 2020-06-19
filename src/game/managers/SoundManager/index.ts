@@ -13,14 +13,30 @@ const soundConfig = {
 };
 
 export default class SoundManager {
-  scene: Phaser.Scene;
-  fail: Phaser.Sound.BaseSound;
-  freestyle: Phaser.Sound.BaseSound;
-  perfect: Phaser.Sound.BaseSound;
-  good: Phaser.Sound.BaseSound;
-  home: Phaser.Sound.BaseSound;
+  private static instance: SoundManager;
+  private scene: Phaser.Scene;
+  private fail: Phaser.Sound.BaseSound;
+  private freestyle: Phaser.Sound.BaseSound;
+  private perfect: Phaser.Sound.BaseSound;
+  private good: Phaser.Sound.BaseSound;
+  private applause: Phaser.Sound.BaseSound;
+  private score: Phaser.Sound.BaseSound;
+  private home: Phaser.Sound.BaseSound;
 
-  constructor(scene: Phaser.Scene) {
+  /**
+   * The static method that controls the access to the singleton instance.
+   *
+   * This implementation let you subclass the Singleton class while keeping
+   * just one instance of each subclass around.
+   */
+  public static getInstance(scene: Phaser.Scene): SoundManager {
+    if (!this.instance) {
+      this.instance = new SoundManager(scene);
+    }
+    return this.instance;
+  }
+
+  private constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.fail = this.scene.sound.add("failSound", soundConfig);
     this.freestyle = this.scene.sound.add("freestyleSound", {
@@ -29,6 +45,11 @@ export default class SoundManager {
     });
     this.perfect = this.scene.sound.add("perfectSound", soundConfig);
     this.good = this.scene.sound.add("goodSound", soundConfig);
+    this.score = this.scene.sound.add("scoreSound", soundConfig);
+    this.applause = this.scene.sound.add("applauseSound", {
+      ...soundConfig,
+      volume: 0.2,
+    });
     this.home = this.scene.sound.add("home", {
       ...soundConfig,
       volume: 0.3,
@@ -59,6 +80,11 @@ export default class SoundManager {
   public playFreestyle = () => {
     this.freestyle.play();
   };
+  public playScore = () => {
+    console.log("playscore sound");
+
+    this.score.play();
+  };
 
   private checkFreestyle = (state: FreestyleState) => {
     if (state.isFreestyleActivated) {
@@ -72,13 +98,17 @@ export default class SoundManager {
         this.home.play();
         break;
       case GameStatus.willLaunch:
+        console.log("szefrg");
+
         this.scene.tweens.add({
           targets: this.home,
           volume: 0,
           duration: 1000,
           onComplete: () => this.home.stop(),
         });
-
+        break;
+      case GameStatus.isGameOver:
+        setTimeout(() => this.applause.play(), 4000);
         break;
 
       default:
