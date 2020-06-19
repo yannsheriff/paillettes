@@ -1,7 +1,7 @@
 import * as Phaser from "phaser";
 import "phaser/plugins/spine/dist/SpinePlugin";
 
-import MainScene from "./scenes/main";
+import GameScene from "./scenes/Game";
 import TestScene from "./scenes/test";
 import TestSceneSpine from "./scenes/test/spine";
 import TestSceneDrag from "./scenes/test/dragqueen";
@@ -13,6 +13,7 @@ import TestSceneCurtainAfter from "./scenes/test/curtain/after";
 import confetti from "./scenes/test/confetti";
 import Score from "./scenes/Score";
 import ScoreScene from "./scenes/Score";
+import MainScene from "./scenes/Main";
 
 export const DEFAULT_WIDTH = 1280;
 export const DEFAULT_HEIGHT = 720;
@@ -37,7 +38,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: false,
     },
   },
-  scene: [MainScene, ScoreScene],
+  scene: [MainScene, GameScene, ScoreScene],
   // scene: [TestScene, TestSceneSpine, TestSceneDrag, TestSceneBackground, TestSceneCrowd, TestSceneBlob],
   plugins: {
     scene: [

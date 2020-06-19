@@ -6,6 +6,7 @@ import Ground from "../../components/GroundComponent";
 import ScoreCrowdComponent from "../../components/ScoreCrowdComponent";
 import CurtainsComponent from "../../components/CurtainsComponent";
 import Align from "../../helpers/Align/align";
+import SoundManager from "../../managers/SoundManager";
 
 export default class ScoreScene extends Phaser.Scene {
   private confettiManager?: ConfettiGenerator;
@@ -13,31 +14,35 @@ export default class ScoreScene extends Phaser.Scene {
   private barComponent?: BarComponent;
   private curtainsComponent?: CurtainsComponent;
   private scoreCrowd?: ScoreCrowdComponent;
+  private soundMananger?: SoundManager;
 
   constructor() {
     super(config);
   }
 
-  public preload(): void {
-  }
-
   public create() {
     // === Confettti component
-    // this.glitter = new GlitterComponent(this);
-    // this.glitter.confettiManager?.grow();
-    // this.glitter.confettiManager?.startConfetti();
+    this.glitter = new GlitterComponent(this);
+    this.soundMananger = SoundManager.getInstance(this);
+    this.glitter.confettiManager?.grow();
+    this.glitter.confettiManager?.startConfetti();
 
-    let background = this.add.image(0, 0, "scoreBackground")
+    let background = this.add.image(0, 0, "scoreBackground");
     if (window.innerWidth > window.innerHeight) {
-      Align.scaleToGameW(background, 1.2)
+      Align.scaleToGameW(background, 1.2);
     } else {
-      Align.scaleToGameH(background, 1.2)
+      Align.scaleToGameH(background, 1.2);
     }
-    Align.centerH(background)
-    Align.centerV(background)
+    Align.centerH(background);
+    Align.centerV(background);
 
     // === Crowd component
-    this.scoreCrowd = new ScoreCrowdComponent(this, 0.8, this.onCharacterPass, this.onEnd);
+    this.scoreCrowd = new ScoreCrowdComponent(
+      this,
+      0.8,
+      this.onCharacterPass,
+      this.onEnd
+    );
 
     // === Bar component
     this.barComponent = new BarComponent(this, 0.8);
@@ -48,16 +53,17 @@ export default class ScoreScene extends Phaser.Scene {
     // Success component
 
     // Curtains component
-    this.curtainsComponent = new CurtainsComponent(this)
+    this.curtainsComponent = new CurtainsComponent(this);
   }
 
   onCharacterPass = () => {
     this.scoreCrowd?.increment();
     this.barComponent?.increment();
+    this.soundMananger?.playScore();
   };
 
   onEnd = () => {
-    this.curtainsComponent?.initCodeAnimations()
+    this.curtainsComponent?.initCodeAnimations();
     // console.log("End.");
   };
 

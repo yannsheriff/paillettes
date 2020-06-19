@@ -67,6 +67,7 @@ class SheetMusic {
   private arrowUntilLetter: number;
   private freeInterval?: NodeJS.Timeout;
   private isMusicComplete: boolean = false;
+  private playingMusic?: Phaser.Sound.BaseSound;
 
   constructor(scene: Phaser.Scene, characterManager: CharacterManager) {
     this.scene = scene;
@@ -187,10 +188,10 @@ class SheetMusic {
     const time = muscisFile.get(this.music!)["header"]["bc-delay-sync"];
     setTimeout(() => {
       // const music = this.scene.sound.add("musictest");
-      const music = this.scene.sound.add("hungup");
-      music.play();
+      this.playingMusic = this.scene.sound.add("hungup");
+      this.playingMusic.play();
 
-      music.once("complete", () => {
+      this.playingMusic.once("complete", () => {
         if (!this.isMusicComplete) {
           console.log("music completed so end game");
           this.mainManager.endGame();
@@ -428,6 +429,7 @@ class SheetMusic {
 
   private destroySheetMusic() {
     this.arrowEmitter.removeListener("note", this.throttleArrow);
+    this.playingMusic?.stop();
     this.player?.stop();
   }
 

@@ -29,6 +29,8 @@ import {
   perfectSound,
   goodSound,
   homeMusic,
+  scoreSound,
+  applauseSound,
 } from "../index";
 
 export const mainImages: ImageData[] = [
@@ -86,6 +88,8 @@ export const mainMusic: MusicData[] = [
   { key: "failSound", asset: failSound },
   { key: "freestyleSound", asset: freestyleSound },
   { key: "perfectSound", asset: perfectSound },
+  { key: "scoreSound", asset: scoreSound },
+  { key: "applauseSound", asset: applauseSound },
   { key: "goodSound", asset: goodSound },
   // { key: "sisi", asset: sisi },
   // { key: "zelda", asset: zelda },
