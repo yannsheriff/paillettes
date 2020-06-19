@@ -67,6 +67,7 @@ class SheetMusic {
   private arrowUntilLetter: number;
   private freeInterval?: NodeJS.Timeout;
   private isMusicComplete: boolean = false;
+  private playingMusic?: Phaser.Sound.BaseSound;
 
   constructor(scene: Phaser.Scene, characterManager: CharacterManager) {
     this.scene = scene;
@@ -80,8 +81,8 @@ class SheetMusic {
     this.gridObjects = [];
 
     // SHEET MUSIC SIZE AND POSITION
-    this.posX = window.innerWidth / 2;
-    this.posY = window.innerHeight - heightBetweenSheetHBar * this.scale;
+    this.posX = window.innerWidth / 2 + this.inputZoneWidth / 2 - 60;
+    this.posY = window.innerHeight + 20 - heightBetweenSheetHBar * this.scale;
     this.sheetWidth = window.innerWidth - this.posX;
     this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
 
@@ -97,6 +98,7 @@ class SheetMusic {
     this.freestyleManager.subscribe(this.onFreeStateChange);
     this.scoreManager.onFail(this.failedArrow);
     this.scoreManager.onSuccess(this.successArrow);
+    this.mainManager.onGameStatusChange(this.gameStatusChange);
 
     // TIME HELPERS
     this.arrowSpeed = this.mainState.objectSpeed;
@@ -124,7 +126,7 @@ class SheetMusic {
 
     new FreeLights(
       this.scene,
-      this.posX - 310,
+      this.posX - 260,
       this.posY + 30,
       this.inputZoneWidth,
       this.scale
@@ -132,7 +134,7 @@ class SheetMusic {
 
     new Chrono(this.scene, this.posX - 280, this.posY + 80, this.scale);
 
-    new Score(this.scene, this.posX - 300, this.posY - 70, this.scale);
+    new Score(this.scene, this.posX - 250, this.posY - 70, this.scale);
 
     new Subtitle(this.scene);
 
@@ -163,6 +165,7 @@ class SheetMusic {
         this.music = Musics.hungup;
         this.player = new MusicPlayer(this.music, this.arrowEmitter);
         document.removeEventListener("keydown", initMusic);
+        this.mainManager.gameIsReady();
       }
     };
     document.addEventListener("keydown", initMusic);
@@ -185,14 +188,14 @@ class SheetMusic {
     const time = muscisFile.get(this.music!)["header"]["bc-delay-sync"];
     setTimeout(() => {
       // const music = this.scene.sound.add("musictest");
-      const music = this.scene.sound.add("hungup");
-      music.play();
+      this.playingMusic = this.scene.sound.add("hungup");
+      this.playingMusic.play();
 
-      music.once("complete", () => {
+      this.playingMusic.once("complete", () => {
         if (!this.isMusicComplete) {
           console.log("music completed so end game");
           this.mainManager.endGame();
-          this.isMusicComplete = true
+          this.isMusicComplete = true;
         }
       });
     }, time);
@@ -285,7 +288,7 @@ class SheetMusic {
     if (gridObject instanceof Letter) {
       this.freestyleManager.failLetter();
     }
-    gridObject.delete();
+    gridObject.fadeOut();
   };
 
   /**
@@ -426,24 +429,25 @@ class SheetMusic {
 
   private destroySheetMusic() {
     this.arrowEmitter.removeListener("note", this.throttleArrow);
+    this.playingMusic?.stop();
     this.player?.stop();
   }
 
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.isLaunch:
+        this.initSheetMusic();
+        break;
+      case GameStatus.isGameOver:
+        this.destroySheetMusic();
+        break;
+
+      default:
+        break;
+    }
+  };
+
   private onStateChange = (state: MainState) => {
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isLaunch
-    ) {
-      this.initSheetMusic();
-    }
-
-    if (
-      state.gameStatus !== this.mainState.gameStatus &&
-      state.gameStatus === GameStatus.isGameOver
-    ) {
-      this.destroySheetMusic();
-    }
-
     if (state.difficulty !== this.mainState.difficulty) {
       switch (state.difficulty) {
         case DifficultyModes.easy:

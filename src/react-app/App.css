@@ -47,7 +47,9 @@ body,
 #brille-cherie-footer {
   position: absolute;
   box-sizing: border-box;
-  bottom: 34px;
+  animation: slide 0.3s ease forwards;
+  animation-delay: 1s;
+  bottom: -16vh;
   width: 550px;
   height: 15vh;
   max-height: 400px;
@@ -69,4 +71,10 @@ body,
   width: 40px;
   vertical-align: middle;
   margin: 0 14px;
+}
+
+@keyframes slide {
+  100% {
+    bottom: 34px;
+  }
 }

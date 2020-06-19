@@ -24,6 +24,13 @@ import {
   // zelda,
   bar,
   scoreBackground,
+  failSound,
+  freestyleSound,
+  perfectSound,
+  goodSound,
+  homeMusic,
+  scoreSound,
+  applauseSound,
 } from "../index";
 
 export const mainImages: ImageData[] = [
@@ -71,11 +78,19 @@ export const mainSpines: SpineData[] = [
   { key: "godmother", path: "assets/spine/godmother/" },
   { key: "achievement", path: "assets/spine/achievement/" },
   { key: "curtains", path: "assets/spine/curtains/" },
+  { key: "score", path: "assets/spine/score/" },
 ];
 
 export const mainMusic: MusicData[] = [
   { key: "hungup", asset: hungup },
   { key: "musictest", asset: musictest },
+  { key: "home", asset: homeMusic },
+  { key: "failSound", asset: failSound },
+  { key: "freestyleSound", asset: freestyleSound },
+  { key: "perfectSound", asset: perfectSound },
+  { key: "scoreSound", asset: scoreSound },
+  { key: "applauseSound", asset: applauseSound },
+  { key: "goodSound", asset: goodSound },
   // { key: "sisi", asset: sisi },
   // { key: "zelda", asset: zelda },
 ];

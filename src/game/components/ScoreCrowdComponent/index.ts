@@ -37,7 +37,7 @@ class ScoreCrowdComponent {
 
   create() {
     const unlockedCharLength = this.finalCrowd.length;
-    const intervalDuration = charactersCountDuration / unlockedCharLength;
+    const intervalDuration = 320;
     let delay = 0;
 
     if (unlockedCharLength > 0) {

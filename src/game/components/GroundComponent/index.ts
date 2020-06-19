@@ -12,8 +12,6 @@ class Ground {
   private grounds: Phaser.GameObjects.Image[];
   private groundsAngles: number[];
   private canRotate: boolean = false;
-  private mainState: MainState;
-  private mainManager: MainStateManager;
   // base ground height = 220px
   private positionGroundY = window.innerHeight - window.innerHeight / 5;
 
@@ -28,9 +26,7 @@ class Ground {
     this.rotationSpeed = 0.04;
     this.grounds = [];
 
-    this.mainManager = MainStateManager.getInstance();
-    this.mainManager.subscribe(this.onMainStateChange);
-    this.mainState = this.mainManager.state;
+    MainStateManager.getInstance().onGameStatusChange(this.gameStatusChange);
 
     this.create();
   }
@@ -82,13 +78,15 @@ class Ground {
     this.groundsAngles.push(newAngle);
     this.groundsAngles.shift();
   }
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.isRunning:
+        this.canRotate = true;
+        break;
 
-  private onMainStateChange = (state: MainState) => {
-    if (state.gameStatus !== this.mainState.gameStatus 
-      && state.gameStatus === GameStatus.isRunning) {
-      this.canRotate = true;
+      default:
+        break;
     }
-    this.mainState = state;
   };
 }
 
