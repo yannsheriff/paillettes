@@ -1,6 +1,6 @@
 export default class State {
   public state: any;
-  private callbacks: Array<(state: any) => any>;
+  protected callbacks: Array<(state: any) => any>;
 
   /**
    * The Singleton's constructor should always be private to prevent direct
@@ -13,6 +13,9 @@ export default class State {
 
   public subscribe(callback: (state: any) => any) {
     this.callbacks.push(callback);
+  }
+  public reset() {
+    this.callbacks = [];
   }
 
   /**

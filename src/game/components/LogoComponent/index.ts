@@ -23,13 +23,9 @@ class LogoComponent {
     this.mainManager.subscribe((s) => (this.mainState = s));
     this.mainState = this.mainManager.state;
 
-    stepEventEmitter.on(StepEventType.stepdown, (directions: Array<string>) =>
-      this.onPress(StepEventType.stepdown, directions)
-    );
+    stepEventEmitter.on(StepEventType.stepdown, this.onPressDown);
 
-    stepEventEmitter.on(StepEventType.stepup, (directions: Array<string>) =>
-      this.onPress(StepEventType.stepup, directions)
-    );
+    stepEventEmitter.on(StepEventType.stepup, this.onPressUp);
 
     this.create();
   }
@@ -69,30 +65,32 @@ class LogoComponent {
     }
   };
 
-  private onPress = (stepType: StepEventType, directions: Array<string>) => {
+  private onPressDown = (directions: Array<string>) => {
     if (this.mainState.gameStatus === GameStatus.isReady) {
-      if (stepType === StepEventType.stepdown) {
-        if (directions.find((d) => d === "left")) {
-          this.isLeftPressed = true;
-        }
-        if (directions.find((d) => d === "right")) {
-          this.isRightPressed = true;
-        }
+      if (directions.find((d) => d === "left")) {
+        this.isLeftPressed = true;
+      }
+      if (directions.find((d) => d === "right")) {
+        this.isRightPressed = true;
+      }
 
-        if (this.isLeftPressed && this.isRightPressed) {
-          this.launchAnim();
-        }
-      } else {
-        if (directions.find((d) => d === "left")) {
-          this.isLeftPressed = false;
-        }
-        if (directions.find((d) => d === "right")) {
-          this.isRightPressed = false;
-        }
+      if (this.isLeftPressed && this.isRightPressed) {
+        this.launchAnim();
+      }
+    }
+  };
 
-        if (!this.isLeftPressed || !this.isRightPressed) {
-          this.killAnim();
-        }
+  private onPressUp = (directions: Array<string>) => {
+    if (this.mainState.gameStatus === GameStatus.isReady) {
+      if (directions.find((d) => d === "left")) {
+        this.isLeftPressed = false;
+      }
+      if (directions.find((d) => d === "right")) {
+        this.isRightPressed = false;
+      }
+
+      if (!this.isLeftPressed || !this.isRightPressed) {
+        this.killAnim();
       }
     }
   };
@@ -104,6 +102,11 @@ class LogoComponent {
         break;
       case GameStatus.waitMusicLoading:
         this.animation!.anims.play("logo-in");
+        break;
+
+      case GameStatus.isGameOver:
+        stepEventEmitter.removeAllListeners(StepEventType.stepdown);
+        stepEventEmitter.removeAllListeners(StepEventType.stepup);
         break;
 
       default:

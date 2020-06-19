@@ -32,8 +32,8 @@ export class GameScene extends Phaser.Scene {
   private mainState: MainState;
   private ground?: GroundComponent;
   private glitter?: GlitterComponent;
-  private animationManager: AnimationManager;
-  private assetsManager: AssetsManager;
+  private animationManager?: AnimationManager;
+
   public isDebug?: boolean = false;
   private isGoingScore: boolean = false;
 
@@ -44,27 +44,28 @@ export class GameScene extends Phaser.Scene {
     this.mainState = MainStateManager.getInstance().state;
     this.scoreManager = ScoreState.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
-    this.assetsManager = new AssetsManager(
-      this,
-      mainImages,
-      mainSpritesheets,
-      mainSpines,
-      mainMusic
-    );
     MainGameManager.getInstance();
-
-    this.mainStateManager.onGameStatusChange(this.gameStatusChange);
+    console.log("edfvdse");
   }
 
   create() {
-    this.startGame();
+    console.log(
+      "GameScene -> create -> his.mainState.gameStatus",
+      this.mainState.gameStatus
+    );
+    if (this.mainState.gameStatus !== GameStatus.requestReload) {
+      this.startGame();
+    } else {
+      console.log("did relaod");
+      this.restartGame();
+    }
   }
 
   startGame = () => {
     this.mainStateManager.needMusicLoading();
 
     setTimeout(() => {
-      this.animationManager.register();
+      this.animationManager?.register();
       new CurtainsComponent(this);
       new LogoComponent(this);
       new AchievementComponent(this);
@@ -102,24 +103,51 @@ export class GameScene extends Phaser.Scene {
     }, 500);
   };
 
+  restartGame = () => {
+    this.mainStateManager.needMusicLoading();
+
+    setTimeout(() => {
+      this.animationManager?.register();
+      new CurtainsComponent(this);
+      new LogoComponent(this);
+      new BackgroundComponent(this);
+      new CharactersComponent(this);
+      this.ground = new GroundComponent(this);
+      new SheetMusicComponent(this, this.CharacterManager);
+      new DragQueenComponent(this);
+      new GodMotherComponent(this);
+
+      this.glitter = new GlitterComponent(this);
+
+      // @ts-ignore
+      // this.isDebug = this.game.config.physics.arcade.debug;
+
+      this.add
+        .text(20, 20, "Score", { fill: "red" })
+        .setInteractive()
+        .setDepth(99)
+        .on("pointerdown", () => {
+          if (!this.isGoingScore) {
+            alert("going score");
+            this.mainStateManager.endGame();
+            this.isGoingScore = true;
+          }
+        });
+
+      // test number of items displayed in scene
+      // if (this.isDebug) {
+      //   window.setInterval(() => {
+      //     // @ts-ignore
+      //     console.log(this.add.displayList.list);
+      //   }, 5000);
+      // }
+    }, 500);
+  };
+
   public update() {
     this.ground?.update();
     this.glitter?.update();
   }
-
-  private gameStatusChange = (status: GameStatus) => {
-    switch (status) {
-      case GameStatus.isGameOver:
-        setTimeout(() => {
-          this.scene.start("ScoreScene");
-          // console.log("Scene start ScoreScene");
-        }, 5000);
-        break;
-
-      default:
-        break;
-    }
-  };
 }
 
 export default GameScene;

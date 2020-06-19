@@ -203,4 +203,13 @@ export default class ScoreStateManager extends State {
       this.mainStateManager.decrementDifficulty();
     }
   };
+
+  reset() {
+    this.successCallbacks = [];
+    this.failCallbacks = [];
+    this.goodCallbacks = [];
+    this.perfectCallbacks = [];
+    this.perfectCallbacks = [];
+    this.callbacks = [];
+  }
 }

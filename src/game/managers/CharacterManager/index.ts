@@ -95,6 +95,13 @@ class CharacterManager {
     this.onEndCallback.push(callback);
   }
 
+  public reset() {
+    this.createCallback = [];
+    this.successfullArrows = new Map();
+    this.characters = new Map();
+    this.onEndCallback = [];
+  }
+
   private callOnNew = (id: string) => {
     this.createCallback.forEach((callback) => callback(id));
   };

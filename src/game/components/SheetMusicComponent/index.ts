@@ -428,7 +428,7 @@ class SheetMusic {
   };
 
   private destroySheetMusic() {
-    this.arrowEmitter.removeListener("note", this.throttleArrow);
+    this.arrowEmitter.removeAllListeners("note");
     this.playingMusic?.stop();
     this.player?.stop();
   }
