@@ -50,16 +50,17 @@ body,
   animation: slide 0.3s ease forwards;
   animation-delay: 1s;
   bottom: -16vh;
-  width: 550px;
-  height: 15vh;
-  max-height: 400px;
+  width: 380px;
+  height: 12vh;
+  max-height: 280px;
   text-align: center;
   background-image: url("../assets/introduction/overlay.svg");
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
-  font-size: 25px;
+  font-size: 16px;
   letter-spacing: 1px;
+  padding: 2px 0;
   color: #121212;
   vertical-align: middle;
   justify-content: center;
@@ -68,13 +69,14 @@ body,
 }
 
 #brille-cherie-footer img {
-  width: 40px;
+  width: 35px;
+  height: 32px;
   vertical-align: middle;
   margin: 0 14px;
 }
 
 @keyframes slide {
   100% {
-    bottom: 34px;
+    bottom: 40px;
   }
 }
