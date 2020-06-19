@@ -80,7 +80,7 @@ class SheetMusic {
     this.gridObjects = [];
 
     // SHEET MUSIC SIZE AND POSITION
-    this.posX = window.innerWidth / 2;
+    this.posX = window.innerWidth / 2 + this.inputZoneWidth / 2 - 60;
     this.posY = window.innerHeight - heightBetweenSheetHBar * this.scale;
     this.sheetWidth = window.innerWidth - this.posX;
     this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
@@ -184,8 +184,8 @@ class SheetMusic {
     this.player?.start();
     const time = muscisFile.get(this.music!)["header"]["bc-delay-sync"];
     setTimeout(() => {
-      const music = this.scene.sound.add("musictest");
-      // const music = this.scene.sound.add("hungup");
+      // const music = this.scene.sound.add("musictest");
+      const music = this.scene.sound.add("hungup");
       music.play();
 
       music.once("complete", () => {
