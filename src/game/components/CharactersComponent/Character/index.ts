@@ -20,9 +20,9 @@ class PhysicCharacter extends SpineContainer {
   private onEndCallback: (id: string) => void
   // private updateCrowdCallback: () => void
 
-  public speedOut: number = 150;
-  public distanceBetweenCharacters: number = 50;
-  public crowdPositionX: number = window.innerWidth / 2 - 150;
+  public speedOut: number = 250;
+  public distanceBetweenCharacters: number = 80;
+  public crowdPositionX: number = window.innerWidth / 2 - 240;
 
   constructor(
     scene: Phaser.Scene,
@@ -184,6 +184,9 @@ class PhysicCharacter extends SpineContainer {
       repeat: 0,
       yoyo: false,
       onStart: () => {
+        setTimeout(() => {
+          this.playOnceThenLoopNextAnimation("Dance", "Run", 0)
+        }, duration / 3);
         setTimeout(() => {
           this.onEndCallback(this.id)
         }, duration / 2);        

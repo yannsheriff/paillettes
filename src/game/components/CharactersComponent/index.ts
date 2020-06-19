@@ -25,6 +25,7 @@ class PhysicCharacterManager {
   private prevAsset: number = 1;
 
   public crowd: Array<PhysicCharacter>;
+  public maxCrowdLenght: number = 12;
   public world: Worlds;
   private charactersBW: Map<string, PhysicCharacter> = new Map();
   public testX: number = 0;
@@ -129,7 +130,7 @@ class PhysicCharacterManager {
   }
 
   public shiftCrowd() {
-    if (this.crowd.length > 15) {
+    if (this.crowd.length > this.maxCrowdLenght) {
       this.crowd.forEach(character => {
         character.shiftCharacter()  // make character run outside screen
       });

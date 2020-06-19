@@ -75,6 +75,7 @@ export const mainSpines: SpineData[] = [
   { key: "godmother", path: "assets/spine/godmother/" },
   { key: "achievement", path: "assets/spine/achievement/" },
   { key: "curtains", path: "assets/spine/curtains/" },
+  { key: "score", path: "assets/spine/score/" },
 ];
 
 export const mainMusic: MusicData[] = [
