@@ -13,6 +13,7 @@ import {
 
 import SoundManager from "../../managers/SoundManager";
 import MainStateManager, { GameStatus } from "../../states/main";
+import ScoreScene from "../ScoreScene";
 
 export class MainScene extends Phaser.Scene {
   private text?: Phaser.GameObjects.Text;
@@ -92,8 +93,8 @@ export class MainScene extends Phaser.Scene {
     switch (status) {
       case GameStatus.isGameOver:
         setTimeout(() => {
-          this.scene.start("ScoreScene");
           this.scene.stop("Game");
+          this.scene.add("ScoreScene", ScoreScene, true);
           setTimeout(() => {
             this.scene.remove("Game");
           }, 500);

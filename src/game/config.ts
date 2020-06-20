@@ -38,7 +38,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: false,
     },
   },
-  scene: [MainScene, GameScene, ScoreScene],
+  scene: [MainScene, GameScene],
   // scene: [TestScene, TestSceneSpine, TestSceneDrag, TestSceneBackground, TestSceneCrowd, TestSceneBlob],
   plugins: {
     scene: [
