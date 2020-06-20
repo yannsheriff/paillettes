@@ -94,10 +94,8 @@ export class MainScene extends Phaser.Scene {
       case GameStatus.isGameOver:
         setTimeout(() => {
           this.scene.stop("Game");
+          this.scene.remove("Game");
           this.scene.add("ScoreScene", ScoreScene, true);
-          setTimeout(() => {
-            this.scene.remove("Game");
-          }, 500);
         }, 5000);
         break;
       case GameStatus.requestReload:
