@@ -220,18 +220,19 @@ export default class ScoreStateManager extends State {
   };
 
   reset() {
+    this.callbacks = [];
     this.successCallbacks = [];
     this.failCallbacks = [];
     this.goodCallbacks = [];
     this.perfectCallbacks = [];
-    this.perfectCallbacks = [];
-    this.callbacks = [];
   }
 
   resetUnlocked() {
     this.setState({
       charactersUnlocked: [],
       achievementsUnlocked: [],
+      score: 0,
+      combo: 0,
     });
   }
 }

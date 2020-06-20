@@ -23,12 +23,14 @@ import MainStateManager, { MainState, GameStatus } from "../../states/main";
 import GlitterComponent from "../../components/GlitterComponent";
 import CurtainsComponent from "../../components/CurtainsComponent";
 import LogoComponent from "../../components/LogoComponent";
+import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 
 export class GameScene extends Phaser.Scene {
   private text?: Phaser.GameObjects.Text;
   private CharacterManager: CharacterManager;
   private scoreManager: ScoreState;
   private mainStateManager: MainStateManager;
+  private freeManager: FreestyleStateManager;
   private mainState: MainState;
   private ground?: GroundComponent;
   private glitter?: GlitterComponent;
@@ -43,11 +45,14 @@ export class GameScene extends Phaser.Scene {
     this.mainStateManager = MainStateManager.getInstance();
     this.mainState = MainStateManager.getInstance().state;
     this.scoreManager = ScoreState.getInstance();
+    this.freeManager = FreestyleStateManager.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
     MainGameManager.getInstance();
   }
 
   create() {
+    this.freeManager.subscribe(this.updateFreeGlitter);
+    this.scoreManager.onPerfect(this.triggerGlitter);
     this.startGame();
     // if (this.mainState.gameStatus !== GameStatus.requestReload) {
     // } else {
@@ -93,6 +98,14 @@ export class GameScene extends Phaser.Scene {
         }, 5000);
       }
     }, 500);
+  };
+
+  private triggerGlitter = () => {
+    this.glitter?.throwConfetti();
+  };
+
+  private updateFreeGlitter = (state: FreestyleState) => {
+    this.glitter?.onFreeStateChange(state);
   };
 
   public update() {
