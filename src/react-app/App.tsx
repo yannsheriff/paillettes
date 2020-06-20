@@ -16,7 +16,10 @@ export default class App extends Component<{}, state> {
       gameIsReady: false,
     };
 
-    MainStateManager.getInstance().onGameStatusChange(this.gameStatusChange);
+    MainStateManager.getInstance().onGameStatusChange(
+      this.gameStatusChange,
+      true
+    );
   }
 
   private gameStatusChange = (status: GameStatus) => {

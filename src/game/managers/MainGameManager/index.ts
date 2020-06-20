@@ -1,6 +1,7 @@
 import ScoreStateManager, { ScoreState } from "../../states/score";
-import MainStateManager, { MainState } from "../../states/main";
+import MainStateManager, { MainState, GameStatus } from "../../states/main";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
+import CharacterManager from "../CharacterManager";
 
 export default class MainGameManager {
   private static instance: MainGameManager;
@@ -11,6 +12,7 @@ export default class MainGameManager {
   private freeState: FreestyleState;
   private freeManager: FreestyleStateManager;
   private nextWorldChange: number;
+  private characterManager: CharacterManager;
   /**
    * The Singleton's constructor should always be private to prevent direct
    * construction calls with the `new` operator.
@@ -24,10 +26,13 @@ export default class MainGameManager {
     this.mainManager = MainStateManager.getInstance();
     this.mainState = this.mainManager.state;
     this.mainManager.subscribe((main) => (this.mainState = main));
+    this.mainManager.onGameStatusChange(this.gameStatusChange, true);
 
     this.freeManager = FreestyleStateManager.getInstance();
     this.freeState = this.freeManager.state;
-    this.freeManager.subscribe(this.freeChange);
+    this.freeManager.subscribe(this.freeChange, true);
+
+    this.characterManager = CharacterManager.getInstance();
   }
 
   /**
@@ -61,5 +66,22 @@ export default class MainGameManager {
       this.freeManager.activateFreeMode();
     }
     this.freeState = freeState;
+  };
+
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.isGameOver:
+        this.characterManager.reset();
+        this.scoreManager.reset();
+        this.freeManager.reset();
+        this.mainManager.reset();
+        break;
+      case GameStatus.requestReload:
+        this.scoreManager.resetUnlocked();
+        break;
+
+      default:
+        break;
+    }
   };
 }

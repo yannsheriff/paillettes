@@ -35,7 +35,7 @@ class BarComponent {
   constructor(scene: Phaser.Scene, scale: number) {
     this.scene = scene;
     this.scale = scale;
-    this.charcterCount = 15;
+    this.charcterCount = 0;
     this.moneyAlreadyFounded = 15;
     this.posY = window.innerHeight * 0.8;
 
