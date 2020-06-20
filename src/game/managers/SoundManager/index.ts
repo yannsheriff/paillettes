@@ -95,8 +95,10 @@ export default class SoundManager {
   private gameStatusChange = (status: GameStatus) => {
     switch (status) {
       case GameStatus.isReady:
+        this.home = this.scene.sound.add("home", { volume: 0.3 });
         this.home.play();
         break;
+
       case GameStatus.willLaunch:
         this.scene.tweens.add({
           targets: this.home,
