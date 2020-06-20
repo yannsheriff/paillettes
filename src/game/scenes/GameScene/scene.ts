@@ -130,6 +130,10 @@ export class GameScene extends Phaser.Scene {
 
   private triggerGlitter = () => {
     this.glitter?.throwConfetti();
+    this.camera?.zoomTo(1.02, 150);
+    setTimeout(() => {
+      this.camera?.zoomTo(1, 150);
+    }, 210);
   };
 
   private updateFreeGlitter = (state: FreestyleState) => {
