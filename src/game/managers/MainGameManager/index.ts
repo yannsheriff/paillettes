@@ -76,6 +76,9 @@ export default class MainGameManager {
         this.freeManager.reset();
         this.mainManager.reset();
         break;
+      case GameStatus.requestReload:
+        this.scoreManager.resetUnlocked();
+        break;
 
       default:
         break;

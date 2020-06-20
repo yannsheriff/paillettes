@@ -45,25 +45,17 @@ export class GameScene extends Phaser.Scene {
     this.scoreManager = ScoreState.getInstance();
     this.animationManager = new AnimationManager(this, mainAnimations);
     MainGameManager.getInstance();
-    console.log("edfvdse");
   }
 
   create() {
-    console.log(
-      "GameScene -> create -> his.mainState.gameStatus",
-      this.mainState.gameStatus
-    );
-    if (this.mainState.gameStatus !== GameStatus.requestReload) {
-      this.startGame();
-    } else {
-      console.log("did relaod");
-      this.restartGame();
-    }
+    this.startGame();
+    // if (this.mainState.gameStatus !== GameStatus.requestReload) {
+    // } else {
+    // }
   }
 
   startGame = () => {
     this.mainStateManager.needMusicLoading();
-
     setTimeout(() => {
       this.animationManager?.register();
       new CurtainsComponent(this);
@@ -100,47 +92,6 @@ export class GameScene extends Phaser.Scene {
           console.log(this.add.displayList.list);
         }, 5000);
       }
-    }, 500);
-  };
-
-  restartGame = () => {
-    this.mainStateManager.needMusicLoading();
-
-    setTimeout(() => {
-      this.animationManager?.register();
-      new CurtainsComponent(this);
-      new LogoComponent(this);
-      new BackgroundComponent(this);
-      new CharactersComponent(this);
-      this.ground = new GroundComponent(this);
-      new SheetMusicComponent(this, this.CharacterManager);
-      new DragQueenComponent(this);
-      new GodMotherComponent(this);
-
-      this.glitter = new GlitterComponent(this);
-
-      // @ts-ignore
-      // this.isDebug = this.game.config.physics.arcade.debug;
-
-      this.add
-        .text(20, 20, "Score", { fill: "red" })
-        .setInteractive()
-        .setDepth(99)
-        .on("pointerdown", () => {
-          if (!this.isGoingScore) {
-            alert("going score");
-            this.mainStateManager.endGame();
-            this.isGoingScore = true;
-          }
-        });
-
-      // test number of items displayed in scene
-      // if (this.isDebug) {
-      //   window.setInterval(() => {
-      //     // @ts-ignore
-      //     console.log(this.add.displayList.list);
-      //   }, 5000);
-      // }
     }, 500);
   };
 

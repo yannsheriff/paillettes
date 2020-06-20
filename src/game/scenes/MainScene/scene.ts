@@ -67,25 +67,6 @@ export class MainScene extends Phaser.Scene {
 
     SoundManager.getInstance(this);
     this.scene.launch("Game");
-
-    // setTimeout(() => {
-    //   this.scene.start("ScoreScene");
-    //   this.scene.stop("Game");
-    //   setTimeout(() => {
-    //     this.scene.remove("Game");
-    //   }, 500);
-
-    //   setTimeout(() => {
-    //     // this.scene.add("Game", GameScene, true);
-    //     // this.scene.start("Game");
-    //     this.scene.stop("ScoreScene");
-    //     setTimeout(() => {
-    //       // this.scene.remove("ScoreScene");
-    //       this.mainStateManager.restart();
-    //       this.scene.add("Game", GameScene, true);
-    //     }, 500);
-    //   }, 3500);
-    // }, 5000);
   };
 
   private gameStatusChange = (status: GameStatus) => {

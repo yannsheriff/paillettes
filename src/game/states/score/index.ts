@@ -17,13 +17,13 @@ export enum AchievementType {
   characters10 = "characters10", // badge1
   characters20 = "characters20", // badge2
   characters30 = "characters30", // badge3
-  freestyle1 = "freestyle1",     // badge4
-  freestyle2 = "freestyle2",     // badge5
-  world1 = "world1",             // badge6
-  world2 = "world2",             // badge7
-  world3 = "world3",             // badge8
-  world4 = "world4",             // badge9
-  worldall = "worldall"          // badge10
+  freestyle1 = "freestyle1", // badge4
+  freestyle2 = "freestyle2", // badge5
+  world1 = "world1", // badge6
+  world2 = "world2", // badge7
+  world3 = "world3", // badge8
+  world4 = "world4", // badge9
+  worldall = "worldall", // badge10
 }
 
 enum ComboType {
@@ -37,9 +37,11 @@ export default class ScoreStateManager extends State {
   private mainState: MainState;
   private mainStateManager: MainStateManager;
   private failCallbacks: Array<(gridObject: GridObject) => unknown>;
+  private failImmuteCallbacks: Array<(gridObject: GridObject) => unknown>;
   private goodCallbacks: Array<(gridObject: GridObject) => unknown>;
   private perfectCallbacks: Array<(gridObject: GridObject) => unknown>;
   private successCallbacks: Array<(gridObject: GridObject) => unknown>;
+  private successImmuteCallbacks: Array<(gridObject: GridObject) => unknown>;
   public state: ScoreState;
 
   /**
@@ -54,9 +56,11 @@ export default class ScoreStateManager extends State {
       charactersUnlocked: [],
       achievementsUnlocked: [],
     };
+    this.failImmuteCallbacks = [];
     this.failCallbacks = [];
     this.goodCallbacks = [];
     this.successCallbacks = [];
+    this.successImmuteCallbacks = [];
     this.perfectCallbacks = [];
     this.mainStateManager = MainStateManager.getInstance();
     this.mainState = this.mainStateManager.state;
@@ -106,34 +110,45 @@ export default class ScoreStateManager extends State {
   public onGood(callback: (arrow: GridObject) => any) {
     this.goodCallbacks.push(callback);
   }
-  public onFail(callback: (arrow: GridObject) => any) {
-    this.failCallbacks.push(callback);
+  public onFail(callback: (arrow: GridObject) => any, immutable?: boolean) {
+    if (immutable) {
+      this.failImmuteCallbacks.push(callback);
+    } else {
+      this.failCallbacks.push(callback);
+    }
   }
-  public onSuccess(callback: (arrow: GridObject) => any) {
-    this.successCallbacks.push(callback);
+  public onSuccess(callback: (arrow: GridObject) => any, immutable?: boolean) {
+    if (immutable) {
+      this.successImmuteCallbacks.push(callback);
+    } else {
+      this.successCallbacks.push(callback);
+    }
   }
   public registrerUnlockedCharacter(assetName: string) {
     this.setState({
-        charactersUnlocked: [...this.state.charactersUnlocked, assetName]
-    })
+      charactersUnlocked: [...this.state.charactersUnlocked, assetName],
+    });
   }
   public registerUnlockedAchievement(achievement: AchievementType) {
-    // this.achievementsUnlocked.push(achievement) // non immuable 
+    // this.achievementsUnlocked.push(achievement) // non immuable
 
     this.setState({
-      achievementsUnlocked: [ ...this.state.achievementsUnlocked, achievement] // immuable 
+      achievementsUnlocked: [...this.state.achievementsUnlocked, achievement], // immuable
     });
   }
   private dispatchGood(arrow: GridObject) {
     this.goodCallbacks.forEach((callback) => callback(arrow));
     this.successCallbacks.forEach((callback) => callback(arrow));
+    this.successImmuteCallbacks.forEach((callback) => callback(arrow));
   }
   private dispatchPerfect(arrow: GridObject) {
     this.perfectCallbacks.forEach((callback) => callback(arrow));
     this.successCallbacks.forEach((callback) => callback(arrow));
+    this.successImmuteCallbacks.forEach((callback) => callback(arrow));
   }
   private dispatchFail(arrow: GridObject) {
     this.failCallbacks.forEach((callback) => callback(arrow));
+    this.failImmuteCallbacks.forEach((callback) => callback(arrow));
   }
 
   private handleCombo(comboType: ComboType) {
@@ -211,5 +226,12 @@ export default class ScoreStateManager extends State {
     this.perfectCallbacks = [];
     this.perfectCallbacks = [];
     this.callbacks = [];
+  }
+
+  resetUnlocked() {
+    this.setState({
+      charactersUnlocked: [],
+      achievementsUnlocked: [],
+    });
   }
 }

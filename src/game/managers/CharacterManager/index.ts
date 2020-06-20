@@ -16,9 +16,13 @@ class CharacterManager {
     this.onEndCallback = [];
 
     const scoreStateManager = ScoreStateManager.getInstance();
-    scoreStateManager.onFail((arrow) => this.registerFailedArrow(arrow.id));
-    scoreStateManager.onSuccess((arrow) =>
-      this.registerSuccesfullArrow(arrow.id)
+    scoreStateManager.onFail(
+      (arrow) => this.registerFailedArrow(arrow.id),
+      true
+    );
+    scoreStateManager.onSuccess(
+      (arrow) => this.registerSuccesfullArrow(arrow.id),
+      true
     );
   }
 
@@ -81,7 +85,7 @@ class CharacterManager {
 
   private isCharacterSuccesfull(ID: string) {
     const successfulArrows = this.successfullArrows.get(ID);
-    const totalArrows = this.characters.get(ID)!.totalArrow;
+    const totalArrows = this.characters.get(ID)?.totalArrow;
     return successfulArrows === totalArrows;
   }
 
@@ -97,8 +101,8 @@ class CharacterManager {
 
   public reset() {
     this.createCallback = [];
-    this.successfullArrows = new Map();
-    this.characters = new Map();
+    this.successfullArrows.clear();
+    this.characters.clear();
     this.onEndCallback = [];
   }
 
