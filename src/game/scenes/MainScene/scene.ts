@@ -100,11 +100,11 @@ export class MainScene extends Phaser.Scene {
         break;
       case GameStatus.requestReload:
         console.log("REQUEST RELOAD");
-        this.scene.stop("ScoreScene");
         setTimeout(() => {
+          this.scene.stop("ScoreScene");
           this.scene.remove("ScoreScene");
           this.scene.add("Game", GameScene, true);
-        }, 500);
+        }, 1000);
         break;
 
       default:
