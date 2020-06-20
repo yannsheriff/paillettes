@@ -75,6 +75,20 @@ class GlitterComponent {
     }
     this.freeState = state;
   };
+
+  playHome = () => {
+    this.confettiManager.grow();
+    this.confettiManager.removeConfetti();
+    this.canvas.setDepth(52);
+    this.confettiManager.startConfetti();
+  };
+
+  stopHome = () => {
+    this.confettiManager.shrink();
+    this.canvas.setDepth(9);
+    this.confettiManager.stopConfetti();
+    this.confettiManager.removeConfetti();
+  };
 }
 
 export default GlitterComponent;

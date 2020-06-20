@@ -53,6 +53,7 @@ export class GameScene extends Phaser.Scene {
   create() {
     this.freeManager.subscribe(this.updateFreeGlitter);
     this.scoreManager.onPerfect(this.triggerGlitter);
+    this.mainStateManager.onGameStatusChange(this.gameStatusChange);
     this.startGame();
     // if (this.mainState.gameStatus !== GameStatus.requestReload) {
     // } else {
@@ -112,6 +113,20 @@ export class GameScene extends Phaser.Scene {
     this.ground?.update();
     this.glitter?.update();
   }
+
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.isReady:
+        this.glitter?.playHome();
+        break;
+      case GameStatus.willLaunch:
+        this.glitter?.stopHome();
+        break;
+
+      default:
+        break;
+    }
+  };
 }
 
 export default GameScene;
