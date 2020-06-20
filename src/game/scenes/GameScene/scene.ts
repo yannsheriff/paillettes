@@ -33,6 +33,7 @@ export class GameScene extends Phaser.Scene {
   private freeManager: FreestyleStateManager;
   private mainState: MainState;
   private ground?: GroundComponent;
+  private sheetMusicComponent?: SheetMusicComponent;
   private glitter?: GlitterComponent;
   private animationManager?: AnimationManager;
 
@@ -55,13 +56,9 @@ export class GameScene extends Phaser.Scene {
     this.scoreManager.onPerfect(this.triggerGlitter);
     this.mainStateManager.onGameStatusChange(this.gameStatusChange);
     this.startGame();
-    // if (this.mainState.gameStatus !== GameStatus.requestReload) {
-    // } else {
-    // }
   }
 
   startGame = () => {
-    this.mainStateManager.needMusicLoading();
     setTimeout(() => {
       this.animationManager?.register();
       new CurtainsComponent(this);
@@ -70,7 +67,10 @@ export class GameScene extends Phaser.Scene {
       new BackgroundComponent(this);
       new CharactersComponent(this);
       this.ground = new GroundComponent(this);
-      new SheetMusicComponent(this, this.CharacterManager);
+      this.sheetMusicComponent = new SheetMusicComponent(
+        this,
+        this.CharacterManager
+      );
       new DragQueenComponent(this);
       new GodMotherComponent(this);
 
@@ -99,6 +99,21 @@ export class GameScene extends Phaser.Scene {
         }, 5000);
       }
     }, 500);
+
+    if (this.mainState.gameStatus === GameStatus.requestReload) {
+      setTimeout(() => {
+        this.sheetMusicComponent?.initMusic();
+      }, 3000);
+    } else {
+      document.addEventListener("keydown", this.initMusic);
+    }
+
+    this.mainStateManager.needMusicLoading();
+  };
+
+  private initMusic = () => {
+    this.sheetMusicComponent!.initMusic();
+    document.removeEventListener("keydown", this.initMusic);
   };
 
   private triggerGlitter = () => {

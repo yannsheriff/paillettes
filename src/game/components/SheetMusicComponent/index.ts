@@ -156,20 +156,6 @@ class SheetMusic {
       this
     );
 
-    /*
-     * Start Music temporairement un event on click
-     */
-
-    const initMusic = () => {
-      if (!this.player) {
-        this.music = Musics.hungup;
-        this.player = new MusicPlayer(this.music, this.arrowEmitter);
-        document.removeEventListener("keydown", initMusic);
-        this.mainManager.gameIsReady();
-      }
-    };
-    document.addEventListener("keydown", initMusic);
-
     // this.createArrow(2, {
     //   name: "E4",
     //   duration: 3,
@@ -180,6 +166,16 @@ class SheetMusic {
     //   time: 1,
     //   midi: 1,
     // });
+  };
+
+  public initMusic = () => {
+    console.log("initMusic");
+    if (!this.player) {
+      this.music = Musics.hungup;
+      this.player = new MusicPlayer(this.music, this.arrowEmitter);
+      document.removeEventListener("keydown", this.initMusic);
+      this.mainManager.gameIsReady();
+    }
   };
 
   private initSheetMusic() {
