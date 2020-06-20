@@ -126,7 +126,7 @@ class SheetMusic {
 
     new FreeLights(
       this.scene,
-      this.posX - 260,
+      this.posX - 250,
       this.posY + 30,
       this.inputZoneWidth,
       this.scale
@@ -134,7 +134,7 @@ class SheetMusic {
 
     new Chrono(this.scene, this.posX - 280, this.posY + 80, this.scale);
 
-    new Score(this.scene, this.posX - 250, this.posY - 70, this.scale);
+    new Score(this.scene, this.posX - 235, this.posY - 70, this.scale);
 
     new Subtitle(this.scene);
 
