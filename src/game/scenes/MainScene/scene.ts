@@ -14,6 +14,7 @@ import {
 import SoundManager from "../../managers/SoundManager";
 import MainStateManager, { GameStatus } from "../../states/main";
 import ScoreScene from "../ScoreScene";
+import Curtains from "../../components/CurtainsComponent/Curtains";
 
 export class MainScene extends Phaser.Scene {
   private text?: Phaser.GameObjects.Text;
@@ -63,8 +64,7 @@ export class MainScene extends Phaser.Scene {
 
   startGame = () => {
     this.text!.destroy();
-    console.log("instance SoundManager");
-
+    new Curtains(this, "curtains", "logo", false);
     SoundManager.getInstance(this);
     this.scene.launch("Game");
   };

@@ -27,6 +27,7 @@ import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 
 export class GameScene extends Phaser.Scene {
   private text?: Phaser.GameObjects.Text;
+  private camera?: Phaser.Cameras.Scene2D.Camera;
   private CharacterManager: CharacterManager;
   private scoreManager: ScoreState;
   private mainStateManager: MainStateManager;
@@ -56,6 +57,15 @@ export class GameScene extends Phaser.Scene {
     this.scoreManager.onPerfect(this.triggerGlitter);
     this.mainStateManager.onGameStatusChange(this.gameStatusChange);
     this.startGame();
+    this.camera = this.cameras.add(
+      0,
+      0,
+      this.sys.scale.width,
+      this.sys.scale.height
+    );
+    // if (this.mainState.gameStatus !== GameStatus.requestReload) {
+    // } else {
+    // }
   }
 
   startGame = () => {
@@ -75,6 +85,8 @@ export class GameScene extends Phaser.Scene {
       new GodMotherComponent(this);
 
       this.glitter = new GlitterComponent(this);
+
+      this.camera?.setBackgroundColor("rgba(255, 255, 255, 1)");
 
       // @ts-ignore
       this.isDebug = this.game.config.physics.arcade.debug;
