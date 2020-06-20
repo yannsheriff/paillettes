@@ -31,7 +31,7 @@ export default class FreestyleStateManager extends State {
    */
   private constructor() {
     super();
-    this.state = initialState;
+    this.state = { ...initialState };
   }
 
   /**
@@ -74,4 +74,9 @@ export default class FreestyleStateManager extends State {
       }, this.state.freestyleDuration);
     }
   };
+
+  reset() {
+    this.callbacks = [];
+    this.state = { ...initialState };
+  }
 }

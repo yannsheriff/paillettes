@@ -1,17 +1,13 @@
 import { ConfettiGenerator } from "../../helpers/Confetti";
-import ScoreStateManager from "../../states/score";
 import FreestyleStateManager from "../../states/freestyle";
 import Canvas from "phaser3-rex-plugins/plugins/canvas.js";
+import { generateId } from "../../managers/CharacterManager/Character/utils";
 
 class GlitterComponent {
   constructor(scene) {
     this.scene = scene;
-
-    this.freestyleStateManager = FreestyleStateManager.getInstance();
-    ScoreStateManager.getInstance().onPerfect(this.throwConfetti);
-    this.freestyleStateManager.subscribe(this.onFreeStateChange);
-
-    this.freeState = this.freestyleStateManager.state;
+    this.id = generateId();
+    this.freeState = FreestyleStateManager.getInstance().state;
 
     this.create();
   }
@@ -78,6 +74,20 @@ class GlitterComponent {
       this.canvas.setDepth(9);
     }
     this.freeState = state;
+  };
+
+  playHome = () => {
+    this.confettiManager.grow();
+    this.confettiManager.removeConfetti();
+    this.canvas.setDepth(52);
+    this.confettiManager.startConfetti();
+  };
+
+  stopHome = () => {
+    this.confettiManager.shrink();
+    this.canvas.setDepth(9);
+    this.confettiManager.stopConfetti();
+    this.confettiManager.removeConfetti();
   };
 }
 
