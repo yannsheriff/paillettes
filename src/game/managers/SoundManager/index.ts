@@ -56,13 +56,13 @@ export default class SoundManager {
     });
 
     const scoreManager = ScoreStateManager.getInstance();
-    scoreManager.onFail(this.playFail);
-    scoreManager.onGood(this.playGood);
-    scoreManager.onPerfect(this.playPerfect);
-    FreestyleStateManager.getInstance().subscribe(this.checkFreestyle);
+    scoreManager.onFail(this.playFail, true);
+    scoreManager.onGood(this.playGood, true);
+    scoreManager.onPerfect(this.playPerfect, true);
+    FreestyleStateManager.getInstance().subscribe(this.checkFreestyle, true);
 
     const mainStateManager = MainStateManager.getInstance();
-    mainStateManager.onGameStatusChange(this.gameStatusChange);
+    mainStateManager.onGameStatusChange(this.gameStatusChange, true);
   }
 
   public playFail = () => {
@@ -98,8 +98,6 @@ export default class SoundManager {
         this.home.play();
         break;
       case GameStatus.willLaunch:
-        console.log("szefrg");
-
         this.scene.tweens.add({
           targets: this.home,
           volume: 0,

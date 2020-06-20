@@ -155,9 +155,6 @@ export default class MainStateManager extends State {
     });
 
     this.gameStatusCallback = [];
-    // this.setState({
-    //   gameStatus: GameStatus.requestReload,
-    // });
 
     this.gameStatusChange();
 

@@ -39,6 +39,8 @@ export default class ScoreStateManager extends State {
   private failCallbacks: Array<(gridObject: GridObject) => unknown>;
   private failImmuteCallbacks: Array<(gridObject: GridObject) => unknown>;
   private goodCallbacks: Array<(gridObject: GridObject) => unknown>;
+  private perfectImmuteCallbacks: Array<(gridObject: GridObject) => unknown>;
+  private goodImmuteCallbacks: Array<(gridObject: GridObject) => unknown>;
   private perfectCallbacks: Array<(gridObject: GridObject) => unknown>;
   private successCallbacks: Array<(gridObject: GridObject) => unknown>;
   private successImmuteCallbacks: Array<(gridObject: GridObject) => unknown>;
@@ -61,6 +63,8 @@ export default class ScoreStateManager extends State {
     this.goodCallbacks = [];
     this.successCallbacks = [];
     this.successImmuteCallbacks = [];
+    this.perfectImmuteCallbacks = [];
+    this.goodImmuteCallbacks = [];
     this.perfectCallbacks = [];
     this.mainStateManager = MainStateManager.getInstance();
     this.mainState = this.mainStateManager.state;
@@ -104,11 +108,19 @@ export default class ScoreStateManager extends State {
   public registerCharactere() {
     this.setState({ score: this.state.score + 10 });
   }
-  public onPerfect(callback: (arrow: GridObject) => any) {
-    this.perfectCallbacks.push(callback);
+  public onPerfect(callback: (arrow: GridObject) => any, immutable?: boolean) {
+    if (immutable) {
+      this.perfectImmuteCallbacks.push(callback);
+    } else {
+      this.perfectCallbacks.push(callback);
+    }
   }
-  public onGood(callback: (arrow: GridObject) => any) {
-    this.goodCallbacks.push(callback);
+  public onGood(callback: (arrow: GridObject) => any, immutable?: boolean) {
+    if (immutable) {
+      this.goodImmuteCallbacks.push(callback);
+    } else {
+      this.goodCallbacks.push(callback);
+    }
   }
   public onFail(callback: (arrow: GridObject) => any, immutable?: boolean) {
     if (immutable) {
@@ -138,11 +150,13 @@ export default class ScoreStateManager extends State {
   }
   private dispatchGood(arrow: GridObject) {
     this.goodCallbacks.forEach((callback) => callback(arrow));
+    this.goodImmuteCallbacks.forEach((callback) => callback(arrow));
     this.successCallbacks.forEach((callback) => callback(arrow));
     this.successImmuteCallbacks.forEach((callback) => callback(arrow));
   }
   private dispatchPerfect(arrow: GridObject) {
     this.perfectCallbacks.forEach((callback) => callback(arrow));
+    this.perfectImmuteCallbacks.forEach((callback) => callback(arrow));
     this.successCallbacks.forEach((callback) => callback(arrow));
     this.successImmuteCallbacks.forEach((callback) => callback(arrow));
   }
