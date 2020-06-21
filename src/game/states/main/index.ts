@@ -12,6 +12,7 @@ export enum Worlds {
   nineteenCentury = 3,
   prehistory = 4,
 }
+
 export enum GameStatus {
   isLoading,
   waitMusicLoading,
@@ -21,6 +22,12 @@ export enum GameStatus {
   isRunning,
   isGameOver,
   requestReload,
+}
+
+export enum GameStep {
+  game,
+  debug,
+  score
 }
 
 export interface MainState {

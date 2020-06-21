@@ -1,27 +1,43 @@
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 import Align from "../../../helpers/Align/align";
 import { Scene } from "phaser";
+import { GameStep } from "../../../states/main";
 
 class Achievement extends SpineContainer {
   // public SpineContainer: ISpineContainer;
   public scene: Phaser.Scene;
   private background?: Phaser.GameObjects.Rectangle;
-
+  private achievementType: GameStep;
+  
   constructor(
     scene: Phaser.Scene,
     key: string,
     anim: string,
+    achievementType: GameStep,
     loop?: boolean
   ) {
     super(scene, 0, 0, key, anim, loop);
 
     // full screen asset
     this.scene = scene;
-    let scale = window.innerWidth / this.spineBody.width
-    this.setScale(scale); // asset size
+    this.achievementType = achievementType;
+    let scale;
 
-    this.y = window.innerHeight / 2 + (this.spineBody.height / 2 * this.scale)
-    Align.centerH(this)
+    switch (this.achievementType) {
+      case GameStep.game:
+        scale = window.innerWidth / this.spineBody.width
+        this.setScale(scale); // asset size
+        this.y = window.innerHeight / 2 + (this.spineBody.height / 2 * this.scale)
+        Align.centerH(this)
+        break;
+      case GameStep.score:
+        scale = (window.innerWidth / this.spineBody.width) * 0.1
+        this.setScale(scale); // asset size
+        this.y = window.innerHeight - 50
+        break;
+      default:
+        break;
+    }
     scene.add.existing(this)
 
     this.drawDebug(false)

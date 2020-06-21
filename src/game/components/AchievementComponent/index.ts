@@ -3,6 +3,9 @@ import Achievement from "./Achievement";
 import ScoreStateManager, {
   ScoreState,
 } from "../../states/score";
+
+import { GameStep } from "../../states/main";
+
 // import ScoreStateManager, {
 //   ScoreState,
 //   AchievementType
@@ -27,7 +30,8 @@ class AchievementManager {
         this.scene,
         "achievement",
         "play",
-        false
+        GameStep.game,
+        false,
       )
       this.achivement.changeSkin(achievement)
 
