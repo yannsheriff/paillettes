@@ -1,7 +1,6 @@
 import ScoreStateManager from "../../states/score";
-import PhysicCharacter, {
-  CharacterType,
-} from "../CharactersComponent/Character";
+import PhysicCharacter from "../CharactersComponent/Character";
+import { GameStep } from "../../states/main";
 import MainStateManager, { MainState } from "../../states/main";
 
 const charactersCountDuration = 3000;
@@ -58,11 +57,12 @@ class ScoreCrowdComponent {
       "",
       this.mainState.objectSpeed,
       this.characterPassCallback,
-      CharacterType.score,
+      GameStep.score,
       true
     );
   }
 
+  // usefull to callback end of crowd animation
   increment() {
     this.charactersPassed += 1;
 

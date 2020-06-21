@@ -100,7 +100,9 @@ class LogoComponent {
   private gameStatusChange = (status: GameStatus) => {
     switch (status) {
       case GameStatus.willLaunch:
-        this.animation!.anims.play("logo-out");
+        this.animation!.anims.play("logo-out").once("animationcomplete", () => {
+          this.animation!.destroy()
+        });;
         break;
       case GameStatus.waitMusicLoading:
         this.animation!.anims.play("logo-in");

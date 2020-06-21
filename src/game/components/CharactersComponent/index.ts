@@ -9,7 +9,8 @@ import ScoreStateManager, { AchievementType } from "../../states/score";
 import Align from "../../helpers/Align/align";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 
-import { CharacterType } from "./Character";
+import { GameStep } from "../../states/main";
+
 
 const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
@@ -84,7 +85,7 @@ class PhysicCharacterManager {
       id,
       this.mainState.objectSpeed,
       this.callbackCharacterDeleted,
-      CharacterType.game
+      GameStep.game
     );
 
     if (this.prevAsset === 1) {
@@ -215,7 +216,7 @@ class PhysicCharacterManager {
       "",
       this.mainState.objectSpeed,
       this.callbackCharacterDeleted,
-      CharacterType.debug
+      GameStep.debug
     );
 
     charObj.x -= this.testX;

@@ -1,22 +1,26 @@
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
 import Align from "../../../helpers/Align/align";
 import { Scene } from "phaser";
+import { GameStep } from "../../../states/main";
 
 class Achievement extends SpineContainer {
   // public SpineContainer: ISpineContainer;
   public scene: Phaser.Scene;
   private background?: Phaser.GameObjects.Rectangle;
-
+  private achievementType: GameStep;
+  
   constructor(
     scene: Phaser.Scene,
     key: string,
     anim: string,
+    achievementType: GameStep,
     loop?: boolean
   ) {
     super(scene, 0, 0, key, anim, loop);
 
     // full screen asset
     this.scene = scene;
+    this.achievementType = achievementType;
     let scale = window.innerWidth / this.spineBody.width
     this.setScale(scale); // asset size
 

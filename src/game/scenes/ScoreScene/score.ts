@@ -5,6 +5,7 @@ import BarComponent from "../../components/BarComponent";
 import Ground from "../../components/GroundComponent";
 import ScoreCrowdComponent from "../../components/ScoreCrowdComponent";
 import CurtainsComponent from "../../components/CurtainsComponent";
+import AchievementScoreComponent from "../../components/AchievementScoreComponent"
 import Align from "../../helpers/Align/align";
 import SoundManager from "../../managers/SoundManager";
 
@@ -15,6 +16,7 @@ export default class ScoreScene extends Phaser.Scene {
   private curtainsComponent?: CurtainsComponent;
   private scoreCrowd?: ScoreCrowdComponent;
   private soundMananger?: SoundManager;
+  private achievementScoreComponent?: AchievementScoreComponent;
 
   constructor() {
     super(config);
@@ -46,25 +48,28 @@ export default class ScoreScene extends Phaser.Scene {
 
     // === Bar component
     this.barComponent = new BarComponent(this, 0.8);
-
+    
     // Ground component
     new Ground(this);
-
+    
     // Success component
+    this.achievementScoreComponent = new AchievementScoreComponent(this);
 
     // Curtains component
     this.curtainsComponent = new CurtainsComponent(this);
   }
 
   onCharacterPass = () => {
+    // this.barComponent?.increment();
+    this.barComponent?.incrementPoints(true);
     this.scoreCrowd?.increment();
-    this.barComponent?.increment();
     this.soundMananger?.playScore();
   };
 
   onEnd = () => {
-    this.curtainsComponent?.initCodeAnimations();
-    // console.log("End.");
+    console.log("End.");
+    this.barComponent?.launchInterval();
+    // this.curtainsComponent?.initCodeAnimations();
   };
 
   update() {

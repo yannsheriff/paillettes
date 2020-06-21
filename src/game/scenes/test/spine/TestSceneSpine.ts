@@ -1,5 +1,6 @@
 import config from "./config";
-import PhysicCharacter, { CharacterType } from "../../../components/CharactersComponent/Character";
+import PhysicCharacter from "../../../components/CharactersComponent/Character";
+import { GameStep } from "../../../states/main";
 import { button } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent/DragQueen";
 import AssetsManager from "../../../helpers/Assets";
@@ -102,7 +103,7 @@ export class TestSceneSpine extends Phaser.Scene {
       "",
       400,
       () => {},
-      CharacterType.debug
+      GameStep.debug
     );
     this.characterList.push(character);
     this.addDebug(character);

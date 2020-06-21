@@ -22,32 +22,42 @@ class BarComponent {
   private scale: number;
   private bar?: Phaser.GameObjects.Image;
   private progressBar?: Phaser.GameObjects.Rectangle;
-  private text?: Phaser.GameObjects.Text;
+  private pointsText?: Phaser.GameObjects.Text;
   private moneyText?: Phaser.GameObjects.Text;
   private moneyAlreadyFounded: number;
   private moneyByCharacter: number;
-  private charcterCount: number;
+  private pointsByCharacter: number;
   private posY: number;
   private progressValue: number;
   private progressIncrement: number;
   private progressTip?: Phaser.GameObjects.Sprite;
+  private totalPoints: number = 0;
+  private fontSizeOrigin: number = 20;
+  private maxFontSize: number = 30;
+  private currentFontSize: number = this.fontSizeOrigin;
+  private fontSizeStep: number = 0;
+  private unlockedCharLength: number = 0;
 
   constructor(scene: Phaser.Scene, scale: number) {
     this.scene = scene;
     this.scale = scale;
-    this.charcterCount = 15;
     this.moneyAlreadyFounded = 15;
-    this.posY = window.innerHeight * 0.8;
+    this.posY = window.innerHeight * 0.7;
 
     const totalMoney = 50;
     this.progressValue = (this.moneyAlreadyFounded / totalMoney) * 100;
 
-    const unlockedCherLength = ScoreStateManager.getInstance().state
+    this.unlockedCharLength = ScoreStateManager.getInstance().state
       .charactersUnlocked.length;
 
-    const unlockedMoney = (unlockedCherLength * 0.5) / 200 + 4.5;
+    const finalScore = ScoreStateManager.getInstance().state.score;
 
-    this.moneyByCharacter = unlockedMoney / unlockedCherLength;
+    const unlockedMoney = (this.unlockedCharLength * 0.5) / 200 + 4.5;
+
+    this.pointsByCharacter = finalScore / this.unlockedCharLength;
+    this.moneyByCharacter = unlockedMoney / this.unlockedCharLength;
+    this.fontSizeStep = 10 / this.unlockedCharLength;
+
     this.progressIncrement = (this.moneyByCharacter / totalMoney) * 100;
     this.create();
   }
@@ -82,19 +92,21 @@ class BarComponent {
 
     // this.progressTip?.play("logo-in");
 
-    this.text = this.scene.add
+    this.pointsText = this.scene.add
       .text(
-        window.innerWidth / 2 + BarWidth / 2 - 270,
-        this.posY - 50,
-        "0 Personnages",
+        window.innerWidth / 2 + BarWidth / 2 - 150,
+        this.posY - 40,
+        "0 POINTS",
         {
-          fontFamily: "RockhillSansRough",
+          fontFamily: "LondrinaSolid",
           fontSize: "20px",
           fontStyle: "",
           color: "#fff",
           align: "center",
         }
       )
+      .setResolution(1)
+      .setOrigin(1, 1)
       .setDepth(13);
 
     this.moneyText = this.scene.add
@@ -105,7 +117,7 @@ class BarComponent {
           .format(this.moneyAlreadyFounded)
           .toString(),
         {
-          fontFamily: "RockhillSansRough",
+          fontFamily: "LondrinaSolid",
           fontSize: "31px",
           fontStyle: "",
           fixedWidth: 120,
@@ -113,28 +125,60 @@ class BarComponent {
           align: "center",
         }
       )
+      .setResolution(1)
       .setDepth(13);
 
     this.scene.add
       .text(
-        window.innerWidth / 2 - BarWidth / 2 + 130,
+        window.innerWidth / 2 - BarWidth / 2 + 100,
         this.posY - 70,
-        "SOMME TOTALE RÉCOLTÉ",
+        "BOURSE",
         {
-          fontFamily: "RockhillSansRough",
+          fontFamily: "LondrinaSolid",
           fontSize: "31px",
           fontStyle: "",
           color: "#fff",
           align: "center",
         }
       )
+      .setResolution(1)
       .setDepth(13);
   }
 
-  public increment() {
+  // first we increments points counter
+  public incrementPoints(increment: boolean) {
+    console.log(this.totalPoints)
+    if (this.pointsByCharacter > 0) {
+      if (increment) {
+        this.totalPoints += Math.round(this.pointsByCharacter)
+        this.currentFontSize += this.fontSizeStep;
+      } else {
+        this.totalPoints -= Math.round(this.pointsByCharacter)
+        this.currentFontSize -= this.fontSizeStep;
+      }
+      this.pointsText?.setText(this.totalPoints + " POINTS").setFontSize(this.currentFontSize)
+    }
+  }
+
+  public launchInterval() {
+    const interval = 5000 / this.unlockedCharLength;
+    let i = 0;
+    setInterval(() => {
+      if (i < this.unlockedCharLength) {
+        this.incrementMoney()
+        this.incrementPoints(false)
+      } else {
+        clearInterval()
+      }
+      i += 1;
+    }, interval)
+  }
+
+  // then we decrement points and increment money
+  public incrementMoney() {
     this.progressValue += this.progressIncrement;
     this.moneyAlreadyFounded += this.moneyByCharacter;
-    this.charcterCount++;
+    // this.characterCount++;
     this.progressTip?.play("loaderTip-on");
 
     const { tipX, width } = getProgressData(
@@ -159,7 +203,7 @@ class BarComponent {
       yoyo: false,
     });
 
-    this.text?.setText(this.charcterCount.toString() + " Personnages");
+    // this.text?.setText(this.characterCount.toString() + " Personnages");
     this.moneyText?.setText(
       new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" })
         .format(this.moneyAlreadyFounded)
