@@ -11,7 +11,7 @@ import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 
 import { CharacterType } from "./Character";
 
-const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
+// const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
 class PhysicCharacterManager {
   private scene: Phaser.Scene;

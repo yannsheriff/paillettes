@@ -126,7 +126,6 @@ class PhysicCharacter extends SpineContainer {
 
     let destination = window.innerWidth - destinationX + (this.displayWidth / 2) * this.scale;
     let duration = (destination / this.speedIn) * 1000;
-    let latency = 0;
 
     // join crowd
     this.tweenIn = this.scene.tweens.add({
