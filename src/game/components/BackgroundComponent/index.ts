@@ -162,7 +162,6 @@ class BackgroundManager {
       // this.initDestroy(currentPlane, PlaneSpace.first);
       prevPlane = currentPlane;
     }
-
     for (let planetwo = 0; planetwo < 3; planetwo++) {
       let rand = this.getRandomAsset(PlaneSpace.second);
       currentPlane = new Plane(
@@ -254,23 +253,12 @@ class BackgroundManager {
 
   public startWorldTransition(world: Worlds) {
     this.world = world;
-    console.log("BackgroundManager -> startWolrdTransition -> world", world);
-  }
-
-  private endWorldTransition() {
-    console.log("End World Transition");
+    // console.log("BackgroundManager -> startWolrdTransition -> world", world);
   }
 
   private onMainStateChange = (state: MainState) => {
     if (state.world !== this.mainState.world) {
       this.startWorldTransition(state.world);
-    }
-
-    if (
-      state.isInTransition !== this.mainState.isInTransition &&
-      !state.isInTransition
-    ) {
-      this.endWorldTransition();
     }
 
     this.mainState = state;

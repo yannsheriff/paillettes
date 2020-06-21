@@ -62,7 +62,7 @@ class BarComponent {
 
     this.pointsByCharacter = finalScore / this.unlockedCharLength;
     this.moneyByCharacter = unlockedMoney / this.unlockedCharLength;
-    this.fontSizeStep = 10 / this.unlockedCharLength;
+    this.fontSizeStep = 12 / this.unlockedCharLength; // max font size = fontSizeOrigin + 12
 
     this.progressIncrement = (this.moneyByCharacter / totalMoney) * 100;
     this.create();
@@ -116,8 +116,8 @@ class BarComponent {
 
     this.moneyText = this.scene.add
       .text(
-        window.innerWidth / 2 - 60,
-        this.posY + 40,
+        window.innerWidth / 2 + BarWidth / 2 - 150,
+        this.posY + 30,
         new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" })
           .format(this.moneyAlreadyFounded)
           .toString(),
@@ -130,6 +130,7 @@ class BarComponent {
           align: "center",
         }
       )
+      .setOrigin(1, 0)
       .setDepth(13);
 
     this.scene.add
@@ -150,7 +151,6 @@ class BarComponent {
 
   // first we increments points counter
   public incrementPoints(increment: boolean) {
-    console.log(this.totalPoints)
     if (this.pointsByCharacter > 0) {
       if (increment) {
         this.totalPoints += Math.round(this.pointsByCharacter)
@@ -168,7 +168,6 @@ class BarComponent {
     let i = 0;
     let setinterval = setInterval(() => {
       if (i < this.unlockedCharLength) {
-        console.log('increment money points')
         this.incrementMoney()
         this.incrementPoints(false)
       } else {

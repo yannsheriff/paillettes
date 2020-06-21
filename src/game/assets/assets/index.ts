@@ -73,6 +73,11 @@ export const mainSpritesheets: SpritesheetData[] = [
     asset: "world4_spritesheet.json",
     path: "assets/spritesheets/world4/",
   },
+  {
+    key: "achievementsbadge",
+    asset: "achievementbadge.json",
+    path: "assets/spritesheets/achievements/",
+  },
 ];
 
 export const mainSpines: SpineData[] = [
