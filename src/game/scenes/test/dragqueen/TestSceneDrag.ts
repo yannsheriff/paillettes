@@ -1,6 +1,5 @@
 import config from "./config";
 import Character from "../../../components/CharactersComponent/Character";
-import { button } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent/DragQueen";
 import GodMother from "../../../components/GodMotherComponent/GodMother";
 import Achievement from "../../../components/AchievementComponent/Achievement";
@@ -40,7 +39,6 @@ export class TestSceneDrag extends Phaser.Scene {
   }
 
   public preload(): void {
-    this.load.image("btn", button);
     this.assetsManager.preload();
   }
 
