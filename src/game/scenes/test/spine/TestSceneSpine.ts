@@ -1,5 +1,7 @@
 import config from "./config";
-import PhysicCharacter, { CharacterType } from "../../../components/CharactersComponent/Character";
+import PhysicCharacter from "../../../components/CharactersComponent/Character";
+import { GameStep } from "../../../states/main";
+import { button } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent/DragQueen";
 import AssetsManager from "../../../helpers/Assets";
 import {
@@ -26,19 +28,18 @@ export class TestSceneSpine extends Phaser.Scene {
       mainMusic
     );
 
-    this.assetsManager.spineCharacters.forEach(character => {
+    this.assetsManager.spineCharacters.forEach((character) => {
       this.characterAssets.push(character.key);
     });
   }
 
   public preload(): void {
     this.assetsManager.preload();
-
   }
 
   public create() {
     this.addDragQueen();
-    
+
     this.add
       .text(50, 50, "< Retour", { fill: "red" })
       .setInteractive()
@@ -53,7 +54,7 @@ export class TestSceneSpine extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => {
         this.addDragQueen();
-      })
+      });
 
     this.characterAssets.forEach((character) => {
       this.add
@@ -100,7 +101,7 @@ export class TestSceneSpine extends Phaser.Scene {
       "",
       400,
       () => {},
-      CharacterType.debug
+      GameStep.debug
     );
     this.characterList.push(character);
     this.addDebug(character);
