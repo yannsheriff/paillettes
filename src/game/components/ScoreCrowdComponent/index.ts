@@ -3,9 +3,6 @@ import PhysicCharacter from "../CharactersComponent/Character";
 import { GameStep } from "../../states/main";
 import MainStateManager, { MainState } from "../../states/main";
 
-const charactersCountDuration = 3000;
-const finalScoreDisplayDuration = 6000;
-
 class ScoreCrowdComponent {
   private scene: Phaser.Scene;
   private finalCrowd: Array<string>;
@@ -69,7 +66,7 @@ class ScoreCrowdComponent {
     if (this.charactersPassed === this.finalCrowd.length) {
       setTimeout(() => {
         this.onEndCallBack();
-      }, finalScoreDisplayDuration);
+      }, 2000); // time character leave screen
     }
   }
 }

@@ -8,6 +8,9 @@ import CurtainsComponent from "../../components/CurtainsComponent";
 import AchievementScoreComponent from "../../components/AchievementScoreComponent"
 import Align from "../../helpers/Align/align";
 import SoundManager from "../../managers/SoundManager";
+import { StepEventType } from "../../helpers/StepEventEmitter/gamepadListener";
+import stepEventEmitter from "../../helpers/StepEventEmitter";
+import { Direction } from "../../components/SheetMusicComponent/GridObject";
 
 export default class ScoreScene extends Phaser.Scene {
   private confettiManager?: ConfettiGenerator;
@@ -17,6 +20,8 @@ export default class ScoreScene extends Phaser.Scene {
   private scoreCrowd?: ScoreCrowdComponent;
   private soundMananger?: SoundManager;
   private achievementScoreComponent?: AchievementScoreComponent;
+  private isLeaving: boolean = false; 
+  private nextButton?: Phaser.GameObjects.Image
 
   constructor() {
     super(config);
@@ -38,16 +43,24 @@ export default class ScoreScene extends Phaser.Scene {
     Align.centerH(background);
     Align.centerV(background);
 
+    this.nextButton = this.add.image(0, 0, "scoreNext").setAlpha(0).setDepth(52);
+    Align.right(this.nextButton);
+    Align.bottom(this.nextButton);
+
     // === Crowd component
     this.scoreCrowd = new ScoreCrowdComponent(
       this,
       0.8,
       this.onCharacterPass,
-      this.onEnd
+      this.onAllCharactersCounted
     );
 
     // === Bar component
-    this.barComponent = new BarComponent(this, 0.8);
+    this.barComponent = new BarComponent(
+      this,
+      0.8,
+      this.allowLeaveScene
+    );
     
     // Ground component
     new Ground(this);
@@ -66,12 +79,38 @@ export default class ScoreScene extends Phaser.Scene {
     this.soundMananger?.playScore();
   };
 
-  onEnd = () => {
-    console.log("End.");
+  onAllCharactersCounted = () => {
     this.barComponent?.launchInterval();
-    // this.curtainsComponent?.initCodeAnimations();
   };
 
+  endScoreScene = (directions: Direction[]) => {
+    const directionPressed = directions[0];
+    if (directionPressed === "right" && !this.isLeaving) {
+      this.curtainsComponent?.initCodeAnimations();
+      this.isLeaving = true;
+      this.tweens.add({
+        targets: this.nextButton,
+        alpha: 0,
+        duration: 300,
+        ease: 'Power2',
+        onComplete: () => {
+          this.nextButton!.destroy()
+        }
+      });
+    }
+  };
+
+  allowLeaveScene = () => {
+    this.tweens.add({
+      targets: this.nextButton,
+      alpha: 1,
+      duration: 300,
+      ease: 'Power2'
+    });
+
+    stepEventEmitter.on(StepEventType.stepdown, this.endScoreScene);
+  }
+  
   update() {
     this.glitter?.update();
   }

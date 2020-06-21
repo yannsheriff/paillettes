@@ -37,10 +37,16 @@ class BarComponent {
   private currentFontSize: number = this.fontSizeOrigin;
   private fontSizeStep: number = 0;
   private unlockedCharLength: number = 0;
+  private sceneEndCallback: () => void;
 
-  constructor(scene: Phaser.Scene, scale: number) {
+  constructor(
+    scene: Phaser.Scene, 
+    scale: number,
+    sceneEndCallback: () => void,
+  ) {
     this.scene = scene;
     this.scale = scale;
+    this.sceneEndCallback = sceneEndCallback;
     this.moneyAlreadyFounded = 15;
     this.posY = window.innerHeight * 0.7;
 
@@ -95,7 +101,7 @@ class BarComponent {
     this.pointsText = this.scene.add
       .text(
         window.innerWidth / 2 + BarWidth / 2 - 150,
-        this.posY - 40,
+        this.posY - 30,
         "0 POINTS",
         {
           fontFamily: "LondrinaSolid",
@@ -105,7 +111,6 @@ class BarComponent {
           align: "center",
         }
       )
-      .setResolution(1)
       .setOrigin(1, 1)
       .setDepth(13);
 
@@ -120,19 +125,18 @@ class BarComponent {
           fontFamily: "LondrinaSolid",
           fontSize: "31px",
           fontStyle: "",
-          fixedWidth: 120,
+          // fixedWidth: 120,
           color: "#fff",
           align: "center",
         }
       )
-      .setResolution(1)
       .setDepth(13);
 
     this.scene.add
       .text(
-        window.innerWidth / 2 - BarWidth / 2 + 100,
+        window.innerWidth / 2 - BarWidth / 2 + 150,
         this.posY - 70,
-        "BOURSE",
+        "CAGNOTTE TOTALE",
         {
           fontFamily: "LondrinaSolid",
           fontSize: "31px",
@@ -141,7 +145,6 @@ class BarComponent {
           align: "center",
         }
       )
-      .setResolution(1)
       .setDepth(13);
   }
 
@@ -163,12 +166,14 @@ class BarComponent {
   public launchInterval() {
     const interval = 5000 / this.unlockedCharLength;
     let i = 0;
-    setInterval(() => {
+    let setinterval = setInterval(() => {
       if (i < this.unlockedCharLength) {
+        console.log('increment money points')
         this.incrementMoney()
         this.incrementPoints(false)
       } else {
-        clearInterval()
+        clearInterval(setinterval)
+        this.sceneEndCallback()
       }
       i += 1;
     }, interval)

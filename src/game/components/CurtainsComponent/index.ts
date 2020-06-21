@@ -48,8 +48,6 @@ class CurtainsComponent {
     });
   }
 
-  private delete() {}
-
   public initCodeAnimations() {
     this.curtains!.playAnimation("code-open", false);
     this.score!.playAnimation("code-open", false);

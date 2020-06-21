@@ -21,11 +21,23 @@ class Achievement extends SpineContainer {
     // full screen asset
     this.scene = scene;
     this.achievementType = achievementType;
-    let scale = window.innerWidth / this.spineBody.width
-    this.setScale(scale); // asset size
+    let scale;
 
-    this.y = window.innerHeight / 2 + (this.spineBody.height / 2 * this.scale)
-    Align.centerH(this)
+    switch (this.achievementType) {
+      case GameStep.game:
+        scale = window.innerWidth / this.spineBody.width
+        this.setScale(scale); // asset size
+        this.y = window.innerHeight / 2 + (this.spineBody.height / 2 * this.scale)
+        Align.centerH(this)
+        break;
+      case GameStep.score:
+        scale = (window.innerWidth / this.spineBody.width) * 0.1
+        this.setScale(scale); // asset size
+        this.y = window.innerHeight - 50
+        break;
+      default:
+        break;
+    }
     scene.add.existing(this)
 
     this.drawDebug(false)

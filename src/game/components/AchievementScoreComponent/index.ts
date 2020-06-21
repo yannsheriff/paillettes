@@ -14,20 +14,24 @@ class AchievementScoreComponent {
 
     // const finalScore = ScoreStateManager.getInstance().state.score;
 
-    this.create();
+    // this.create();
   }
 
   create() {
-    // this.unlockedAchievement.forEach(achievement => {
-    //   let achivement = new Achievement(
-    //     this.scene,
-    //     "achievement",
-    //     "play",
-    //     GameStep.score,
-    //     false,
-    //   )
-    //  achivement.changeSkin(achievement)
-    // });
+    let posX = window.innerWidth * 0.2;
+    this.unlockedAchievement.forEach(achievement => {
+      let achivementSpine = new Achievement(
+        this.scene,
+        "achievement",
+        "play",
+        GameStep.score,
+        false,
+      )
+      achivementSpine.changeSkin(achievement)
+      achivementSpine.x = posX;
+
+     posX += achivementSpine.spineBody.width * achivementSpine.scale + 100
+    });
   }
 
 }
