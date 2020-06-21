@@ -1,0 +1,272 @@
+{
+	"textures": [
+		{
+			"image": "arrows_spritesheet.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 2036,
+				"h": 528
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "E2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1024,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 0,
+						"w": 980,
+						"h": 265
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 980,
+						"h": 265
+					}
+				},
+				{
+					"filename": "R",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1024,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 991,
+						"h": 259
+					},
+					"frame": {
+						"x": 1,
+						"y": 268,
+						"w": 991,
+						"h": 259
+					}
+				},
+				{
+					"filename": "F",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1024,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 0,
+						"w": 980,
+						"h": 265
+					},
+					"frame": {
+						"x": 983,
+						"y": 1,
+						"w": 980,
+						"h": 265
+					}
+				},
+				{
+					"filename": "E1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1024,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 991,
+						"h": 258
+					},
+					"frame": {
+						"x": 994,
+						"y": 268,
+						"w": 991,
+						"h": 258
+					}
+				},
+				{
+					"filename": "down",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 54,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 54,
+						"h": 66
+					},
+					"frame": {
+						"x": 1965,
+						"y": 1,
+						"w": 54,
+						"h": 66
+					}
+				},
+				{
+					"filename": "up",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 54,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 54,
+						"h": 66
+					},
+					"frame": {
+						"x": 1965,
+						"y": 69,
+						"w": 54,
+						"h": 66
+					}
+				},
+				{
+					"filename": "left",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 67,
+						"h": 53
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 67,
+						"h": 53
+					},
+					"frame": {
+						"x": 1965,
+						"y": 137,
+						"w": 67,
+						"h": 53
+					}
+				},
+				{
+					"filename": "right",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 67,
+						"h": 53
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 67,
+						"h": 53
+					},
+					"frame": {
+						"x": 1965,
+						"y": 192,
+						"w": 67,
+						"h": 53
+					}
+				},
+				{
+					"filename": "StarDown.svg",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 1987,
+						"y": 247,
+						"w": 48,
+						"h": 48
+					}
+				},
+				{
+					"filename": "StarLeft.svg",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 1987,
+						"y": 297,
+						"w": 48,
+						"h": 48
+					}
+				},
+				{
+					"filename": "StarRight.svg",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 1987,
+						"y": 347,
+						"w": 48,
+						"h": 48
+					}
+				},
+				{
+					"filename": "StarUp.svg",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 1987,
+						"y": 397,
+						"w": 48,
+						"h": 48
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:d4c1ab5dfb0c8d7257f7c365fc3a1205:3691619aa375cc708a0ffb4bc84151f2:0c8b2eea25d6fa2e4625a992aa216f5f$"
+	}
+}

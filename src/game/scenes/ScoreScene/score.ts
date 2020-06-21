@@ -27,7 +27,7 @@ export default class ScoreScene extends Phaser.Scene {
     this.glitter.confettiManager?.grow();
     this.glitter.confettiManager?.startConfetti();
 
-    let background = this.add.image(0, 0, "scoreBackground");
+    let background = this.add.image(0, 0, "scoreimg", "background");
     if (window.innerWidth > window.innerHeight) {
       Align.scaleToGameW(background, 1.2);
     } else {

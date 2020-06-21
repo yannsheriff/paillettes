@@ -71,6 +71,16 @@ export const mainSpritesheets: SpritesheetData[] = [
     asset: "world4_spritesheet.json",
     path: "assets/spritesheets/world4/",
   },
+  {
+    key: "arrows",
+    asset: "arrows_spritesheet.json",
+    path: "assets/spritesheets/arrows/",
+  },
+  {
+    key: "scoreimg",
+    asset: "score_spritesheet.json",
+    path: "assets/spritesheets/score/",
+  },
 ];
 
 export const mainSpines: SpineData[] = [

@@ -1,0 +1,83 @@
+{
+	"textures": [
+		{
+			"image": "score_spritesheet.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1922,
+				"h": 1329
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "background",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1920,
+						"h": 1080
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1920,
+						"h": 1080
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 1920,
+						"h": 1080
+					}
+				},
+				{
+					"filename": "barTip",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 21,
+						"y": 2,
+						"w": 394,
+						"h": 245
+					},
+					"frame": {
+						"x": 1,
+						"y": 1083,
+						"w": 394,
+						"h": 245
+					}
+				},
+				{
+					"filename": "barre",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1236,
+						"h": 60
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1236,
+						"h": 60
+					},
+					"frame": {
+						"x": 397,
+						"y": 1083,
+						"w": 1236,
+						"h": 60
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:f13822e7f675621959990f93185e9614:73d9b19f52abcf2b3f9f971d80480752:033b907575d6c9e03ca7456ba6766d50$"
+	}
+}

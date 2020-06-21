@@ -1,6 +1,5 @@
 // UI
 export { default as grid } from "./Interaction/grid.svg";
-export { default as button } from "./UI/barreFever.png";
 export { default as zoneInput } from "./Interaction/ZoneInput.svg";
 export { default as E2_SPRITE } from "./UI/E2_SPRITE.png";
 export { default as E1_SPRITE } from "./UI/E1_SPRITE.png";
