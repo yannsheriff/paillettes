@@ -40,9 +40,9 @@ class BarComponent {
   private sceneEndCallback: () => void;
 
   constructor(
-    scene: Phaser.Scene, 
+    scene: Phaser.Scene,
     scale: number,
-    sceneEndCallback: () => void,
+    sceneEndCallback: () => void
   ) {
     this.scene = scene;
     this.scale = scale;
@@ -53,8 +53,7 @@ class BarComponent {
     const totalMoney = 50;
     this.progressValue = (this.moneyAlreadyFounded / totalMoney) * 100;
 
-    this.unlockedCharLength = ScoreStateManager.getInstance().state
-      .charactersUnlocked.length;
+    this.unlockedCharLength = ScoreStateManager.getInstance().state.charactersUnlocked.length;
 
     const finalScore = ScoreStateManager.getInstance().state.score;
 
@@ -153,13 +152,15 @@ class BarComponent {
   public incrementPoints(increment: boolean) {
     if (this.pointsByCharacter > 0) {
       if (increment) {
-        this.totalPoints += Math.round(this.pointsByCharacter)
+        this.totalPoints += Math.round(this.pointsByCharacter);
         this.currentFontSize += this.fontSizeStep;
       } else {
-        this.totalPoints -= Math.round(this.pointsByCharacter)
+        this.totalPoints -= Math.round(this.pointsByCharacter);
         this.currentFontSize -= this.fontSizeStep;
       }
-      this.pointsText?.setText(this.totalPoints + " POINTS").setFontSize(this.currentFontSize)
+      this.pointsText
+        ?.setText(this.totalPoints + " POINTS")
+        .setFontSize(this.currentFontSize);
     }
   }
 
@@ -168,14 +169,14 @@ class BarComponent {
     let i = 0;
     let setinterval = setInterval(() => {
       if (i < this.unlockedCharLength) {
-        this.incrementMoney()
-        this.incrementPoints(false)
+        this.incrementMoney();
+        this.incrementPoints(false);
       } else {
-        clearInterval(setinterval)
-        this.sceneEndCallback()
+        clearInterval(setinterval);
+        this.sceneEndCallback();
       }
       i += 1;
-    }, interval)
+    }, interval);
   }
 
   // then we decrement points and increment money

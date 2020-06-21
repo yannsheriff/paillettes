@@ -1,9 +1,9 @@
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
-import Align from "../../../helpers/Align/align";
 
-const animations = [
-  "close", "open", "loop-score", "code-open", "loop-code", "code-closed", "logo", "transition"
-]
+// const animations = [
+//   "close", "open", "loop-score", "code-open", "loop-code", "code-closed", "logo", "transition"
+// ]
+
 class Curtains extends SpineContainer {
   constructor(
     scene: Phaser.Scene,

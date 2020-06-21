@@ -2,6 +2,7 @@ import config from "./config";
 
 import AnimationManager from "../../helpers/Animations";
 import AssetsManager from "../../helpers/Assets";
+import GameScene from "./../GameScene";
 import { mainAnimations } from "../../assets/animations";
 import {
   mainImages,
@@ -11,14 +12,20 @@ import {
 } from "../../assets/assets";
 
 import SoundManager from "../../managers/SoundManager";
+import MainStateManager, { GameStatus } from "../../states/main";
+import ScoreScene from "../ScoreScene";
+import Curtains from "../../components/CurtainsComponent/Curtains";
 
-export class GameScene extends Phaser.Scene {
+export class MainScene extends Phaser.Scene {
   private text?: Phaser.GameObjects.Text;
   private animationManager: AnimationManager;
   private assetsManager: AssetsManager;
+  private mainStateManager: MainStateManager;
 
   constructor() {
     super(config);
+    this.mainStateManager = MainStateManager.getInstance();
+    this.mainStateManager.onGameStatusChange(this.gameStatusChange, true);
     this.animationManager = new AnimationManager(this, mainAnimations);
     this.assetsManager = new AssetsManager(
       this,
@@ -57,11 +64,34 @@ export class GameScene extends Phaser.Scene {
 
   startGame = () => {
     this.text!.destroy();
-    console.log("instance SoundManager");
-
+    new Curtains(this, "curtains", "logo", false);
     SoundManager.getInstance(this);
     this.scene.launch("Game");
   };
+
+  private gameStatusChange = (status: GameStatus) => {
+    console.log("GameStatus : ", status);
+    switch (status) {
+      case GameStatus.isGameOver:
+        setTimeout(() => {
+          this.scene.stop("Game");
+          this.scene.remove("Game");
+          this.scene.add("ScoreScene", ScoreScene, true);
+        }, 5000);
+        break;
+      case GameStatus.requestReload:
+        console.log("REQUEST RELOAD");
+        setTimeout(() => {
+          this.scene.stop("ScoreScene");
+          this.scene.remove("ScoreScene");
+          this.scene.add("Game", GameScene, true);
+        }, 1000);
+        break;
+
+      default:
+        break;
+    }
+  };
 }
 
-export default GameScene;
+export default MainScene;

@@ -5,11 +5,13 @@ import MainStateManager, { GameStatus, MainState } from "../../states/main";
 class CurtainsComponent {
   private scene: Phaser.Scene;
   private curtains?: Curtains;
+  private mainManager: MainStateManager;
   private score?: Score;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
-    MainStateManager.getInstance().onGameStatusChange(this.gameStatusChange);
+    this.mainManager = MainStateManager.getInstance();
+    this.mainManager.onGameStatusChange(this.gameStatusChange);
 
     if (scene.scene.key === "Game") {
       this.createIntro();
@@ -70,7 +72,7 @@ class CurtainsComponent {
         }, 2000);
         break;
       case "code-closed":
-        // this.mainManager.restart();
+        this.mainManager.restart();
         break;
 
       default:

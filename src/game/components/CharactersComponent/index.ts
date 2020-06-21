@@ -12,7 +12,7 @@ import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 import { GameStep } from "../../states/main";
 
 
-const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
+// const animations = ["Dance", "Fail", "NBidle", "Run", "Transition"];
 
 class PhysicCharacterManager {
   private scene: Phaser.Scene;
@@ -121,7 +121,7 @@ class PhysicCharacterManager {
     this.colliders.shift();
 
     if (character.isUnlock) {
-      this.updateCrowd(character)
+      this.updateCrowd(character);
     } else {
       character.failAndDestroy();
     }
@@ -134,7 +134,7 @@ class PhysicCharacterManager {
 
     this.crowd.push(character);
     character.joinCrowd(this.crowd.length);
-    this.scoreManager.registrerUnlockedCharacter(character.name)
+    this.scoreManager.registrerUnlockedCharacter(character.name);
 
     // debug
     // if (this.totalCrowd === 1) {
@@ -143,21 +143,27 @@ class PhysicCharacterManager {
 
     switch (this.totalCrowd) {
       case 10:
-        this.scoreManager.registerUnlockedAchievement(AchievementType.characters10)
+        this.scoreManager.registerUnlockedAchievement(
+          AchievementType.characters10
+        );
         break;
       case 20:
-        this.scoreManager.registerUnlockedAchievement(AchievementType.characters20)
+        this.scoreManager.registerUnlockedAchievement(
+          AchievementType.characters20
+        );
         break;
       case 30:
-        this.scoreManager.registerUnlockedAchievement(AchievementType.characters30)
+        this.scoreManager.registerUnlockedAchievement(
+          AchievementType.characters30
+        );
         break;
       default:
         break;
     }
 
     if (this.crowd.length > this.maxCrowdLenght) {
-      this.crowd.forEach(character => {
-        character.shiftCharacter()  // make character run outside screen
+      this.crowd.forEach((character) => {
+        character.shiftCharacter(); // make character run outside screen
       });
       this.crowd.shift(); // remove first character of array
     }

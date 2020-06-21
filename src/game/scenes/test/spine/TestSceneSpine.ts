@@ -28,20 +28,18 @@ export class TestSceneSpine extends Phaser.Scene {
       mainMusic
     );
 
-    this.assetsManager.spineCharacters.forEach(character => {
+    this.assetsManager.spineCharacters.forEach((character) => {
       this.characterAssets.push(character.key);
     });
   }
 
   public preload(): void {
-    this.load.image("btn", button);
     this.assetsManager.preload();
-
   }
 
   public create() {
     this.addDragQueen();
-    
+
     this.add
       .text(50, 50, "< Retour", { fill: "red" })
       .setInteractive()
@@ -56,7 +54,7 @@ export class TestSceneSpine extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => {
         this.addDragQueen();
-      })
+      });
 
     this.characterAssets.forEach((character) => {
       this.add

@@ -21,6 +21,7 @@ export enum GameStatus {
   isLaunch,
   isRunning,
   isGameOver,
+  requestReload,
 }
 
 export enum GameStep {
@@ -52,6 +53,9 @@ export default class MainStateManager extends State {
   public state: MainState;
   private remainingWorlds: Worlds[];
   private gameStatusCallback: Array<(gridObject: GameStatus) => unknown>;
+  private gameStatusImmuableCallback: Array<
+    (gridObject: GameStatus) => unknown
+  >;
 
   /**
    * The Singleton's constructor should always be private to prevent direct
@@ -61,6 +65,7 @@ export default class MainStateManager extends State {
     super();
     this.state = initialState;
     this.gameStatusCallback = [];
+    this.gameStatusImmuableCallback = [];
 
     const world = randomEnumValue(Worlds);
 
@@ -139,6 +144,9 @@ export default class MainStateManager extends State {
     this.gameStatusCallback.forEach((callback) =>
       callback(this.state.gameStatus)
     );
+    this.gameStatusImmuableCallback.forEach((callback) =>
+      callback(this.state.gameStatus)
+    );
   }
 
   public restart() {
@@ -150,8 +158,12 @@ export default class MainStateManager extends State {
       objectSpeed: 400,
       isInTransition: false,
       didChangeWorld: false,
-      gameStatus: GameStatus.isReady,
+      gameStatus: GameStatus.requestReload,
     });
+
+    this.gameStatusCallback = [];
+
+    this.gameStatusChange();
 
     this.remainingWorlds = [
       Worlds.nineteenCentury,
@@ -175,8 +187,15 @@ export default class MainStateManager extends State {
     });
   }
 
-  public onGameStatusChange(callback: (status: GameStatus) => unknown) {
-    this.gameStatusCallback.push(callback);
+  public onGameStatusChange(
+    callback: (status: GameStatus) => unknown,
+    immuable?: boolean
+  ) {
+    if (immuable === true) {
+      this.gameStatusImmuableCallback.push(callback);
+    } else {
+      this.gameStatusCallback.push(callback);
+    }
   }
 
   public changeWorld() {

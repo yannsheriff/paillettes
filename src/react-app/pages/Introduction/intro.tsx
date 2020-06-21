@@ -24,19 +24,6 @@ export default class Game extends Component<{}, state> {
   componentDidMount() {
     stepEventEmitter.on(StepEventType.stepdown, this.stepDownListener);
     stepEventEmitter.on(StepEventType.stepup, this.stepUpListener);
-
-    // const launchPaillettes = () => {
-    //   setTimeout(() => {
-    const canvas = document.getElementById("paillettes");
-    if (canvas && canvas instanceof HTMLCanvasElement) {
-      const confetti = new ConfettiGenerator(canvas);
-      confetti.startConfetti(undefined, undefined, 70);
-    }
-    //     document.removeEventListener("keydown", launchPaillettes);
-    //   }, 500);
-    // };
-
-    // document.addEventListener("keydown", launchPaillettes);
   }
 
   stepDownListener = (directions: string[]) => {
@@ -81,8 +68,6 @@ export default class Game extends Component<{}, state> {
 
     return (
       <div id="brille-cherie-intro">
-        <canvas id="paillettes" />
-
         <div id="brille-cherie-footer">
           <div></div>
           <p>

@@ -110,7 +110,7 @@ export class ConfettiGenerator {
 
     if (min) {
       if (max) {
-        if (min == max) count = this.particles.length + max;
+        if (min === max) count = this.particles.length + max;
         else {
           if (min > max) {
             var temp = min;
