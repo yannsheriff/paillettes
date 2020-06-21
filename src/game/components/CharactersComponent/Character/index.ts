@@ -1,11 +1,6 @@
 import Align from "../../../helpers/Align/align";
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
-
-export enum CharacterType {
-  game,
-  debug,
-  score
-}
+import { GameStep } from "../../../states/main";
 
 class PhysicCharacter extends SpineContainer {
   public scene: Phaser.Scene;
@@ -15,7 +10,7 @@ class PhysicCharacter extends SpineContainer {
   public tweenOut?: Phaser.Tweens.Tween;
   public positionInCrowd: number = 0;
   public isUnlock: boolean = false;
-  public characterType: CharacterType;
+  public characterType: GameStep;
   public isDestroyed: boolean = false; // to do
   private onEndCallback: (id: string) => void
   // private updateCrowdCallback: () => void
@@ -31,7 +26,7 @@ class PhysicCharacter extends SpineContainer {
     id: string,
     speed: number,
     onEndCallback: (id: string) => void,
-    characterType: CharacterType,
+    characterType: GameStep,
     loop: boolean = false,
   ) {
     super(scene, 0, 0, key, anim, loop);
@@ -56,16 +51,16 @@ class PhysicCharacter extends SpineContainer {
     this.name = key; // stock string assetname to name
 
     switch (this.characterType) {
-      case CharacterType.game:
+      case GameStep.game:
         Align.outsideRightSpine(this, this.spine, this.scale);
         Align.charactersOnGround(this, this.spine, this.scale);
         this.runTowardCrowd();
         break;
-      case CharacterType.debug:
+      case GameStep.debug:
         Align.crowdPosition(this, this.spine, this.scale);
         Align.charactersOnGround(this, this.spine, this.scale);
         break;
-      case CharacterType.score:
+      case GameStep.score:
         Align.outsideLeftSpine(this, this.spine, this.scale);
         Align.charactersOnGround(this, this.spine, this.scale);
         this.runOutsideScreen();
@@ -126,7 +121,6 @@ class PhysicCharacter extends SpineContainer {
 
     let destination = window.innerWidth - destinationX + (this.displayWidth / 2) * this.scale;
     let duration = (destination / this.speedIn) * 1000;
-    let latency = 0;
 
     // join crowd
     this.tweenIn = this.scene.tweens.add({

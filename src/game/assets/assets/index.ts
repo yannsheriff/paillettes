@@ -31,6 +31,7 @@ import {
   homeMusic,
   scoreSound,
   applauseSound,
+  next,
 } from "../index";
 
 export const mainImages: ImageData[] = [
@@ -48,6 +49,7 @@ export const mainImages: ImageData[] = [
   { key: "ground", asset: ground },
   { key: "Bar", asset: bar },
   { key: "scoreBackground", asset: scoreBackground },
+  { key: "scoreNext", asset: next },
 ];
 
 export const mainSpritesheets: SpritesheetData[] = [
@@ -70,6 +72,11 @@ export const mainSpritesheets: SpritesheetData[] = [
     key: "world4",
     asset: "world4_spritesheet.json",
     path: "assets/spritesheets/world4/",
+  },
+  {
+    key: "achievementsbadge",
+    asset: "achievementbadge.json",
+    path: "assets/spritesheets/achievements/",
   },
 ];
 

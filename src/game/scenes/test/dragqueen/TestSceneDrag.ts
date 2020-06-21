@@ -1,6 +1,5 @@
 import config from "./config";
 import Character from "../../../components/CharactersComponent/Character";
-import { button } from "../../../assets";
 import DragQueen from "../../../components/DragQueenComponent/DragQueen";
 import GodMother from "../../../components/GodMotherComponent/GodMother";
 import Achievement from "../../../components/AchievementComponent/Achievement";
@@ -14,6 +13,7 @@ import {
   mainMusic,
 } from "../../../assets/assets";
 import SpineContainer from "../../../helpers/SpineContainer/SpineContainer";
+import { GameStep } from "../../../states/main";
 
 export class TestSceneDrag extends Phaser.Scene {
   private dragQueen?: DragQueen;
@@ -40,7 +40,6 @@ export class TestSceneDrag extends Phaser.Scene {
   }
 
   public preload(): void {
-    this.load.image("btn", button);
     this.assetsManager.preload();
   }
 
@@ -110,7 +109,7 @@ export class TestSceneDrag extends Phaser.Scene {
 
   public addAchievement() {
     this.destroyAllCharacters()
-    this.achievement = new Achievement(this, "achievement", "Achievement", true);
+    this.achievement = new Achievement(this, "achievement", "Achievement", GameStep.game, true);
     this.addDebug(this.achievement)
   }
 
