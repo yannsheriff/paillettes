@@ -201,15 +201,15 @@ export default class ScoreStateManager extends State {
     const { difficulty } = this.mainState;
     const { combo } = this.state;
 
-    if (difficulty === DifficultyModes.easy && combo > 10) {
+    if (difficulty === DifficultyModes.easy && combo > 6) {
       this.setState({ combo: 0 });
       this.mainStateManager.incrementDifficulty();
     }
-    if (difficulty === DifficultyModes.medium && combo > 10) {
+    if (difficulty === DifficultyModes.medium && combo > 6) {
       this.setState({ combo: 0 });
       this.mainStateManager.incrementDifficulty();
     }
-    if (difficulty === DifficultyModes.hard && combo > 20) {
+    if (difficulty === DifficultyModes.hard && combo > 10) {
       this.setState({ combo: 0 });
       this.mainStateManager.incrementDifficulty();
     }
@@ -219,11 +219,11 @@ export default class ScoreStateManager extends State {
     const { difficulty } = this.mainState;
     const { combo } = this.state;
 
-    if (difficulty === DifficultyModes.medium && combo < -5) {
+    if (difficulty === DifficultyModes.medium && combo < -10) {
       this.setState({ combo: 0 });
       this.mainStateManager.decrementDifficulty();
     }
-    if (difficulty === DifficultyModes.hard && combo < -2) {
+    if (difficulty === DifficultyModes.hard && combo < -4) {
       this.setState({ combo: 0 });
       this.mainStateManager.decrementDifficulty();
     }
