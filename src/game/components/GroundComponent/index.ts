@@ -26,7 +26,7 @@ class Ground {
     this.rotationSpeed = 0.04;
     this.grounds = [];
     this.scale = this.calculateGroundScale(window.innerHeight);
-    this.positionGroundY = window.innerHeight - assetHeight / 2.1;
+    this.positionGroundY = window.innerHeight - assetHeight / 2.5;
     this.circleCenter = {
       x: window.innerWidth / 2,
       y: this.circleRadius + this.positionGroundY,
