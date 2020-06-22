@@ -18,7 +18,7 @@ import FreeArrow from "./FreeArrow";
 import Chrono from "./Chrono";
 import InputZone, { inputZoneAssetWidth } from "./InputZone";
 
-const heightBetweenSheetHBar = 239;
+export const heightBetweenSheetHBar = 239;
 const directionTable: {
   0: Direction;
   1: Direction;
@@ -122,7 +122,7 @@ class SheetMusic {
    * scene, elle initialise également l'event listener des notes.
    */
   create = () => {
-    new Grid(this.scene, this.posX, this.posY, this.scale);
+    new Grid(this.scene, this.posX, this.gridTop, this.scale);
 
     new FreeLights(
       this.scene,
