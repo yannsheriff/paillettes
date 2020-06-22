@@ -86,7 +86,7 @@ export class GameScene extends Phaser.Scene {
 
       this.glitter = new GlitterComponent(this);
 
-      this.camera?.setBackgroundColor("rgba(255, 255, 255, 1)");
+      this.camera?.setBackgroundColor("e3e3e3");
 
       // @ts-ignore
       this.isDebug = this.game.config.physics.arcade.debug;
