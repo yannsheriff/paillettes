@@ -48,7 +48,9 @@ class BarComponent {
     this.scale = scale;
     this.sceneEndCallback = sceneEndCallback;
     this.moneyAlreadyFounded = 15;
-    this.posY = window.innerHeight * 0.7;
+    
+    // ground position - ground height - centerbottom
+    this.posY = window.innerHeight - window.innerHeight / 5 - 50;// crowd position + 300px
 
     const totalMoney = 50;
     this.progressValue = (this.moneyAlreadyFounded / totalMoney) * 100;
