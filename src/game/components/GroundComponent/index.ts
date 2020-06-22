@@ -1,5 +1,7 @@
 import MainStateManager, { MainState, GameStatus } from "../../states/main";
 
+const assetHeight = 454;
+const assetWidth = 384;
 class Ground {
   public ground?: Phaser.GameObjects.Image;
   public rotationSpeed: number;
@@ -14,19 +16,21 @@ class Ground {
   private groundsAngles: number[];
   private canRotate: boolean = false;
   // base ground height = 454
-  private positionGroundY = window.innerHeight - window.innerHeight / 5;
+  // base ground height = 454
+  private positionGroundY: number;
 
   constructor(scene: Phaser.Scene) {
     this.groundsAngles = [];
     this.scene = scene;
     this.circleRadius = 8044;
+    this.rotationSpeed = 0.04;
+    this.grounds = [];
+    this.scale = this.calculateGroundScale(window.innerHeight);
+    this.positionGroundY = window.innerHeight - assetHeight / 2.1;
     this.circleCenter = {
       x: window.innerWidth / 2,
       y: this.circleRadius + this.positionGroundY,
     };
-    this.rotationSpeed = 0.04;
-    this.grounds = [];
-    this.scale = this.calculateGroundScale(window.innerHeight);
 
     MainStateManager.getInstance().onGameStatusChange(this.gameStatusChange);
 
@@ -78,8 +82,10 @@ class Ground {
   }
 
   private calculateGroundScale = (windowHeight: number): number => {
-    const groundHeight = windowHeight / 2;
-    const groundScale = (1 / 454) * groundHeight;
+    const groundWidth = window.innerWidth / 4.5;
+    const groundScale = (1 / assetWidth) * groundWidth;
+    // const groundHeight = (windowHeight / 5) * 2;
+    // const groundScale = (1 / 454) * groundHeight;
     return groundScale;
   };
 
