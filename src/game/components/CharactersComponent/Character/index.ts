@@ -46,6 +46,7 @@ class PhysicCharacter extends SpineContainer {
     this.mixAnimation("Dance", "Run");
 
     this.setDepth(10);
+
     this.setScale(0.45); // container and hitbox size
 
     this.name = key; // stock string assetname to name
@@ -168,8 +169,7 @@ class PhysicCharacter extends SpineContainer {
   // SCORE SCENE
   public runOutsideScreen() {
     let destination = window.innerWidth + this.spineBody.width * this.scale;
-    let duration = (destination / this.speedIn) * 1000;
-    // let latency = 400;
+    let duration = (destination / this.speedIn) * 1200;
 
     this.tweenIn = this.scene.tweens.add({
       targets: this,

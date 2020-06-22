@@ -20,7 +20,7 @@ class AchievementScoreComponent {
     let posX = 0;
     let assetWidth = 73;
     let assetHeight = 89;
-    let scale = (window.innerWidth / assetWidth) * 0.05; // 5vw
+    let scale = (window.innerWidth / assetWidth) * 0.04; // 5vw
 
     let container = this.scene.add.container(0, 0).setDepth(11)
 
@@ -38,7 +38,7 @@ class AchievementScoreComponent {
       container.add(achievementsprite)
     });
     container.x = window.innerWidth / 2 - posX / 2 + assetWidth * scale
-    container.y = window.innerHeight - (assetHeight * scale / 2) - 10;
+    container.y = window.innerHeight - (assetHeight * scale / 2) - 40;
   }
 
 }
