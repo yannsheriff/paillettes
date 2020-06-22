@@ -132,7 +132,7 @@ class SheetMusic {
       this.scale
     );
 
-    new Chrono(this.scene, this.posX - 280, this.posY + 80, this.scale);
+    new Chrono(this.scene, this.posX - 220, this.posY + 80, this.scale);
 
     new Score(this.scene, this.posX - 235, this.posY - 70, this.scale);
 
