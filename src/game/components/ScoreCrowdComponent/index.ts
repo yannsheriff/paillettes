@@ -43,6 +43,8 @@ class ScoreCrowdComponent {
         }, delay);
         delay += intervalDuration;
       });
+    } else {
+      this.onEndCallBack()
     }
   }
 
