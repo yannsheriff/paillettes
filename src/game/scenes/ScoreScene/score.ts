@@ -5,7 +5,7 @@ import BarComponent from "../../components/BarComponent";
 import Ground from "../../components/GroundComponent";
 import ScoreCrowdComponent from "../../components/ScoreCrowdComponent";
 import CurtainsComponent from "../../components/CurtainsComponent";
-import AchievementScoreComponent from "../../components/AchievementScoreComponent"
+import AchievementScoreComponent from "../../components/AchievementScoreComponent";
 import Align from "../../helpers/Align/align";
 import SoundManager from "../../managers/SoundManager";
 import { StepEventType } from "../../helpers/StepEventEmitter/gamepadListener";
@@ -20,8 +20,8 @@ export default class ScoreScene extends Phaser.Scene {
   private scoreCrowd?: ScoreCrowdComponent;
   private soundMananger?: SoundManager;
   private achievementScoreComponent?: AchievementScoreComponent;
-  private isLeaving: boolean = false; 
-  private nextButton?: Phaser.GameObjects.Image
+  private isLeaving: boolean = false;
+  private nextButton?: Phaser.GameObjects.Image;
 
   constructor() {
     super(config);
@@ -43,7 +43,10 @@ export default class ScoreScene extends Phaser.Scene {
     Align.centerH(background);
     Align.centerV(background);
 
-    this.nextButton = this.add.image(0, 0, "scoreNext").setAlpha(0).setDepth(52);
+    this.nextButton = this.add
+      .image(0, 0, "scoreNext")
+      .setAlpha(0)
+      .setDepth(52);
     Align.right(this.nextButton);
     Align.bottom(this.nextButton);
 
@@ -56,15 +59,11 @@ export default class ScoreScene extends Phaser.Scene {
     );
 
     // === Bar component
-    this.barComponent = new BarComponent(
-      this,
-      0.8,
-      this.allowLeaveScene
-    );
-    
+    this.barComponent = new BarComponent(this, 0.8, this.allowLeaveScene);
+
     // Ground component
     new Ground(this);
-    
+
     // Success component
     this.achievementScoreComponent = new AchievementScoreComponent(this);
 
@@ -92,10 +91,10 @@ export default class ScoreScene extends Phaser.Scene {
         targets: this.nextButton,
         alpha: 0,
         duration: 300,
-        ease: 'Power2',
+        ease: "Power2",
         onComplete: () => {
-          this.nextButton!.destroy()
-        }
+          this.nextButton!.destroy();
+        },
       });
     }
   };
@@ -105,12 +104,12 @@ export default class ScoreScene extends Phaser.Scene {
       targets: this.nextButton,
       alpha: 1,
       duration: 300,
-      ease: 'Power2'
+      ease: "Power2",
     });
 
     stepEventEmitter.on(StepEventType.stepdown, this.endScoreScene);
-  }
-  
+  };
+
   update() {
     this.glitter?.update();
   }
