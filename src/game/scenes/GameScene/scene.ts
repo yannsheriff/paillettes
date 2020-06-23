@@ -26,7 +26,7 @@ import LogoComponent from "../../components/LogoComponent";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
 
 export class GameScene extends Phaser.Scene {
-  private text?: Phaser.GameObjects.Text;
+  private scoretext?: Phaser.GameObjects.Text;
   private camera?: Phaser.Cameras.Scene2D.Camera;
   private CharacterManager: CharacterManager;
   private scoreManager: ScoreState;
@@ -84,24 +84,26 @@ export class GameScene extends Phaser.Scene {
       new DragQueenComponent(this);
       new GodMotherComponent(this);
 
+      this.scoretext = this.add
+        .text(window.innerWidth - 20, 20, "Score", { fill: "#ffffff" })
+        .setOrigin(1, 0)
+        .setInteractive()
+        .setAlpha(0)
+        .setDepth(90)
+        .on("pointerdown", () => {
+          if (!this.isGoingScore) {
+            this.mainStateManager.endGame();
+            this.isGoingScore = true;
+          }
+        });
+
+
       this.glitter = new GlitterComponent(this);
 
       this.camera?.setBackgroundColor("e3e3e3");
 
       // @ts-ignore
       this.isDebug = this.game.config.physics.arcade.debug;
-
-      this.add
-        .text(20, 20, "Score", { fill: "red" })
-        .setInteractive()
-        .setDepth(99)
-        .on("pointerdown", () => {
-          if (!this.isGoingScore) {
-            alert("going score");
-            this.mainStateManager.endGame();
-            this.isGoingScore = true;
-          }
-        });
 
       // test number of items displayed in scene
       if (this.isDebug) {
@@ -152,6 +154,9 @@ export class GameScene extends Phaser.Scene {
         break;
       case GameStatus.willLaunch:
         this.glitter?.stopHome();
+        break;
+      case GameStatus.isRunning:
+        this.scoretext?.setAlpha(0.5)
         break;
 
       default:
