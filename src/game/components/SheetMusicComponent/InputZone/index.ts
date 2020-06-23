@@ -109,10 +109,11 @@ class InputZone {
   }
 
   handleStepDown = (directions: Direction[]) => {
-    if (this.mainState.gameStatus !== GameStatus.isReady) { // avoid playing during intro
+    if (this.mainState.gameStatus !== GameStatus.isReady) {
+      // avoid playing during intro
       directions.forEach((direction) => {
         const input = this.inputs.get(direction);
-        if (!input?.state && !input?.playSuccess) {
+        if (input !== undefined && !input?.state && !input?.playSuccess) {
           input?.sprite?.play(direction + "-on");
           this.inputs.set(direction, { ...input!, state: true });
         }
@@ -121,7 +122,8 @@ class InputZone {
   };
 
   handleStepUp = (directions: Direction[]) => {
-    if (this.mainState.gameStatus !== GameStatus.isReady) { // avoid playing during intro
+    if (this.mainState.gameStatus !== GameStatus.isReady) {
+      // avoid playing during intro
       directions.forEach((direction) => {
         const input = this.inputs.get(direction);
         if (input?.state) {
@@ -160,7 +162,7 @@ class InputZone {
       );
       stepEventEmitter.removeListener(StepEventType.stepup, this.handleStepUp);
     }
-    
+
     this.mainState = state;
   };
 }

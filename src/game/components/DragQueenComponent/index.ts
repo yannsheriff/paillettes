@@ -69,8 +69,8 @@ class DragQueenManager {
 
   private handleStepDown = (directions: Direction[]) => {
     const direction = directions[0];
-    let animation = "Dance-" + direction;
-    if (this.isGameStarted) {
+    if (this.isGameStarted && direction !== undefined) {
+      let animation = "Dance-" + direction;
       this.dragQueen?.playOnceThenLoopNextAnimation(animation, "Run", 0);
     }
   };
