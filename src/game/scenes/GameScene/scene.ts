@@ -92,8 +92,8 @@ export class GameScene extends Phaser.Scene {
         .setDepth(90)
         .on("pointerdown", () => {
           if (!this.isGoingScore) {
-            this.mainStateManager.endGame();
             this.isGoingScore = true;
+            this.mainStateManager.endGame();
           }
         });
 

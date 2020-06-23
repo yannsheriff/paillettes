@@ -50,10 +50,10 @@ export default class MainGameManager {
 
   private scoreChange = (scoreState: ScoreState) => {
     if (scoreState.score > this.nextWorldChange) {
-      this.nextWorldChange += 800;
+      this.nextWorldChange += 500;
 
-      if (this.nextWorldChange > 3199) {
-        this.nextWorldChange = 30000;
+      if (this.nextWorldChange > 1999) {
+        this.nextWorldChange = 300000;
       }
 
       this.mainManager.changeWorld();
