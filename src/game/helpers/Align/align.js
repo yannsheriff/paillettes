@@ -1,14 +1,14 @@
 class Align {
   static scaleToGameW(obj, per) {
     obj.displayWidth = window.innerWidth * per;
-	  obj.scaleY = obj.scaleX;
+    obj.scaleY = obj.scaleX;
   }
   static scaleToGameH(obj, per) {
     obj.displayHeight = window.innerHeight * per;
     obj.scaleX = obj.scaleY;
   }
   static centerH(obj) {
-	  obj.x = window.innerWidth / 2;
+    obj.x = window.innerWidth / 2;
   }
   static topSubtitle(obj) {
     obj.y = window.innerHeight / 3.5;
@@ -31,13 +31,13 @@ class Align {
   }
   static centerSpine(obj, spine, scale) {
     obj.x = window.innerWidth / 2;
-    obj.y = window.innerHeight / 2 + (spine.displayHeight * scale / 2);
+    obj.y = window.innerHeight / 2 + (spine.displayHeight * scale) / 2;
   }
   static left(obj) {
-	  obj.x = obj.displayWidth / 2;
+    obj.x = obj.displayWidth / 2;
   }
   static right(obj) {
-	  obj.x = window.innerWidth - obj.displayWidth / 2;
+    obj.x = window.innerWidth - obj.displayWidth / 2;
   }
   static rightSpine(obj, spine, scale) {
     obj.x = window.innerWidth - (spine.displayWidth * scale) / 2;
@@ -58,11 +58,12 @@ class Align {
     obj.x = window.innerWidth / 2 - 300;
   }
   static charactersOnGround(obj, spine, scale) {
-    obj.y = window.innerHeight - window.innerHeight / 5 - 170;
+    obj.y = window.innerHeight - window.innerHeight / 5 - 140;
   }
   static centerPlaneBottom(obj) {
     // ground position - ground height - centerbottom
-    obj.y = window.innerHeight - window.innerHeight / 5 - 160 - obj.displayHeight / 2;
+    obj.y =
+      window.innerHeight - window.innerHeight / 5 - 160 - obj.displayHeight / 2;
   }
 }
 
