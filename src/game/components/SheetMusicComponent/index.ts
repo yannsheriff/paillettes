@@ -425,7 +425,16 @@ class SheetMusic {
 
   private destroySheetMusic() {
     this.arrowEmitter.removeAllListeners("note");
-    this.playingMusic?.stop();
+    if (this.freeInterval !== undefined) {
+      clearInterval(this.freeInterval);
+    }
+    this.scene.tweens.add({
+      targets: this.playingMusic,
+      volume: 0,
+      duration: 2000,
+      onComplete: () => this.playingMusic?.stop(),
+    });
+    // this.playingMusic?.stop();
     this.player?.stop();
   }
 

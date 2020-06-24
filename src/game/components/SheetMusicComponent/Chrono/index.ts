@@ -1,6 +1,7 @@
 import FreestyleStateManager, {
   FreestyleState,
 } from "../../../states/freestyle";
+import MainStateManager, { GameStatus } from "../../../states/main";
 
 function formatToSeconds(ms: number): string {
   const sec = Math.round(ms / 1000).toString();
@@ -14,6 +15,7 @@ class Chrono {
   private time?: Phaser.GameObjects.Text;
   private scale: number;
   private icon?: Phaser.GameObjects.Image;
+  private chrono?: NodeJS.Timeout | undefined;
   private freestyleState: FreestyleState;
 
   constructor(scene: Phaser.Scene, x: number, y: number, scale: number) {
@@ -23,6 +25,7 @@ class Chrono {
     this.scale = scale;
     const freeManager = FreestyleStateManager.getInstance();
     this.freestyleState = freeManager.state;
+    MainStateManager.getInstance().onGameStatusChange(this.gameStatusChange);
     freeManager.subscribe(this.stateChange);
   }
 
@@ -53,17 +56,30 @@ class Chrono {
   }
 
   lauchChrono = (endTime: number) => {
-    const chrono = setInterval(() => {
+    this.chrono = setInterval(() => {
       const now = new Date().getTime();
       const sub = endTime - now;
       const seconds = formatToSeconds(sub);
       this.time?.setText(seconds.toString() + " sec");
 
       if (sub <= 0) {
-        clearInterval(chrono);
+        clearInterval(this.chrono!);
         this.delete();
       }
     }, 50);
+  };
+
+  private gameStatusChange = (status: GameStatus) => {
+    switch (status) {
+      case GameStatus.isGameOver:
+        if (this.chrono !== undefined) {
+          clearInterval(this.chrono);
+        }
+        break;
+
+      default:
+        break;
+    }
   };
 
   private stateChange = (state: FreestyleState) => {
