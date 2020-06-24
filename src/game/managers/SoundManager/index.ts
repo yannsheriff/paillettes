@@ -48,7 +48,7 @@ export default class SoundManager {
     this.score = this.scene.sound.add("scoreSound", soundConfig);
     this.applause = this.scene.sound.add("applauseSound", {
       ...soundConfig,
-      volume: 0.2,
+      volume: 0.4,
     });
     this.home = this.scene.sound.add("home", {
       ...soundConfig,

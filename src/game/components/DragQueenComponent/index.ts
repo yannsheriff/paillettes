@@ -21,13 +21,17 @@ class DragQueenManager {
   private mainManager: MainStateManager;
   private dragQueen?: DragQueen;
   private divinelight?: GodMother;
-  private isGameStarted: boolean = false;
+  private isGameStarted: boolean;
+  private isDragDancing: boolean;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.scoreManager = ScoreStateManager.getInstance();
     this.mainManager = MainStateManager.getInstance();
     this.mainManager.onGameStatusChange(this.gameStatusChange);
+
+    this.isGameStarted = false;
+    this.isDragDancing = false;
 
     stepEventEmitter.on(StepEventType.stepdown, this.handleStepDown);
   }
@@ -59,8 +63,8 @@ class DragQueenManager {
   }
 
   private onAnimationComplete(spine: SpineGameObject) {
-    let animation = spine.getCurrentAnimation(0);
-    if (animation.name === "Start") {
+    let animationStart = spine.getCurrentAnimation(0);
+    if ((animationStart !== undefined && animationStart.name) === "Start") {
       this.dragQueen?.playAnimation("Run", true);
       this.mainManager.runGame();
       this.isGameStarted = true;
@@ -69,9 +73,14 @@ class DragQueenManager {
 
   private handleStepDown = (directions: Direction[]) => {
     const direction = directions[0];
-    let animation = "Dance-" + direction;
-    if (this.isGameStarted) {
+    if (this.isGameStarted && direction !== undefined && !this.isDragDancing) {
+      let animation = "Dance-" + direction;
+      this.isDragDancing = true;
       this.dragQueen?.playOnceThenLoopNextAnimation(animation, "Run", 0);
+
+      setTimeout(() => {
+        this.isDragDancing = false;
+      }, 400);
     }
   };
 

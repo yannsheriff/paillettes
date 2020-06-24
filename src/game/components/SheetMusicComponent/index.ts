@@ -18,7 +18,7 @@ import FreeArrow from "./FreeArrow";
 import Chrono from "./Chrono";
 import InputZone, { inputZoneAssetWidth } from "./InputZone";
 
-const heightBetweenSheetHBar = 239;
+export const heightBetweenSheetHBar = 239;
 const directionTable: {
   0: Direction;
   1: Direction;
@@ -82,7 +82,7 @@ class SheetMusic {
 
     // SHEET MUSIC SIZE AND POSITION
     this.posX = window.innerWidth / 2 + this.inputZoneWidth / 2 - 60;
-    this.posY = window.innerHeight + 20 - heightBetweenSheetHBar * this.scale;
+    this.posY = window.innerHeight + 10 - heightBetweenSheetHBar * this.scale;
     this.sheetWidth = window.innerWidth - this.posX;
     this.gridTop = this.posY - (heightBetweenSheetHBar * this.scale) / 2;
 
@@ -122,7 +122,7 @@ class SheetMusic {
    * scene, elle initialise également l'event listener des notes.
    */
   create = () => {
-    new Grid(this.scene, this.posX, this.posY, this.scale);
+    new Grid(this.scene, this.posX, this.gridTop, this.scale);
 
     new FreeLights(
       this.scene,
@@ -132,7 +132,7 @@ class SheetMusic {
       this.scale
     );
 
-    new Chrono(this.scene, this.posX - 280, this.posY + 80, this.scale);
+    new Chrono(this.scene, this.posX - 220, this.posY + 80, this.scale);
 
     new Score(this.scene, this.posX - 235, this.posY - 70, this.scale);
 
@@ -425,7 +425,16 @@ class SheetMusic {
 
   private destroySheetMusic() {
     this.arrowEmitter.removeAllListeners("note");
-    this.playingMusic?.stop();
+    if (this.freeInterval !== undefined) {
+      clearInterval(this.freeInterval);
+    }
+    this.scene.tweens.add({
+      targets: this.playingMusic,
+      volume: 0,
+      duration: 2000,
+      onComplete: () => this.playingMusic?.stop(),
+    });
+    // this.playingMusic?.stop();
     this.player?.stop();
   }
 

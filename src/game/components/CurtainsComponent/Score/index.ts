@@ -16,9 +16,9 @@ class Score extends SpineContainer {
     let scale;
     // full screen asset
     if (window.innerHeight < window.innerWidth) {
-      scale = window.innerWidth / 2 / this.spineBody.width
+      scale = window.innerWidth / this.spineBody.width * 0.4
     } else {
-      scale = window.innerHeight / this.spineBody.height
+      scale = window.innerHeight / this.spineBody.height * 0.5
     }
     scale += 0.05;
 

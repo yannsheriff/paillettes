@@ -24,7 +24,9 @@ class Subtitle {
   private create() {
     this.animation = this.scene.physics.add.sprite(0, 0, "perfect");
 
-    this.animation.setScale(0.8);
+    let scale = (window.innerHeight / this.animation.displayHeight) * 0.3;
+    this.animation.setScale(scale); // asset size
+    // this.animation.setScale(0.8);
     this.animation.setDepth(9);
 
     Align.centerH(this.animation);

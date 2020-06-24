@@ -12,8 +12,7 @@ class GodMother extends SpineContainer {
     super(scene, 0, 0, key, anim, loop);
 
     // full screen asset
-    let scale = window.innerWidth / this.spineBody.width
-    scale = scale * 0.8
+    let scale = window.innerWidth / this.spineBody.width * 0.8
     this.setScale(scale); // asset size
 
     // placer son x en fonction de la moitié de la largeur
