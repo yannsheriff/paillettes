@@ -24,6 +24,7 @@ import GlitterComponent from "../../components/GlitterComponent";
 import CurtainsComponent from "../../components/CurtainsComponent";
 import LogoComponent from "../../components/LogoComponent";
 import FreestyleStateManager, { FreestyleState } from "../../states/freestyle";
+import Align from "../../helpers/Align/align";
 
 export class GameScene extends Phaser.Scene {
   private scoretext?: Phaser.GameObjects.Text;
@@ -37,6 +38,7 @@ export class GameScene extends Phaser.Scene {
   private sheetMusicComponent?: SheetMusicComponent;
   private glitter?: GlitterComponent;
   private animationManager?: AnimationManager;
+  private nextButton?: Phaser.GameObjects.Image;
 
   public isDebug?: boolean = false;
   private isGoingScore: boolean = false;
@@ -63,6 +65,7 @@ export class GameScene extends Phaser.Scene {
       this.sys.scale.width,
       this.sys.scale.height
     );
+
     // if (this.mainState.gameStatus !== GameStatus.requestReload) {
     // } else {
     // }
@@ -97,7 +100,6 @@ export class GameScene extends Phaser.Scene {
           }
         });
 
-
       this.glitter = new GlitterComponent(this);
 
       this.camera?.setBackgroundColor("e3e3e3");
@@ -119,6 +121,7 @@ export class GameScene extends Phaser.Scene {
         this.sheetMusicComponent?.initMusic();
       }, 3000);
     } else {
+      this.addIndication()
       document.addEventListener("keydown", this.initMusic);
     }
 
@@ -126,9 +129,44 @@ export class GameScene extends Phaser.Scene {
   };
 
   private initMusic = () => {
+    this.removeIndication()
     this.sheetMusicComponent!.initMusic();
     document.removeEventListener("keydown", this.initMusic);
+
   };
+
+
+  private addIndication() {
+    this.nextButton = this.add
+      .image(0, 0, "scoreNext")
+      .setAlpha(0)
+      .setDepth(52);
+    Align.right(this.nextButton);
+    Align.bottom(this.nextButton);
+
+    setTimeout(() => {
+      this.tweens.add({
+        targets: this.nextButton,
+        alpha: 1,
+        duration: 300,
+        ease: "Power2",
+      });
+    }, 3000);
+  }
+
+  private removeIndication() {
+    if (this.mainState.gameStatus !== GameStatus.requestReload) {
+      this.tweens.add({
+        targets: this.nextButton,
+        alpha: 0,
+        duration: 300,
+        ease: "Power2",
+        onComplete: () => {
+          this.nextButton!.destroy()
+        }
+      });
+    }
+  }
 
   private triggerGlitter = () => {
     this.glitter?.throwConfetti();
